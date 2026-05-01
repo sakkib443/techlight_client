@@ -29,7 +29,7 @@ const Testimonials = () => {
             titleColor: 'text-blue-600',
             review: language === 'bn'
                 ? t("home_sections.testimonials.testimonial2")
-                : "HiictPark deserves 5 star for course features, design quality, flexibility, and support service!",
+                : "TECHLIGHT deserves 5 star for course features, design quality, flexibility, and support service!",
             name: language === 'bn' ? 'ফাতেমা আক্তার' : 'Fatema Akter',
             designation: language === 'bn' ? 'ডিজাইনার, চট্টগ্রাম' : 'Designer, Chattogram',
             avatar: '/images/testimonials/fatema.png',
@@ -103,7 +103,7 @@ const Testimonials = () => {
                             {language === 'bn' ? t("home_sections.testimonials.peopleSay") : 'People Say'}
                             <br />
                             <span className="relative inline-block">
-                                {language === 'bn' ? t("home_sections.testimonials.aboutHiictPark") : 'About HiictPark'}
+                                {language === 'bn' ? t("home_sections.testimonials.aboutTECHLIGHT") : 'About TECHLIGHT'}
                                 <span className="absolute -bottom-1 left-0 w-20 h-1 bg-amber-400 rounded-full"></span>
                             </span>
                         </h2>
@@ -111,7 +111,7 @@ const Testimonials = () => {
                         <p className={`text-gray-500 dark:text-gray-400 text-sm lg:text-base mb-6 ${bengaliClass}`}>
                             {language === 'bn'
                                 ? t("home_sections.testimonials.description")
-                                : 'One-stop solution for any eLearning center, online courses. People love HiictPark because they can create their sites with ease here.'
+                                : 'One-stop solution for any eLearning center, online courses. People love TECHLIGHT because they can create their sites with ease here.'
                             }
                         </p>
 

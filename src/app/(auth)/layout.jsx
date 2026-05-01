@@ -3,8 +3,8 @@ import Navbar from "@/components/sheard/Navbar";
 import TopHeader from "@/components/sheard/TopHeader";
 
 export const metadata = {
-  title: "Authentication | Hi Ict Park",
-  description: "Login or Register to access your Hi Ict Park account.",
+  title: "Authentication | TECHLIGHT IT",
+  description: "Login or Register to access your TECHLIGHT IT account.",
 };
 
 export default function AuthLayout({ children }) {

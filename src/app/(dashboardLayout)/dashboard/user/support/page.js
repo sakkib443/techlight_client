@@ -53,7 +53,7 @@ export default function UserSupportPage() {
         {
             icon: FiMail,
             title: 'Email Support',
-            value: 'support@ejobsit.com',
+            value: 'support@Techlight IT Institute.com',
             subtext: '24-48 hours response',
             color: 'text-purple-500',
             bg: 'bg-purple-500/10',

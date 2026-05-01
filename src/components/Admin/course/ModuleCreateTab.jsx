@@ -113,7 +113,7 @@ export default function ModuleCreateTab({ onSuccess }) {
         if (onSuccess) onSuccess();
     };
 
-    const inputClass = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E62D26] focus:ring-2 focus:ring-[#E62D26]/20 outline-none text-sm transition-all bg-white text-gray-700 placeholder:text-gray-400";
+    const inputClass = "w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#7A85F0] focus:ring-2 focus:ring-[#7A85F0]/20 outline-none text-sm transition-all bg-white text-gray-700 placeholder:text-gray-400";
     const labelClass = "block text-sm font-medium text-gray-700 mb-1.5";
 
     const lastCourseTitle = typeof window !== 'undefined' ? localStorage.getItem('lastCreatedCourseTitle') : null;
@@ -126,7 +126,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                 <div className="flex flex-wrap items-center justify-between gap-4">
                     {/* Course Info */}
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#E62D26] to-[#c41e18] flex items-center justify-center text-white">
+                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#7A85F0] to-[#c41e18] flex items-center justify-center text-white">
                             <FiBook size={18} />
                         </div>
                         <div>
@@ -140,7 +140,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                         <button
                             onClick={handleSubmit}
                             disabled={loading || !formData.title || !formData.course}
-                            className="flex items-center gap-2 bg-[#E62D26] hover:bg-[#c41e18] text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-all disabled:opacity-50"
+                            className="flex items-center gap-2 bg-[#7A85F0] hover:bg-[#c41e18] text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-all disabled:opacity-50"
                         >
                             <FiPlus size={16} />
                             {loading ? 'Creating...' : 'Add Module'}
@@ -149,7 +149,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                         <button
                             onClick={handleContinueToLessons}
                             disabled={createdModules.length === 0}
-                            className="flex items-center gap-2 bg-[#F79952] hover:bg-[#f59e0b] text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-all disabled:opacity-50"
+                            className="flex items-center gap-2 bg-[#7A85F0] hover:bg-[#f59e0b] text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-all disabled:opacity-50"
                         >
                             Next: Lessons <FiArrowRight size={14} />
                         </button>
@@ -159,14 +159,14 @@ export default function ModuleCreateTab({ onSuccess }) {
 
             {/* Collapsible Created Modules - Compact */}
             {createdModules.length > 0 && (
-                <div className="bg-[#E62D26]/10 border border-[#E62D26]/30 rounded-xl overflow-hidden">
+                <div className="bg-[#7A85F0]/10 border border-[#7A85F0]/30 rounded-xl overflow-hidden">
                     <button
                         onClick={() => setShowCreatedList(!showCreatedList)}
-                        className="w-full flex items-center justify-between px-4 py-3 hover:bg-[#E62D26]/5 transition-colors"
+                        className="w-full flex items-center justify-between px-4 py-3 hover:bg-[#7A85F0]/5 transition-colors"
                     >
                         <div className="flex items-center gap-2">
-                            <FiCheck className="text-[#E62D26]" size={16} />
-                            <span className="font-semibold text-[#E62D26] text-sm">
+                            <FiCheck className="text-[#7A85F0]" size={16} />
+                            <span className="font-semibold text-[#7A85F0] text-sm">
                                 {createdModules.length} Module{createdModules.length > 1 ? 's' : ''} Created
                             </span>
                             <div className="flex items-center gap-1 ml-2">
@@ -184,15 +184,15 @@ export default function ModuleCreateTab({ onSuccess }) {
                     </button>
 
                     {showCreatedList && (
-                        <div className="px-4 pb-3 border-t border-[#E62D26]/20 pt-2">
+                        <div className="px-4 pb-3 border-t border-[#7A85F0]/20 pt-2">
                             <div className="flex flex-wrap gap-2">
                                 {createdModules.map((mod, idx) => (
                                     <div key={mod._id || idx} className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-gray-200">
-                                        <span className="w-5 h-5 rounded bg-[#E62D26] text-white flex items-center justify-center font-bold text-xs">
+                                        <span className="w-5 h-5 rounded bg-[#7A85F0] text-white flex items-center justify-center font-bold text-xs">
                                             {mod.order}
                                         </span>
                                         <span className="text-sm text-gray-700">{mod.title}</span>
-                                        <FiCheck className="text-[#E62D26]" size={12} />
+                                        <FiCheck className="text-[#7A85F0]" size={12} />
                                     </div>
                                 ))}
                             </div>
@@ -204,7 +204,7 @@ export default function ModuleCreateTab({ onSuccess }) {
             {/* Form */}
             <form onSubmit={handleSubmit} className="bg-white p-5 rounded-xl border border-gray-200 space-y-4">
                 <div className="flex items-center gap-3 pb-3 border-b border-gray-100">
-                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#E62D26] to-[#c41e18] flex items-center justify-center">
+                    <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#7A85F0] to-[#c41e18] flex items-center justify-center">
                         <FiLayers className="text-white" size={16} />
                     </div>
                     <div>
@@ -282,7 +282,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                             onChange={handleChange}
                             required
                             min="1"
-                            className="w-16 px-2 py-1.5 rounded-lg border border-gray-200 text-sm text-center focus:border-[#E62D26] outline-none"
+                            className="w-16 px-2 py-1.5 rounded-lg border border-gray-200 text-sm text-center focus:border-[#7A85F0] outline-none"
                         />
                     </div>
 
@@ -294,7 +294,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                                 type="button"
                                 onClick={() => setFormData(prev => ({ ...prev, isPublished: true }))}
                                 className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${formData.isPublished
-                                    ? 'bg-[#E62D26] text-white shadow-sm'
+                                    ? 'bg-[#7A85F0] text-white shadow-sm'
                                     : 'text-gray-500 hover:text-gray-700'
                                     }`}
                             >
@@ -304,7 +304,7 @@ export default function ModuleCreateTab({ onSuccess }) {
                                 type="button"
                                 onClick={() => setFormData(prev => ({ ...prev, isPublished: false }))}
                                 className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${!formData.isPublished
-                                    ? 'bg-[#F79952] text-white shadow-sm'
+                                    ? 'bg-[#7A85F0] text-white shadow-sm'
                                     : 'text-gray-500 hover:text-gray-700'
                                     }`}
                             >

@@ -94,10 +94,10 @@ const DesignTemplatePage = () => {
                         className="text-center max-w-3xl mx-auto"
                     >
                         {/* Badge */}
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#E62D26]/20 rounded-full shadow-sm mb-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#7A85F0]/20 rounded-full shadow-sm mb-4">
                             <span className="flex h-1.5 w-1.5 relative">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E62D26] opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E62D26]"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7A85F0] opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#7A85F0]"></span>
                             </span>
                             <span className={`text-[10px] font-medium text-slate-600 dark:text-slate-300 ${bengaliClass}`}>
                                 {language === "bn" ? "ডিজাইন টেমপ্লেট" : "Design Templates"}
@@ -107,7 +107,7 @@ const DesignTemplatePage = () => {
                         {/* Title */}
                         <h1 className={`text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 dark:text-white mb-3 outfit leading-tight ${bengaliClass}`}>
                             {language === "bn" ? "প্রিমিয়াম " : "Premium "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E62D26] to-[#F79952]">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7A85F0] to-[#7A85F0]">
                                 {language === "bn" ? "ডিজাইন টেমপ্লেট" : "Design Templates"}
                             </span>
                         </h1>
@@ -128,7 +128,7 @@ const DesignTemplatePage = () => {
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     placeholder={language === "bn" ? "টেমপ্লেট খুঁজুন..." : "Search templates..."}
-                                    className={`w-full pl-12 pr-4 py-3.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#E62D26]/50 focus:border-[#E62D26] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400 ${bengaliClass}`}
+                                    className={`w-full pl-12 pr-4 py-3.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#7A85F0]/50 focus:border-[#7A85F0] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400 ${bengaliClass}`}
                                 />
                             </div>
                         </div>
@@ -147,7 +147,7 @@ const DesignTemplatePage = () => {
                                     key={cat.value}
                                     onClick={() => setSelectedCategory(cat.value)}
                                     className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${selectedCategory === cat.value
-                                            ? "bg-[#E62D26] text-white shadow-md shadow-[#E62D26]/20"
+                                            ? "bg-[#7A85F0] text-white shadow-md shadow-[#7A85F0]/20"
                                             : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10"
                                         } ${bengaliClass}`}
                                 >
@@ -161,7 +161,7 @@ const DesignTemplatePage = () => {
                             <button
                                 onClick={() => setViewMode("grid")}
                                 className={`p-2 rounded-md transition-all ${viewMode === "grid"
-                                        ? "bg-white dark:bg-white/10 text-[#E62D26] shadow-sm"
+                                        ? "bg-white dark:bg-white/10 text-[#7A85F0] shadow-sm"
                                         : "text-slate-500"
                                     }`}
                             >
@@ -170,7 +170,7 @@ const DesignTemplatePage = () => {
                             <button
                                 onClick={() => setViewMode("list")}
                                 className={`p-2 rounded-md transition-all ${viewMode === "list"
-                                        ? "bg-white dark:bg-white/10 text-[#E62D26] shadow-sm"
+                                        ? "bg-white dark:bg-white/10 text-[#7A85F0] shadow-sm"
                                         : "text-slate-500"
                                     }`}
                             >
@@ -186,7 +186,7 @@ const DesignTemplatePage = () => {
                 <div className="container mx-auto px-4 lg:px-16">
                     {loading ? (
                         <div className="flex items-center justify-center py-20">
-                            <div className="w-10 h-10 border-3 border-[#E62D26]/30 border-t-[#E62D26] rounded-full animate-spin"></div>
+                            <div className="w-10 h-10 border-3 border-[#7A85F0]/30 border-t-[#7A85F0] rounded-full animate-spin"></div>
                         </div>
                     ) : filteredTemplates.length === 0 ? (
                         <div className="text-center py-20">
@@ -208,7 +208,7 @@ const DesignTemplatePage = () => {
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
                                     transition={{ duration: 0.5, delay: idx * 0.1 }}
-                                    className={`group bg-white dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-xl hover:border-[#E62D26]/30 transition-all duration-300 ${viewMode === "list" ? "flex" : ""
+                                    className={`group bg-white dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-xl hover:border-[#7A85F0]/30 transition-all duration-300 ${viewMode === "list" ? "flex" : ""
                                         }`}
                                 >
                                     {/* Image */}
@@ -223,10 +223,10 @@ const DesignTemplatePage = () => {
 
                                         {/* Quick Actions */}
                                         <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-slate-600 hover:text-[#E62D26] transition-colors">
+                                            <button className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-slate-600 hover:text-[#7A85F0] transition-colors">
                                                 <LuHeart size={16} />
                                             </button>
-                                            <button className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-slate-600 hover:text-[#E62D26] transition-colors">
+                                            <button className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-slate-600 hover:text-[#7A85F0] transition-colors">
                                                 <LuEye size={16} />
                                             </button>
                                         </div>
@@ -242,7 +242,7 @@ const DesignTemplatePage = () => {
                                     {/* Content */}
                                     <div className={`p-5 ${viewMode === "list" ? "flex-1 flex flex-col justify-between" : ""}`}>
                                         <div>
-                                            <h3 className={`text-base font-bold text-slate-800 dark:text-white mb-2 group-hover:text-[#E62D26] transition-colors ${bengaliClass}`}>
+                                            <h3 className={`text-base font-bold text-slate-800 dark:text-white mb-2 group-hover:text-[#7A85F0] transition-colors ${bengaliClass}`}>
                                                 {template.title || template.name}
                                             </h3>
 
@@ -268,16 +268,16 @@ const DesignTemplatePage = () => {
                                             <div>
                                                 {template.offerPrice ? (
                                                     <div className="flex items-center gap-2">
-                                                        <span className="text-lg font-bold text-[#E62D26]">৳{template.offerPrice}</span>
+                                                        <span className="text-lg font-bold text-[#7A85F0]">৳{template.offerPrice}</span>
                                                         <span className="text-sm text-slate-400 line-through">৳{template.price}</span>
                                                     </div>
                                                 ) : (
-                                                    <span className="text-lg font-bold text-[#E62D26]">৳{template.price || 0}</span>
+                                                    <span className="text-lg font-bold text-[#7A85F0]">৳{template.price || 0}</span>
                                                 )}
                                             </div>
                                             <Link
                                                 href={`/design-template/${template._id}`}
-                                                className="flex items-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-white/5 hover:bg-[#E62D26] text-slate-700 dark:text-slate-300 hover:text-white rounded-lg text-xs font-semibold transition-all group/btn"
+                                                className="flex items-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-white/5 hover:bg-[#7A85F0] text-slate-700 dark:text-slate-300 hover:text-white rounded-lg text-xs font-semibold transition-all group/btn"
                                             >
                                                 <span>{language === "bn" ? "দেখুন" : "View"}</span>
                                                 <LuArrowRight size={14} className="group-hover/btn:translate-x-0.5 transition-transform" />
@@ -292,7 +292,7 @@ const DesignTemplatePage = () => {
             </section>
 
             {/* CTA Section */}
-            <section className="py-12 lg:py-16 bg-gradient-to-br from-[#E62D26] to-[#F79952]">
+            <section className="py-12 lg:py-16 bg-gradient-to-br from-[#7A85F0] to-[#7A85F0]">
                 <div className="container mx-auto px-4 lg:px-16">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -318,7 +318,7 @@ const DesignTemplatePage = () => {
 
                         <Link
                             href="/contact"
-                            className={`inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#E62D26] text-xs font-bold rounded-lg hover:bg-white/90 transition-all shadow-md ${bengaliClass}`}
+                            className={`inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#7A85F0] text-xs font-bold rounded-lg hover:bg-white/90 transition-all shadow-md ${bengaliClass}`}
                         >
                             {language === "bn" ? "যোগাযোগ করুন" : "Contact Us"}
                             <LuArrowRight size={14} />

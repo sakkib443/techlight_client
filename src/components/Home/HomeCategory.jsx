@@ -115,19 +115,19 @@ const HomeCategory = () => {
     const getColorClasses = (color) => {
         if (color === 'teal') {
             return {
-                gradient: 'from-[#E62D26] to-[#c41e18]',
-                light: 'bg-[#E62D26]/5',
-                text: 'text-[#E62D26]',
-                border: 'border-[#E62D26]/15',
-                shadow: 'shadow-[#E62D26]/10'
+                gradient: 'from-[#7A85F0] to-[#c41e18]',
+                light: 'bg-[#7A85F0]/5',
+                text: 'text-[#7A85F0]',
+                border: 'border-[#7A85F0]/15',
+                shadow: 'shadow-[#7A85F0]/10'
             };
         }
         return {
-            gradient: 'from-[#F79952] to-[#fb923c]',
-            light: 'bg-[#F79952]/5',
-            text: 'text-[#F79952]',
-            border: 'border-[#F79952]/15',
-            shadow: 'shadow-[#F79952]/10'
+            gradient: 'from-[#7A85F0] to-[#fb923c]',
+            light: 'bg-[#7A85F0]/5',
+            text: 'text-[#7A85F0]',
+            border: 'border-[#7A85F0]/15',
+            shadow: 'shadow-[#7A85F0]/10'
         };
     };
 
@@ -137,22 +137,22 @@ const HomeCategory = () => {
             {/* Background Elements - Static */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 {/* Static Circles */}
-                <div className="absolute top-20 left-[10%] w-72 h-72 bg-gradient-to-br from-[#E62D26]/5 to-transparent rounded-full blur-3xl"></div>
-                <div className="absolute bottom-20 right-[10%] w-80 h-80 bg-gradient-to-br from-[#F79952]/5 to-transparent rounded-full blur-3xl"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-[#E62D26]/3 to-[#F79952]/3 rounded-full blur-3xl"></div>
+                <div className="absolute top-20 left-[10%] w-72 h-72 bg-gradient-to-br from-[#7A85F0]/5 to-transparent rounded-full blur-3xl"></div>
+                <div className="absolute bottom-20 right-[10%] w-80 h-80 bg-gradient-to-br from-[#7A85F0]/5 to-transparent rounded-full blur-3xl"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-[#7A85F0]/3 to-[#7A85F0]/3 rounded-full blur-3xl"></div>
 
                 {/* Static Geometric Shapes */}
-                <div className="absolute top-32 right-[15%] w-16 h-16 border-2 border-[#E62D26]/20 rounded-xl"></div>
-                <div className="absolute top-1/4 left-[8%] w-12 h-12 border-2 border-[#F79952]/20 rounded-full"></div>
-                <div className="absolute bottom-1/4 right-[8%] w-20 h-20 border-2 border-[#E62D26]/15 rounded-2xl"></div>
-                <div className="absolute bottom-32 left-[20%] w-8 h-8 bg-[#F79952]/10 rounded-lg"></div>
+                <div className="absolute top-32 right-[15%] w-16 h-16 border-2 border-[#7A85F0]/20 rounded-xl"></div>
+                <div className="absolute top-1/4 left-[8%] w-12 h-12 border-2 border-[#7A85F0]/20 rounded-full"></div>
+                <div className="absolute bottom-1/4 right-[8%] w-20 h-20 border-2 border-[#7A85F0]/15 rounded-2xl"></div>
+                <div className="absolute bottom-32 left-[20%] w-8 h-8 bg-[#7A85F0]/10 rounded-lg"></div>
 
                 {/* Dots Pattern */}
                 <div className="absolute top-40 left-[5%] flex flex-col gap-2 opacity-30">
                     {[...Array(4)].map((_, i) => (
                         <div key={i} className="flex gap-2">
                             {[...Array(3)].map((_, j) => (
-                                <div key={j} className="w-1.5 h-1.5 bg-[#E62D26] rounded-full"></div>
+                                <div key={j} className="w-1.5 h-1.5 bg-[#7A85F0] rounded-full"></div>
                             ))}
                         </div>
                     ))}
@@ -161,7 +161,7 @@ const HomeCategory = () => {
                     {[...Array(4)].map((_, i) => (
                         <div key={i} className="flex gap-2">
                             {[...Array(3)].map((_, j) => (
-                                <div key={j} className="w-1.5 h-1.5 bg-[#F79952] rounded-full"></div>
+                                <div key={j} className="w-1.5 h-1.5 bg-[#7A85F0] rounded-full"></div>
                             ))}
                         </div>
                     ))}

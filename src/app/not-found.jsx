@@ -80,7 +80,7 @@ const NotFound = () => {
                     transition={{ delay: 0.8, duration: 0.6 }}
                     className="mt-16 text-sm text-gray-400 dark:text-gray-600 font-medium"
                 >
-                    Error Code: 404 � ejobsit System
+                    Error Code: 404 � Techlight IT Institute System
                 </motion.p>
 
             </div>

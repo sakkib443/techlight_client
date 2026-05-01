@@ -42,7 +42,7 @@ const Preloader = () => {
         }
     };
 
-    // Letter animation for "HIICTPARK"
+    // Letter animation for "TECHLIGHT"
     const container = {
         hidden: { opacity: 0 },
         visible: (i = 1) => ({
@@ -81,11 +81,11 @@ const Preloader = () => {
                     initial="initial"
                     exit="exit"
                     className="fixed inset-0 z-[9999] flex items-center justify-center bg-primary"
-                    style={{ backgroundColor: '#E62D26' }}
+                    style={{ backgroundColor: '#7A85F0' }}
                 >
                     <div className="flex flex-col items-center justify-center z-10 w-full px-4 text-white">
 
-                        {/* HIICTPARK Title - Animated Letter by Letter */}
+                        {/* TECHLIGHT Title - Animated Letter by Letter */}
                         <motion.div
                             style={{ overflow: "hidden", display: "flex" }}
                             variants={container}
@@ -93,7 +93,7 @@ const Preloader = () => {
                             animate="visible"
                             className="text-4xl md:text-7xl font-extrabold font-heading mb-8 tracking-[1rem] drop-shadow-xl"
                         >
-                            {Array.from("HIICTPARK").map((letter, index) => (
+                            {Array.from("TECHLIGHT").map((letter, index) => (
                                 <motion.span key={index} variants={child} className="inline-block relative">
                                     {letter}
                                     {/* Subtle Glow Effect behind letters */}

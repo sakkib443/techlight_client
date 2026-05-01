@@ -1,28 +1,31 @@
 @import "tailwindcss";
 
 /* =====================================================
-   HIICTPARK - GLOBAL DESIGN SYSTEM
-   Colors: Red (#E62D26) & Orange (#F79952)
-   Fonts: Outfit (headings) & Poppins (body)
+   TECHLIGHT IT INSTITUTE - GLOBAL DESIGN SYSTEM
+   Primary: #7A85F0 (Techlight Blue-Purple)
+   একবার এখানে চেঞ্জ করলে পুরো সাইটে চেঞ্জ হবে!
    ===================================================== */
 
 /* =====================================================
    CSS VARIABLES - Global Theme
+   ⚡ এক জায়গা থেকে পুরো সাইটের কালার কন্ট্রোল
    ===================================================== */
 :root {
-  /* Primary Colors */
-  --color-primary: #E62D26;
-  --color-primary-dark: #c41e18;
-  --color-primary-light: #ff4d47;
-  --color-primary-10: rgba(230, 45, 38, 0.1);
-  --color-primary-20: rgba(230, 45, 38, 0.2);
+  /* ========== PRIMARY COLOR (মূল কালার) ========== */
+  /* 🎨 এখানে চেঞ্জ করলে পুরো সাইটে চেঞ্জ হবে */
+  --color-primary: #7A85F0;
+  --color-primary-dark: #5A65D0;
+  --color-primary-light: #9BA3F5;
+  --color-primary-10: rgba(122, 133, 240, 0.1);
+  --color-primary-20: rgba(122, 133, 240, 0.2);
+  --color-primary-30: rgba(122, 133, 240, 0.3);
 
-  /* Secondary Colors */
-  --color-secondary: #F79952;
-  --color-secondary-dark: #f59e0b;
-  --color-secondary-light: #fbbf24;
-  --color-secondary-10: rgba(247, 153, 82, 0.1);
-  --color-secondary-20: rgba(247, 153, 82, 0.2);
+  /* ========== SECONDARY COLOR (সেকেন্ডারি কালার) ========== */
+  --color-secondary: #F59E0B;
+  --color-secondary-dark: #D97706;
+  --color-secondary-light: #FBBF24;
+  --color-secondary-10: rgba(245, 158, 11, 0.1);
+  --color-secondary-20: rgba(245, 158, 11, 0.2);
 
   /* Neutral Colors */
   --color-dark: #1e293b;
@@ -495,9 +498,9 @@ body.font-bengali .font-icon {
 
 .enroll-wave-btn {
   background-image: linear-gradient(90deg,
-      #E62D26 0%,
+      #7A85F0 0%,
       #38a89d 50%,
-      #E62D26 100%) !important;
+      #7A85F0 100%) !important;
   background-size: 200% auto !important;
   animation: riverWave 8s ease-in-out infinite !important;
   color: #ffffff !important;
@@ -515,11 +518,11 @@ body.font-bengali .font-icon {
 
 .special-enroll-btn {
   background: linear-gradient(90deg,
-      #E62D26,
+      #7A85F0,
       #38a89d,
-      #f79952,
+      #7A85F0,
       #e07832,
-      #E62D26) !important;
+      #7A85F0) !important;
   background-size: 400% 100% !important;
   animation: riverWave 10s linear infinite !important;
   color: #ffffff !important;
@@ -1034,7 +1037,7 @@ nav[class*="sticky"] {
 
 .dark footer a:hover .text-gray-700,
 .dark footer a:hover.text-gray-700 {
-  color: #E62D26 !important;
+  color: #7A85F0 !important;
 }
 
 /* Footer Input */
@@ -1065,13 +1068,13 @@ nav[class*="sticky"] {
 }
 
 /* Footer CTA Box */
-.dark footer [class*="from-[#E62D26]/10"] {
+.dark footer [class*="from-[#7A85F0]/10"] {
   background: linear-gradient(to right, rgba(65, 191, 184, 0.2), rgba(247, 153, 82, 0.2)) !important;
 }
 
 /* Footer Contact Icons Background */
-.dark footer [class*="bg-[#E62D26]/10"],
-.dark footer [class*="bg-[#F79952]/10"] {
+.dark footer [class*="bg-[#7A85F0]/10"],
+.dark footer [class*="bg-[#7A85F0]/10"] {
   background: rgba(65, 191, 184, 0.2) !important;
 }
 
@@ -1098,7 +1101,7 @@ nav[class*="sticky"] {
 }
 
 /* Hero Badge */
-.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#E62D26]/10"] {
+.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#7A85F0]/10"] {
   background: rgba(30, 41, 59, 0.8) !important;
   border-color: rgba(71, 85, 105, 0.5) !important;
 }
@@ -1114,8 +1117,8 @@ nav[class*="sticky"] {
 }
 
 /* Hero Stats Card Background */
-.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#E62D26]/10"].rounded-md,
-.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#F79952]/10"].rounded-md {
+.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#7A85F0]/10"].rounded-md,
+.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#7A85F0]/10"].rounded-md {
   background: rgba(30, 41, 59, 0.8) !important;
 }
 

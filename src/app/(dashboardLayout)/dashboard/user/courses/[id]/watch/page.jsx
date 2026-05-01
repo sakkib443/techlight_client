@@ -72,7 +72,7 @@ export default function CourseWatchPage() {
                     color: isDark ? '#fff' : '#1e293b',
                     fontWeight: 'bold',
                     fontSize: '14px',
-                    border: '1px solid #E62D26'
+                    border: '1px solid #7A85F0'
                 }
             });
 
@@ -122,7 +122,7 @@ export default function CourseWatchPage() {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="text-center space-y-4">
-                    <div className="w-14 h-14 border-4 border-[#E62D26] border-t-transparent rounded-full animate-spin mx-auto"></div>
+                    <div className="w-14 h-14 border-4 border-[#7A85F0] border-t-transparent rounded-full animate-spin mx-auto"></div>
                     <p className={`text-sm font-bold ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Loading Course...</p>
                 </div>
             </div>
@@ -140,7 +140,7 @@ export default function CourseWatchPage() {
                     <p className="text-gray-500 mb-6">{error}</p>
                     <button
                         onClick={() => router.push('/dashboard/user/courses')}
-                        className="w-full py-3 bg-[#E62D26] text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#c41e18] transition-all"
+                        className="w-full py-3 bg-[#7A85F0] text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#c41e18] transition-all"
                     >
                         <FiArrowLeft /> Back to My Courses
                     </button>
@@ -167,7 +167,7 @@ export default function CourseWatchPage() {
                             <h1 className={`text-sm font-bold truncate ${isDark ? 'text-white' : 'text-gray-800'}`}>
                                 {currentCourse.title}
                             </h1>
-                            <p className="text-xs text-[#E62D26] font-medium">
+                            <p className="text-xs text-[#7A85F0] font-medium">
                                 {groupedContent.length} Modules • {totalLessons} Lessons
                             </p>
                         </div>
@@ -175,9 +175,9 @@ export default function CourseWatchPage() {
 
                     <div className="flex items-center gap-3">
                         {/* Progress Badge */}
-                        <div className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg ${isDark ? 'bg-[#E62D26]/10' : 'bg-[#E62D26]/10'}`}>
-                            <FiTrendingUp size={14} className="text-[#E62D26]" />
-                            <span className="text-xs font-bold text-[#E62D26]">{progressPercent}% Complete</span>
+                        <div className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg ${isDark ? 'bg-[#7A85F0]/10' : 'bg-[#7A85F0]/10'}`}>
+                            <FiTrendingUp size={14} className="text-[#7A85F0]" />
+                            <span className="text-xs font-bold text-[#7A85F0]">{progressPercent}% Complete</span>
                         </div>
                         <button
                             onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -221,10 +221,10 @@ export default function CourseWatchPage() {
                                     <div className="space-y-3 flex-1">
                                         {/* Badges */}
                                         <div className="flex flex-wrap items-center gap-2">
-                                            <span className="px-2.5 py-1 rounded-lg bg-[#E62D26]/10 text-[#E62D26] text-xs font-bold">
+                                            <span className="px-2.5 py-1 rounded-lg bg-[#7A85F0]/10 text-[#7A85F0] text-xs font-bold">
                                                 Module {groupedContent.findIndex(m => m.lessons.some(l => l._id === activeLesson?._id)) + 1}
                                             </span>
-                                            <span className="px-2.5 py-1 rounded-lg bg-[#F79952]/10 text-[#F79952] text-xs font-bold">
+                                            <span className="px-2.5 py-1 rounded-lg bg-[#7A85F0]/10 text-[#7A85F0] text-xs font-bold">
                                                 Lesson {activeLesson?.order || 1}
                                             </span>
                                             {activeLesson?.videoDuration && (
@@ -250,7 +250,7 @@ export default function CourseWatchPage() {
                                     {/* Action Button */}
                                     <button
                                         onClick={handleMarkAsDone}
-                                        className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#E62D26] to-[#c41e18] text-white rounded-xl font-bold text-sm shadow-lg shadow-[#E62D26]/20 hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all whitespace-nowrap"
+                                        className="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#7A85F0] to-[#c41e18] text-white rounded-xl font-bold text-sm shadow-lg shadow-[#7A85F0]/20 hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all whitespace-nowrap"
                                     >
                                         <FiCheckCircle size={18} />
                                         Mark Complete
@@ -267,7 +267,7 @@ export default function CourseWatchPage() {
                             <div className={`p-4 border-b ${isDark ? 'bg-slate-800 border-white/5' : 'bg-gray-50 border-gray-200'}`}>
                                 <div className="flex items-center justify-between mb-3">
                                     <h3 className={`font-bold flex items-center gap-2 ${isDark ? 'text-white' : 'text-gray-800'}`}>
-                                        <FiBookOpen className="text-[#E62D26]" size={16} />
+                                        <FiBookOpen className="text-[#7A85F0]" size={16} />
                                         Course Content
                                     </h3>
                                     <button
@@ -281,10 +281,10 @@ export default function CourseWatchPage() {
                                 <div className="space-y-1.5">
                                     <div className="flex items-center justify-between text-xs">
                                         <span className={isDark ? 'text-slate-400' : 'text-gray-500'}>{completedLessons}/{totalLessons} lessons</span>
-                                        <span className="font-bold text-[#E62D26]">{progressPercent}%</span>
+                                        <span className="font-bold text-[#7A85F0]">{progressPercent}%</span>
                                     </div>
                                     <div className={`h-1.5 rounded-full overflow-hidden ${isDark ? 'bg-slate-700' : 'bg-gray-200'}`}>
-                                        <div className="h-full bg-gradient-to-r from-[#E62D26] to-[#F79952] rounded-full transition-all" style={{ width: `${progressPercent}%` }}></div>
+                                        <div className="h-full bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] rounded-full transition-all" style={{ width: `${progressPercent}%` }}></div>
                                     </div>
                                 </div>
                             </div>
@@ -296,12 +296,12 @@ export default function CourseWatchPage() {
                                         <button
                                             onClick={() => toggleModule(module._id)}
                                             className={`w-full p-4 flex items-center gap-3 text-left transition-all ${expandedModules[module._id]
-                                                ? (isDark ? 'bg-[#E62D26]/5' : 'bg-[#E62D26]/5')
+                                                ? (isDark ? 'bg-[#7A85F0]/5' : 'bg-[#7A85F0]/5')
                                                 : (isDark ? 'hover:bg-white/5' : 'hover:bg-gray-50')
                                                 }`}
                                         >
                                             <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold shrink-0 ${expandedModules[module._id]
-                                                ? 'bg-[#E62D26] text-white'
+                                                ? 'bg-[#7A85F0] text-white'
                                                 : (isDark ? 'bg-slate-700 text-slate-400' : 'bg-gray-200 text-gray-600')
                                                 }`}>
                                                 {mIdx + 1}
@@ -334,7 +334,7 @@ export default function CourseWatchPage() {
                                                                     if (window.innerWidth < 1024) setSidebarOpen(false);
                                                                 }}
                                                                 className={`w-full p-3 rounded-xl flex items-center gap-3 transition-all ${activeLesson?._id === lesson._id
-                                                                    ? 'bg-gradient-to-r from-[#E62D26] to-[#c41e18] text-white shadow-md'
+                                                                    ? 'bg-gradient-to-r from-[#7A85F0] to-[#c41e18] text-white shadow-md'
                                                                     : (isDark ? 'hover:bg-white/5 text-slate-400' : 'hover:bg-gray-50 text-gray-600')
                                                                     }`}
                                                             >

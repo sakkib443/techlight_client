@@ -71,9 +71,9 @@ const AboutCTA = () => {
                             {[
                                 {
                                     icon: LuMail,
-                                    text: 'info@hiictpark.com',
+                                    text: 'info@TECHLIGHT.com',
                                     label: 'SUPPORT EMAIL',
-                                    action: 'mailto:info@hiictpark.com'
+                                    action: 'mailto:info@TECHLIGHT.com'
                                 },
                                 {
                                     icon: LuPhone,

@@ -100,7 +100,7 @@ const PopularCourseCard = () => {
             <button
               onClick={handlePrev}
               disabled={isAnimating}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white border border-gray-200 rounded-full shadow-lg flex items-center justify-center text-gray-500 hover:bg-[#E62D26] hover:text-white hover:border-[#E62D26] hover:shadow-xl transition-all duration-300 disabled:opacity-50"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white border border-gray-200 rounded-full shadow-lg flex items-center justify-center text-gray-500 hover:bg-[#7A85F0] hover:text-white hover:border-[#7A85F0] hover:shadow-xl transition-all duration-300 disabled:opacity-50"
             >
               <LuChevronLeft size={20} />
             </button>
@@ -108,7 +108,7 @@ const PopularCourseCard = () => {
             <button
               onClick={handleNext}
               disabled={isAnimating}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white border border-gray-200 rounded-full shadow-lg flex items-center justify-center text-gray-500 hover:bg-[#E62D26] hover:text-white hover:border-[#E62D26] hover:shadow-xl transition-all duration-300 disabled:opacity-50"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-11 h-11 bg-white border border-gray-200 rounded-full shadow-lg flex items-center justify-center text-gray-500 hover:bg-[#7A85F0] hover:text-white hover:border-[#7A85F0] hover:shadow-xl transition-all duration-300 disabled:opacity-50"
             >
               <LuChevronRight size={20} />
             </button>
@@ -176,7 +176,7 @@ const PopularCourseCard = () => {
                 key={index}
                 onClick={() => setStartIndex(index * visibleItems)}
                 className={`transition-all duration-300 rounded-full ${Math.floor(startIndex / visibleItems) === index
-                  ? "w-8 h-2 bg-[#E62D26]"
+                  ? "w-8 h-2 bg-[#7A85F0]"
                   : "w-2 h-2 bg-gray-200 hover:bg-gray-300"
                   }`}
               />

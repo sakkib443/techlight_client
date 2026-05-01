@@ -110,7 +110,7 @@ export default function BlogPage() {
                 <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="w-12 h-12 border-4 border-[#E62D26]/30 border-t-[#E62D26] rounded-full"
+                    className="w-12 h-12 border-4 border-[#7A85F0]/30 border-t-[#7A85F0] rounded-full"
                 />
             </div>
         );
@@ -124,7 +124,7 @@ export default function BlogPage() {
                 {/* Subtle Background Effects */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className="absolute top-0 left-[15%] w-[400px] h-[400px] bg-gradient-to-br from-red-500/15 to-cyan-500/5 rounded-full blur-3xl"></div>
-                    <div className="absolute bottom-0 right-[15%] w-[350px] h-[350px] bg-gradient-to-br from-[#F79952]/10 to-amber-500/5 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-0 right-[15%] w-[350px] h-[350px] bg-gradient-to-br from-[#7A85F0]/10 to-amber-500/5 rounded-full blur-3xl"></div>
                     {/* Subtle Grid Pattern */}
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(20,184,166,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(20,184,166,0.015)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
                 </div>

@@ -24,15 +24,15 @@ const poppins = Poppins({
 
 export const metadata = {
   title: {
-    template: "Hi Ict Park | %s",
-    default: "Hi Ict Park | Home",
+    template: "TECHLIGHT IT | %s",
+    default: "TECHLIGHT IT | Home",
   },
   description:
     "ejobs it  a leading IT training institute and digital solutions provider. We specialize in professional courses, ready-made software, and premium website templates to help you grow your skills and business.",
   icons: {
-    icon: "/images/ejobsitlogo.png",
-    shortcut: "/images/ejobsitlogo.png",
-    apple: "/images/ejobsitlogo.png",
+    icon: "/images/Techlight IT Institutelogo.png",
+    shortcut: "/images/Techlight IT Institutelogo.png",
+    apple: "/images/Techlight IT Institutelogo.png",
   },
 };
 

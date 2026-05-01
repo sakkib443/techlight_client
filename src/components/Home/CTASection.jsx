@@ -30,12 +30,12 @@ const CTASection = () => {
                             <p className={`text-gray-600 dark:text-gray-400 text-sm lg:text-base mb-8 leading-relaxed ${bengaliClass}`}>
                                 {language === 'bn'
                                     ? t("whatWeProvide.features.jobPlacementDesc")
-                                    : 'Top instructors from around the world teach millions of students on HiictPark.'
+                                    : 'Top instructors from around the world teach millions of students on TECHLIGHT.'
                                 }
                             </p>
                             <Link
                                 href="/become-instructor"
-                                className={`inline-flex items-center px-8 py-4 bg-[#E62D26] hover:bg-[#c41e18] text-white font-bold rounded-xl transition-all shadow-lg shadow-red-200 dark:shadow-none hover:-translate-y-1 ${bengaliClass}`}
+                                className={`inline-flex items-center px-8 py-4 bg-[#7A85F0] hover:bg-[#c41e18] text-white font-bold rounded-xl transition-all shadow-lg shadow-red-200 dark:shadow-none hover:-translate-y-1 ${bengaliClass}`}
                             >
                                 {language === 'bn' ? t("home_sections.startTeaching") : 'Start teaching today'}
                             </Link>
@@ -94,7 +94,7 @@ const CTASection = () => {
                             </p>
                             <Link
                                 href="/register"
-                                className={`inline-flex items-center px-8 py-4 bg-[#E62D26] hover:bg-[#c41e18] text-white font-bold rounded-xl transition-all shadow-lg shadow-red-200 dark:shadow-none hover:-translate-y-1 ${bengaliClass}`}
+                                className={`inline-flex items-center px-8 py-4 bg-[#7A85F0] hover:bg-[#c41e18] text-white font-bold rounded-xl transition-all shadow-lg shadow-red-200 dark:shadow-none hover:-translate-y-1 ${bengaliClass}`}
                             >
                                 {language === 'bn' ? t("home_sections.registerFree") : 'Register for free'}
                             </Link>

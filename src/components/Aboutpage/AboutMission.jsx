@@ -54,7 +54,7 @@ const AboutMission = () => {
                             <p className={`text-xl text-gray-600 dark:text-gray-400 leading-relaxed font-medium mb-12 max-w-lg ${bengaliClass}`}>
                                 {language === 'bn'
                                     ? t("aboutPage.mission.desc")
-                                    : 'We are architecting a future where skill meets strategy. HiictPark is more than an academy; it\'s your partner in professional evolution.'
+                                    : 'We are architecting a future where skill meets strategy. TECHLIGHT is more than an academy; it\'s your partner in professional evolution.'
                                 }
                             </p>
 

@@ -1,89 +1,99 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp, FaYoutube } from "react-icons/fa";
+import { LuPhone, LuMapPin, LuClock, LuUser, LuUserPlus, LuMail } from "react-icons/lu";
+import Link from "next/link";
+import { API_BASE_URL } from "@/config/api";
 
 const TopHeader = () => {
-  const [isDark, setIsDark] = useState(false);
-  const { language } = useLanguage();
+  const [contactData, setContactData] = useState(null);
 
-  // Apply Bengali font class when language is Bengali
-  const bengaliClass = language === "bn" ? "hind-siliguri" : "";
-
-  // Check for dark mode on mount
+  // Fetch dynamic contact info from API
   useEffect(() => {
-    const checkDarkMode = () => {
+    const fetchContactInfo = async () => {
       try {
-        if (typeof window !== 'undefined') {
-          const savedTheme = localStorage.getItem("theme");
-          setIsDark(savedTheme === "dark" || document.documentElement.classList.contains("dark"));
+        const res = await fetch(`${API_BASE_URL}/designs/contact`);
+        const data = await res.json();
+        if (data.success && data.data) {
+          setContactData(data.data);
         }
       } catch (error) {
-        setIsDark(document.documentElement.classList.contains("dark"));
+        console.error("Failed to fetch contact info:", error);
       }
     };
-
-    checkDarkMode();
-
-    // Listen for theme changes
-    const observer = new MutationObserver(checkDarkMode);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-
-    return () => observer.disconnect();
+    fetchContactInfo();
   }, []);
 
+  // Dynamic values from API, with fallbacks
+  const phone = contactData?.contactContent?.contactInfo?.phone || "+880 1XXX-XXXXXX";
+  const email = contactData?.contactContent?.contactInfo?.email || "info@techlightit.com";
+  const address = contactData?.contactContent?.contactInfo?.address || "Dhaka, Bangladesh";
+  const officeHours = contactData?.contactContent?.contactInfo?.officeHours || "9:00 AM - 9:00 PM";
+  const socialLinks = contactData?.contactContent?.socialLinks || {};
+
+  // Social icons config — dynamic URLs from API
+  const socials = [
+    { icon: FaFacebookF, href: socialLinks.facebook || "#", label: "Facebook" },
+    { icon: FaInstagram, href: socialLinks.instagram || "#", label: "Instagram" },
+    { icon: FaLinkedinIn, href: socialLinks.linkedin || "#", label: "LinkedIn" },
+    { icon: FaWhatsapp, href: socialLinks.whatsapp || "#", label: "WhatsApp" },
+    { icon: FaYoutube, href: socialLinks.youtube || "#", label: "YouTube" },
+  ];
+
   return (
-    <div className={`w-full py-2.5 text-sm font-medium font-outfit transition-all duration-300 ${isDark
-      ? 'bg-gray-700 border-b border-red-500/20'
-      : 'bg-red-600 text-white'
-      }`}>
-      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="w-full py-2 text-[13px] bg-[#0D0E43] text-white/90 border-b border-white/10">
+      <div className="container mx-auto px-4 lg:px-8 max-w-[1440px]">
         <div className="flex justify-between items-center">
-          {/* Left - Contact Info */}
-          <div className={`hidden md:flex items-center gap-4 ${isDark ? 'text-white/60' : 'text-white/80'}`}>
-            <a href="mailto:info@hiictpark.com" className="flex items-center gap-1.5 hover:text-white transition-colors">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-              </svg>
-              info@hiictpark.com
+
+          {/* Left - Contact Info (dynamic from API) */}
+          <div className="hidden md:flex items-center gap-5">
+            <a href={`tel:${phone.replace(/\s/g, '')}`} className="flex items-center gap-2 hover:text-white transition-colors group">
+              <LuPhone className="w-3.5 h-3.5 text-[var(--color-primary)] group-hover:text-[var(--color-primary-light)]" />
+              <span>{phone}</span>
             </a>
-            <span className="w-px h-3 bg-white/30"></span>
-            <a href="tel:+8801829818616" className="flex items-center gap-1.5 hover:text-white transition-colors">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-              </svg>
-              +880 1829-818616
+            <span className="w-[1px] h-3.5 bg-white/15"></span>
+            <a href="#" className="flex items-center gap-2 hover:text-white transition-colors group">
+              <LuMapPin className="w-3.5 h-3.5 text-[var(--color-primary)] group-hover:text-[var(--color-primary-light)]" />
+              <span>{address}</span>
             </a>
+            <span className="w-[1px] h-3.5 bg-white/15"></span>
+            <div className="flex items-center gap-2">
+              <LuClock className="w-3.5 h-3.5 text-[var(--color-primary)]" />
+              <span>{officeHours}</span>
+            </div>
           </div>
 
-          {/* Center - Offer/Announcement */}
-          <div className="flex items-center gap-2">
-            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${isDark ? 'bg-red-500/30 text-red-400' : 'bg-white/20 text-white'
-              }`}>
-              🔥 Hot
-            </span>
-            <span className={`hidden sm:inline ${isDark ? 'text-white/70' : 'text-white/90'} ${bengaliClass}`}>
-              {language === 'bn'
-                ? <>🔥 সকল কোর্সে ২০% ছাড় | কোড: <span className={`font-bold ${isDark ? 'text-red-400' : 'text-yellow-300'}`}>HIICT20</span></>
-                : <>Get 20% OFF on all courses | Use code: <span className={`font-bold ${isDark ? 'text-red-400' : 'text-yellow-300'}`}>HIICT20</span></>
-              }
-            </span>
+          {/* Right - Email & Follow Us + Socials */}
+          <div className="flex items-center gap-5 ml-auto">
+            {/* Email */}
+            <a href={`mailto:${email}`} className="hidden lg:flex items-center gap-2 hover:text-white transition-colors group">
+              <LuMail className="w-3.5 h-3.5 text-[var(--color-primary)] group-hover:text-[var(--color-primary-light)]" />
+              <span>{email}</span>
+            </a>
+
+            <span className="w-[1px] h-3.5 bg-white/15 hidden sm:block"></span>
+
+            {/* Follow Us + Social Icons */}
+            <div className="hidden sm:flex items-center gap-3">
+              <span className="text-white/70 text-[12px] uppercase tracking-wider font-medium">Follow Us:</span>
+              <div className="flex items-center gap-2">
+                {socials.map(({ icon: Icon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-7 h-7 flex items-center justify-center rounded-full bg-white/10 hover:bg-[var(--color-primary)] text-white/70 hover:text-white transition-all duration-300"
+                    title={label}
+                  >
+                    <Icon className="w-3 h-3" />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Right - Social Links */}
-          <div className={`flex items-center gap-3 ${isDark ? 'text-white/60' : 'text-white/80'}`}>
-            <a href="https://www.facebook.com/hiictpark" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" title="Facebook">
-              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
-            </a>
-            <a href="https://twitter.com/hiictpark" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" title="Twitter">
-              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path></svg>
-            </a>
-            <a href="https://www.instagram.com/hiictpark/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors" title="Instagram">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"></path></svg>
-            </a>
-            <span className="w-px h-3 bg-white/30 hidden sm:block"></span>
-            <span className={`hidden sm:inline ${isDark ? 'text-white/40' : 'text-white/70'}`}>🇧🇩 Bangladesh</span>
-          </div>
         </div>
       </div>
     </div>

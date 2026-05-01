@@ -119,22 +119,22 @@ const DigitalProducts = () => {
             {/* Background Elements - Static */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 {/* Static Circles */}
-                <div className="absolute top-20 right-[10%] w-72 h-72 bg-gradient-to-br from-[#F79952]/10 to-transparent rounded-full blur-3xl"></div>
-                <div className="absolute bottom-20 left-[10%] w-80 h-80 bg-gradient-to-br from-[#E62D26]/10 to-transparent rounded-full blur-3xl"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-[#F79952]/5 to-[#E62D26]/5 rounded-full blur-3xl"></div>
+                <div className="absolute top-20 right-[10%] w-72 h-72 bg-gradient-to-br from-[#7A85F0]/10 to-transparent rounded-full blur-3xl"></div>
+                <div className="absolute bottom-20 left-[10%] w-80 h-80 bg-gradient-to-br from-[#7A85F0]/10 to-transparent rounded-full blur-3xl"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-[#7A85F0]/5 to-[#7A85F0]/5 rounded-full blur-3xl"></div>
 
                 {/* Static Geometric Shapes */}
-                <div className="absolute top-32 left-[15%] w-16 h-16 border-2 border-[#F79952]/20 rounded-xl"></div>
-                <div className="absolute top-1/4 right-[8%] w-12 h-12 border-2 border-[#E62D26]/20 rounded-full"></div>
-                <div className="absolute bottom-1/4 left-[8%] w-20 h-20 border-2 border-[#F79952]/15 rounded-2xl"></div>
-                <div className="absolute bottom-32 right-[20%] w-8 h-8 bg-[#E62D26]/10 rounded-lg"></div>
+                <div className="absolute top-32 left-[15%] w-16 h-16 border-2 border-[#7A85F0]/20 rounded-xl"></div>
+                <div className="absolute top-1/4 right-[8%] w-12 h-12 border-2 border-[#7A85F0]/20 rounded-full"></div>
+                <div className="absolute bottom-1/4 left-[8%] w-20 h-20 border-2 border-[#7A85F0]/15 rounded-2xl"></div>
+                <div className="absolute bottom-32 right-[20%] w-8 h-8 bg-[#7A85F0]/10 rounded-lg"></div>
 
                 {/* Dots Pattern */}
                 <div className="absolute top-40 right-[5%] flex flex-col gap-2 opacity-30">
                     {[...Array(4)].map((_, i) => (
                         <div key={i} className="flex gap-2">
                             {[...Array(3)].map((_, j) => (
-                                <div key={j} className="w-1.5 h-1.5 bg-[#F79952] rounded-full"></div>
+                                <div key={j} className="w-1.5 h-1.5 bg-[#7A85F0] rounded-full"></div>
                             ))}
                         </div>
                     ))}
@@ -143,7 +143,7 @@ const DigitalProducts = () => {
                     {[...Array(4)].map((_, i) => (
                         <div key={i} className="flex gap-2">
                             {[...Array(3)].map((_, j) => (
-                                <div key={j} className="w-1.5 h-1.5 bg-[#E62D26] rounded-full"></div>
+                                <div key={j} className="w-1.5 h-1.5 bg-[#7A85F0] rounded-full"></div>
                             ))}
                         </div>
                     ))}
@@ -160,11 +160,11 @@ const DigitalProducts = () => {
                     transition={{ duration: 0.6 }}
                 >
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-3 mb-5 px-5 py-2.5 rounded-full bg-white dark:bg-black/50 border border-[#F79952]/30 dark:border-[#F79952]/20 shadow-sm backdrop-blur-md">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-[#F79952]/20 to-amber-500/20 flex items-center justify-center">
-                            <LuSparkles className="text-[#F79952]" size={14} />
+                    <div className="inline-flex items-center gap-3 mb-5 px-5 py-2.5 rounded-full bg-white dark:bg-black/50 border border-[#7A85F0]/30 dark:border-[#7A85F0]/20 shadow-sm backdrop-blur-md">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-[#7A85F0]/20 to-amber-500/20 flex items-center justify-center">
+                            <LuSparkles className="text-[#7A85F0]" size={14} />
                         </div>
-                        <span className={`text-xs font-black text-[#F79952] uppercase tracking-[0.2em] ${bengaliClass}`}>
+                        <span className={`text-xs font-black text-[#7A85F0] uppercase tracking-[0.2em] ${bengaliClass}`}>
                             {getBadge()}
                         </span>
                     </div>
@@ -178,7 +178,7 @@ const DigitalProducts = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
-                            {heading.text1}<span className="text-[#F79952]">{heading.highlight}</span>
+                            {heading.text1}<span className="text-[#7A85F0]">{heading.highlight}</span>
                         </motion.h2>
                     </div>
 
@@ -205,27 +205,27 @@ const DigitalProducts = () => {
                         <button
                             onClick={() => setActiveType('software')}
                             className={`group relative flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${activeType === 'software'
-                                ? 'bg-[#E62D26]/10 text-[#E62D26]'
+                                ? 'bg-[#7A85F0]/10 text-[#7A85F0]'
                                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white'
                                 }`}
                         >
                             <LuCpu size={18} />
                             <span className={bengaliClass}>{getSoftwareTab()}</span>
                             {activeType === 'software' && (
-                                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#E62D26] to-[#c41e18] rounded-b-xl"></div>
+                                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#7A85F0] to-[#c41e18] rounded-b-xl"></div>
                             )}
                         </button>
                         <button
                             onClick={() => setActiveType('website')}
                             className={`group relative flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${activeType === 'website'
-                                ? 'bg-[#F79952]/10 text-[#F79952]'
+                                ? 'bg-[#7A85F0]/10 text-[#7A85F0]'
                                 : 'text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white'
                                 }`}
                         >
                             <LuGlobe size={18} />
                             <span className={bengaliClass}>{getWebsiteTab()}</span>
                             {activeType === 'website' && (
-                                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#F79952] to-[#fb923c] rounded-b-xl"></div>
+                                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#7A85F0] to-[#fb923c] rounded-b-xl"></div>
                             )}
                         </button>
                     </div>
@@ -293,8 +293,8 @@ const DigitalProducts = () => {
                     transition={{ duration: 0.7 }}
                 >
                     {/* Decorative Corner */}
-                    <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-gradient-to-br from-[#F79952] to-[#fb923c] opacity-10"></div>
-                    <div className="absolute -bottom-10 -left-10 w-24 h-24 rounded-full bg-gradient-to-br from-[#E62D26] to-[#c41e18] opacity-10"></div>
+                    <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-gradient-to-br from-[#7A85F0] to-[#fb923c] opacity-10"></div>
+                    <div className="absolute -bottom-10 -left-10 w-24 h-24 rounded-full bg-gradient-to-br from-[#7A85F0] to-[#c41e18] opacity-10"></div>
 
                     <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
                         <div className="text-center sm:text-left">
@@ -315,11 +315,11 @@ const DigitalProducts = () => {
                                     ? t("concerns.exploreAll")
                                     : `Explore All ${activeType === 'software' ? 'Software' : 'Websites'}`}
                             </span>
-                            <div className="w-10 h-10 rounded-xl bg-[#F79952]/10 flex items-center justify-center transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-[#F79952] group-hover:to-[#fb923c]">
-                                <LuArrowRight size={18} className="text-[#F79952] transition-all duration-300 group-hover:text-white group-hover:translate-x-0.5" />
+                            <div className="w-10 h-10 rounded-xl bg-[#7A85F0]/10 flex items-center justify-center transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-[#7A85F0] group-hover:to-[#fb923c]">
+                                <LuArrowRight size={18} className="text-[#7A85F0] transition-all duration-300 group-hover:text-white group-hover:translate-x-0.5" />
                             </div>
                             {/* Bottom Accent Line */}
-                            <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-[#F79952] to-[#fb923c] group-hover:w-full transition-all duration-500 rounded-b-2xl"></div>
+                            <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-[#7A85F0] to-[#fb923c] group-hover:w-full transition-all duration-500 rounded-b-2xl"></div>
                         </Link>
                     </div>
                 </motion.div>

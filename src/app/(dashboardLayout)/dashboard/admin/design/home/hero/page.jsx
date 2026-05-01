@@ -382,7 +382,7 @@ const HeroDesignPage = () => {
                                 value={heroContent.description?.brandName || ''}
                                 onChange={(e) => setHeroContent(prev => ({ ...prev, description: { ...prev.description, brandName: e.target.value } }))}
                                 className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 focus:border-transparent font-bold text-red-600`}
-                                placeholder="e.g., eJobsIT"
+                                placeholder="e.g., Techlight IT Institute"
                             />
                         </div>
                     </div>

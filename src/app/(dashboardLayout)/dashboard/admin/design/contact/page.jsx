@@ -25,7 +25,7 @@ const ContactDesignPage = () => {
             subtitleBn: '???? ?????? ???? ?????? ????? ??????'
         },
         contactInfo: {
-            email: 'info@ejobsit.com',
+            email: 'info@Techlight IT Institute.com',
             phone: '+880 1829-818616',
             address: 'Daisy Garden, House 14 (Level-5), Block A, Banasree, Dhaka',
             addressBn: '????? ???????, ????? ?? (?????-?), ???? ?, ??????, ????',
@@ -33,11 +33,11 @@ const ContactDesignPage = () => {
             officeHoursBn: '??? - ????????: ???? ???? - ??????? ???'
         },
         socialLinks: {
-            facebook: 'https://www.facebook.com/ejobsit',
-            youtube: 'https://www.youtube.com/@ejobsit',
-            linkedin: 'https://www.linkedin.com/company/ejobsit',
+            facebook: 'https://www.facebook.com/Techlight IT Institute',
+            youtube: 'https://www.youtube.com/@Techlight IT Institute',
+            linkedin: 'https://www.linkedin.com/company/Techlight IT Institute',
             whatsapp: 'https://wa.me/8801829818616',
-            instagram: 'https://www.instagram.com/ejobsit/'
+            instagram: 'https://www.instagram.com/Techlight IT Institute/'
         },
         whatsappSection: {
             title: 'Need Quick Help?',

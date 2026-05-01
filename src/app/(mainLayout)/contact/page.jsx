@@ -46,7 +46,7 @@ const ContactPage = () => {
       subtitleBn: 'কোন প্রশ্ন আছে? আমরা আপনার কথা শুনতে চাই। আমাদের একটি বার্তা পাঠান।'
     },
     contactInfo: {
-      email: 'info@hiictpark.com',
+      email: 'info@TECHLIGHT.com',
       phone: '+880 1829-818616',
       address: 'Dhaka, Bangladesh',
       addressBn: 'ঢাকা, বাংলাদেশ',
@@ -54,11 +54,11 @@ const ContactPage = () => {
       officeHoursBn: 'শনি - বৃহঃ: সকাল ১০টা - সন্ধ্যা ৬টা'
     },
     socialLinks: {
-      facebook: 'https://www.facebook.com/hiictpark',
-      youtube: 'https://www.youtube.com/@hiictpark',
-      linkedin: 'https://www.linkedin.com/company/hiictpark',
+      facebook: 'https://www.facebook.com/TECHLIGHT',
+      youtube: 'https://www.youtube.com/@TECHLIGHT',
+      linkedin: 'https://www.linkedin.com/company/TECHLIGHT',
       whatsapp: 'https://wa.me/8801829818616',
-      instagram: 'https://www.instagram.com/hiictpark/'
+      instagram: 'https://www.instagram.com/TECHLIGHT/'
     },
     whatsappSection: {
       title: 'Need Quick Help?',
@@ -110,14 +110,14 @@ const ContactPage = () => {
       title: language === "bn" ? "ইমেইল করুন" : "Email Us",
       value: content.contactInfo.email,
       link: `mailto:${content.contactInfo.email}`,
-      color: "#E62D26",
+      color: "#7A85F0",
     },
     {
       icon: LuPhone,
       title: language === "bn" ? "কল করুন" : "Call Us",
       value: content.contactInfo.phone,
       link: `tel:${content.contactInfo.phone.replace(/\s/g, '')}`,
-      color: "#F79952",
+      color: "#7A85F0",
     },
     {
       icon: LuMapPin,
@@ -159,7 +159,7 @@ const ContactPage = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-11/12 max-w-md bg-white dark:bg-[#0d0d0d] rounded-2xl shadow-2xl p-8 text-center border border-slate-100 dark:border-white/10"
           >
-            <div className="w-16 h-16 bg-gradient-to-br from-[#E62D26] to-[#F79952] rounded-full flex items-center justify-center mx-auto mb-5">
+            <div className="w-16 h-16 bg-gradient-to-br from-[#7A85F0] to-[#7A85F0] rounded-full flex items-center justify-center mx-auto mb-5">
               <LuCheck className="text-white text-2xl" />
             </div>
             <h3 className={`text-xl font-bold text-slate-800 dark:text-white mb-2 ${bengaliClass}`}>
@@ -170,7 +170,7 @@ const ContactPage = () => {
             </p>
             <button
               onClick={() => setMessageSent(false)}
-              className={`px-6 py-2.5 bg-gradient-to-r from-[#E62D26] to-[#F79952] text-white font-semibold text-sm rounded-lg transition-all hover:shadow-lg ${bengaliClass}`}
+              className={`px-6 py-2.5 bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] text-white font-semibold text-sm rounded-lg transition-all hover:shadow-lg ${bengaliClass}`}
             >
               {language === "bn" ? "বন্ধ করুন" : "Close"}
             </button>
@@ -188,10 +188,10 @@ const ContactPage = () => {
             className="text-center max-w-3xl mx-auto"
           >
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#E62D26]/20 rounded-full shadow-sm mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#7A85F0]/20 rounded-full shadow-sm mb-4">
               <span className="flex h-1.5 w-1.5 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E62D26] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E62D26]"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7A85F0] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#7A85F0]"></span>
               </span>
               <span className={`text-[10px] font-medium text-slate-600 dark:text-slate-300 ${bengaliClass}`}>
                 {language === "bn" ? content.hero.badgeBn : content.hero.badge}
@@ -201,7 +201,7 @@ const ContactPage = () => {
             {/* Title */}
             <h1 className={`text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 dark:text-white mb-3 outfit leading-tight ${bengaliClass}`}>
               {language === "bn" ? content.hero.title1Bn : content.hero.title1}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E62D26] to-[#F79952]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7A85F0] to-[#7A85F0]">
                 {language === "bn" ? content.hero.title2Bn : content.hero.title2}
               </span>
             </h1>
@@ -224,7 +224,7 @@ const ContactPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="group bg-slate-50 dark:bg-white/5 rounded-xl p-5 border border-slate-100 dark:border-white/10 hover:border-[#E62D26]/30 hover:shadow-md transition-all"
+                className="group bg-slate-50 dark:bg-white/5 rounded-xl p-5 border border-slate-100 dark:border-white/10 hover:border-[#7A85F0]/30 hover:shadow-md transition-all"
               >
                 <div
                   className="w-10 h-10 rounded-lg flex items-center justify-center mb-3 transition-transform group-hover:scale-110"
@@ -238,7 +238,7 @@ const ContactPage = () => {
                 {item.link ? (
                   <a
                     href={item.link}
-                    className={`text-slate-800 dark:text-white font-medium text-sm hover:text-[#E62D26] transition-colors ${bengaliClass}`}
+                    className={`text-slate-800 dark:text-white font-medium text-sm hover:text-[#7A85F0] transition-colors ${bengaliClass}`}
                   >
                     {item.value}
                   </a>
@@ -265,8 +265,8 @@ const ContactPage = () => {
               className="bg-white dark:bg-white/5 rounded-2xl p-6 lg:p-8 border border-slate-100 dark:border-white/10 shadow-sm"
             >
               <div className="flex items-center gap-2 mb-5">
-                <div className="w-8 h-8 bg-gradient-to-br from-[#E62D26]/10 to-[#F79952]/10 rounded-lg flex items-center justify-center">
-                  <LuSend className="text-[#E62D26] text-sm" />
+                <div className="w-8 h-8 bg-gradient-to-br from-[#7A85F0]/10 to-[#7A85F0]/10 rounded-lg flex items-center justify-center">
+                  <LuSend className="text-[#7A85F0] text-sm" />
                 </div>
                 <h2 className={`text-lg lg:text-xl font-bold text-slate-800 dark:text-white ${bengaliClass}`}>
                   {language === "bn" ? "বার্তা পাঠান" : "Send a Message"}
@@ -284,7 +284,7 @@ const ContactPage = () => {
                       id="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-[#E62D26]/50 focus:border-[#E62D26] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400"
+                      className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-[#7A85F0]/50 focus:border-[#7A85F0] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400"
                       placeholder="John Doe"
                       required
                     />
@@ -298,7 +298,7 @@ const ContactPage = () => {
                       id="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-[#E62D26]/50 focus:border-[#E62D26] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400"
+                      className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-[#7A85F0]/50 focus:border-[#7A85F0] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400"
                       placeholder="you@example.com"
                       required
                     />
@@ -313,7 +313,7 @@ const ContactPage = () => {
                     id="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-[#E62D26]/50 focus:border-[#E62D26] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400 ${bengaliClass}`}
+                    className={`w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-[#7A85F0]/50 focus:border-[#7A85F0] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400 ${bengaliClass}`}
                     placeholder={language === "bn" ? "আমরা কিভাবে সাহায্য করতে পারি?" : "How can we help?"}
                     required
                   />
@@ -327,14 +327,14 @@ const ContactPage = () => {
                     rows="5"
                     value={formData.message}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-[#E62D26]/50 focus:border-[#E62D26] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400 resize-none ${bengaliClass}`}
+                    className={`w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-[#7A85F0]/50 focus:border-[#7A85F0] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400 resize-none ${bengaliClass}`}
                     placeholder={language === "bn" ? "আপনার বার্তা লিখুন..." : "Write your message here..."}
                     required
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className={`group w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#E62D26] to-[#E62D26] hover:from-[#c41e18] hover:to-[#d42520] text-white font-semibold text-sm rounded-lg shadow-md shadow-[#E62D26]/20 hover:shadow-lg transition-all ${bengaliClass}`}
+                  className={`group w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] hover:from-[#c41e18] hover:to-[#d42520] text-white font-semibold text-sm rounded-lg shadow-md shadow-[#7A85F0]/20 hover:shadow-lg transition-all ${bengaliClass}`}
                 >
                   <LuSend className="text-sm group-hover:translate-x-0.5 transition-transform" />
                   <span>{language === "bn" ? "বার্তা পাঠান" : "Send Message"}</span>
@@ -353,8 +353,8 @@ const ContactPage = () => {
               <div id="map" className="bg-white dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl overflow-hidden shadow-sm">
                 <div className="p-4 border-b border-slate-100 dark:border-white/10">
                   <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-gradient-to-br from-[#E62D26]/10 to-[#F79952]/10 rounded-lg flex items-center justify-center">
-                      <LuMapPin className="text-[#E62D26] text-sm" />
+                    <div className="w-8 h-8 bg-gradient-to-br from-[#7A85F0]/10 to-[#7A85F0]/10 rounded-lg flex items-center justify-center">
+                      <LuMapPin className="text-[#7A85F0] text-sm" />
                     </div>
                     <div>
                       <p className={`text-sm font-bold text-slate-800 dark:text-white ${bengaliClass}`}>
@@ -404,7 +404,7 @@ const ContactPage = () => {
               </div>
 
               {/* WhatsApp Quick Contact */}
-              <div className="bg-gradient-to-br from-[#E62D26] to-[#F79952] rounded-2xl p-5 text-white shadow-md">
+              <div className="bg-gradient-to-br from-[#7A85F0] to-[#7A85F0] rounded-2xl p-5 text-white shadow-md">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
                     <LuHeadphones className="text-xl" />
@@ -425,7 +425,7 @@ const ContactPage = () => {
                   href={content.socialLinks.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group inline-flex items-center gap-2 px-4 py-2 bg-white text-[#E62D26] font-semibold text-xs rounded-lg hover:shadow-lg transition-all ${bengaliClass}`}
+                  className={`group inline-flex items-center gap-2 px-4 py-2 bg-white text-[#7A85F0] font-semibold text-xs rounded-lg hover:shadow-lg transition-all ${bengaliClass}`}
                 >
                   <FaWhatsapp className="text-base" />
                   <span>{language === 'bn' ? content.whatsappSection.buttonTextBn : content.whatsappSection.buttonText}</span>

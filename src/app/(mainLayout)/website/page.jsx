@@ -25,7 +25,7 @@ import { useLanguage } from "@/context/LanguageContext";
 // Loading fallback component
 const LoadingFallback = () => (
     <div className="flex items-center justify-center py-20">
-        <div className="w-10 h-10 border-3 border-[#E62D26]/30 border-t-[#E62D26] rounded-full animate-spin"></div>
+        <div className="w-10 h-10 border-3 border-[#7A85F0]/30 border-t-[#7A85F0] rounded-full animate-spin"></div>
     </div>
 );
 
@@ -38,7 +38,7 @@ const WebsiteCard = ({ item, viewMode }) => {
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`group bg-white dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-xl hover:border-[#E62D26]/30 transition-all duration-300 ${viewMode === "list" ? "flex" : ""
+            className={`group bg-white dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-xl hover:border-[#7A85F0]/30 transition-all duration-300 ${viewMode === "list" ? "flex" : ""
                 }`}
         >
             {/* Image */}
@@ -53,10 +53,10 @@ const WebsiteCard = ({ item, viewMode }) => {
 
                 {/* Quick Actions */}
                 <div className="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-slate-600 hover:text-[#E62D26] transition-colors">
+                    <button className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-slate-600 hover:text-[#7A85F0] transition-colors">
                         <LuHeart size={16} />
                     </button>
-                    <button className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-slate-600 hover:text-[#E62D26] transition-colors">
+                    <button className="w-8 h-8 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center text-slate-600 hover:text-[#7A85F0] transition-colors">
                         <LuEye size={16} />
                     </button>
                 </div>
@@ -72,7 +72,7 @@ const WebsiteCard = ({ item, viewMode }) => {
             {/* Content */}
             <div className={`p-5 ${viewMode === "list" ? "flex-1 flex flex-col justify-between" : ""}`}>
                 <div>
-                    <h3 className={`text-base font-bold text-slate-800 dark:text-white mb-2 group-hover:text-[#E62D26] transition-colors line-clamp-1 ${bengaliClass}`}>
+                    <h3 className={`text-base font-bold text-slate-800 dark:text-white mb-2 group-hover:text-[#7A85F0] transition-colors line-clamp-1 ${bengaliClass}`}>
                         {item.title || item.name}
                     </h3>
 
@@ -98,16 +98,16 @@ const WebsiteCard = ({ item, viewMode }) => {
                     <div>
                         {item.offerPrice ? (
                             <div className="flex items-center gap-2">
-                                <span className="text-lg font-bold text-[#E62D26]">৳{item.offerPrice}</span>
+                                <span className="text-lg font-bold text-[#7A85F0]">৳{item.offerPrice}</span>
                                 <span className="text-sm text-slate-400 line-through">৳{item.price}</span>
                             </div>
                         ) : (
-                            <span className="text-lg font-bold text-[#E62D26]">৳{item.price || 0}</span>
+                            <span className="text-lg font-bold text-[#7A85F0]">৳{item.price || 0}</span>
                         )}
                     </div>
                     <Link
                         href={`/website/${item._id}`}
-                        className="flex items-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-white/5 hover:bg-[#E62D26] text-slate-700 dark:text-slate-300 hover:text-white rounded-lg text-xs font-semibold transition-all group/btn"
+                        className="flex items-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-white/5 hover:bg-[#7A85F0] text-slate-700 dark:text-slate-300 hover:text-white rounded-lg text-xs font-semibold transition-all group/btn"
                     >
                         <span>{language === "bn" ? "দেখুন" : "View"}</span>
                         <LuArrowRight size={14} className="group-hover/btn:translate-x-0.5 transition-transform" />
@@ -208,10 +208,10 @@ const WebsiteContent = () => {
                         className="text-center max-w-3xl mx-auto"
                     >
                         {/* Badge */}
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#E62D26]/20 rounded-full shadow-sm mb-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#7A85F0]/20 rounded-full shadow-sm mb-4">
                             <span className="flex h-1.5 w-1.5 relative">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E62D26] opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E62D26]"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7A85F0] opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#7A85F0]"></span>
                             </span>
                             <span className={`text-[10px] font-medium text-slate-600 dark:text-slate-300 ${bengaliClass}`}>
                                 {language === "bn" ? "প্রিমিয়াম ওয়েবসাইট" : "Premium Websites"}
@@ -221,7 +221,7 @@ const WebsiteContent = () => {
                         {/* Title */}
                         <h1 className={`text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 dark:text-white mb-3 outfit leading-tight ${bengaliClass}`}>
                             {language === "bn" ? "ওয়েবসাইট " : "Website "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E62D26] to-[#F79952]">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7A85F0] to-[#7A85F0]">
                                 {language === "bn" ? "মার্কেটপ্লেস" : "Marketplace"}
                             </span>
                         </h1>
@@ -242,7 +242,7 @@ const WebsiteContent = () => {
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     placeholder={language === "bn" ? "ওয়েবসাইট খুঁজুন..." : "Search websites..."}
-                                    className={`w-full pl-12 pr-4 py-3.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#E62D26]/50 focus:border-[#E62D26] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400 ${bengaliClass}`}
+                                    className={`w-full pl-12 pr-4 py-3.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#7A85F0]/50 focus:border-[#7A85F0] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400 ${bengaliClass}`}
                                 />
                                 {searchQuery && (
                                     <button
@@ -272,7 +272,7 @@ const WebsiteContent = () => {
                                     key={type.name}
                                     onClick={() => setSelectedType(type.name)}
                                     className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${selectedType === type.name
-                                            ? "bg-[#E62D26] text-white shadow-md shadow-[#E62D26]/20"
+                                            ? "bg-[#7A85F0] text-white shadow-md shadow-[#7A85F0]/20"
                                             : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10"
                                         } ${bengaliClass}`}
                                 >
@@ -299,7 +299,7 @@ const WebsiteContent = () => {
                                 <select
                                     value={sortBy}
                                     onChange={(e) => setSortBy(e.target.value)}
-                                    className={`appearance-none pl-8 pr-8 py-2 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#E62D26] cursor-pointer ${bengaliClass}`}
+                                    className={`appearance-none pl-8 pr-8 py-2 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#7A85F0] cursor-pointer ${bengaliClass}`}
                                 >
                                     <option value="default">{language === 'bn' ? 'সর্ট করুন' : 'Sort By'}</option>
                                     <option value="rating">{language === 'bn' ? 'টপ রেটেড' : 'Top Rated'}</option>
@@ -314,7 +314,7 @@ const WebsiteContent = () => {
                                 <button
                                     onClick={() => setViewMode("grid")}
                                     className={`p-2 rounded-md transition-all ${viewMode === "grid"
-                                            ? "bg-white dark:bg-white/10 text-[#E62D26] shadow-sm"
+                                            ? "bg-white dark:bg-white/10 text-[#7A85F0] shadow-sm"
                                             : "text-slate-500"
                                         }`}
                                 >
@@ -323,7 +323,7 @@ const WebsiteContent = () => {
                                 <button
                                     onClick={() => setViewMode("list")}
                                     className={`p-2 rounded-md transition-all ${viewMode === "list"
-                                            ? "bg-white dark:bg-white/10 text-[#E62D26] shadow-sm"
+                                            ? "bg-white dark:bg-white/10 text-[#7A85F0] shadow-sm"
                                             : "text-slate-500"
                                         }`}
                                 >
@@ -342,7 +342,7 @@ const WebsiteContent = () => {
                             <button
                                 onClick={() => dispatch(setSelectedCategories([]))}
                                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${selectedCategories.length === 0
-                                        ? "bg-[#E62D26] text-white"
+                                        ? "bg-[#7A85F0] text-white"
                                         : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
                                     } ${bengaliClass}`}
                             >
@@ -355,7 +355,7 @@ const WebsiteContent = () => {
                                         key={cat._id}
                                         onClick={() => handleCategoryChange(cat.name)}
                                         className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${selectedCategories.includes(cat.name)
-                                                ? "bg-[#E62D26] text-white"
+                                                ? "bg-[#7A85F0] text-white"
                                                 : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
                                             } ${bengaliClass}`}
                                     >
@@ -367,7 +367,7 @@ const WebsiteContent = () => {
 
                     {/* Results Count */}
                     <div className="mt-4 flex items-center gap-2">
-                        <LuSparkles className="text-[#E62D26]" size={16} />
+                        <LuSparkles className="text-[#7A85F0]" size={16} />
                         <span className={`text-sm text-slate-600 dark:text-slate-400 ${bengaliClass}`}>
                             <span className="font-bold text-slate-800 dark:text-white">{sortedWebsites.length}</span>
                             {language === "bn" ? " টি ওয়েবসাইট পাওয়া গেছে" : " websites found"}
@@ -415,7 +415,7 @@ const WebsiteContent = () => {
             </section>
 
             {/* CTA Section */}
-            <section className="py-12 lg:py-16 bg-gradient-to-br from-[#E62D26] to-[#F79952]">
+            <section className="py-12 lg:py-16 bg-gradient-to-br from-[#7A85F0] to-[#7A85F0]">
                 <div className="container mx-auto px-4 lg:px-16">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -441,7 +441,7 @@ const WebsiteContent = () => {
 
                         <Link
                             href="/contact"
-                            className={`inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#E62D26] text-xs font-bold rounded-lg hover:bg-white/90 transition-all shadow-md ${bengaliClass}`}
+                            className={`inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#7A85F0] text-xs font-bold rounded-lg hover:bg-white/90 transition-all shadow-md ${bengaliClass}`}
                         >
                             {language === "bn" ? "যোগাযোগ করুন" : "Contact Us"}
                             <LuArrowRight size={14} />

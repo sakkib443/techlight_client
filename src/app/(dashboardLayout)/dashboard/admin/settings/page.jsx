@@ -11,7 +11,7 @@ export default function SettingsPage() {
   const [saving, setSaving] = useState(false);
   const [settings, setSettings] = useState({
     siteName: 'HIICT Park',
-    siteEmail: 'admin@hiictpark.com',
+    siteEmail: 'admin@TECHLIGHT.com',
     currency: 'BDT',
     currencySymbol: '৳',
     emailNotifications: true,

@@ -28,7 +28,7 @@ import { motion, AnimatePresence } from "framer-motion";
 // Loading fallback component
 const LoadingFallback = () => (
   <div className="flex items-center justify-center py-20">
-    <div className="w-10 h-10 border-3 border-[#E62D26]/30 border-t-[#E62D26] rounded-full animate-spin"></div>
+    <div className="w-10 h-10 border-3 border-[#7A85F0]/30 border-t-[#7A85F0] rounded-full animate-spin"></div>
   </div>
 );
 
@@ -151,7 +151,7 @@ const CourseContent = () => {
       {/* Hero Section with Floating Elements */}
       <section className="relative py-12 lg:py-16 bg-slate-50 dark:bg-[#0a0a0a] overflow-hidden">
         {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#E62D26]/5 via-transparent to-[#F79952]/5"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#7A85F0]/5 via-transparent to-[#7A85F0]/5"></div>
 
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(230,45,38,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(230,45,38,0.02)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
@@ -160,12 +160,12 @@ const CourseContent = () => {
         <motion.div
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 8, repeat: Infinity }}
-          className="absolute -top-20 -left-20 w-96 h-96 bg-gradient-to-br from-[#E62D26]/20 to-[#E62D26]/5 rounded-full blur-3xl"
+          className="absolute -top-20 -left-20 w-96 h-96 bg-gradient-to-br from-[#7A85F0]/20 to-[#7A85F0]/5 rounded-full blur-3xl"
         />
         <motion.div
           animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 8, repeat: Infinity, delay: 2 }}
-          className="absolute -bottom-20 -right-20 w-96 h-96 bg-gradient-to-br from-[#F79952]/20 to-[#F79952]/5 rounded-full blur-3xl"
+          className="absolute -bottom-20 -right-20 w-96 h-96 bg-gradient-to-br from-[#7A85F0]/20 to-[#7A85F0]/5 rounded-full blur-3xl"
         />
 
         {/* Floating Decorative Elements */}
@@ -177,7 +177,7 @@ const CourseContent = () => {
           </FloatingElement>
 
           <FloatingElement delay={1} duration={4} className="absolute top-32 right-[12%] hidden lg:block">
-            <div className="w-14 h-14 bg-gradient-to-br from-[#F79952] to-[#E62D26] rounded-2xl shadow-lg flex items-center justify-center rotate-12">
+            <div className="w-14 h-14 bg-gradient-to-br from-[#7A85F0] to-[#7A85F0] rounded-2xl shadow-lg flex items-center justify-center rotate-12">
               <span className="text-2xl">🎓</span>
             </div>
           </FloatingElement>
@@ -195,10 +195,10 @@ const CourseContent = () => {
           </FloatingElement>
 
           {/* Decorative Dots */}
-          <div className="absolute top-1/2 left-8 w-2 h-2 bg-[#E62D26]/40 rounded-full hidden lg:block"></div>
-          <div className="absolute top-1/3 left-12 w-1.5 h-1.5 bg-[#F79952]/40 rounded-full hidden lg:block"></div>
-          <div className="absolute bottom-1/3 right-8 w-2 h-2 bg-[#E62D26]/40 rounded-full hidden lg:block"></div>
-          <div className="absolute bottom-1/2 right-16 w-1.5 h-1.5 bg-[#F79952]/40 rounded-full hidden lg:block"></div>
+          <div className="absolute top-1/2 left-8 w-2 h-2 bg-[#7A85F0]/40 rounded-full hidden lg:block"></div>
+          <div className="absolute top-1/3 left-12 w-1.5 h-1.5 bg-[#7A85F0]/40 rounded-full hidden lg:block"></div>
+          <div className="absolute bottom-1/3 right-8 w-2 h-2 bg-[#7A85F0]/40 rounded-full hidden lg:block"></div>
+          <div className="absolute bottom-1/2 right-16 w-1.5 h-1.5 bg-[#7A85F0]/40 rounded-full hidden lg:block"></div>
         </div>
 
         <div className="container mx-auto px-4 lg:px-16 relative z-10">
@@ -209,10 +209,10 @@ const CourseContent = () => {
             className="text-center max-w-3xl mx-auto"
           >
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/80 dark:bg-white/5 backdrop-blur-sm border border-[#E62D26]/20 rounded-full shadow-sm mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/80 dark:bg-white/5 backdrop-blur-sm border border-[#7A85F0]/20 rounded-full shadow-sm mb-4">
               <span className="flex h-1.5 w-1.5 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E62D26] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E62D26]"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7A85F0] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#7A85F0]"></span>
               </span>
               <span className={`text-[10px] font-medium text-slate-600 dark:text-slate-300 ${bengaliClass}`}>
                 {language === "bn" ? "প্রিমিয়াম কোর্স" : "Premium Courses"}
@@ -223,11 +223,11 @@ const CourseContent = () => {
             <h1 className={`text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 dark:text-white mb-3 outfit leading-tight ${bengaliClass}`}>
               {language === "bn" ? "আমাদের " : "Discover Our "}
               <span className="relative">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E62D26] to-[#F79952]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7A85F0] to-[#7A85F0]">
                   {language === "bn" ? "প্রিমিয়াম কোর্স" : "Premium Courses"}
                 </span>
                 <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none">
-                  <path d="M1 5.5C47.6667 2.16667 141 -1.8 199 5.5" stroke="#E62D26" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M1 5.5C47.6667 2.16667 141 -1.8 199 5.5" stroke="#7A85F0" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </span>
             </h1>
@@ -241,9 +241,9 @@ const CourseContent = () => {
 
             {/* Stats Cards */}
             <div className="flex flex-wrap justify-center gap-4 lg:gap-6 mb-8">
-              <div className="group flex items-center gap-2 px-4 py-2.5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-md hover:border-[#E62D26]/30 transition-all duration-300">
-                <div className="w-9 h-9 bg-gradient-to-br from-[#E62D26]/10 to-[#E62D26]/5 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <LuBookOpen className="text-[#E62D26] text-base" />
+              <div className="group flex items-center gap-2 px-4 py-2.5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-md hover:border-[#7A85F0]/30 transition-all duration-300">
+                <div className="w-9 h-9 bg-gradient-to-br from-[#7A85F0]/10 to-[#7A85F0]/5 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <LuBookOpen className="text-[#7A85F0] text-base" />
                 </div>
                 <div className="text-left">
                   <p className="text-lg font-bold text-slate-800 dark:text-white outfit">{courses.length || '20'}+</p>
@@ -251,9 +251,9 @@ const CourseContent = () => {
                 </div>
               </div>
 
-              <div className="group flex items-center gap-2 px-4 py-2.5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-md hover:border-[#F79952]/30 transition-all duration-300">
-                <div className="w-9 h-9 bg-gradient-to-br from-[#F79952]/10 to-[#F79952]/5 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <HiOutlineSparkles className="text-[#F79952] text-base" />
+              <div className="group flex items-center gap-2 px-4 py-2.5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-md hover:border-[#7A85F0]/30 transition-all duration-300">
+                <div className="w-9 h-9 bg-gradient-to-br from-[#7A85F0]/10 to-[#7A85F0]/5 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <HiOutlineSparkles className="text-[#7A85F0] text-base" />
                 </div>
                 <div className="text-left">
                   <p className="text-lg font-bold text-slate-800 dark:text-white outfit">10+</p>
@@ -281,7 +281,7 @@ const CourseContent = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={language === "bn" ? "কোর্স খুঁজুন..." : "Search courses..."}
-                  className={`w-full pl-12 pr-4 py-3.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#E62D26]/50 focus:border-[#E62D26] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400 ${bengaliClass}`}
+                  className={`w-full pl-12 pr-4 py-3.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#7A85F0]/50 focus:border-[#7A85F0] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400 ${bengaliClass}`}
                 />
                 {searchQuery && (
                   <button
@@ -311,7 +311,7 @@ const CourseContent = () => {
                   key={type.name}
                   onClick={() => setSelectedType(type.name)}
                   className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${selectedType === type.name
-                      ? "bg-[#E62D26] text-white shadow-md shadow-[#E62D26]/20"
+                      ? "bg-[#7A85F0] text-white shadow-md shadow-[#7A85F0]/20"
                       : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10"
                     } ${bengaliClass}`}
                 >
@@ -338,7 +338,7 @@ const CourseContent = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className={`appearance-none pl-8 pr-8 py-2 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#E62D26] cursor-pointer ${bengaliClass}`}
+                  className={`appearance-none pl-8 pr-8 py-2 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#7A85F0] cursor-pointer ${bengaliClass}`}
                 >
                   <option value="default">{language === 'bn' ? 'সর্ট করুন' : 'Sort By'}</option>
                   <option value="rating">{language === 'bn' ? 'টপ রেটেড' : 'Top Rated'}</option>
@@ -354,7 +354,7 @@ const CourseContent = () => {
                 <button
                   onClick={() => setViewMode("grid")}
                   className={`p-2 rounded-md transition-all ${viewMode === "grid"
-                      ? "bg-white dark:bg-white/10 text-[#E62D26] shadow-sm"
+                      ? "bg-white dark:bg-white/10 text-[#7A85F0] shadow-sm"
                       : "text-slate-500"
                     }`}
                 >
@@ -363,7 +363,7 @@ const CourseContent = () => {
                 <button
                   onClick={() => setViewMode("list")}
                   className={`p-2 rounded-md transition-all ${viewMode === "list"
-                      ? "bg-white dark:bg-white/10 text-[#E62D26] shadow-sm"
+                      ? "bg-white dark:bg-white/10 text-[#7A85F0] shadow-sm"
                       : "text-slate-500"
                     }`}
                 >
@@ -382,7 +382,7 @@ const CourseContent = () => {
               <button
                 onClick={() => dispatch(setSelectedCategories([]))}
                 className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${selectedCategories.length === 0
-                    ? "bg-[#E62D26] text-white"
+                    ? "bg-[#7A85F0] text-white"
                     : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
                   } ${bengaliClass}`}
               >
@@ -396,7 +396,7 @@ const CourseContent = () => {
                     key={cat._id}
                     onClick={() => handleCategoryChange(cat.name)}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${selectedCategories.includes(cat.name)
-                        ? "bg-[#E62D26] text-white"
+                        ? "bg-[#7A85F0] text-white"
                         : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
                       } ${bengaliClass}`}
                   >
@@ -408,7 +408,7 @@ const CourseContent = () => {
 
           {/* Results Count */}
           <div className="mt-4 flex items-center gap-2">
-            <HiOutlineSparkles className="text-[#E62D26]" size={16} />
+            <HiOutlineSparkles className="text-[#7A85F0]" size={16} />
             <span className={`text-sm text-slate-600 dark:text-slate-400 ${bengaliClass}`}>
               <span className="font-bold text-slate-800 dark:text-white">{sortedCourses.length}</span>
               {language === "bn" ? " টি কোর্স পাওয়া গেছে" : " courses found"}
@@ -476,7 +476,7 @@ const CourseContent = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-12 lg:py-16 bg-gradient-to-br from-[#E62D26] to-[#F79952]">
+      <section className="py-12 lg:py-16 bg-gradient-to-br from-[#7A85F0] to-[#7A85F0]">
         <div className="container mx-auto px-4 lg:px-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -502,7 +502,7 @@ const CourseContent = () => {
 
             <Link
               href="/contact"
-              className={`inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#E62D26] text-xs font-bold rounded-lg hover:bg-white/90 transition-all shadow-md ${bengaliClass}`}
+              className={`inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#7A85F0] text-xs font-bold rounded-lg hover:bg-white/90 transition-all shadow-md ${bengaliClass}`}
             >
               {language === "bn" ? "যোগাযোগ করুন" : "Contact Us"}
               <LuArrowRight size={14} />
