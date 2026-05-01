@@ -15,7 +15,7 @@ export const API_BASE_URL =
 // For legacy code support (if any file uses API_URL specifically)
 export const API_URL = API_BASE_URL;
 
-console.log('🔌 API Base URL:', API_BASE_URL);
+
 
 // Local development reminder:
 // Create .env.local with: NEXT_PUBLIC_API_URL=http://localhost:5000/api

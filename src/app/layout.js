@@ -45,31 +45,12 @@ export default function RootLayout({ children }) {
     >
       <GoogleTagManager gtmId="GTM-MJ8GRP2J" />
       <body className="antialiased" suppressHydrationWarning>
-        {/* Instant SSR dark cover — prevents flash of unstyled page before React hydrates.
-            Removes itself once the animated Preloader takes over. */}
-        <div
-          id="initial-cover"
-          aria-hidden="true"
-          style={{
-            position: "fixed",
-            inset: 0,
-            backgroundColor: "#06060d",
-            zIndex: 10000,
-            pointerEvents: "none",
+        {/* Google Tag Manager (noscript) — using dangerouslySetInnerHTML to avoid hydration mismatch */}
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MJ8GRP2J" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe>`,
           }}
         />
-
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-MJ8GRP2J"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-            title="Google Tag Manager"
-          />
-        </noscript>
-        {/* End Google Tag Manager (noscript) */}
         <Suspense fallback={null}>
           <GTMPageViewTracker />
         </Suspense>

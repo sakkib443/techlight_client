@@ -39,20 +39,9 @@ const Preloader = () => {
         "Welcome",
     ];
 
-    // Lock scroll + remove the SSR initial cover once Preloader is mounted
+    // Lock scroll while preloader is active
     useEffect(() => {
         document.body.style.overflow = "hidden";
-
-        // Hand off from static SSR cover to animated Preloader
-        const cover = document.getElementById("initial-cover");
-        if (cover) {
-            // Wait one paint frame so React Preloader is on screen, then remove cover
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    cover.remove();
-                });
-            });
-        }
 
         return () => {
             document.body.style.overflow = "auto";
