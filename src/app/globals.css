@@ -1,0 +1,1243 @@
+@import "tailwindcss";
+
+/* =====================================================
+   HIICTPARK - GLOBAL DESIGN SYSTEM
+   Colors: Red (#E62D26) & Orange (#F79952)
+   Fonts: Outfit (headings) & Poppins (body)
+   ===================================================== */
+
+/* =====================================================
+   CSS VARIABLES - Global Theme
+   ===================================================== */
+:root {
+  /* Primary Colors */
+  --color-primary: #E62D26;
+  --color-primary-dark: #c41e18;
+  --color-primary-light: #ff4d47;
+  --color-primary-10: rgba(230, 45, 38, 0.1);
+  --color-primary-20: rgba(230, 45, 38, 0.2);
+
+  /* Secondary Colors */
+  --color-secondary: #F79952;
+  --color-secondary-dark: #f59e0b;
+  --color-secondary-light: #fbbf24;
+  --color-secondary-10: rgba(247, 153, 82, 0.1);
+  --color-secondary-20: rgba(247, 153, 82, 0.2);
+
+  /* Neutral Colors */
+  --color-dark: #1e293b;
+  --color-gray-900: #0f172a;
+  --color-gray-800: #1e293b;
+  --color-gray-700: #334155;
+  --color-gray-600: #475569;
+  --color-gray-500: #64748b;
+  --color-gray-400: #94a3b8;
+  --color-gray-300: #cbd5e1;
+  --color-gray-200: #e2e8f0;
+  --color-gray-100: #f1f5f9;
+  --color-gray-50: #f8fafc;
+  --color-white: #ffffff;
+
+  /* Font Families */
+  --font-heading: "Poppins", sans-serif;
+  --font-body: "Poppins", sans-serif;
+  --font-bengali: "Poppins", sans-serif;
+}
+
+/* =====================================================
+   BASE TYPOGRAPHY - Outfit & Poppins Only
+   ===================================================== */
+
+/* Default body font - Poppins */
+body {
+  font-family: var(--font-body);
+  color: var(--color-gray-800);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* All Headings - Poppins */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-gray-900);
+}
+
+/* Paragraphs & Body Text - Poppins */
+p,
+span,
+label,
+input,
+textarea,
+select,
+button,
+a,
+li,
+td,
+th,
+div {
+  font-family: var(--font-body);
+}
+
+/* Bengali Font Override - Fallback to Poppins */
+.hind-siliguri,
+[lang="bn"],
+.bn {
+  font-family: var(--font-bengali), var(--font-body);
+}
+
+/* =====================================================
+   GLOBAL BENGALI FONT - Applied when language is Bengali
+   This class is added to body element via LanguageContext
+   ===================================================== */
+body.font-bengali,
+body.font-bengali * {
+  font-family: var(--font-bengali), var(--font-body) !important;
+}
+
+/* Keep Font for icons and special elements */
+body.font-bengali .icon-font,
+body.font-bengali [class*="lucide-"],
+body.font-bengali [class*="fa-"],
+body.font-bengali .font-icon {
+  font-family: inherit;
+}
+
+/* =====================================================
+   FONT UTILITY CLASSES
+   ===================================================== */
+
+.font-outfit {
+  font-family: var(--font-heading) !important;
+}
+
+.font-poppins {
+  font-family: var(--font-body) !important;
+}
+
+/* Poppins Weights (replacing Outfit classes for compatibility) */
+.outfit {
+  font-family: var(--font-heading);
+  font-weight: 800;
+}
+
+.outfit-bold {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+.outfit-semibold {
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.outfit-medium {
+  font-family: var(--font-heading);
+  font-weight: 500;
+}
+
+/* Poppins Weights */
+.poppins {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+.poppins-medium {
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+
+.poppins-semibold {
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+.poppins-bold {
+  font-family: var(--font-body);
+  font-weight: 700;
+}
+
+/* =====================================================
+   COLOR UTILITY CLASSES - Primary (Teal)
+   ===================================================== */
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-primary-10 {
+  background-color: var(--color-primary-10);
+}
+
+.bg-primary-20 {
+  background-color: var(--color-primary-20);
+}
+
+.border-primary {
+  border-color: var(--color-primary);
+}
+
+.hover\:bg-primary:hover {
+  background-color: var(--color-primary);
+}
+
+.hover\:text-primary:hover {
+  color: var(--color-primary);
+}
+
+/* =====================================================
+   COLOR UTILITY CLASSES - Secondary (Orange)
+   ===================================================== */
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-secondary-10 {
+  background-color: var(--color-secondary-10);
+}
+
+.bg-secondary-20 {
+  background-color: var(--color-secondary-20);
+}
+
+.border-secondary {
+  border-color: var(--color-secondary);
+}
+
+.hover\:bg-secondary:hover {
+  background-color: var(--color-secondary);
+}
+
+.hover\:text-secondary:hover {
+  color: var(--color-secondary);
+}
+
+/* =====================================================
+   LEGACY COLOR CLASSES (for compatibility)
+   ===================================================== */
+
+.cpr,
+.text-cpr {
+  color: var(--color-secondary);
+}
+
+.csd,
+.text-csd {
+  color: var(--color-primary);
+}
+
+.bg-cpr {
+  background-color: var(--color-secondary);
+}
+
+.bg-csd {
+  background-color: var(--color-primary);
+}
+
+.border-cpr {
+  border-color: var(--color-secondary);
+}
+
+.border-csd {
+  border-color: var(--color-primary);
+}
+
+/* =====================================================
+   GRADIENT UTILITIES
+   ===================================================== */
+
+.gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-dark) 100%);
+}
+
+.gradient-mixed {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+}
+
+.btn-gradient:hover {
+  filter: brightness(1.05);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.animated-bg {
+  background: linear-gradient(270deg, var(--color-secondary), var(--color-primary), var(--color-secondary));
+  background-size: 600% 600%;
+  animation: gradientMove 20s ease infinite;
+}
+
+/* =====================================================
+   BUTTON STYLES
+   ===================================================== */
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--color-primary-20);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: white;
+  font-family: var(--font-body);
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-secondary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--color-secondary-20);
+}
+
+/* =====================================================
+   SMOOTH TRANSITIONS
+   ===================================================== */
+
+@layer base {
+
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  [role="button"],
+  .cursor-pointer {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .bg-white,
+  [class*="rounded-"],
+  [class*="shadow"],
+  [class*="border"] {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* =====================================================
+   KEYFRAME ANIMATIONS
+   ===================================================== */
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-20px) rotate(10deg);
+  }
+}
+
+@keyframes blob {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(20px, -30px) scale(1.05);
+  }
+
+  50% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+
+  75% {
+    transform: translate(30px, 10px) scale(1.02);
+  }
+}
+
+@keyframes sparkle {
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: scale(1.3) rotate(180deg);
+    opacity: 0.8;
+  }
+}
+
+@keyframes flip {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  50% {
+    transform: translateY(10%);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce-x {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+.animate-bounce-x {
+  animation: bounce-x 1s infinite;
+}
+
+/* Animation Classes */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-blob {
+  animation: blob 8s ease-in-out infinite;
+}
+
+.animate-sparkle {
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+.animate-flip {
+  animation: flip 0.3s ease-in-out;
+}
+
+@keyframes riverWave {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes enrollJump {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.enroll-wave-btn {
+  background-image: linear-gradient(90deg,
+      #E62D26 0%,
+      #38a89d 50%,
+      #E62D26 100%) !important;
+  background-size: 200% auto !important;
+  animation: riverWave 8s ease-in-out infinite !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 10px 25px rgba(230, 45, 38, 0.4) !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.enroll-jump-icon {
+  animation: enrollJump 1.5s ease-in-out infinite !important;
+  display: inline-block !important;
+}
+
+.special-enroll-btn {
+  background: linear-gradient(90deg,
+      #E62D26,
+      #38a89d,
+      #f79952,
+      #e07832,
+      #E62D26) !important;
+  background-size: 400% 100% !important;
+  animation: riverWave 10s linear infinite !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 10px 30px rgba(230, 45, 38, 0.4) !important;
+  transition: all 0.3s ease !important;
+}
+
+.special-enroll-btn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 15px 30px rgba(230, 45, 38, 0.4) !important;
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+.animate-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shine::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(to right,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent);
+  transform: rotate(45deg);
+  animation: shine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Animation Delays */
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-3000 {
+  animation-delay: 3s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* =====================================================
+   DASHBOARD SPECIFIC STYLES
+   ===================================================== */
+
+.dashboard-fonts {
+  font-family: var(--font-body);
+}
+
+.dashboard-fonts h1,
+.dashboard-fonts h2,
+.dashboard-fonts h3,
+.dashboard-fonts h4,
+.dashboard-fonts h5,
+.dashboard-fonts h6 {
+  font-family: var(--font-heading);
+}
+
+.dashboard-fonts *:not(.animate-spin):not(.animate-pulse):not([class*="animate-"]) {
+  transition: background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+}
+
+/* =====================================================
+   DARK MODE STYLES
+   ===================================================== */
+
+.dark body {
+  background-color: var(--color-gray-900);
+  color: var(--color-gray-200);
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  color: var(--color-white);
+}
+
+.dark .bg-white {
+  background: var(--color-gray-900);
+  border-color: var(--color-gray-700);
+}
+
+.dark input,
+.dark select,
+.dark textarea {
+  background: var(--color-gray-900) !important;
+  border-color: var(--color-gray-700) !important;
+  color: var(--color-gray-200);
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px var(--color-primary-10);
+}
+
+.dark .text-gray-900 {
+  color: var(--color-gray-100) !important;
+}
+
+.dark .text-gray-800 {
+  color: var(--color-gray-200) !important;
+}
+
+.dark .text-gray-700 {
+  color: var(--color-gray-300) !important;
+}
+
+.dark .text-gray-600 {
+  color: var(--color-gray-400) !important;
+}
+
+.dark .text-gray-500 {
+  color: var(--color-gray-500) !important;
+}
+
+.dark .bg-gray-50,
+.dark .bg-gray-100 {
+  background: var(--color-gray-800);
+}
+
+.dark .border-gray-200,
+.dark .border-gray-100 {
+  border-color: var(--color-gray-700) !important;
+}
+
+/* =====================================================
+   LIGHT MODE OVERRIDES
+   ===================================================== */
+
+html:not(.dark) .bg-slate-800,
+html:not(.dark) .bg-slate-900 {
+  background: linear-gradient(135deg, var(--color-gray-50), var(--color-gray-100)) !important;
+  color: var(--color-gray-800) !important;
+  border: 1px solid var(--color-gray-200) !important;
+}
+
+/* =====================================================
+   UTILITY CLASSES
+   ===================================================== */
+
+.crd {
+  color: var(--color-dark);
+}
+
+.tw {
+  color: var(--color-white);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray-300);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-400);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--color-gray-800);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-gray-600);
+}
+
+/* Focus Ring */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-primary-20);
+  color: var(--color-primary);
+}
+
+/* =====================================================
+   HERO SECTION - DARK MODE FIXES
+   ===================================================== */
+
+/* Hero Badge - Dark Mode */
+.dark .hero-badge,
+.dark section[class*="min-h-[90vh]"] .inline-flex[class*="bg-white/70"] {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Hero Stats Cards - Dark Mode (Software/Website cards) */
+.dark section[class*="min-h-[90vh]"] .bg-white\/50 {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Icon container inside stats cards - Dark Mode */
+.dark section[class*="min-h-[90vh]"] .bg-white\/50 .bg-white {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Hero Search Bar - Dark Mode */
+.dark section[class*="min-h-[90vh]"] .bg-white[class*="border-gray-400"] {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Search Bar Input - Dark Mode */
+.dark section[class*="min-h-[90vh]"] input[type="text"] {
+  background: transparent !important;
+  color: #e5e7eb !important;
+}
+
+.dark section[class*="min-h-[90vh]"] input::placeholder {
+  color: #6b7280 !important;
+}
+
+/* Play Button - Dark Mode */
+.dark section[class*="min-h-[90vh]"] .bg-white[class*="dark:bg-white/5"] {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Bottom Carousel/Marquee - Dark Mode */
+.dark section[class*="min-h-[90vh]"] .bg-white\/70 {
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Carousel Edge Gradients - Dark Mode */
+.dark section[class*="min-h-[90vh]"] .from-white {
+  --tw-gradient-from: #000000 !important;
+}
+
+/* =====================================================
+   HERO GENERAL DARK MODE ENHANCEMENTS
+   ===================================================== */
+
+/* Ensure all card/box elements have dark backgrounds */
+.dark .hero-card,
+.dark .hero-search,
+.dark .hero-stats {
+  background: rgba(10, 10, 10, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(20px);
+}
+
+/* Text colors in dark mode */
+.dark section[class*="min-h-[90vh]"] .text-gray-700 {
+  color: #d1d5db !important;
+}
+
+.dark section[class*="min-h-[90vh]"] .text-gray-800 {
+  color: #e5e7eb !important;
+}
+
+/* Carousel Text in Dark Mode */
+.dark section[class*="min-h-[90vh]"] .text-gray-800.uppercase {
+  color: #e5e7eb !important;
+}
+
+/* =====================================================
+   FRONTEND ONLY - DARK MODE FIXES (CUSTOM CSS)
+   =====================================================
+   IMPORTANT: These styles are for Frontend (mainLayout) pages ONLY.
+   Dashboard pages use separate CSS file (dashboard.css) with 
+   .dashboard-container scope to avoid conflicts.
+   ===================================================== */
+
+/* =====================================================
+   NAVBAR - DARK MODE FIXES (Frontend Only)
+   ===================================================== */
+
+/* Force dark background on navbar element itself */
+.dark nav,
+.dark nav.sticky,
+html.dark nav {
+  background: #1E293B !important;
+  background-color: #1E293B !important;
+}
+
+/* Sticky state background fix */
+.dark nav[class*="bg-white"],
+.dark nav[class*="bg-white/90"] {
+  background: #1E293B !important;
+  background-color: #1E293B !important;
+}
+
+/* Main Navigation Menu Bar Container */
+.dark nav .bg-gray-50\/70,
+.dark nav [class*="bg-gray-50"] {
+  background: #1E293B !important;
+  border-color: rgba(55, 65, 81, 0.5) !important;
+}
+
+/* Category Dropdown Button */
+.dark nav .bg-gray-50\/70[class*="rounded-full"],
+.dark nav button[class*="bg-gray-50"] {
+  background: #1E293B !important;
+  border-color: rgba(55, 65, 81, 0.5) !important;
+}
+
+/* Active Menu Item in Navigation */
+.dark nav .bg-white {
+  background: #334155 !important;
+}
+
+/* Category Mega Menu Dropdown Container */
+.dark nav .bg-white[class*="rounded-3xl"],
+.dark nav [class*="shadow-"][class*="bg-white"] {
+  background: #1E293B !important;
+  border-color: rgba(55, 65, 81, 0.5) !important;
+}
+
+/* Category Mega Menu - Left Side Panel */
+.dark nav .bg-gray-50 {
+  background: #1E293B !important;
+  border-color: rgba(55, 65, 81, 0.5) !important;
+}
+
+/* Category Item Active State */
+.dark nav .bg-white[class*="shadow-sm"] {
+  background: #334155 !important;
+}
+
+/* Category Item Icon Container */
+.dark nav .bg-gray-100 {
+  background: #334155 !important;
+}
+
+/* Profile Button */
+.dark nav .profile-dropdown-container .bg-gray-50,
+.dark nav .profile-dropdown-container button {
+  background: #1E293B !important;
+  border-color: rgba(55, 65, 81, 0.5) !important;
+}
+
+/* Profile Dropdown Menu */
+.dark nav .profile-dropdown-container>div[class*="absolute"] {
+  background: #1E293B !important;
+  border-color: rgba(55, 65, 81, 0.5) !important;
+}
+
+/* Mobile Menu Toggle Button */
+.dark nav button.bg-gray-50 {
+  background: #1E293B !important;
+  border-color: rgba(55, 65, 81, 0.5) !important;
+}
+
+/* Dark Mode Toggle Button */
+.dark nav button.bg-gray-100,
+.dark nav .bg-gray-100 {
+  background: #334155 !important;
+}
+
+/* Cart Button Hover */
+.dark nav .hover\:bg-red-50:hover {
+  background: rgba(20, 184, 166, 0.1) !important;
+}
+
+/* Text Colors in Navbar */
+.dark nav .text-gray-700 {
+  color: #d1d5db !important;
+}
+
+.dark nav .text-gray-600 {
+  color: #9ca3af !important;
+}
+
+/* Border Colors */
+.dark nav .border-gray-100,
+.dark nav .border-gray-200 {
+  border-color: rgba(55, 65, 81, 0.5) !important;
+}
+
+/* =====================================================
+   NAVBAR - STICKY STATE FIXES
+   ===================================================== */
+
+/* Remove bottom border when navbar is sticky */
+.dark nav.sticky,
+.dark nav[class*="sticky"] {
+  border-bottom: none !important;
+}
+
+/* Fix sticky navbar background in dark mode */
+.dark nav.sticky,
+.dark nav[class*="sticky"][class*="bg-white"] {
+  background: #1E293B !important;
+  border-bottom-color: transparent !important;
+}
+
+/* Remove the border-b class effect in dark mode for navbar */
+.dark nav .border-b,
+.dark nav.border-b,
+.dark nav[class*="border-b"] {
+  border-bottom-color: transparent !important;
+}
+
+/* Ensure no visible border transition effect */
+.dark nav {
+  border-bottom: none !important;
+  border-bottom-color: transparent !important;
+}
+
+/* Sticky state specific - force no border */
+html.dark nav[class*="shadow-sm"] {
+  border-bottom: none !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Light mode sticky border fix too */
+nav.sticky .border-b,
+nav[class*="sticky"] .border-b {
+  border-bottom-color: transparent !important;
+}
+
+nav.sticky,
+nav[class*="sticky"] {
+  border-bottom-color: transparent !important;
+}
+
+/* =====================================================
+   FOOTER - DARK MODE FIXES (CUSTOM CSS)
+   ===================================================== */
+
+/* Footer Main Background */
+.dark footer {
+  background: linear-gradient(to bottom, #0F172A, #1E293B, #0F172A) !important;
+}
+
+/* Footer All Backgrounds */
+.dark footer .bg-white,
+.dark footer .bg-white\/50,
+.dark footer [class*="bg-white"] {
+  background: #1E293B !important;
+}
+
+.dark footer .bg-gray-50,
+.dark footer [class*="from-gray-50"],
+.dark footer [class*="via-white"],
+.dark footer [class*="to-gray-100"] {
+  background: transparent !important;
+}
+
+/* Footer Borders */
+.dark footer .border-gray-200,
+.dark footer .border-gray-100,
+.dark footer [class*="border-gray-200"],
+.dark footer [class*="border-gray-100"] {
+  border-color: rgba(71, 85, 105, 0.5) !important;
+}
+
+/* Footer Text Colors - Headings */
+.dark footer .text-gray-800,
+.dark footer h3,
+.dark footer h4 {
+  color: #FFFFFF !important;
+}
+
+/* Footer Text Colors - Body */
+.dark footer .text-gray-700,
+.dark footer .text-gray-600,
+.dark footer .text-gray-500 {
+  color: #94A3B8 !important;
+}
+
+.dark footer .text-gray-400 {
+  color: #64748B !important;
+}
+
+/* Footer Links */
+.dark footer a.text-gray-600,
+.dark footer a .text-gray-600 {
+  color: #94A3B8 !important;
+}
+
+.dark footer a:hover .text-gray-700,
+.dark footer a:hover.text-gray-700 {
+  color: #E62D26 !important;
+}
+
+/* Footer Input */
+.dark footer input {
+  background: #1E293B !important;
+  border-color: rgba(71, 85, 105, 0.5) !important;
+  color: #E2E8F0 !important;
+}
+
+.dark footer input::placeholder {
+  color: #64748B !important;
+}
+
+/* Footer Social Icons Container */
+.dark footer .bg-white.border {
+  background: #1E293B !important;
+  border-color: rgba(71, 85, 105, 0.5) !important;
+}
+
+/* Footer Icon Text */
+.dark footer .text-gray-500.group-hover\:text-white {
+  color: #94A3B8 !important;
+}
+
+/* Footer Bottom Bar */
+.dark footer .bg-white\/50 {
+  background: rgba(15, 23, 42, 0.8) !important;
+}
+
+/* Footer CTA Box */
+.dark footer [class*="from-[#E62D26]/10"] {
+  background: linear-gradient(to right, rgba(65, 191, 184, 0.2), rgba(247, 153, 82, 0.2)) !important;
+}
+
+/* Footer Contact Icons Background */
+.dark footer [class*="bg-[#E62D26]/10"],
+.dark footer [class*="bg-[#F79952]/10"] {
+  background: rgba(65, 191, 184, 0.2) !important;
+}
+
+/* =====================================================
+   PAGE HEROES - DARK MODE FIXES (Courses, Software, Website)
+   ===================================================== */
+
+/* Hero Section Background - Force Dark Gradient */
+.dark section[class*="from-[#e8f9f9]"],
+.dark section[class*="bg-gradient-to-br"][class*="from-[#e8f9f9]"] {
+  background: linear-gradient(to bottom right, #0F172A, #1E293B, #0F172A) !important;
+}
+
+/* Main Page Background */
+.dark .min-h-screen.bg-gray-50,
+.dark .min-h-screen[class*="bg-gray-50"] {
+  background: #0F172A !important;
+}
+
+/* Hero Section Elements */
+.dark section[class*="from-[#e8f9f9]"] .bg-white,
+.dark section[class*="from-[#e8f9f9]"] [class*="via-white"] {
+  background: transparent !important;
+}
+
+/* Hero Badge */
+.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#E62D26]/10"] {
+  background: rgba(30, 41, 59, 0.8) !important;
+  border-color: rgba(71, 85, 105, 0.5) !important;
+}
+
+/* Hero Title */
+.dark section[class*="from-[#e8f9f9]"] h1.text-gray-800 {
+  color: #FFFFFF !important;
+}
+
+/* Hero Description */
+.dark section[class*="from-[#e8f9f9]"] p.text-gray-500 {
+  color: #94A3B8 !important;
+}
+
+/* Hero Stats Card Background */
+.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#E62D26]/10"].rounded-md,
+.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#F79952]/10"].rounded-md {
+  background: rgba(30, 41, 59, 0.8) !important;
+}
+
+/* Hero Stats Text */
+.dark section[class*="from-[#e8f9f9]"] .text-gray-800.outfit {
+  color: #FFFFFF !important;
+}
+
+/* Hero Stats Subtitle */
+.dark section[class*="from-[#e8f9f9]"] p.text-gray-500.work {
+  color: #94A3B8 !important;
+}
+
+/* Hero Divider Line */
+.dark section[class*="from-[#e8f9f9]"] .bg-gray-200 {
+  background: rgba(71, 85, 105, 0.3) !important;
+}
+
+/* Badge Text */
+.dark section[class*="from-[#e8f9f9]"] span.text-gray-700 {
+  color: #E2E8F0 !important;
+}
+
+/* Hero Border */
+.dark section[class*="from-[#e8f9f9]"].border-b {
+  border-color: rgba(71, 85, 105, 0.3) !important;
+}
+
+/* Mobile Filter Button */
+.dark button.bg-white.border-gray-200 {
+  background: #1E293B !important;
+  border-color: rgba(71, 85, 105, 0.5) !important;
+}
+
+.dark button.bg-white.border-gray-200 span.text-gray-700 {
+  color: #E2E8F0 !important;
+}
+
+/* =====================================================
+   ABOUT PAGE - DARK MODE FIXES
+   ===================================================== */
+
+/* About Page Main Background */
+.dark [class*="bg-black"] {
+  background: #0F172A !important;
+}
+
+/* About Sections Background */
+.dark [class*="bg-020202"] {
+  background: #1E293B !important;
+}
+
+/* About Page Text Colors */
+.dark section .text-gray-900,
+.dark section .text-gray-800 {
+  color: #F1F5F9 !important;
+}
+
+.dark section .text-gray-700 {
+  color: #CBD5E1 !important;
+}
+
+.dark section .text-gray-600 {
+  color: #94A3B8 !important;
+}
+
+.dark section .text-gray-500 {
+  color: #64748B !important;
+}
+
+/* About Cards */
+.dark section .bg-white {
+  background: #1E293B !important;
+  border-color: rgba(71, 85, 105, 0.5) !important;
+}
+
+.dark section .bg-gray-50 {
+  background: #0F172A !important;
+}
+
+/* About Borders */
+.dark section .border-gray-200,
+.dark section .border-gray-100 {
+  border-color: rgba(71, 85, 105, 0.5) !important;
+}
+
+/* About Feature Cards */
+.dark section [class*="bg-gradient-to-br"][class*="from-white"] {
+  background: linear-gradient(to bottom right, #1E293B, #0F172A) !important;
+}
+
+/* About Stats Cards */
+.dark section [class*="bg-white/80"],
+.dark section [class*="bg-white/50"] {
+  background: rgba(30, 41, 59, 0.8) !important;
+}
+
+/* About Feature Cards - Fix Dark Mode */
+.dark section [class*="bg-[#fafafa]"],
+.dark section .bg-\[\#fafafa\],
+.dark [class*="rounded-[60px]"][class*="bg-"] {
+  background: #1E293B !important;
+  border-color: rgba(71, 85, 105, 0.5) !important;
+}
+
+/* Feature Card Icon Container */
+.dark section [class*="bg-white"][class*="rounded-3xl"],
+.dark section .bg-white.rounded-3xl {
+  background: #0F172A !important;
+}
+
+/* Feature Card Hover Border */
+.dark section [class*="rounded-[60px]"]:hover {
+  border-color: rgba(20, 184, 166, 0.3) !important;
+}
+
+/* Feature Card Inner Elements */
+.dark section [class*="bg-[#fafafa]"] .bg-white {
+  background: #0F172A !important;
+}
+
+/* About Cards Progress Line */
+.dark section [class*="bg-gray-100"] {
+  background: rgba(71, 85, 105, 0.3) !important;
+}
