@@ -39,9 +39,21 @@ const Preloader = () => {
         "Welcome",
     ];
 
-    // Lock scroll while preloader is active
+    // Lock scroll + hide the SSR initial cover once Preloader is mounted
     useEffect(() => {
         document.body.style.overflow = "hidden";
+
+        // Hide cover via CSS (not .remove()) to keep React's DOM tree intact
+        const cover = document.getElementById("initial-cover");
+        if (cover) {
+            requestAnimationFrame(() => {
+                cover.style.opacity = "0";
+                // After fade out, hide completely
+                setTimeout(() => {
+                    cover.style.display = "none";
+                }, 300);
+            });
+        }
 
         return () => {
             document.body.style.overflow = "auto";

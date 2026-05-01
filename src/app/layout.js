@@ -45,6 +45,21 @@ export default function RootLayout({ children }) {
     >
       <GoogleTagManager gtmId="GTM-MJ8GRP2J" />
       <body className="antialiased" suppressHydrationWarning>
+        {/* Dark cover — prevents page flash before Preloader hydrates.
+            Preloader will hide this via CSS class instead of DOM removal. */}
+        <div
+          id="initial-cover"
+          aria-hidden="true"
+          suppressHydrationWarning
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "#06060d",
+            zIndex: 10000,
+            pointerEvents: "none",
+            transition: "opacity 0.3s ease",
+          }}
+        />
         {/* Google Tag Manager (noscript) — using dangerouslySetInnerHTML to avoid hydration mismatch */}
         <noscript
           dangerouslySetInnerHTML={{
