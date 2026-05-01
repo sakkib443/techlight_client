@@ -3,16 +3,16 @@ import { API_URL } from '@/config/api';
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { LuBrain, LuAward, LuTarget, LuUsers, LuArrowRight, LuPlay } from "react-icons/lu";
+import { LuUsers, LuBookOpen, LuTrophy, LuGraduationCap, LuArrowRight, LuPlay } from "react-icons/lu";
 
 const Hero = () => {
     const [heroData, setHeroData] = useState(null);
 
-    const features = [
-        { icon: LuBrain, title: 'Learn The', subtitle: 'Essential Skills' },
-        { icon: LuAward, title: 'Earn Certificates', subtitle: 'And Degrees' },
-        { icon: LuTarget, title: 'Get Ready for The', subtitle: 'Next Career' },
-        { icon: LuUsers, title: 'Master at', subtitle: 'Different Areas' },
+    const stats = [
+        { icon: LuUsers, value: '10,000+', label: 'Students Enrolled' },
+        { icon: LuBookOpen, value: '50+', label: 'Expert Courses' },
+        { icon: LuGraduationCap, value: '95%', label: 'Success Rate' },
+        { icon: LuTrophy, value: '20+', label: 'Expert Instructors' },
     ];
 
     useEffect(() => {
@@ -263,24 +263,24 @@ const Hero = () => {
                 </div>
             </div>
 
-            {/* ===== Bottom Features Bar ===== */}
+            {/* ===== Bottom Stats Bar ===== */}
             <div className="hidden lg:block relative w-full z-20 bg-[#7A85F0] shadow-[0_-10px_30px_rgba(0,0,0,0.1)]">
                 <div className="container mx-auto px-4 lg:px-20 py-5">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        {features.map((feature, index) => (
+                        {stats.map((stat, index) => (
                             <motion.div
                                 key={index}
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 1.5 + index * 0.1 }}
-                                className="flex items-center gap-4 justify-center md:justify-start group cursor-default"
+                                className="flex items-center gap-3 justify-center group cursor-default"
                             >
-                                <div className="w-12 h-12 rounded-full border-2 border-white/20 flex items-center justify-center text-white group-hover:bg-white/10 transition-colors">
-                                    <feature.icon size={22} />
+                                <div className="w-10 h-10 rounded-full border-2 border-white/20 flex items-center justify-center text-white group-hover:bg-white/10 transition-colors">
+                                    <stat.icon size={18} />
                                 </div>
                                 <div className="text-white">
-                                    <p className="text-[10px] md:text-xs font-medium text-blue-100 uppercase tracking-wider leading-none mb-1.5">{feature.title}</p>
-                                    <p className="text-xs md:text-sm font-bold leading-none">{feature.subtitle}</p>
+                                    <p className="text-lg font-bold leading-none mb-0.5">{stat.value}</p>
+                                    <p className="text-[10px] font-medium text-blue-100 uppercase tracking-wider leading-none">{stat.label}</p>
                                 </div>
                             </motion.div>
                         ))}

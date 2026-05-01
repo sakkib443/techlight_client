@@ -200,7 +200,7 @@ const WebsiteContent = () => {
         <div className="min-h-screen bg-white dark:bg-[#0a0a0a]">
             {/* Hero Section */}
             <section className="py-12 lg:py-16 bg-slate-50 dark:bg-[#0a0a0a]">
-                <div className="container mx-auto px-4 lg:px-16">
+                <div className="container mx-auto px-4 lg:px-32">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
@@ -260,7 +260,7 @@ const WebsiteContent = () => {
 
             {/* Filters Row */}
             <section className="py-6 bg-white dark:bg-[#0a0a0a] border-b border-slate-100 dark:border-white/5">
-                <div className="container mx-auto px-4 lg:px-16">
+                <div className="container mx-auto px-4 lg:px-32">
                     <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
                         {/* Left - Type Filters */}
                         <div className="flex flex-wrap items-center gap-2">
@@ -378,7 +378,7 @@ const WebsiteContent = () => {
 
             {/* Websites Grid */}
             <section className="py-12 lg:py-16 bg-slate-50 dark:bg-[#0d0d0d]">
-                <div className="container mx-auto px-4 lg:px-16">
+                <div className="container mx-auto px-4 lg:px-32">
                     {loading ? (
                         <div className={`grid gap-6 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}>
                             {[1, 2, 3, 4, 5, 6].map((i) => (
@@ -416,7 +416,7 @@ const WebsiteContent = () => {
 
             {/* CTA Section */}
             <section className="py-12 lg:py-16 bg-gradient-to-br from-[#7A85F0] to-[#7A85F0]">
-                <div className="container mx-auto px-4 lg:px-16">
+                <div className="container mx-auto px-4 lg:px-32">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}

@@ -71,19 +71,19 @@ const AboutCTA = () => {
                             {[
                                 {
                                     icon: LuMail,
-                                    text: 'info@TECHLIGHT.com',
+                                    text: 'demo@example.com',
                                     label: 'SUPPORT EMAIL',
-                                    action: 'mailto:info@TECHLIGHT.com'
+                                    action: 'mailto:demo@example.com'
                                 },
                                 {
                                     icon: LuPhone,
-                                    text: '+880 1829-818616',
+                                    text: '+880 1XXX-XXXXXX',
                                     label: 'HELPLINE',
-                                    action: 'tel:+8801829818616'
+                                    action: '#'
                                 },
                                 {
                                     icon: LuMapPin,
-                                    text: 'Dhaka, Bangladesh',
+                                    text: 'Your City, Country',
                                     label: 'HEADQUARTERS',
                                     action: '#'
                                 }

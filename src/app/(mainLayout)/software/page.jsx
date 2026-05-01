@@ -49,7 +49,7 @@ const SoftwareContent = () => {
                 <div className="absolute top-10 left-10 w-60 h-60 bg-[#7A85F0]/10 dark:bg-[#7A85F0]/5 rounded-full blur-3xl"></div>
                 <div className="absolute bottom-10 right-10 w-60 h-60 bg-[#7A85F0]/10 dark:bg-[#7A85F0]/5 rounded-full blur-3xl"></div>
 
-                <div className="container mx-auto px-4 lg:px-16 py-10 lg:py-12 relative z-10">
+                <div className="container mx-auto px-4 lg:px-32 py-10 lg:py-12 relative z-10">
                     <div className="text-center max-w-3xl mx-auto">
                         {/* Badge */}
                         <div className="inline-flex items-center gap-2 mb-3 px-3 py-1.5 bg-[#7A85F0]/10 dark:bg-white/5 border border-[#7A85F0]/20 dark:border-white/10 rounded-full">
@@ -98,7 +98,7 @@ const SoftwareContent = () => {
             </section>
 
             {/* Main Content */}
-            <section className="container mx-auto px-4 lg:px-16 py-8 lg:py-12">
+            <section className="container mx-auto px-4 lg:px-32 py-8 lg:py-12">
                 {/* Mobile Filter Toggle */}
                 <button
                     onClick={() => setShowMobileFilter(!showMobileFilter)}

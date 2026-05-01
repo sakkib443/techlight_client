@@ -5,11 +5,11 @@ import { useDispatch } from "react-redux";
 
 import { fetchCategories } from "@/redux/categorySlice";
 import Hero from "@/components/Home/Hero";
-import FeaturesBar from "@/components/Home/FeaturesBar";
 import TopCategories from "@/components/Home/TopCategories";
 import PopularCourse from "@/components/Home/PopularCourse";
+import WhatWeProvide from "@/components/Home/WhatWeProvide";
 import Testimonials from "@/components/Home/Testimonials";
-import CTASection from "@/components/Home/CTASection";
+import Newsletter from "@/components/Home/Newsletter";
 import { fetchCoursesData } from "@/redux/CourseSlice";
 import Lenis from 'lenis';
 
@@ -54,24 +54,27 @@ const HomePage = () => {
   }, [dispatch, mounted]);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-black selection:bg-red-500 selection:text-black font-poppins antialiased">
+    <div className="relative min-h-screen bg-white dark:bg-black selection:bg-[#7A85F0]/20 selection:text-[#7A85F0] font-poppins antialiased">
       <main className="relative">
-        {/* Hero Section */}
+        {/* 1. Hero Section */}
         <section className="relative w-full overflow-hidden z-0 bg-white dark:bg-black">
           <Hero />
         </section>
 
-
-
-        {/* Top Categories */}
+        {/* 2. Top Categories */}
         <TopCategories />
 
-        {/* Other Sections */}
-        <section className="relative z-10 bg-white dark:bg-[#020202]">
-          <PopularCourse />
-          <Testimonials />
-          <CTASection />
-        </section>
+        {/* 3. Popular Courses */}
+        <PopularCourse />
+
+        {/* 4. What We Provide */}
+        <WhatWeProvide />
+
+        {/* 6. Testimonials */}
+        <Testimonials />
+
+        {/* 7. Newsletter */}
+        <Newsletter />
       </main>
     </div>
   );

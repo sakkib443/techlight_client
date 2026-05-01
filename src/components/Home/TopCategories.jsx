@@ -4,146 +4,178 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-    LuBrain,
-    LuPalette,
-    LuCode,
-    LuMegaphone,
-    LuFilm,
-    LuServer,
-    LuUsers,
-    LuGraduationCap,
-    LuChevronRight
+    LuBrain, LuPalette, LuCode, LuMegaphone,
+    LuFilm, LuServer, LuUsers, LuGraduationCap, LuArrowUpRight
 } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 
+const categories = (language, t) => [
+    {
+        icon: LuBrain,
+        title: language === 'bn' ? t("home_sections.aiAutomation") : 'AI & Automation',
+        subtitle: language === 'bn' ? t("home_sections.shapeFuture") : 'Shape the Future',
+        slug: 'ai-automation',
+        color: '#7A85F0',
+        light: '#EEF0FD',
+    },
+    {
+        icon: LuPalette,
+        title: language === 'bn' ? t("home_sections.artDesign") : 'Art & Design',
+        subtitle: language === 'bn' ? t("home_sections.creativePlatform") : 'Platform for Creativity',
+        slug: 'art-design',
+        color: '#F59E0B',
+        light: '#FEF3C7',
+    },
+    {
+        icon: LuCode,
+        title: language === 'bn' ? t("home_sections.programming") : 'Programming',
+        subtitle: language === 'bn' ? t("home_sections.codeConfidence") : 'Code with Confidence',
+        slug: 'programming',
+        color: '#06B6D4',
+        light: '#CFFAFE',
+    },
+    {
+        icon: LuMegaphone,
+        title: language === 'bn' ? t("home_sections.digitalMarketing") : 'Digital Marketing',
+        subtitle: language === 'bn' ? t("home_sections.artInfluence") : 'The Art of Influence',
+        slug: 'digital-marketing',
+        color: '#EF4444',
+        light: '#FEE2E2',
+    },
+    {
+        icon: LuFilm,
+        title: language === 'bn' ? t("home_sections.mediaFilm") : 'Media & Film',
+        subtitle: language === 'bn' ? t("home_sections.storyMotion") : 'Storytelling in Motion',
+        slug: 'media-film',
+        color: '#10B981',
+        light: '#D1FAE5',
+    },
+    {
+        icon: LuServer,
+        title: language === 'bn' ? t("home_sections.networkingServer") : 'Networking & Server',
+        subtitle: language === 'bn' ? t("home_sections.protectorIT") : 'Protector of IT Industry',
+        slug: 'networking-server',
+        color: '#F97316',
+        light: '#FFEDD5',
+    },
+    {
+        icon: LuUsers,
+        title: language === 'bn' ? t("home_sections.management") : 'Management',
+        subtitle: language === 'bn' ? t("home_sections.leadStrategy") : 'Leading with Strategy',
+        slug: 'management',
+        color: '#8B5CF6',
+        light: '#EDE9FE',
+    },
+    {
+        icon: LuGraduationCap,
+        title: language === 'bn' ? t("home_sections.diploma") : 'Diploma',
+        subtitle: language === 'bn' ? t("home_sections.skillUpStandOut") : 'Skill Up, Stand Out',
+        slug: 'diploma',
+        color: '#EC4899',
+        light: '#FCE7F3',
+    },
+];
+
 const TopCategories = () => {
     const { language, t } = useLanguage();
-    const bengaliClass = language === "bn" ? "hind-siliguri" : "";
-
-    const categories = [
-        {
-            icon: LuBrain,
-            title: language === 'bn' ? t("home_sections.aiAutomation") : 'AI and Automation',
-            subtitle: language === 'bn' ? t("home_sections.shapeFuture") : 'Shape the Future',
-            slug: 'ai-automation',
-            iconBg: 'bg-gradient-to-br from-red-400 to-cyan-500',
-            borderColor: 'border-l-red-400',
-        },
-        {
-            icon: LuPalette,
-            title: language === 'bn' ? t("home_sections.artDesign") : 'Art & Design',
-            subtitle: language === 'bn' ? t("home_sections.creativePlatform") : 'Platform for Creativity',
-            slug: 'art-design',
-            iconBg: 'bg-gradient-to-br from-orange-400 to-amber-500',
-            borderColor: 'border-l-orange-400',
-        },
-        {
-            icon: LuCode,
-            title: language === 'bn' ? t("home_sections.programming") : 'Programming',
-            subtitle: language === 'bn' ? t("home_sections.codeConfidence") : 'Code with Confidence',
-            slug: 'programming',
-            iconBg: 'bg-gradient-to-br from-cyan-400 to-blue-500',
-            borderColor: 'border-l-cyan-400',
-        },
-        {
-            icon: LuMegaphone,
-            title: language === 'bn' ? t("home_sections.digitalMarketing") : 'Digital Marketing',
-            subtitle: language === 'bn' ? t("home_sections.artInfluence") : 'The Art of Influence',
-            slug: 'digital-marketing',
-            iconBg: 'bg-gradient-to-br from-orange-400 to-red-500',
-            borderColor: 'border-l-orange-400',
-        },
-        {
-            icon: LuFilm,
-            title: language === 'bn' ? t("home_sections.mediaFilm") : 'Media & Film',
-            subtitle: language === 'bn' ? t("home_sections.storyMotion") : 'Storytelling in Motion',
-            slug: 'media-film',
-            iconBg: 'bg-gradient-to-br from-red-400 to-emerald-500',
-            borderColor: 'border-l-red-400',
-        },
-        {
-            icon: LuServer,
-            title: language === 'bn' ? t("home_sections.networkingServer") : 'Networking & Server',
-            subtitle: language === 'bn' ? t("home_sections.protectorIT") : 'Protector of IT Industry',
-            slug: 'networking-server',
-            iconBg: 'bg-gradient-to-br from-amber-400 to-orange-500',
-            borderColor: 'border-l-amber-400',
-        },
-        {
-            icon: LuUsers,
-            title: language === 'bn' ? t("home_sections.management") : 'Management',
-            subtitle: language === 'bn' ? t("home_sections.leadStrategy") : 'Leading with Strategy',
-            slug: 'management',
-            iconBg: 'bg-gradient-to-br from-blue-400 to-indigo-500',
-            borderColor: 'border-l-blue-400',
-        },
-        {
-            icon: LuGraduationCap,
-            title: language === 'bn' ? t("home_sections.diploma") : 'Diploma',
-            subtitle: language === 'bn' ? t("home_sections.skillUpStandOut") : 'Skill Up, Stand Out',
-            slug: 'diploma',
-            iconBg: 'bg-gradient-to-br from-pink-400 to-purple-500',
-            borderColor: 'border-l-pink-400',
-        },
-    ];
+    const bn = language === "bn" ? "hind-siliguri" : "";
+    const cats = categories(language, t);
 
     return (
-        <section className="py-12 lg:py-16 bg-[#EEF2FF] dark:bg-[#0a0a0a]">
-            <div className="container mx-auto px-4 lg:px-16">
-                {/* Categories Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                    {categories.map((category, index) => (
-                        <motion.div
-                            key={category.slug}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.4, delay: index * 0.05 }}
-                        >
-                            <div className={`bg-white dark:bg-gray-900 rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col`}>
-                                {/* Top Section */}
-                                <div className="flex items-start justify-between mb-4">
-                                    <div className="flex items-center gap-4">
-                                        {/* Icon */}
-                                        <div className={`w-12 h-12 rounded-xl ${category.iconBg} flex items-center justify-center shadow-lg`}>
-                                            <category.icon className="w-6 h-6 text-white" />
-                                        </div>
+        <section className="py-20 bg-white">
+            <div className="container mx-auto px-4 lg:px-32">
 
-                                        {/* Text */}
+                {/* ── Header ── */}
+                <motion.div
+                    className="text-center mb-12"
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-[#EEF0FD] border border-[#7A85F0]/20 mb-4 ${bn}`}>
+                        {language === 'bn' ? 'ক্যাটাগরি' : 'Categories'}
+                    </span>
+                    <h2 className={`text-4xl font-bold text-gray-900 leading-tight mb-4 ${bn}`}>
+                        {language === 'bn'
+                            ? <>{t("home_sections.browseByCategory")} <span className="text-[#7A85F0]">{t("home_sections.categoryHighlight")}</span></>
+                            : <>Explore Top <span className="text-[#7A85F0]">Skills Categories</span></>
+                        }
+                    </h2>
+                    <Link
+                        href="/courses"
+                        className={`inline-flex items-center gap-2 text-sm font-semibold text-[#7A85F0] hover:underline underline-offset-4 transition ${bn}`}
+                    >
+                        {language === 'bn' ? 'সব দেখুন' : 'View All'}
+                        <LuArrowUpRight size={16} />
+                    </Link>
+                </motion.div>
+
+                {/* ── Cards Grid ── */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {cats.map((cat, i) => {
+                        const Icon = cat.icon;
+                        return (
+                            <motion.div
+                                key={cat.slug}
+                                initial={{ opacity: 0, y: 28 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: i * 0.06 }}
+                            >
+                                <Link
+                                    href={`/courses?category=${cat.slug}`}
+                                    className="group relative flex items-center justify-center min-h-[110px] px-5 py-5 rounded-2xl border border-gray-200 bg-white hover:shadow-lg hover:border-transparent transition-all duration-300 overflow-hidden"
+                                >
+                                    {/* ── Normal State (center column) ── */}
+                                    <div className="flex flex-col items-center text-center gap-2 transition-all duration-300 group-hover:opacity-0 group-hover:-translate-y-2">
+                                        <div
+                                            className="w-11 h-11 rounded-xl flex items-center justify-center"
+                                            style={{ backgroundColor: cat.light }}
+                                        >
+                                            <Icon size={20} style={{ color: cat.color }} />
+                                        </div>
                                         <div>
-                                            <h3 className={`font-semibold text-gray-800 dark:text-white text-base ${bengaliClass}`}>
-                                                {category.title}
+                                            <h3 className={`text-sm font-bold text-gray-900 leading-snug ${bn}`}>
+                                                {cat.title}
                                             </h3>
-                                            <p className={`text-sm text-gray-500 dark:text-gray-400 ${bengaliClass}`}>
-                                                {category.subtitle}
+                                            <p className={`text-[11px] text-gray-400 mt-0.5 ${bn}`}>
+                                                {cat.subtitle}
                                             </p>
                                         </div>
                                     </div>
 
-                                    {/* Arrow */}
-                                    <div className="text-gray-300 dark:text-gray-600">
-                                        <LuChevronRight className="w-5 h-5" />
+                                    {/* ── Hover State (horizontal row) ── */}
+                                    <div className="absolute inset-0 flex items-center justify-between px-5 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                                        {/* Left: icon + text */}
+                                        <div className="flex items-center gap-3">
+                                            <div
+                                                className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                                                style={{ backgroundColor: cat.light }}
+                                            >
+                                                <Icon size={18} style={{ color: cat.color }} />
+                                            </div>
+                                            <div>
+                                                <h3 className={`text-sm font-bold text-gray-900 leading-snug ${bn}`}>
+                                                    {cat.title}
+                                                </h3>
+                                                <p className={`text-[11px] text-gray-400 mt-0.5 ${bn}`}>
+                                                    {cat.subtitle}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        {/* Right: arrow */}
+                                        <div
+                                            className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
+                                            style={{ backgroundColor: cat.light, color: cat.color }}
+                                        >
+                                            <LuArrowUpRight size={15} />
+                                        </div>
                                     </div>
-                                </div>
-
-                                {/* Bottom Links */}
-                                <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-100 dark:border-gray-800">
-                                    <Link
-                                        href={`/courses?category=${category.slug}`}
-                                        className={`text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors ${bengaliClass}`}
-                                    >
-                                        {language === 'bn' ? t("home_sections.exploreCourses") : 'Explore courses'}
-                                    </Link>
-                                    <Link
-                                        href={`/courses?category=${category.slug}`}
-                                        className={`text-sm font-medium text-orange-500 hover:text-orange-600 transition-colors ${bengaliClass}`}
-                                    >
-                                        {language === 'bn' ? t("home_sections.viewAll") : 'View All'}
-                                    </Link>
-                                </div>
-                            </div>
-                        </motion.div>
-                    ))}
+                                </Link>
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </div>
         </section>

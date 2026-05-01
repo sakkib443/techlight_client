@@ -89,7 +89,7 @@ const CertificationPage = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-[#e8f9f9] via-white to-[#fff8f0] border-b border-gray-200 py-12 lg:py-16">
-        <div className="container mx-auto px-4 lg:px-16">
+        <div className="container mx-auto px-4 lg:px-32">
           <div className="text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-white border border-gray-200 rounded-full shadow-sm">
               <LuAward className="text-[#7A85F0] text-lg" />
@@ -106,7 +106,7 @@ const CertificationPage = () => {
       </section>
 
       {/* Search Section */}
-      <section className="container mx-auto px-4 lg:px-16 -mt-8 relative z-10">
+      <section className="container mx-auto px-4 lg:px-32 -mt-8 relative z-10">
         <div className="bg-white border border-gray-200 rounded-md p-6 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Phone */}
@@ -190,7 +190,7 @@ const CertificationPage = () => {
       </section>
 
       {/* Results Section */}
-      <section className="container mx-auto px-4 lg:px-16 py-10">
+      <section className="container mx-auto px-4 lg:px-32 py-10">
         <div className="bg-white border border-gray-200 rounded-md shadow-sm overflow-hidden">
           <div className="p-6 border-b border-gray-200">
             <h2 className={`text-xl font-bold text-gray-800 outfit flex items-center gap-2 ${bengaliClass}`}>
@@ -287,7 +287,7 @@ const CertificationPage = () => {
       </section>
 
       {/* Footer Banner */}
-      <section className="container mx-auto px-4 lg:px-16 pt-6 pb-4">
+      <section className="container mx-auto px-4 lg:px-32 pt-6 pb-4">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-2 px-4 text-center md:flex-row md:justify-between md:text-left">
           <h2 className={`text-2xl font-bold text-orange-400 font-Inter sm:text-3xl ${bengaliClass}`}>
             {t("certificationPage.registerFreeSeminar")}
@@ -303,7 +303,7 @@ const CertificationPage = () => {
       </section>
 
       {/* Info Section */}
-      <section className="container mx-auto px-4 lg:px-16 pb-12">
+      <section className="container mx-auto px-4 lg:px-32 pb-12">
         <div className="bg-gradient-to-r from-[#7A85F0] to-[#38a89d] rounded-md p-8 text-white">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
@@ -313,7 +313,7 @@ const CertificationPage = () => {
               </p>
             </div>
             <a
-              href="https://wa.me/8801829818616"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               className={`inline-flex items-center gap-2 px-6 py-3 bg-white text-[#7A85F0] font-medium rounded-md hover:shadow-lg transition-all shrink-0 ${bengaliClass}`}

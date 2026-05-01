@@ -1,90 +1,168 @@
 "use client";
 
-import { LuTarget, LuRocket, LuAward, LuArrowRight } from "react-icons/lu";
-import { HiOutlineSparkles } from "react-icons/hi2";
+import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { LuClock, LuHeadphones, LuSparkles, LuArrowRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
-import { motion } from 'framer-motion';
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } }
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-};
+import { motion } from "framer-motion";
 
 const WhatWeProvide = () => {
-  const { t, language } = useLanguage();
-  const bengaliClass = language === "bn" ? "hind-siliguri" : "";
+    const { t, language } = useLanguage();
+    const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
-  const features = [
-    { icon: LuRocket, titleKey: "lifetimeSupport", descKey: "lifetimeSupportDesc", emoji: "??", color: "orange" },
-    { icon: LuTarget, titleKey: "jobPlacement", descKey: "jobPlacementDesc", emoji: "??", color: "teal" },
-    { icon: LuAward, titleKey: "getCertification", descKey: "getCertificationDesc", emoji: "??", color: "orange" }
-  ];
+    const features = [
+        {
+            icon: LuClock,
+            title: language === 'bn' ? 'ফ্লেক্সিবল শিডিউল' : 'Flexible Schedule',
+            desc: language === 'bn' ? 'আপনার সুবিধামতো সময়ে ক্লাস করুন' : 'Learn at your own pace and time',
+        },
+        {
+            icon: LuHeadphones,
+            title: language === 'bn' ? '২৪/৭ সাপোর্ট' : '24/7 Online Support',
+            desc: language === 'bn' ? 'যেকোনো সমস্যায় সাহায্য পান' : 'Get help whenever you need it',
+        },
+        {
+            icon: LuSparkles,
+            title: language === 'bn' ? 'স্মার্ট লার্নিং' : 'Smart Learning Process',
+            desc: language === 'bn' ? 'আধুনিক পদ্ধতিতে সহজে শিখুন' : 'Modern methods for easy learning',
+        },
+    ];
 
-  const getColorClasses = (color) => color === 'teal'
-    ? { gradient: 'from-[#7A85F0] to-[#c41e18]', light: 'bg-[#7A85F0]/10', text: 'text-[#7A85F0]', border: 'border-[#7A85F0]/20' }
-    : { gradient: 'from-[#7A85F0] to-[#fb923c]', light: 'bg-[#7A85F0]/10', text: 'text-[#7A85F0]', border: 'border-[#7A85F0]/20' };
-
-  return (
-    <section className="relative py-24 overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-[10%] w-72 h-72 bg-gradient-to-br from-[#7A85F0]/10 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-[10%] w-80 h-80 bg-gradient-to-br from-[#7A85F0]/10 to-transparent rounded-full blur-3xl" />
-      </div>
-
-      <div className="container mx-auto px-4 lg:px-16 relative z-10">
-        <motion.div className="text-center mb-14" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
-          <motion.div className="inline-flex items-center gap-3 mb-5 px-5 py-2.5 rounded-full bg-white dark:bg-black/50 border border-red-500/30 shadow-sm" initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}>
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-red-500/20 to-cyan-500/20 flex items-center justify-center">
-              <HiOutlineSparkles className="text-[#7A85F0]" size={14} />
-            </div>
-            <span className={`text-xs font-black text-gray-700 dark:text-gray-300 uppercase tracking-[0.2em] ${bengaliClass}`}>{t("whatWeProvide.badge")}</span>
-          </motion.div>
-          <motion.h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white mb-5 ${bengaliClass}`} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}>
-            {t("whatWeProvide.title1")}<span className="text-primary">{t("whatWeProvide.title2")}</span>
-          </motion.h2>
-          <motion.p className={`text-gray-500 dark:text-gray-400 text-base lg:text-lg max-w-2xl mx-auto ${bengaliClass}`} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }}>{t("whatWeProvide.subtitle")}</motion.p>
-        </motion.div>
-
-        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          {features.map((feature, index) => {
-            const colors = getColorClasses(feature.color);
-            return (
-              <motion.div key={index} variants={cardVariants} className="group relative bg-white dark:bg-[#0d0d0d] rounded-[2rem] p-8 border border-gray-200 dark:border-white/10 transition-all duration-500 hover:shadow-lg hover:-translate-y-2 overflow-hidden">
-                <div className={`absolute -top-10 -right-10 w-24 h-24 rounded-full bg-gradient-to-br ${colors.gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-500`} />
-                <div className="relative z-10">
-                  <div className="relative mb-5">
-                    <div className={`w-16 h-16 ${colors.light} rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110`}>
-                      <feature.icon size={28} className={colors.text} />
-                    </div>
-                  </div>
-                  <h3 className={`text-xl font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2 ${bengaliClass}`}>{t(`whatWeProvide.features.${feature.titleKey}`)} <span>{feature.emoji}</span></h3>
-                  <p className={`text-sm text-gray-500 dark:text-gray-400 mb-6 ${bengaliClass}`}>{t(`whatWeProvide.features.${feature.descKey}`)}</p>
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-white/10">
-                    <span className={`text-xs font-semibold ${colors.text} uppercase tracking-widest ${bengaliClass}`}>{t("whatWeProvide.learnMore")}</span>
-                    <div className={`w-8 h-8 rounded-lg ${colors.light} flex items-center justify-center`}><LuArrowRight size={16} className={colors.text} /></div>
-                  </div>
+    return (
+        <section className="py-16 lg:py-20 bg-white dark:bg-[#0a0a0a] relative overflow-hidden">
+            {/* Decorative elements */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-10 left-8 grid grid-cols-4 gap-2.5 opacity-[0.06]">
+                    {[...Array(16)].map((_, i) => (
+                        <div key={i} className="w-2 h-2 bg-[#7A85F0] rounded-full" />
+                    ))}
                 </div>
-                <div className={`absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r ${colors.gradient} rounded-b-2xl group-hover:w-full transition-all duration-500`} />
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                <div className="absolute top-0 right-0 w-40 h-40 border-2 border-[#7A85F0]/[0.06] rounded-full -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-10 left-[5%] w-24 h-24 border-2 border-[#7A85F0]/[0.06] rounded-full" />
+            </div>
 
-        <motion.div className="flex justify-center mt-14" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.5 }}>
-          <Link href="/about" className={`group relative bg-white dark:bg-[#0d0d0d] rounded-2xl px-8 py-4 border border-gray-200 dark:border-white/10 hover:-translate-y-1 hover:shadow-lg flex items-center gap-4 transition-all ${bengaliClass}`}>
-            <span className="font-bold text-gray-900 dark:text-white">{t("whatWeProvide.learnMoreAboutUs")}</span>
-            <div className="w-10 h-10 rounded-xl bg-[#7A85F0]/10 flex items-center justify-center group-hover:bg-[#7A85F0]"><LuArrowRight size={18} className="text-[#7A85F0] group-hover:text-white" /></div>
-          </Link>
-        </motion.div>
-      </div>
-    </section>
-  );
+            <div className="container mx-auto px-4 lg:px-32 relative z-10">
+                <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+                    {/* ── Left: Image ── */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="relative"
+                    >
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-[#7A85F0]/10">
+                            <Image
+                                src="/images/57462951_2085649778223584_3709857119512559616_n.jpg"
+                                alt="Students learning at Techlight IT Institute"
+                                width={600}
+                                height={450}
+                                className="w-full h-[350px] lg:h-[420px] object-cover"
+                            />
+                            {/* Gradient overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                        </div>
+
+                        {/* Floating badge */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.5, duration: 0.4 }}
+                            className="absolute -bottom-5 -right-3 lg:right-6 bg-white dark:bg-[#141414] rounded-xl px-5 py-3 shadow-xl border border-gray-100 dark:border-gray-800"
+                        >
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 bg-[#EEF0FD] rounded-lg flex items-center justify-center">
+                                    <LuSparkles size={18} className="text-[#7A85F0]" />
+                                </div>
+                                <div>
+                                    <p className="text-xs text-gray-400 font-medium">
+                                        {language === 'bn' ? 'সাফল্যের হার' : 'Success Rate'}
+                                    </p>
+                                    <p className="text-sm font-bold text-gray-900 dark:text-white">95%</p>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Decorative purple shape behind image */}
+                        <div className="absolute -top-4 -left-4 w-full h-full rounded-2xl border-2 border-[#7A85F0]/15 -z-10" />
+                    </motion.div>
+
+                    {/* ── Right: Content ── */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.15 }}
+                    >
+                        {/* Badge */}
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEF0FD] border border-[#7A85F0]/20 mb-5">
+                            <span className="text-[#7A85F0] text-xs">⚡</span>
+                            <span className={`text-xs font-semibold text-[#7A85F0] uppercase tracking-wider ${bengaliClass}`}>
+                                {language === 'bn' ? 'আমাদের প্ল্যাটফর্ম সম্পর্কে' : 'About Our Platform'}
+                            </span>
+                        </div>
+
+                        {/* Heading */}
+                        <h2 className={`text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-snug mb-4 ${bengaliClass}`}>
+                            {language === 'bn'
+                                ? <>ভাষা ও প্রযুক্তির মাধ্যমে<br /><span className="text-[#7A85F0]">ক্যারিয়ার গড়ুন</span></>
+                                : <>Breaking Barriers Through<br /><span className="text-[#7A85F0]">Language & Technology</span></>
+                            }
+                        </h2>
+
+                        {/* Description */}
+                        <p className={`text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-8 max-w-lg ${bengaliClass}`}>
+                            {language === 'bn'
+                                ? 'টেকলাইট আইটি ইনস্টিটিউটের মূল লক্ষ্য হলো শিক্ষার্থীদের প্রযুক্তিগত এবং ব্যবহারিক দক্ষতা দিয়ে ক্যারিয়ার গড়তে সাহায্য করা। আমাদের ইন্ডাস্ট্রি এক্সপার্ট ইন্সট্রাক্টরদের হাতে-কলমে শেখার সুযোগ নিন।'
+                                : 'The core mission of Techlight IT Institute is to empower individuals with both technical and practical skills to enhance their career opportunities. Learn hands-on from our industry expert instructors.'}
+                        </p>
+
+                        {/* 3 Features Row */}
+                        <div className="grid grid-cols-3 gap-4 mb-8">
+                            {features.map((f, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 0.3 + i * 0.1 }}
+                                    className="text-center group"
+                                >
+                                    <div className="w-11 h-11 mx-auto mb-2.5 rounded-xl bg-[#EEF0FD] border border-[#7A85F0]/10 flex items-center justify-center group-hover:bg-[#7A85F0] transition-colors duration-300">
+                                        <f.icon size={18} className="text-[#7A85F0] group-hover:text-white transition-colors duration-300" />
+                                    </div>
+                                    <p className={`text-xs font-bold text-gray-900 dark:text-white leading-tight ${bengaliClass}`}>
+                                        {f.title}
+                                    </p>
+                                    <p className={`text-[10px] text-gray-400 mt-0.5 ${bengaliClass}`}>
+                                        {f.desc}
+                                    </p>
+                                </motion.div>
+                            ))}
+                        </div>
+
+                        {/* CTA Button */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 15 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.6 }}
+                        >
+                            <Link href="/courses">
+                                <button className={`group px-7 py-3 rounded-full bg-[#7A85F0] hover:bg-[#6B74E8] text-white text-sm font-semibold shadow-lg shadow-[#7A85F0]/20 hover:shadow-[#7A85F0]/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 ${bengaliClass}`}>
+                                    {language === 'bn' ? 'সকল কোর্স দেখুন' : 'Explore All Courses'}
+                                    <LuArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
+                                </button>
+                            </Link>
+                        </motion.div>
+                    </motion.div>
+                </div>
+            </div>
+        </section>
+    );
 };
 
 export default WhatWeProvide;

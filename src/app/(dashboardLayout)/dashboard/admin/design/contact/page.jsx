@@ -25,19 +25,19 @@ const ContactDesignPage = () => {
             subtitleBn: '???? ?????? ???? ?????? ????? ??????'
         },
         contactInfo: {
-            email: 'info@Techlight IT Institute.com',
-            phone: '+880 1829-818616',
-            address: 'Daisy Garden, House 14 (Level-5), Block A, Banasree, Dhaka',
-            addressBn: '????? ???????, ????? ?? (?????-?), ???? ?, ??????, ????',
+            email: 'demo@example.com',
+            phone: '+880 1XXX-XXXXXX',
+            address: 'Your City, Country',
+            addressBn: 'আপনার শহর, দেশ',
             officeHours: 'Sat - Thu: 10:00 AM - 6:00 PM',
-            officeHoursBn: '??? - ????????: ???? ???? - ??????? ???'
+            officeHoursBn: 'শনি - বৃহঃ: সকাল ১০টা - সন্ধ্যা ৬টা'
         },
         socialLinks: {
-            facebook: 'https://www.facebook.com/Techlight IT Institute',
-            youtube: 'https://www.youtube.com/@Techlight IT Institute',
-            linkedin: 'https://www.linkedin.com/company/Techlight IT Institute',
-            whatsapp: 'https://wa.me/8801829818616',
-            instagram: 'https://www.instagram.com/Techlight IT Institute/'
+            facebook: '#',
+            youtube: '#',
+            linkedin: '#',
+            whatsapp: '#',
+            instagram: '#'
         },
         whatsappSection: {
             title: 'Need Quick Help?',

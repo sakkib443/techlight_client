@@ -1,295 +1,235 @@
 "use client";
-import { API_URL, API_BASE_URL } from '@/config/api';
-
-
+import { API_URL } from '@/config/api';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import { LuGraduationCap, LuCode, LuGlobe, LuWrench, LuArrowRight } from 'react-icons/lu';
+import {
+    LuGraduationCap, LuCode2, LuGlobe, LuWrench,
+    LuArrowUpRight, LuBookOpen, LuUsers, LuTrendingUp
+} from 'react-icons/lu';
 import { motion } from 'framer-motion';
-
-
-
-// Animation variants - Entry only, no scroll effects
-const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1,
-            delayChildren: 0.2
-        }
-    }
-};
-
-const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.5,
-            ease: [0.25, 0.46, 0.45, 0.94]
-        }
-    }
-};
 
 const HomeCategory = () => {
     const [stats, setStats] = useState(null);
     const { language, t } = useLanguage();
-    const bengaliClass = language === "bn" ? "hind-siliguri" : "";
+    const bn = language === "bn" ? "hind-siliguri" : "";
 
-    // Fetch real stats from database
     useEffect(() => {
-        const fetchStats = async () => {
+        const fetch_ = async () => {
             try {
                 const res = await fetch(`${API_URL}/stats/dashboard`);
                 const data = await res.json();
-                if (data.success && data.data) {
-                    setStats(data.data);
-                }
-            } catch (error) {
-                console.error('Error fetching stats:', error);
-            }
+                if (data.success && data.data) setStats(data.data);
+            } catch (e) { console.error(e); }
         };
-        fetchStats();
+        fetch_();
     }, []);
 
-    // Get dynamic count for each category
-    const getCategoryCount = (id) => {
+    const count = (id) => {
         if (!stats?.breakdown) return '0';
-
-        switch (id) {
-            case 'courses':
-                return stats.breakdown.courses || 0;
-            case 'software':
-                return stats.breakdown.software || 0;
-            case 'websites':
-                return stats.breakdown.websites || 0;
-            case 'tools':
-                return stats.breakdown.software || 0;
-            default:
-                return 0;
-        }
-    };
-
-    const categories = [
-        {
-            id: 'courses',
-            icon: LuGraduationCap,
-            title: language === 'bn' ? t("navbar.courses") : 'Courses',
-            subtitle: language === 'bn' ? t("home_sections.professionalSkills") : 'Professional Skills',
-            itemLabel: language === 'bn' ? t("hero_home.coursesSuffix") : 'Courses',
-            color: 'teal',
-            href: '/courses'
-        },
-        {
-            id: 'software',
-            icon: LuCode,
-            title: language === 'bn' ? t("navbar.software") : 'Software',
-            subtitle: language === 'bn' ? t("home_sections.premiumScripts") : 'Premium Scripts',
-            itemLabel: language === 'bn' ? t("home_sections.readyItems") : 'Items',
-            color: 'orange',
-            href: '/software'
-        },
-        {
-            id: 'websites',
-            icon: LuGlobe,
-            title: language === 'bn' ? t("navbar.website") : 'Websites',
-            subtitle: language === 'bn' ? t("homeCategory.categories.diplomaSub") : 'Premium Templates',
-            itemLabel: language === 'bn' ? t("home_sections.readyItems") : 'Templates',
-            color: 'teal',
-            href: '/website'
-        },
-        {
-            id: 'tools',
-            icon: LuWrench,
-            title: language === 'bn' ? t("home_sections.categoryHighlight") : 'Tools',
-            subtitle: language === 'bn' ? t("homeCategory.exploreCourses") : 'Productivity Tools',
-            itemLabel: language === 'bn' ? t("home_sections.readyItems") : 'Tools',
-            color: 'orange',
-            href: '/tools'
-        }
-    ];
-
-    const getColorClasses = (color) => {
-        if (color === 'teal') {
-            return {
-                gradient: 'from-[#7A85F0] to-[#c41e18]',
-                light: 'bg-[#7A85F0]/5',
-                text: 'text-[#7A85F0]',
-                border: 'border-[#7A85F0]/15',
-                shadow: 'shadow-[#7A85F0]/10'
-            };
-        }
-        return {
-            gradient: 'from-[#7A85F0] to-[#fb923c]',
-            light: 'bg-[#7A85F0]/5',
-            text: 'text-[#7A85F0]',
-            border: 'border-[#7A85F0]/15',
-            shadow: 'shadow-[#7A85F0]/10'
-        };
+        const b = stats.breakdown;
+        return id === 'courses' ? b.courses : id === 'software' ? b.software : id === 'websites' ? b.websites : b.software;
     };
 
     return (
-        <section className='relative py-24 overflow-hidden'>
+        <section className="py-20" style={{ background: 'linear-gradient(135deg, #f8f9ff 0%, #eef0fd 50%, #f8f9ff 100%)' }}>
+            <div className="container mx-auto px-4 lg:px-32">
 
-            {/* Background Elements - Static */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {/* Static Circles */}
-                <div className="absolute top-20 left-[10%] w-72 h-72 bg-gradient-to-br from-[#7A85F0]/5 to-transparent rounded-full blur-3xl"></div>
-                <div className="absolute bottom-20 right-[10%] w-80 h-80 bg-gradient-to-br from-[#7A85F0]/5 to-transparent rounded-full blur-3xl"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-[#7A85F0]/3 to-[#7A85F0]/3 rounded-full blur-3xl"></div>
-
-                {/* Static Geometric Shapes */}
-                <div className="absolute top-32 right-[15%] w-16 h-16 border-2 border-[#7A85F0]/20 rounded-xl"></div>
-                <div className="absolute top-1/4 left-[8%] w-12 h-12 border-2 border-[#7A85F0]/20 rounded-full"></div>
-                <div className="absolute bottom-1/4 right-[8%] w-20 h-20 border-2 border-[#7A85F0]/15 rounded-2xl"></div>
-                <div className="absolute bottom-32 left-[20%] w-8 h-8 bg-[#7A85F0]/10 rounded-lg"></div>
-
-                {/* Dots Pattern */}
-                <div className="absolute top-40 left-[5%] flex flex-col gap-2 opacity-30">
-                    {[...Array(4)].map((_, i) => (
-                        <div key={i} className="flex gap-2">
-                            {[...Array(3)].map((_, j) => (
-                                <div key={j} className="w-1.5 h-1.5 bg-[#7A85F0] rounded-full"></div>
-                            ))}
-                        </div>
-                    ))}
-                </div>
-                <div className="absolute bottom-40 right-[5%] flex flex-col gap-2 opacity-30">
-                    {[...Array(4)].map((_, i) => (
-                        <div key={i} className="flex gap-2">
-                            {[...Array(3)].map((_, j) => (
-                                <div key={j} className="w-1.5 h-1.5 bg-[#7A85F0] rounded-full"></div>
-                            ))}
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            <div className='container mx-auto px-4 lg:px-16 relative z-10'>
-                {/* Section Header - Entry Animation */}
+                {/* ── Header ── */}
                 <motion.div
-                    className="text-center mb-14"
-                    initial={{ opacity: 0, y: 30 }}
+                    className={`text-center mb-14 ${bn}`}
+                    initial={{ opacity: 0, y: 28 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.55 }}
                 >
-                    {/* Badge */}
+                    <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-white border border-[#7A85F0]/20 mb-5 shadow-sm">
+                        {language === 'bn' ? 'আমাদের ক্যাটাগরি' : 'Explore Categories'}
+                    </span>
+                    <h2 className="text-4xl font-bold text-gray-900 leading-tight mb-4">
+                        {language === 'bn'
+                            ? <>{t("home_sections.browseByCategory")} <span className="text-[#7A85F0]">{t("home_sections.categoryHighlight")}</span></>
+                            : <>What Do You Want <br /><span className="text-[#7A85F0]">To Learn Today?</span></>
+                        }
+                    </h2>
+                    <p className="text-gray-500 text-sm max-w-lg mx-auto">
+                        {language === 'bn'
+                            ? 'আপনার ক্যারিয়ার গড়তে সেরা কোর্স, সফটওয়্যার এবং টুলস খুঁজুন।'
+                            : 'Thousands of courses, tools & resources — all built by industry experts to take your career to the next level.'}
+                    </p>
+                </motion.div>
+
+                {/* ── Bento Grid ── */}
+                <div className="grid grid-cols-12 grid-rows-2 gap-5 auto-rows-[220px]">
+
+                    {/* Card 1 – Large Feature (spans 5 cols × 2 rows) */}
                     <motion.div
-                        className="inline-flex items-center gap-3 mb-5 px-5 py-2.5 rounded-full bg-white dark:bg-black/50 border border-red-500/30 dark:border-red-500/20 shadow-sm backdrop-blur-md"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
+                        className="col-span-12 lg:col-span-5 row-span-2"
+                        initial={{ opacity: 0, x: -40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.55 }}
+                    >
+                        <Link href="/courses" className="group relative flex flex-col justify-between h-full rounded-3xl overflow-hidden p-8 bg-[#7A85F0] text-white shadow-xl shadow-[#7A85F0]/20 hover:shadow-[#7A85F0]/40 transition-shadow duration-400">
+                            {/* BG glow */}
+                            <div className="absolute -top-10 -right-10 w-48 h-48 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+                            <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-white/5 rounded-full blur-2xl pointer-events-none" />
+
+                            {/* Icon */}
+                            <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-auto">
+                                <LuGraduationCap size={32} className="text-white" />
+                            </div>
+
+                            {/* Text */}
+                            <div className="relative z-10 mt-8">
+                                <p className="text-white/60 text-xs font-semibold uppercase tracking-widest mb-2">Professional Courses</p>
+                                <h3 className={`text-3xl font-bold leading-tight mb-3 ${bn}`}>
+                                    {language === 'bn' ? t("navbar.courses") : 'AI and\nAutomation'}
+                                </h3>
+                                <p className="text-white/70 text-sm mb-6">
+                                    {language === 'bn' ? t("home_sections.professionalSkills") : 'Learn the skills that are shaping the future — from AI tools to full automation workflows.'}
+                                </p>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-4xl font-black">{count('courses')}+</span>
+                                    <div className="w-11 h-11 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-[#7A85F0] transition-all duration-300">
+                                        <LuArrowUpRight size={20} className="text-white group-hover:text-[#7A85F0] transition-colors duration-300" />
+                                    </div>
+                                </div>
+                                <p className="text-white/50 text-xs mt-1">{language === 'bn' ? 'কোর্স পাওয়া যাচ্ছে' : 'Courses Available'}</p>
+                            </div>
+                        </Link>
+                    </motion.div>
+
+                    {/* Card 2 – Art & Design (spans 4 cols × 1 row) */}
+                    <motion.div
+                        className="col-span-12 sm:col-span-6 lg:col-span-4 row-span-1"
+                        initial={{ opacity: 0, y: -30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5, delay: 0.1 }}
                     >
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-red-500/20 to-cyan-500/20 flex items-center justify-center">
-                            <span className="w-2.5 h-2.5 bg-red-500 rounded-full"></span>
-                        </div>
-                        <span className={`text-xs font-black text-red-600 dark:text-red-400 uppercase tracking-[0.2em] ${bengaliClass}`}>
-                            {language === 'bn' ? t("home_sections.ourProducts") : 'Our Products'}
-                        </span>
+                        <Link href="/software" className="group relative flex flex-col justify-between h-full rounded-3xl overflow-hidden p-6 bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                            <div className="flex items-start justify-between">
+                                <div className="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center">
+                                    <LuCode2 size={24} className="text-amber-500" />
+                                </div>
+                                <div className="w-9 h-9 rounded-full border border-gray-100 flex items-center justify-center group-hover:bg-[#7A85F0] group-hover:border-[#7A85F0] transition-all duration-300">
+                                    <LuArrowUpRight size={16} className="text-gray-400 group-hover:text-white transition-colors duration-300" />
+                                </div>
+                            </div>
+                            <div>
+                                <p className="text-gray-400 text-[10px] uppercase tracking-widest mb-1">Creative</p>
+                                <h3 className={`text-xl font-bold text-gray-900 mb-1 ${bn}`}>
+                                    {language === 'bn' ? t("navbar.software") : 'Art & Design'}
+                                </h3>
+                                <div className="flex items-center gap-2 mt-3">
+                                    <span className="text-2xl font-black text-[#7A85F0]">{count('software')}+</span>
+                                    <span className="text-xs text-gray-400">{language === 'bn' ? 'আইটেম' : 'Items'}</span>
+                                </div>
+                            </div>
+                        </Link>
                     </motion.div>
 
-                    {/* Title */}
-                    <motion.h2
-                        className={`text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white mb-5 tracking-tight ${bengaliClass}`}
-                        initial={{ opacity: 0, y: 20 }}
+                    {/* Card 3 – Stats highlight (spans 3 cols × 1 row) */}
+                    <motion.div
+                        className="col-span-12 sm:col-span-6 lg:col-span-3 row-span-1"
+                        initial={{ opacity: 0, y: -30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                        transition={{ duration: 0.5, delay: 0.15 }}
                     >
-                        {language === 'bn'
-                            ? <>{t("home_sections.browseByCategory")} <span className="text-primary">{t("home_sections.categoryHighlight")}</span> {t("home_sections.accordingTo")}</>
-                            : <>Browse by <span className="text-primary">Category</span></>}
-                    </motion.h2>
+                        <div className="flex flex-col justify-between h-full rounded-3xl overflow-hidden p-6 bg-gray-900 text-white shadow-sm">
+                            <LuUsers size={24} className="text-[#7A85F0]" />
+                            <div>
+                                <p className="text-gray-400 text-xs mb-1">{language === 'bn' ? 'মোট শিক্ষার্থী' : 'Total Students'}</p>
+                                <p className="text-4xl font-black">10k+</p>
+                                <p className="text-gray-500 text-xs mt-1">{language === 'bn' ? 'এনরোলড' : 'Enrolled'}</p>
+                            </div>
+                        </div>
+                    </motion.div>
 
-                    <motion.p
-                        className={`text-gray-500 dark:text-gray-400 text-base lg:text-lg max-w-2xl mx-auto leading-relaxed ${bengaliClass}`}
-                        initial={{ opacity: 0, y: 20 }}
+                    {/* Card 4 – Programming (spans 4 cols × 1 row) */}
+                    <motion.div
+                        className="col-span-12 sm:col-span-6 lg:col-span-4 row-span-1"
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
                     >
-                        {language === 'bn'
-                            ? t("home_sections.homeCategoryDesc")
-                            : 'Explore our diverse categories to find exactly what you need. Courses, software, website templates, and productivity tools - all in one place.'}
-                    </motion.p>
-                </motion.div>
+                        <Link href="/website" className="group relative flex flex-col justify-between h-full rounded-3xl overflow-hidden p-6 bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                            <div className="flex items-start justify-between">
+                                <div className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center">
+                                    <LuGlobe size={24} className="text-emerald-500" />
+                                </div>
+                                <div className="w-9 h-9 rounded-full border border-gray-100 flex items-center justify-center group-hover:bg-[#7A85F0] group-hover:border-[#7A85F0] transition-all duration-300">
+                                    <LuArrowUpRight size={16} className="text-gray-400 group-hover:text-white transition-colors duration-300" />
+                                </div>
+                            </div>
+                            <div>
+                                <p className="text-gray-400 text-[10px] uppercase tracking-widest mb-1">Development</p>
+                                <h3 className={`text-xl font-bold text-gray-900 mb-1 ${bn}`}>
+                                    {language === 'bn' ? t("navbar.website") : 'Programming'}
+                                </h3>
+                                <div className="flex items-center gap-2 mt-3">
+                                    <span className="text-2xl font-black text-[#7A85F0]">{count('websites')}+</span>
+                                    <span className="text-xs text-gray-400">{language === 'bn' ? 'টেমপ্লেট' : 'Templates'}</span>
+                                </div>
+                            </div>
+                        </Link>
+                    </motion.div>
 
-                {/* Categories Grid - Entry Animation with stagger */}
+                    {/* Card 5 – Digital Marketing (spans 3 cols × 1 row) */}
+                    <motion.div
+                        className="col-span-12 sm:col-span-6 lg:col-span-3 row-span-1"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.25 }}
+                    >
+                        <Link href="/tools" className="group relative flex flex-col justify-between h-full rounded-3xl overflow-hidden p-6 bg-[#EEF0FD] border border-[#7A85F0]/10 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                            <div className="flex items-start justify-between">
+                                <div className="w-12 h-12 bg-[#7A85F0]/15 rounded-2xl flex items-center justify-center">
+                                    <LuTrendingUp size={24} className="text-[#7A85F0]" />
+                                </div>
+                                <div className="w-9 h-9 rounded-full border border-[#7A85F0]/20 flex items-center justify-center group-hover:bg-[#7A85F0] group-hover:border-[#7A85F0] transition-all duration-300">
+                                    <LuArrowUpRight size={16} className="text-[#7A85F0] group-hover:text-white transition-colors duration-300" />
+                                </div>
+                            </div>
+                            <div>
+                                <p className="text-[#7A85F0]/60 text-[10px] uppercase tracking-widest mb-1">Marketing</p>
+                                <h3 className={`text-xl font-bold text-gray-900 mb-1 ${bn}`}>
+                                    {language === 'bn' ? t("home_sections.categoryHighlight") : 'Digital Marketing'}
+                                </h3>
+                                <div className="flex items-center gap-2 mt-3">
+                                    <span className="text-2xl font-black text-[#7A85F0]">{count('tools')}+</span>
+                                    <span className="text-xs text-gray-500">{language === 'bn' ? 'টুলস' : 'Tools'}</span>
+                                </div>
+                            </div>
+                        </Link>
+                    </motion.div>
+
+                </div>
+
+                {/* ── CTA ── */}
                 <motion.div
-                    className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'
-                    variants={staggerContainer}
-                    initial="hidden"
-                    whileInView="visible"
+                    className="text-center mt-12"
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
                 >
-                    {categories.map((cat, index) => {
-                        const Icon = cat.icon;
-                        const colors = getColorClasses(cat.color);
-                        const count = getCategoryCount(cat.id);
-
-                        return (
-                            <motion.div key={cat.id} variants={cardVariants}>
-                                <Link
-                                    href={cat.href}
-                                    className="group relative bg-white dark:bg-[#0d0d0d] rounded-md p-8 border border-gray-200 dark:border-white/10 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] overflow-hidden block hover:-translate-y-2"
-                                >
-                                    {/* Decorative Corner */}
-                                    <div className={`absolute -top-10 -right-10 w-24 h-24 rounded-full bg-gradient-to-br ${colors.gradient} opacity-5 group-hover:opacity-10 transition-opacity duration-500`}></div>
-
-                                    {/* Card Inner Design Lines */}
-                                    <div className="absolute bottom-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-gray-200 dark:via-white/10 to-transparent"></div>
-
-                                    {/* Content */}
-                                    <div className="relative z-10">
-                                        {/* Icon with Ring */}
-                                        <div className="relative mb-5">
-                                            <div className={`w-16 h-16 ${colors.light} rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:shadow-lg`}>
-                                                <Icon size={28} className={`${colors.text} transition-all duration-300`} />
-                                            </div>
-                                            {/* Decorative ring on hover */}
-                                            <div className={`absolute inset-0 w-16 h-16 rounded-2xl border-2 ${colors.border} scale-100 opacity-0 group-hover:scale-125 group-hover:opacity-100 transition-all duration-500`}></div>
-                                        </div>
-
-                                        {/* Title */}
-                                        <h3 className={`text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-gray-800 dark:group-hover:text-white transition-colors ${bengaliClass}`}>
-                                            {cat.title}
-                                        </h3>
-
-                                        {/* Subtitle */}
-                                        <p className={`text-sm text-gray-500 dark:text-gray-400 mb-4 ${bengaliClass}`}>
-                                            {cat.subtitle}
-                                        </p>
-
-                                        {/* Bottom Row */}
-                                        <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-white/10">
-                                            {/* Dynamic Items Count */}
-                                            <span className={`text-sm font-semibold ${colors.text} ${bengaliClass}`}>
-                                                {count}+ {cat.itemLabel}
-                                            </span>
-
-                                            {/* Arrow */}
-                                            <div className={`w-8 h-8 rounded-lg ${colors.light} flex items-center justify-center transition-all duration-300 group-hover:bg-gradient-to-r group-hover:${colors.gradient}`}>
-                                                <LuArrowRight size={16} className={`${colors.text} transition-all duration-300 group-hover:text-white`} />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Bottom Accent Line */}
-                                    <div className={`absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r ${colors.gradient} rounded-b-md group-hover:w-full transition-all duration-500`}></div>
-                                </Link>
-                            </motion.div>
-                        );
-                    })}
+                    <Link
+                        href="/courses"
+                        className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#7A85F0] text-white text-sm font-semibold shadow-lg shadow-[#7A85F0]/30 hover:bg-[#6470e8] transition-all duration-300"
+                    >
+                        {language === 'bn' ? 'সব ক্যাটাগরি দেখুন' : 'View All Categories'}
+                        <LuArrowUpRight size={16} />
+                    </Link>
                 </motion.div>
+
             </div>
         </section>
     );
 };
 
 export default HomeCategory;
-

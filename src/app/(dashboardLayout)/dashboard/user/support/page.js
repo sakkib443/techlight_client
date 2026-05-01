@@ -45,7 +45,7 @@ export default function UserSupportPage() {
         {
             icon: FiPhone,
             title: 'Phone Support',
-            value: '+880 1829-818616',
+            value: '+880 1XXX-XXXXXX',
             subtext: 'Mon-Fri, 9AM-6PM',
             color: 'text-indigo-500',
             bg: 'bg-indigo-500/10',
@@ -53,7 +53,7 @@ export default function UserSupportPage() {
         {
             icon: FiMail,
             title: 'Email Support',
-            value: 'support@Techlight IT Institute.com',
+            value: 'demo@example.com',
             subtext: '24-48 hours response',
             color: 'text-purple-500',
             bg: 'bg-purple-500/10',

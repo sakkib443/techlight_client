@@ -202,9 +202,9 @@ const SingleCourse = () => {
   // Loading State
   if (loading && !currentCourse) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh] bg-gradient-to-br from-gray-50 to-white dark:from-slate-950 dark:to-slate-900">
+      <div className="flex items-center justify-center min-h-[60vh] bg-white dark:bg-[#0a0a0a]">
         <div className="text-center">
-          <div className="w-12 h-12 border-3 border-gray-200 dark:border-slate-700 border-t-red-500 rounded-full animate-spin mx-auto"></div>
+          <div className="w-12 h-12 border-3 border-gray-200 dark:border-slate-700 border-t-[#7A85F0] rounded-full animate-spin mx-auto"></div>
           <p className="mt-4 text-gray-400 dark:text-gray-500 text-sm font-medium tracking-wide poppins">Loading course...</p>
         </div>
       </div>
@@ -214,15 +214,15 @@ const SingleCourse = () => {
   // Error State
   if (!currentCourse && !loading) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-white dark:from-slate-950 dark:to-slate-900 px-4">
-        <div className="w-20 h-20 bg-gray-100 dark:bg-slate-800 rounded-md flex items-center justify-center mb-6">
-          <LuBookOpen className="text-gray-300 dark:text-slate-600 text-3xl" />
+      <div className="min-h-[70vh] flex flex-col items-center justify-center bg-white dark:bg-[#0a0a0a] px-4">
+        <div className="w-20 h-20 bg-[#EEF0FD] dark:bg-[#7A85F0]/10 rounded-2xl flex items-center justify-center mb-6">
+          <LuBookOpen className="text-[#7A85F0]" size={32} />
         </div>
-        <h3 className="text-xl font-bold text-gray-800 dark:text-white outfit mb-2">Course Not Found</h3>
-        <p className="text-gray-500 dark:text-gray-400 poppins text-sm mb-6 text-center max-w-sm">The course you're looking for doesn't exist or has been removed.</p>
+        <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">Course Not Found</h3>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mb-6 text-center max-w-sm">The course you're looking for doesn't exist or has been removed.</p>
         <button
           onClick={() => router.push('/courses')}
-          className="px-6 py-2.5 bg-gray-900 dark:bg-red-500 text-white text-sm font-semibold rounded-md hover:bg-red-600 transition-colors"
+          className="px-6 py-2.5 bg-[#7A85F0] hover:bg-[#5A65D0] text-white text-sm font-semibold rounded-xl transition-colors"
         >
           Browse Courses
         </button>
@@ -235,22 +235,16 @@ const SingleCourse = () => {
   const priceLabel = currentCourse.priceLabel;
 
   return (
-    <div className="min-h-screen bg-[#FAFBFC] dark:bg-slate-950">
-      {/* Hero Section - with Dark Mode Support */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#f0fffe] via-[#e8f9f8] to-[#f5f5ff] dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 pt-12 pb-28 lg:pt-16 lg:pb-36">
-        {/* Background Effects */}
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-red-400/10 dark:from-red-500/5 to-transparent blur-3xl pointer-events-none"></div>
-        <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-amber-400/8 dark:bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div className="min-h-screen bg-white dark:bg-[#0a0a0a]">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-slate-50 dark:bg-[#0a0a0a] pt-12 pb-28 lg:pt-16 lg:pb-36">
+        {/* Background Texture — matching site hero */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#7A85F0]/5 via-transparent to-[#7A85F0]/5"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(122,133,240,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(122,133,240,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+        <div className="absolute -top-20 -left-20 w-80 h-80 bg-[#7A85F0]/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[#7A85F0]/[0.06] rounded-full blur-3xl pointer-events-none"></div>
 
-        {/* Animated Shapes */}
-        <div className="absolute top-20 right-[15%] w-20 h-20 border-2 border-red-500/20 rounded-2xl rotate-12 animate-float"></div>
-        <div className="absolute bottom-32 left-[10%] w-16 h-16 border-2 border-orange-500/20 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute top-1/3 right-[8%] w-12 h-12 bg-red-500/10 rounded-xl rotate-45 animate-float" style={{ animationDelay: '2s' }}></div>
-
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.015)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none"></div>
-
-        <div className="container mx-auto px-4 lg:px-24 relative z-10">
+        <div className="container mx-auto px-4 lg:px-32 relative z-10">
           <div className="max-w-3xl">
             {/* Breadcrumb */}
             <motion.div
@@ -258,9 +252,9 @@ const SingleCourse = () => {
               animate={{ opacity: 1 }}
               className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-6 poppins"
             >
-              <Link href="/" className="hover:text-red-600 transition-colors">Home</Link>
+              <Link href="/" className="hover:text-[#7A85F0] transition-colors">Home</Link>
               <span>/</span>
-              <Link href="/courses" className="hover:text-red-600 transition-colors">Courses</Link>
+              <Link href="/courses" className="hover:text-[#7A85F0] transition-colors">Courses</Link>
               <span>/</span>
               <span className="text-gray-700 dark:text-white font-medium truncate max-w-[200px]">{currentCourse.title}</span>
             </motion.div>
@@ -271,14 +265,14 @@ const SingleCourse = () => {
               animate={{ opacity: 1, y: 0 }}
               className="flex flex-wrap items-center gap-2 mb-5"
             >
-              <span className="px-3 py-1 bg-gradient-to-r from-red-500 to-red-600 rounded text-white text-[11px] font-bold uppercase tracking-wider poppins">
+              <span className="px-3 py-1.5 bg-[#7A85F0] rounded-lg text-white text-[11px] font-bold uppercase tracking-wider">
                 {currentCourse.courseType || 'Recorded'}
               </span>
-              <span className="px-3 py-1 bg-white/90 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded text-gray-600 dark:text-gray-300 text-[11px] font-bold uppercase tracking-wider poppins">
+              <span className="px-3 py-1.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg text-gray-600 dark:text-gray-300 text-[11px] font-bold uppercase tracking-wider">
                 {currentCourse.level || 'Beginner'}
               </span>
               {currentCourse.isFeatured && (
-                <span className="px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded text-white text-[11px] font-bold uppercase tracking-wider flex items-center gap-1">
+                <span className="px-3 py-1.5 bg-gradient-to-r from-amber-500 to-orange-500 rounded-lg text-white text-[11px] font-bold uppercase tracking-wider flex items-center gap-1">
                   <LuSparkles size={10} /> Featured
                 </span>
               )}
@@ -312,31 +306,31 @@ const SingleCourse = () => {
               className="flex flex-wrap items-center gap-3 mb-5"
             >
               {/* Rating */}
-              <div className="flex items-center gap-2 bg-white px-8 py-2.5 rounded-md border border-gray-200">
+              <div className="flex items-center gap-2 bg-white dark:bg-white/5 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10">
                 <div className="flex text-amber-400 gap-0.5">
                   {[1, 2, 3, 4, 5].map((s) => <FaStar key={s} size={12} />)}
                 </div>
-                <span className="font-bold outfit text-gray-900">{currentCourse.averageRating || '5.0'}</span>
-                <span className="text-gray-400 text-xs poppins">({currentCourse.reviewCount || 0})</span>
+                <span className="font-bold text-gray-900 dark:text-white">{currentCourse.averageRating || '5.0'}</span>
+                <span className="text-gray-400 text-xs">({currentCourse.reviewCount || 0})</span>
               </div>
 
               {/* Students */}
-              <div className="flex items-center gap-3 bg-white px-8 py-2.5 rounded-md border border-gray-200">
-                <div className="w-7 h-7 rounded bg-emerald-50 flex items-center justify-center">
+              <div className="flex items-center gap-3 bg-white dark:bg-white/5 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10">
+                <div className="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center">
                   <LuUsers className="text-emerald-600" size={14} />
                 </div>
-                <span className="text-gray-700 font-medium text-sm poppins">
+                <span className="text-gray-700 dark:text-gray-300 font-medium text-sm">
                   <AnimatedCounter value={currentCourse.totalEnrollments || 0} />
                   <span className="text-gray-400 ml-1">students</span>
                 </span>
               </div>
 
               {/* Lessons */}
-              <div className="flex items-center gap-3 bg-white px-8 py-2.5 rounded-md border border-gray-200">
-                <div className="w-7 h-7 rounded bg-blue-50 flex items-center justify-center">
-                  <LuMonitor className="text-blue-600" size={14} />
+              <div className="flex items-center gap-3 bg-white dark:bg-white/5 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10">
+                <div className="w-7 h-7 rounded-lg bg-[#EEF0FD] dark:bg-[#7A85F0]/10 flex items-center justify-center">
+                  <LuMonitor className="text-[#7A85F0]" size={14} />
                 </div>
-                <span className="text-gray-700 font-medium text-sm poppins">
+                <span className="text-gray-700 dark:text-gray-300 font-medium text-sm">
                   <AnimatedCounter value={currentCourse.totalLessons || 0} />
                   <span className="text-gray-400 ml-1">lessons</span>
                 </span>
@@ -350,9 +344,9 @@ const SingleCourse = () => {
               transition={{ delay: 0.2 }}
               className="flex items-center gap-3"
             >
-              <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-md border border-gray-200">
-                <span className="text-gray-400 text-sm poppins">Instructor</span>
-                <span className="text-red-600 font-semibold text-sm outfit underline underline-offset-4">{instructor?.name || 'Industry Expert'}</span>
+              <div className="flex items-center gap-2 bg-white dark:bg-white/5 px-3 py-2 rounded-xl border border-slate-200 dark:border-white/10">
+                <span className="text-gray-400 text-sm">Instructor</span>
+                <span className="text-[#7A85F0] font-semibold text-sm underline underline-offset-4">{instructor?.name || 'Industry Expert'}</span>
                 <MdVerified className="text-blue-500" size={16} />
               </div>
 
@@ -360,8 +354,8 @@ const SingleCourse = () => {
                 onClick={handleToggleLike}
                 disabled={isLiking}
                 className={`flex items-center gap-2 px-3 py-2 rounded-md border transition-all ${currentCourse.isLiked
-                  ? 'bg-rose-50 border-rose-200 text-rose-600'
-                  : 'bg-white border-gray-200 text-gray-600 hover:border-rose-200 hover:text-rose-500'
+                  ? 'bg-[#EEF0FD] border-[#7A85F0]/30 text-[#7A85F0]'
+                  : 'bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 text-gray-600 hover:border-[#7A85F0]/30 hover:text-[#7A85F0]'
                   }`}
               >
                 {currentCourse.isLiked ? <FaHeart size={14} /> : <FaRegHeart size={14} />}
@@ -375,14 +369,14 @@ const SingleCourse = () => {
       </section>
 
       {/* Main Content */}
-      <section className="bg-white dark:bg-slate-950">
-        <div className="container mx-auto px-4 lg:px-24 pb-20 relative z-20">
+      <section className="bg-white dark:bg-[#0a0a0a]">
+        <div className="container mx-auto px-4 lg:px-32 pb-20 relative z-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
             {/* Left Content */}
             <div className="lg:col-span-8 space-y-6">
               {/* Mobile Pricing Card */}
-              <div className="lg:hidden bg-white dark:bg-slate-900 rounded-md border border-gray-200 dark:border-slate-800 overflow-hidden">
+              <div className="lg:hidden bg-white dark:bg-[#111] rounded-2xl border border-slate-200 dark:border-white/10 overflow-hidden">
                 <img src={currentCourse.thumbnail || currentCourse.image || "/images/placeholder.png"} alt={currentCourse.title} className="w-full aspect-video object-cover" />
                 <div className="p-5">
                   <div className="flex items-baseline gap-2 mb-4">
@@ -409,7 +403,7 @@ const SingleCourse = () => {
                     {currentCourse.sampleVideoUrl && (
                       <button
                         onClick={() => setShowVideoModal(true)}
-                        className="w-full py-3 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 hover:border-red-300 transition-all flex items-center justify-center gap-2 poppins"
+                        className="w-full py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-[#EEF0FD] dark:hover:bg-[#7A85F0]/5 hover:border-[#7A85F0]/30 transition-all flex items-center justify-center gap-2"
                       >
                         <LuVideo size={18} /> Sample Lesson
                       </button>
@@ -421,7 +415,7 @@ const SingleCourse = () => {
               {/* Tabs */}
               {/* Tab Headers - Sticky on mobile, normal on desktop */}
               <div className="sticky top-[60px] z-30 lg:static lg:z-auto">
-                <div className="flex border border-gray-200 lg:border-b-0 bg-white/95 backdrop-blur-md lg:backdrop-blur-none lg:bg-gray-50/80 shadow-md lg:shadow-sm rounded-lg lg:rounded-b-none lg:rounded-t-md">
+                <div className="flex border border-slate-200 dark:border-white/10 lg:border-b-0 bg-white/95 dark:bg-[#111]/95 backdrop-blur-md lg:backdrop-blur-none lg:bg-slate-50/80 dark:lg:bg-[#111]/80 shadow-md lg:shadow-sm rounded-xl lg:rounded-b-none lg:rounded-t-xl">
                   {[
                     { id: "overview", label: "Overview", icon: LuLayoutGrid },
                     { id: "curriculum", label: "Curriculum", icon: MdOutlineMenuBook },
@@ -432,30 +426,21 @@ const SingleCourse = () => {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 sm:py-4 text-xs sm:text-sm font-semibold transition-all border-b-2 -mb-[1px] poppins ${activeTab === tab.id
-                        ? "text-red-600 border-red-500 bg-white"
-                        : "text-gray-500 border-transparent hover:text-gray-700"
+                      className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-3 sm:py-4 text-xs sm:text-sm font-semibold transition-all border-b-2 -mb-[1px] ${activeTab === tab.id
+                        ? "text-[#7A85F0] border-[#7A85F0] bg-white dark:bg-[#111]"
+                        : "text-gray-500 border-transparent hover:text-gray-700 dark:hover:text-gray-300"
                         }`}
                     >
                       <tab.icon size={16} />
                       <span className="hidden sm:inline">{tab.label}</span>
-                      {activeTab !== tab.id && (
-                        <FaArrowRight
-                          size={10}
-                          className="text-red-500 animate-pulse hidden sm:inline"
-                          style={{
-                            filter: 'drop-shadow(0 0 4px rgba(239, 68, 68, 0.8))',
-                            animation: 'glow 1.5s ease-in-out infinite alternate'
-                          }}
-                        />
-                      )}
+
                     </button>
                   ))}
                 </div>
               </div>
 
               {/* Tab Content Card */}
-              <div className="bg-white rounded-b-md lg:rounded-md border border-gray-200 border-t-0 lg:border-t overflow-hidden shadow-sm -mt-0 lg:mt-0">
+              <div className="bg-white dark:bg-[#111] rounded-b-xl lg:rounded-xl border border-slate-200 dark:border-white/10 border-t-0 lg:border-t overflow-hidden shadow-sm -mt-0 lg:mt-0">
                 {/* Tab Content */}
                 <div className="p-6 lg:p-8">
                   <AnimatePresence mode="wait">
@@ -471,7 +456,7 @@ const SingleCourse = () => {
                         {/* About */}
                         <div>
                           <h2 className="text-lg font-bold outfit text-gray-900 mb-4 flex items-center gap-2">
-                            <span className="w-1 h-5 bg-red-500 rounded-full"></span>
+                            <span className="w-1 h-5 bg-[#7A85F0] rounded-full"></span>
                             Course Description
                           </h2>
                           <div className="text-gray-800 poppins text-[15px] leading-7 whitespace-pre-line">
@@ -483,14 +468,14 @@ const SingleCourse = () => {
                         {currentCourse.features?.length > 0 && (
                           <div>
                             <h3 className="text-base font-bold outfit text-gray-900 mb-4 flex items-center gap-2">
-                              <span className="w-1 h-5 bg-amber-500 rounded-full"></span>
+                              <span className="w-1 h-5 bg-[#7A85F0] rounded-full"></span>
                               Key Features
                             </h3>
                             <div className="flex flex-wrap gap-2">
                               {currentCourse.features.map((feature, idx) => (
                                 <span
                                   key={idx}
-                                  className="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded text-gray-700 font-medium text-sm hover:border-teal-300 hover:bg-red-50 transition-colors cursor-default poppins"
+                                  className="px-3 py-1.5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg text-gray-700 dark:text-gray-300 font-medium text-sm hover:border-[#7A85F0]/40 hover:bg-[#EEF0FD] dark:hover:bg-[#7A85F0]/10 transition-colors cursor-default"
                                 >
                                   {feature}
                                 </span>
@@ -502,17 +487,17 @@ const SingleCourse = () => {
                         {/* Job Opportunities Section - Moved Here */}
                         {currentCourse.jobOpportunities?.length > 0 && (
                           <div className="mt-8">
-                            <h2 className="text-lg font-bold outfit text-red-600 mb-5 flex items-center gap-2">
-                              <span className="w-1 h-5 bg-orange-500 rounded-full"></span>
+                            <h2 className="text-lg font-bold text-[#7A85F0] mb-5 flex items-center gap-2">
+                              <span className="w-1 h-5 bg-[#7A85F0] rounded-full"></span>
                               Job Opportunities
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                               {currentCourse.jobOpportunities.map((job, idx) => (
                                 <div
                                   key={idx}
-                                  className="flex items-center gap-3 p-4 bg-orange-50 border border-orange-100 rounded-md hover:border-orange-300 hover:bg-orange-100/50 transition-colors"
+                                  className="flex items-center gap-3 p-4 bg-[#EEF0FD] dark:bg-[#7A85F0]/5 border border-[#7A85F0]/15 dark:border-[#7A85F0]/10 rounded-xl hover:border-[#7A85F0]/30 hover:shadow-sm transition-all"
                                 >
-                                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center flex-shrink-0 shadow-sm">
+                                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7A85F0] to-[#5A65D0] flex items-center justify-center flex-shrink-0 shadow-sm shadow-[#7A85F0]/25">
                                     <LuGraduationCap className="text-white" size={18} />
                                   </div>
                                   <span className="text-gray-800 font-semibold text-sm poppins">{job}</span>
@@ -526,7 +511,7 @@ const SingleCourse = () => {
                         {currentCourse.faq?.length > 0 && (
                           <div className="mt-8">
                             <h2 className="text-lg font-bold outfit text-gray-900 dark:text-white mb-5 flex items-center gap-2">
-                              <span className="w-1 h-5 bg-red-500 rounded-full"></span>
+                              <span className="w-1 h-5 bg-[#7A85F0] rounded-full"></span>
                               Frequently Asked Questions
                             </h2>
                             <div className="space-y-3">
@@ -534,8 +519,8 @@ const SingleCourse = () => {
                                 <div
                                   key={idx}
                                   className={`border rounded-xl overflow-hidden transition-all duration-300 ${expandedFaq === idx
-                                    ? 'border-red-200 dark:border-red-800 bg-gradient-to-br from-red-50/50 to-rose-50/30 dark:from-red-950/30 dark:to-rose-950/20 shadow-sm'
-                                    : 'border-gray-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-red-100 dark:hover:border-red-900'
+                                    ? 'border-[#7A85F0]/30 bg-[#EEF0FD]/30 dark:bg-[#7A85F0]/5 shadow-sm'
+                                    : 'border-gray-100 dark:border-white/10 bg-white dark:bg-[#111] hover:border-[#7A85F0]/20'
                                     }`}
                                 >
                                   <button
@@ -544,18 +529,18 @@ const SingleCourse = () => {
                                   >
                                     <div className="flex items-center gap-3 flex-1 min-w-0">
                                       <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${expandedFaq === idx
-                                        ? 'bg-gradient-to-br from-red-500 to-rose-600 shadow-md shadow-red-200 dark:shadow-none'
-                                        : 'bg-red-50 dark:bg-red-900/30'
+                                        ? 'bg-[#7A85F0] shadow-md shadow-[#7A85F0]/25'
+                                        : 'bg-[#EEF0FD] dark:bg-[#7A85F0]/10'
                                         }`}>
-                                        <LuCircleHelp className={`${expandedFaq === idx ? 'text-white' : 'text-red-600 dark:text-red-400'}`} size={16} />
+                                        <LuCircleHelp className={`${expandedFaq === idx ? 'text-white' : 'text-[#7A85F0]'}`} size={16} />
                                       </div>
-                                      <span className={`font-semibold text-sm poppins transition-colors ${expandedFaq === idx ? 'text-red-700 dark:text-red-300' : 'text-gray-800 dark:text-gray-200'
+                                      <span className={`font-semibold text-sm transition-colors ${expandedFaq === idx ? 'text-[#7A85F0]' : 'text-gray-800 dark:text-gray-200'
                                         }`}>
                                         {item.question}
                                       </span>
                                     </div>
                                     <div className={`flex items-center justify-center w-7 h-7 rounded-lg flex-shrink-0 ml-3 transition-all ${expandedFaq === idx
-                                      ? 'bg-red-100 dark:bg-red-800 text-red-600 dark:text-red-300 rotate-180'
+                                      ? 'bg-[#EEF0FD] dark:bg-[#7A85F0]/10 text-[#7A85F0] rotate-180'
                                       : 'bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-gray-500'
                                       }`}>
                                       <LuChevronDown size={14} />
@@ -597,7 +582,7 @@ const SingleCourse = () => {
                         className="space-y-6"
                       >
                         <h2 className="text-lg font-bold outfit text-gray-900 mb-5 flex items-center gap-2">
-                          <span className="w-1 h-5 bg-red-500 rounded-full"></span>
+                          <span className="w-1 h-5 bg-[#7A85F0] rounded-full"></span>
                           Learning Modules
                         </h2>
                         <div className="space-y-4">
@@ -608,7 +593,7 @@ const SingleCourse = () => {
                                 className="w-full flex items-center justify-between p-4 bg-white hover:bg-gray-50 transition-colors"
                               >
                                 <div className="flex items-center gap-3">
-                                  <span className="w-8 h-8 rounded bg-red-50 text-red-600 flex items-center justify-center font-bold text-xs outfit">
+                                  <span className="w-8 h-8 rounded-lg bg-[#EEF0FD] dark:bg-[#7A85F0]/10 text-[#7A85F0] flex items-center justify-center font-bold text-xs">
                                     {idx + 1}
                                   </span>
                                   <div className="text-left">
@@ -616,7 +601,7 @@ const SingleCourse = () => {
                                     <p className="text-[10px] text-gray-400 poppins uppercase tracking-wider">{module.totalLessons} Lessons</p>
                                   </div>
                                 </div>
-                                <div className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg transition-all ${expandedModule === idx ? 'bg-red-50 text-red-500' : 'bg-gray-100 text-gray-400 hover:bg-gray-200'}`}>
+                                <div className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg transition-all ${expandedModule === idx ? 'bg-[#EEF0FD] dark:bg-[#7A85F0]/10 text-[#7A85F0]' : 'bg-gray-100 dark:bg-white/5 text-gray-400 hover:bg-gray-200'}`}>
                                   <LuListVideo size={13} />
                                   {expandedModule === idx
                                     ? <LuChevronUp size={13} />
@@ -639,12 +624,12 @@ const SingleCourse = () => {
                                         <div key={lIdx} className="flex items-center justify-between p-4 pl-12 hover:bg-white transition-colors group">
                                           <div className="flex items-center gap-3">
                                             {lesson.videoUrl ? (
-                                              <MdPlayCircleOutline className="text-red-400" size={18} />
+                                              <MdPlayCircleOutline className="text-[#7A85F0]" size={18} />
                                             ) : (
                                               <LuBookOpen className="text-emerald-400" size={16} />
                                             )}
-                                            <span className="text-sm font-medium text-gray-600 poppins group-hover:text-red-600">{lesson.title}</span>
-                                            {lesson.isFree && <span className="text-[10px] font-bold text-red-500 bg-red-50 px-2 py-0.5 rounded border border-red-100">FREE</span>}
+                                            <span className="text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-[#7A85F0]">{lesson.title}</span>
+                                            {lesson.isFree && <span className="text-[10px] font-bold text-[#7A85F0] bg-[#EEF0FD] dark:bg-[#7A85F0]/10 px-2 py-0.5 rounded-lg border border-[#7A85F0]/20">FREE</span>}
                                           </div>
                                           {/* Duration removed as requested */}
                                         </div>
@@ -672,7 +657,7 @@ const SingleCourse = () => {
                         transition={{ duration: 0.2 }}
                       >
                         <h2 className="text-lg font-bold outfit text-gray-900 mb-5 flex items-center gap-2">
-                          <span className="w-1 h-5 bg-red-500 rounded-full"></span>
+                          <span className="w-1 h-5 bg-[#7A85F0] rounded-full"></span>
                           What You Will Learn
                         </h2>
 
@@ -681,10 +666,10 @@ const SingleCourse = () => {
                             {currentCourse.whatYouWillLearn.map((topic, idx) => (
                               <div
                                 key={idx}
-                                className="flex items-start gap-3 p-4 bg-gray-50 border border-gray-100 rounded-md hover:border-teal-200 hover:bg-red-50/30 transition-colors"
+                                className="flex items-start gap-3 p-4 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl hover:border-[#7A85F0]/40 hover:bg-[#EEF0FD]/50 dark:hover:bg-[#7A85F0]/5 transition-colors"
                               >
-                                <div className="w-8 h-8 rounded bg-red-100 flex items-center justify-center flex-shrink-0">
-                                  <LuCheck className="text-red-600" size={16} strokeWidth={3} />
+                                <div className="w-8 h-8 rounded-lg bg-[#EEF0FD] dark:bg-[#7A85F0]/10 flex items-center justify-center flex-shrink-0">
+                                  <LuCheck className="text-[#7A85F0]" size={16} strokeWidth={3} />
                                 </div>
                                 <span className="text-gray-700 font-medium text-sm leading-relaxed pt-1 poppins">{topic}</span>
                               </div>
@@ -700,17 +685,17 @@ const SingleCourse = () => {
                         {/* Software We Learn Section */}
                         {currentCourse.softwareWeLearn?.length > 0 && (
                           <div className="mt-8">
-                            <h2 className="text-lg font-bold outfit text-red-600 mb-5 flex items-center gap-2">
-                              <span className="w-1 h-5 bg-cyan-500 rounded-full"></span>
+                            <h2 className="text-lg font-bold text-[#7A85F0] mb-5 flex items-center gap-2">
+                              <span className="w-1 h-5 bg-[#7A85F0] rounded-full"></span>
                               Software We Learn
                             </h2>
                             <div className="flex flex-wrap gap-3">
                               {currentCourse.softwareWeLearn.map((software, idx) => (
                                 <div
                                   key={idx}
-                                  className="flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-cyan-50 to-teal-50 border border-cyan-200 rounded-lg hover:border-cyan-400 hover:shadow-sm transition-all"
+                                  className="flex items-center gap-2 px-4 py-3 bg-[#EEF0FD] dark:bg-[#7A85F0]/5 border border-[#7A85F0]/15 dark:border-[#7A85F0]/10 rounded-xl hover:border-[#7A85F0]/30 hover:shadow-sm transition-all"
                                 >
-                                  <div className="w-8 h-8 rounded-md bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center flex-shrink-0">
+                                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#7A85F0] to-[#5A65D0] flex items-center justify-center flex-shrink-0">
                                     <LuMonitor className="text-white" size={14} />
                                   </div>
                                   <span className="text-gray-800 font-semibold text-sm poppins">{software}</span>
@@ -732,26 +717,26 @@ const SingleCourse = () => {
                         className="space-y-8"
                       >
                         <h2 className="text-lg font-bold outfit text-gray-900 mb-6 flex items-center gap-2">
-                          <span className="w-1 h-5 bg-red-500 rounded-full"></span>
+                          <span className="w-1 h-5 bg-[#7A85F0] rounded-full"></span>
                           Meet Your Instructor
                         </h2>
 
                         {instructor ? (
                           <div className="flex flex-col md:flex-row gap-8 items-start">
                             <div className="relative group">
-                              <div className="absolute -inset-1 bg-gradient-to-tr from-red-500 to-amber-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                              <div className="absolute -inset-1 bg-gradient-to-tr from-[#7A85F0] to-[#5A65D0] rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity"></div>
                               <div className="relative w-40 h-40 rounded-xl overflow-hidden border-2 border-white shadow-lg">
                                 <img src={instructor.image} alt={instructor.name} className="w-full h-full object-cover transform transition-transform group-hover:scale-105 duration-500" />
                               </div>
                             </div>
                             <div className="flex-1 space-y-4">
-                              <div className="flex items-center gap-3 bg-red-50/50 dark:bg-slate-900/50 p-4 rounded-2xl border border-red-100 dark:border-slate-800 shadow-sm">
+                              <div className="flex items-center gap-3 bg-[#EEF0FD]/50 dark:bg-[#7A85F0]/5 p-4 rounded-2xl border border-[#7A85F0]/15 dark:border-[#7A85F0]/10 shadow-sm">
                                 <div>
                                   <div className="flex items-center gap-2 mb-1">
                                     <h3 className="text-2xl font-bold outfit text-gray-900 dark:text-white leading-tight">{instructor.name}</h3>
                                     <MdVerified className="text-blue-500 text-xl" />
                                   </div>
-                                  <p className="text-red-500 font-bold poppins text-sm uppercase tracking-wide">
+                                  <p className="text-[#7A85F0] font-bold text-sm uppercase tracking-wide">
                                     {instructor.designation}
                                   </p>
                                   {instructor.specialization?.length > 0 && (
@@ -767,7 +752,7 @@ const SingleCourse = () => {
                               </div>
 
                               <div className="p-1 px-4">
-                                <p className="text-gray-700 dark:text-gray-300 poppins text-[15px] leading-relaxed italic border-l-4 border-red-500/20 pl-4">
+                                <p className="text-gray-700 dark:text-gray-300 text-[15px] leading-relaxed italic border-l-4 border-[#7A85F0]/20 pl-4">
                                   {instructor.bio || 'Professional instructor with years of industry experience. Passionate about teaching and sharing knowledge with the community.'}
                                 </p>
                               </div>
@@ -802,7 +787,7 @@ const SingleCourse = () => {
             <div className="lg:col-span-4 hidden lg:block">
               <div className="sticky top-24 -mt-[28rem] space-y-5">
                 {/* Pricing Card */}
-                <div className="bg-white rounded-md border border-gray-200 shadow-sm overflow-hidden">
+                <div className="bg-white dark:bg-[#111] rounded-2xl border border-slate-200 dark:border-white/10 shadow-sm overflow-hidden">
                   {/* Image mirroring Website Gallery/Preview */}
                   <div className="relative aspect-video group cursor-pointer overflow-hidden bg-gray-100">
                     <img
@@ -819,19 +804,19 @@ const SingleCourse = () => {
                   <div className="p-5 space-y-5">
                     {/* Batch Information - Premium Design */}
                     {batches.length > 0 && (
-                      <div className="p-5 bg-gradient-to-br from-red-50 via-orange-50 to-amber-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 rounded-2xl border-2 border-red-100 dark:border-red-900/30 shadow-lg">
+                      <div className="p-5 bg-gradient-to-br from-[#EEF0FD] via-[#F5F6FF] to-[#EEF0FD] dark:from-[#111] dark:via-[#0a0a0a] dark:to-[#111] rounded-2xl border-2 border-[#7A85F0]/20 dark:border-[#7A85F0]/10 shadow-lg">
                         {/* Header */}
-                        <div className="flex items-center justify-between mb-5 pb-4 border-b border-red-100 dark:border-red-900/30">
+                        <div className="flex items-center justify-between mb-5 pb-4 border-b border-[#7A85F0]/15 dark:border-[#7A85F0]/10">
                           <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center shadow-lg shadow-red-200 dark:shadow-none">
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7A85F0] to-[#5A65D0] flex items-center justify-center shadow-lg shadow-[#7A85F0]/25">
                               <LuGraduationCap className="text-white" size={24} />
                             </div>
                             <div>
-                              <h4 className="text-base font-bold outfit text-red-600 dark:text-red-400">Admission Going On</h4>
+                              <h4 className="text-base font-bold text-[#7A85F0]">Admission Going On</h4>
                               <p className="text-sm text-gray-800 dark:text-gray-300 font-semibold poppins">{batches[0].batchName}</p>
                             </div>
                           </div>
-                          <span className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm ${batches[0].status === 'upcoming' ? 'bg-amber-500 text-white' : 'bg-green-500 text-white'
+                          <span className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider shadow-sm ${batches[0].status === 'upcoming' ? 'bg-amber-500 text-white' : 'bg-emerald-500 text-white'
                             }`}>
                             {batches[0].status}
                           </span>
@@ -843,10 +828,10 @@ const SingleCourse = () => {
                           <div className="grid grid-cols-2 gap-3">
                             <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm">
                               <div className="flex items-center gap-2 mb-2">
-                                <div className="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-                                  <LuCalendar className="text-red-600 dark:text-red-400" size={16} />
+                                <div className="w-8 h-8 rounded-lg bg-[#EEF0FD] dark:bg-[#7A85F0]/10 flex items-center justify-center">
+                                  <LuCalendar className="text-[#7A85F0]" size={16} />
                                 </div>
-                                <span className="text-xs text-red-600 dark:text-red-400 font-bold poppins uppercase">Start Date</span>
+                                <span className="text-xs text-[#7A85F0] font-bold poppins uppercase">Start Date</span>
                               </div>
                               <p className="text-lg font-bold text-gray-800 dark:text-gray-200 poppins">
                                 {new Date(batches[0].startDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })}
@@ -854,10 +839,10 @@ const SingleCourse = () => {
                             </div>
                             <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm">
                               <div className="flex items-center gap-2 mb-2">
-                                <div className="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-                                  <LuTimer className="text-red-600 dark:text-red-400" size={16} />
+                                <div className="w-8 h-8 rounded-lg bg-[#EEF0FD] dark:bg-[#7A85F0]/10 flex items-center justify-center">
+                                  <LuTimer className="text-[#7A85F0]" size={16} />
                                 </div>
-                                <span className="text-xs text-red-600 dark:text-red-400 font-bold poppins uppercase">Batch No</span>
+                                <span className="text-xs text-[#7A85F0] font-bold poppins uppercase">Batch No</span>
                               </div>
                               <p className="text-lg font-bold text-gray-800 dark:text-gray-200 poppins">
                                 {batches[0].batchCode}
@@ -869,10 +854,10 @@ const SingleCourse = () => {
                           {batches[0].schedule?.length > 0 && (
                             <div className="bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm">
                               <div className="flex items-center gap-2 mb-4">
-                                <div className="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-                                  <LuClock className="text-red-600 dark:text-red-400" size={16} />
+                                <div className="w-8 h-8 rounded-lg bg-[#EEF0FD] dark:bg-[#7A85F0]/10 flex items-center justify-center">
+                                  <LuClock className="text-[#7A85F0]" size={16} />
                                 </div>
-                                <span className="text-sm text-red-600 dark:text-red-400 font-bold poppins uppercase">Class Schedule</span>
+                                <span className="text-sm text-[#7A85F0] font-bold poppins uppercase">Class Schedule</span>
                               </div>
                               <div className="space-y-3">
                                 {batches[0].schedule.map((sch, sIdx) => {
@@ -921,7 +906,7 @@ const SingleCourse = () => {
                           </>
                         )}
                       </div>
-                      <p className="text-red-600 dark:text-red-400 text-xs font-semibold uppercase tracking-wide mt-1 poppins">Full Lifetime Access</p>
+                      <p className="text-[#7A85F0] text-xs font-semibold uppercase tracking-wide mt-1">Full Lifetime Access</p>
                     </div>
 
                     {/* Buttons */}
@@ -938,14 +923,14 @@ const SingleCourse = () => {
                       </motion.button>
                       <button
                         onClick={handleAddToCart}
-                        className="w-full py-2.5 bg-white border border-gray-200 text-gray-700 font-semibold rounded-md hover:border-red-400 hover:text-red-600 transition-colors poppins"
+                        className="w-full py-2.5 bg-white dark:bg-[#111] border border-slate-200 dark:border-white/10 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:border-[#7A85F0]/40 hover:text-[#7A85F0] transition-colors"
                       >
                         Add to Cart
                       </button>
                       <button
                         onClick={() => setShowVideoModal(true)}
                         disabled={!currentCourse.sampleVideoUrl}
-                        className={`w-full py-2.5 bg-gray-50 border border-gray-200 text-gray-600 font-medium rounded-md transition-colors flex items-center justify-center gap-2 text-sm poppins ${currentCourse.sampleVideoUrl ? 'hover:border-red-400 hover:text-red-600' : 'opacity-50 cursor-not-allowed'}`}
+                        className={`w-full py-2.5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-gray-600 dark:text-gray-400 font-medium rounded-xl transition-colors flex items-center justify-center gap-2 text-sm ${currentCourse.sampleVideoUrl ? 'hover:border-[#7A85F0]/40 hover:text-[#7A85F0]' : 'opacity-50 cursor-not-allowed'}`}
                       >
                         <LuVideo size={14} /> Sample Lesson
                       </button>
@@ -962,7 +947,7 @@ const SingleCourse = () => {
                           { icon: LuShieldCheck, text: 'Lifetime Updates' },
                         ].map((item, i) => (
                           <li key={i} className="flex items-center gap-2.5 text-gray-600 text-sm poppins">
-                            <item.icon className="text-red-500" size={15} />
+                            <item.icon className="text-[#7A85F0]" size={15} />
                             <span>{item.text}</span>
                           </li>
                         ))}
@@ -974,7 +959,7 @@ const SingleCourse = () => {
                 {/* Recommended Courses Widget mirroring Website Popular Websites */}
 
                 {/* Recommended Courses Widget mirroring Website Popular Websites */}
-                <div className="bg-white rounded-md p-5 border border-gray-200 shadow-sm">
+                <div className="bg-white dark:bg-[#111] rounded-2xl p-5 border border-slate-200 dark:border-white/10 shadow-sm">
                   <h3 className="text-sm font-bold text-gray-900 mb-4 outfit">Popular Courses</h3>
                   <div className="space-y-4">
                     {popularCourses.map(item => (
@@ -987,19 +972,19 @@ const SingleCourse = () => {
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-sm font-semibold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-1 outfit">{item.title}</h4>
+                          <h4 className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-[#7A85F0] transition-colors line-clamp-1">{item.title}</h4>
                           <div className="flex items-center gap-1 text-amber-400 mt-0.5">
                             <FaStar size={10} />
                             <span className="text-gray-600 text-xs font-medium poppins">{item.averageRating || '5.0'}</span>
                           </div>
-                          <span className="text-red-600 font-bold text-xs poppins">৳{item.price?.toLocaleString()}</span>
+                          <span className="text-[#7A85F0] font-bold text-xs">৳{item.price?.toLocaleString()}</span>
                         </div>
                       </Link>
                     ))}
                   </div>
                   <Link
                     href="/courses"
-                    className="flex items-center justify-center w-full py-2.5 mt-4 text-red-600 font-semibold text-sm border border-dashed border-teal-200 rounded-md hover:bg-red-50 transition-colors poppins"
+                    className="flex items-center justify-center w-full py-2.5 mt-4 text-[#7A85F0] font-semibold text-sm border border-dashed border-[#7A85F0]/30 rounded-xl hover:bg-[#EEF0FD] dark:hover:bg-[#7A85F0]/5 transition-colors"
                   >
                     View All Courses
                   </Link>

@@ -45,6 +45,20 @@ export default function RootLayout({ children }) {
     >
       <GoogleTagManager gtmId="GTM-MJ8GRP2J" />
       <body className="antialiased" suppressHydrationWarning>
+        {/* Instant SSR dark cover — prevents flash of unstyled page before React hydrates.
+            Removes itself once the animated Preloader takes over. */}
+        <div
+          id="initial-cover"
+          aria-hidden="true"
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "#06060d",
+            zIndex: 10000,
+            pointerEvents: "none",
+          }}
+        />
+
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe

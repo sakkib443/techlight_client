@@ -40,7 +40,7 @@ const CartPage = () => {
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-[#0a0a0a] py-12 lg:py-20">
-            <div className="container mx-auto px-4 lg:px-16">
+            <div className="container mx-auto px-4 lg:px-32">
 
                 {/* Header */}
                 <div className="flex items-center gap-4 mb-10">

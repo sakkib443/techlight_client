@@ -391,7 +391,7 @@ const CheckoutContent = () => {
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-[#0a0a0a] py-12 lg:py-20">
-            <div className="container mx-auto px-4 lg:px-16">
+            <div className="container mx-auto px-4 lg:px-32">
 
                 {/* Simplified Header Like Contact Page Info Title */}
                 <div className="flex items-center gap-4 mb-10">
@@ -540,7 +540,7 @@ const CheckoutContent = () => {
                                                         {manualMethod[0].toUpperCase()}
                                                     </div>
                                                     <div>
-                                                        <p className="text-xl font-bold text-slate-800 dark:text-white tracking-tight">01829818616</p>
+                                                        <p className="text-xl font-bold text-slate-800 dark:text-white tracking-tight">01XXXXXXXXX</p>
                                                         <p className={`text-[10px] font-normal text-slate-400 uppercase tracking-widest ${bengaliClass}`}>
                                                             {language === 'bn' ? 'পার্সোনাল নম্বর' : 'Personal Number'}
                                                         </p>

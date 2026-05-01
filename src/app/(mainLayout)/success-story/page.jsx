@@ -60,7 +60,7 @@ const SuccessHistoryPage = () => {
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(65,191,184,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(65,191,184,0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
 
-        <div className="container mx-auto px-4 lg:px-16 py-12 lg:py-16 relative z-10">
+        <div className="container mx-auto px-4 lg:px-32 py-12 lg:py-16 relative z-10">
           <div className={`text-center max-w-3xl mx-auto transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
             {/* Badge */}
             <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-white border border-gray-200 rounded-full shadow-sm">
@@ -119,7 +119,7 @@ const SuccessHistoryPage = () => {
       </section>
 
       {/* Main Content */}
-      <section className="container mx-auto px-4 lg:px-16 py-12">
+      <section className="container mx-auto px-4 lg:px-32 py-12">
         {/* Filter Buttons */}
         <div className={`flex justify-center gap-4 mb-10 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
           {filters.map((filter) => (

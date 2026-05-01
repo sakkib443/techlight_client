@@ -4,54 +4,29 @@ import React, { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCoursesData } from "@/redux/CourseSlice";
 import { fetchCategories, setSelectedCategories } from "@/redux/categorySlice";
-import Image from "next/image";
-import Link from "next/link";
 import CourseCard from "@/components/sheard/CourseCard";
-import { HiOutlineAcademicCap, HiOutlineSparkles } from "react-icons/hi2";
+import { HiOutlineSparkles } from "react-icons/hi2";
 import {
-  LuBookOpen,
-  LuUsers,
-  LuSearch,
-  LuX,
-  LuArrowUpDown,
-  LuGrid3X3,
-  LuLayoutGrid,
-  LuStar,
-  LuDollarSign,
-  LuTrendingUp,
-  LuArrowRight,
-  LuSparkles
+  LuBookOpen, LuUsers, LuSearch, LuX, LuArrowUpDown,
+  LuGrid3X3, LuLayoutGrid, LuStar, LuArrowRight, LuSparkles, LuChevronDown
 } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
-// Loading fallback component
 const LoadingFallback = () => (
   <div className="flex items-center justify-center py-20">
-    <div className="w-10 h-10 border-3 border-[#7A85F0]/30 border-t-[#7A85F0] rounded-full animate-spin"></div>
+    <div className="w-10 h-10 border-3 border-[#7A85F0]/30 border-t-[#7A85F0] rounded-full animate-spin" />
   </div>
 );
 
-// Floating Element Component
-const FloatingElement = ({ children, delay = 0, duration = 3, className = "" }) => (
-  <motion.div
-    initial={{ y: 0 }}
-    animate={{ y: [-10, 10, -10] }}
-    transition={{ duration, repeat: Infinity, delay, ease: "easeInOut" }}
-    className={className}
-  >
-    {children}
-  </motion.div>
-);
-
-// Course Card Skeleton
 const CourseCardSkeleton = () => (
   <div className="bg-white dark:bg-white/5 rounded-2xl border border-slate-100 dark:border-white/10 overflow-hidden animate-pulse">
-    <div className="aspect-[16/10] bg-slate-100 dark:bg-white/5"></div>
+    <div className="aspect-[16/10] bg-slate-100 dark:bg-white/5" />
     <div className="p-5 space-y-3">
-      <div className="h-5 bg-slate-100 dark:bg-white/5 rounded w-3/4"></div>
-      <div className="h-4 bg-slate-100 dark:bg-white/5 rounded w-1/2"></div>
-      <div className="h-8 bg-slate-100 dark:bg-white/5 rounded w-1/3"></div>
+      <div className="h-5 bg-slate-100 dark:bg-white/5 rounded w-3/4" />
+      <div className="h-4 bg-slate-100 dark:bg-white/5 rounded w-1/2" />
+      <div className="h-8 bg-slate-100 dark:bg-white/5 rounded w-1/3" />
     </div>
   </div>
 );
@@ -81,7 +56,6 @@ const CourseContent = () => {
     { name: 'Recorded', label: language === 'bn' ? 'রেকর্ডেড' : 'Recorded' }
   ];
 
-  // Get category name from ID
   const getCategoryName = (categoryId) => {
     if (!categoryId) return "";
     if (typeof categoryId === "object" && categoryId.name) return categoryId.name;
@@ -90,7 +64,6 @@ const CourseContent = () => {
     return category?.name || "";
   };
 
-  // Filter courses
   const filteredCourses = courses.filter((course) => {
     if (!course) return false;
     const rawType = course?.courseType || course?.type || course?.mode || "";
@@ -114,7 +87,6 @@ const CourseContent = () => {
     return typeMatch && categoryMatch && searchMatch;
   });
 
-  // Sort courses
   const sortedCourses = [...filteredCourses].sort((a, b) => {
     const aPrice = a.price || (parseInt(a.fee?.replace(/[^\d]/g, '') || 0));
     const bPrice = b.price || (parseInt(b.fee?.replace(/[^\d]/g, '') || 0));
@@ -133,7 +105,7 @@ const CourseContent = () => {
   });
 
   const handleCategoryChange = (categoryName) => {
-    const newSelection = selectedCategories.includes(categoryName) ? [] : [categoryName];
+    const newSelection = categoryName === "" ? [] : [categoryName];
     dispatch(setSelectedCategories(newSelection));
   };
 
@@ -158,50 +130,70 @@ const CourseContent = () => {
 
         {/* Animated Gradient Orbs */}
         <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 8, repeat: Infinity }}
-          className="absolute -top-20 -left-20 w-96 h-96 bg-gradient-to-br from-[#7A85F0]/20 to-[#7A85F0]/5 rounded-full blur-3xl"
+          animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-20 -left-20 w-96 h-96 bg-gradient-to-br from-[#7A85F0]/15 to-transparent rounded-full blur-3xl"
         />
         <motion.div
-          animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 8, repeat: Infinity, delay: 2 }}
-          className="absolute -bottom-20 -right-20 w-96 h-96 bg-gradient-to-br from-[#7A85F0]/20 to-[#7A85F0]/5 rounded-full blur-3xl"
+          animate={{ scale: [1.15, 1, 1.15], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 10, repeat: Infinity, delay: 3, ease: "easeInOut" }}
+          className="absolute -bottom-20 -right-20 w-96 h-96 bg-gradient-to-br from-[#7A85F0]/15 to-transparent rounded-full blur-3xl"
         />
 
-        {/* Floating Decorative Elements */}
+        {/* Professional Floating Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <FloatingElement delay={0} className="absolute top-20 left-[10%] hidden lg:block">
-            <div className="w-12 h-12 bg-white/80 dark:bg-white/10 backdrop-blur-sm rounded-xl shadow-lg flex items-center justify-center border border-white/50">
-              <span className="text-2xl">📚</span>
+          {/* Top-left: Glass card with icon */}
+          <motion.div
+            animate={{ y: [-8, 8, -8], rotate: [-2, 2, -2] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-16 left-[8%] hidden lg:block"
+          >
+            <div className="w-12 h-12 bg-white/70 dark:bg-white/10 backdrop-blur-md rounded-xl shadow-lg shadow-black/5 flex items-center justify-center border border-white/60 dark:border-white/20">
+              <LuBookOpen className="text-[#7A85F0]" size={20} />
             </div>
-          </FloatingElement>
+          </motion.div>
 
-          <FloatingElement delay={1} duration={4} className="absolute top-32 right-[12%] hidden lg:block">
-            <div className="w-14 h-14 bg-gradient-to-br from-[#7A85F0] to-[#7A85F0] rounded-2xl shadow-lg flex items-center justify-center rotate-12">
-              <span className="text-2xl">🎓</span>
+          {/* Top-right: Users icon */}
+          <motion.div
+            animate={{ y: [-6, 10, -6], x: [-3, 3, -3] }}
+            transition={{ duration: 7, repeat: Infinity, delay: 1.5, ease: "easeInOut" }}
+            className="absolute top-24 right-[10%] hidden lg:block"
+          >
+            <div className="w-13 h-13 bg-gradient-to-br from-[#7A85F0] to-[#6470E0] backdrop-blur-md rounded-2xl shadow-lg shadow-[#7A85F0]/25 flex items-center justify-center rotate-6">
+              <LuUsers className="text-white" size={20} />
             </div>
-          </FloatingElement>
+          </motion.div>
 
-          <FloatingElement delay={0.5} duration={3.5} className="absolute bottom-24 left-[15%] hidden lg:block">
-            <div className="px-4 py-2 bg-slate-900/90 backdrop-blur-sm rounded-lg shadow-lg border border-slate-700">
-              <code className="text-xs text-emerald-400 font-mono">&lt;Learn/&gt;</code>
+          {/* Bottom-left: Code icon */}
+          <motion.div
+            animate={{ y: [-5, 12, -5], rotate: [1, -1, 1] }}
+            transition={{ duration: 8, repeat: Infinity, delay: 0.8, ease: "easeInOut" }}
+            className="absolute bottom-20 left-[12%] hidden lg:block"
+          >
+            <div className="w-11 h-11 bg-slate-900/85 backdrop-blur-md rounded-xl shadow-lg shadow-black/10 border border-slate-700/50 flex items-center justify-center">
+              <LuSparkles className="text-emerald-400" size={18} />
             </div>
-          </FloatingElement>
+          </motion.div>
 
-          <FloatingElement delay={1.5} className="absolute bottom-32 right-[8%] hidden lg:block">
-            <div className="w-10 h-10 bg-amber-400/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center">
-              <span className="text-lg">⭐</span>
+          {/* Bottom-right: Star icon */}
+          <motion.div
+            animate={{ y: [-10, 6, -10], x: [2, -2, 2] }}
+            transition={{ duration: 7, repeat: Infinity, delay: 2, ease: "easeInOut" }}
+            className="absolute bottom-28 right-[7%] hidden lg:block"
+          >
+            <div className="w-11 h-11 bg-white/80 dark:bg-white/10 backdrop-blur-md rounded-xl shadow-lg shadow-black/5 border border-white/60 dark:border-white/20 flex items-center justify-center">
+              <LuStar className="text-amber-500 fill-amber-500" size={18} />
             </div>
-          </FloatingElement>
+          </motion.div>
 
-          {/* Decorative Dots */}
-          <div className="absolute top-1/2 left-8 w-2 h-2 bg-[#7A85F0]/40 rounded-full hidden lg:block"></div>
-          <div className="absolute top-1/3 left-12 w-1.5 h-1.5 bg-[#7A85F0]/40 rounded-full hidden lg:block"></div>
-          <div className="absolute bottom-1/3 right-8 w-2 h-2 bg-[#7A85F0]/40 rounded-full hidden lg:block"></div>
-          <div className="absolute bottom-1/2 right-16 w-1.5 h-1.5 bg-[#7A85F0]/40 rounded-full hidden lg:block"></div>
+          {/* Subtle floating dots */}
+          <motion.div animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 4, repeat: Infinity }} className="absolute top-1/2 left-8 w-1.5 h-1.5 bg-[#7A85F0]/50 rounded-full hidden lg:block" />
+          <motion.div animate={{ opacity: [0.6, 0.3, 0.6] }} transition={{ duration: 5, repeat: Infinity, delay: 1 }} className="absolute top-1/3 left-14 w-1 h-1 bg-[#7A85F0]/40 rounded-full hidden lg:block" />
+          <motion.div animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 4.5, repeat: Infinity, delay: 2 }} className="absolute bottom-1/3 right-10 w-1.5 h-1.5 bg-[#7A85F0]/50 rounded-full hidden lg:block" />
+          <motion.div animate={{ opacity: [0.5, 0.2, 0.5] }} transition={{ duration: 5, repeat: Infinity, delay: 0.5 }} className="absolute bottom-1/2 right-20 w-1 h-1 bg-[#7A85F0]/40 rounded-full hidden lg:block" />
         </div>
 
-        <div className="container mx-auto px-4 lg:px-16 relative z-10">
+        <div className="container mx-auto px-4 lg:px-32 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
@@ -240,7 +232,7 @@ const CourseContent = () => {
             </p>
 
             {/* Stats Cards */}
-            <div className="flex flex-wrap justify-center gap-4 lg:gap-6 mb-8">
+            <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
               <div className="group flex items-center gap-2 px-4 py-2.5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-md hover:border-[#7A85F0]/30 transition-all duration-300">
                 <div className="w-9 h-9 bg-gradient-to-br from-[#7A85F0]/10 to-[#7A85F0]/5 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                   <LuBookOpen className="text-[#7A85F0] text-base" />
@@ -271,74 +263,54 @@ const CourseContent = () => {
                 </div>
               </div>
             </div>
-
-            {/* Search Bar */}
-            <div className="max-w-xl mx-auto">
-              <div className="relative">
-                <LuSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder={language === "bn" ? "কোর্স খুঁজুন..." : "Search courses..."}
-                  className={`w-full pl-12 pr-4 py-3.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#7A85F0]/50 focus:border-[#7A85F0] outline-none transition-all text-slate-800 dark:text-white text-sm placeholder-slate-400 ${bengaliClass}`}
-                />
-                {searchQuery && (
-                  <button
-                    onClick={() => setSearchQuery("")}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                  >
-                    <LuX size={18} />
-                  </button>
-                )}
-              </div>
-            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Filters Row */}
-      <section className="py-6 bg-white dark:bg-[#0a0a0a] border-b border-slate-100 dark:border-white/5">
-        <div className="container mx-auto px-4 lg:px-16">
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
-            {/* Left - Type Filters */}
-            <div className="flex flex-wrap items-center gap-2">
-              <span className={`text-xs font-semibold text-slate-500 mr-2 ${bengaliClass}`}>
-                {language === "bn" ? "টাইপ:" : "Type:"}
-              </span>
-              {courseTypes.map((type) => (
-                <button
-                  key={type.name}
-                  onClick={() => setSelectedType(type.name)}
-                  className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${selectedType === type.name
-                      ? "bg-[#7A85F0] text-white shadow-md shadow-[#7A85F0]/20"
-                      : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10"
-                    } ${bengaliClass}`}
-                >
-                  {type.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Right - Sort, View & Clear */}
-            <div className="flex items-center gap-3">
-              {/* Clear Filters */}
-              {hasActiveFilters && (
-                <button
-                  onClick={clearAllFilters}
-                  className={`flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-red-600 bg-red-50 dark:bg-red-500/10 rounded-lg hover:bg-red-100 transition-all ${bengaliClass}`}
-                >
-                  <LuX size={14} />
-                  {language === "bn" ? "ক্লিয়ার" : "Clear"}
-                </button>
-              )}
-
-              {/* Sort */}
+      {/* ── Filters Row ── */}
+      <section className="py-4 bg-white dark:bg-[#0a0a0a] border-b border-slate-100 dark:border-white/5">
+        <div className="container mx-auto px-4 lg:px-32">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            {/* Left — Filter Dropdowns */}
+            <div className="flex flex-wrap items-center gap-2.5">
+              {/* Type Dropdown */}
               <div className="relative">
+                <select
+                  value={selectedType}
+                  onChange={(e) => setSelectedType(e.target.value)}
+                  className={`appearance-none pl-3.5 pr-8 py-2.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-[12px] font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#7A85F0] cursor-pointer transition-colors ${bengaliClass}`}
+                >
+                  {courseTypes.map((type) => (
+                    <option key={type.name} value={type.name}>{language === 'bn' ? 'টাইপ: ' : 'Type: '}{type.label}</option>
+                  ))}
+                </select>
+                <LuChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={13} />
+              </div>
+
+              {/* Category Dropdown */}
+              <div className="relative">
+                <select
+                  value={selectedCategories[0] || ""}
+                  onChange={(e) => handleCategoryChange(e.target.value)}
+                  className={`appearance-none pl-3.5 pr-8 py-2.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-[12px] font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#7A85F0] cursor-pointer transition-colors ${bengaliClass}`}
+                >
+                  <option value="">{language === 'bn' ? 'ক্যাটাগরি: সব' : 'Category: All'}</option>
+                  {categories
+                    .filter(cat => cat.name.toLowerCase() !== 'all')
+                    .map((cat) => (
+                      <option key={cat._id} value={cat.name}>{cat.name}</option>
+                    ))}
+                </select>
+                <LuChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={13} />
+              </div>
+
+              {/* Sort Dropdown */}
+              <div className="relative">
+                <LuArrowUpDown className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={13} />
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className={`appearance-none pl-8 pr-8 py-2 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg text-xs font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#7A85F0] cursor-pointer ${bengaliClass}`}
+                  className={`appearance-none pl-9 pr-8 py-2.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-[12px] font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#7A85F0] cursor-pointer transition-colors ${bengaliClass}`}
                 >
                   <option value="default">{language === 'bn' ? 'সর্ট করুন' : 'Sort By'}</option>
                   <option value="rating">{language === 'bn' ? 'টপ রেটেড' : 'Top Rated'}</option>
@@ -346,127 +318,100 @@ const CourseContent = () => {
                   <option value="price-low">{language === 'bn' ? 'কম দাম' : 'Price: Low'}</option>
                   <option value="price-high">{language === 'bn' ? 'বেশি দাম' : 'Price: High'}</option>
                 </select>
-                <LuArrowUpDown className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+                <LuChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={13} />
               </div>
+
+              {/* Clear Filters */}
+              {hasActiveFilters && (
+                <button
+                  onClick={clearAllFilters}
+                  className={`flex items-center gap-1.5 px-3.5 py-2.5 text-[11px] font-semibold text-red-600 bg-red-50 dark:bg-red-500/10 rounded-xl hover:bg-red-100 transition-all ${bengaliClass}`}
+                >
+                  <LuX size={13} />
+                  {language === "bn" ? "ক্লিয়ার" : "Clear"}
+                </button>
+              )}
+            </div>
+
+            {/* Right — Search + Count + View */}
+            <div className="flex items-center gap-3">
+              {/* Search */}
+              <div className="relative hidden sm:block">
+                <div className="absolute left-2.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-[#7A85F0]/10 rounded-lg flex items-center justify-center pointer-events-none">
+                  <LuSearch className="text-[#7A85F0]" size={13} />
+                </div>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={language === "bn" ? "কোর্স খুঁজুন..." : "Search courses..."}
+                  className={`w-48 lg:w-56 pl-12 pr-8 py-2.5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#7A85F0]/30 focus:border-[#7A85F0] focus:bg-white dark:focus:bg-white/10 outline-none transition-all text-slate-800 dark:text-white text-[12px] placeholder-slate-400 ${bengaliClass}`}
+                />
+                {searchQuery && (
+                  <button onClick={() => setSearchQuery("")} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                    <LuX size={13} />
+                  </button>
+                )}
+              </div>
+
+              {/* Divider */}
+              <div className="hidden lg:block w-px h-6 bg-slate-200 dark:bg-white/10" />
+
+              {/* Count */}
+              <span className={`text-[12px] text-slate-500 whitespace-nowrap ${bengaliClass}`}>
+                <span className="font-bold text-[#7A85F0]">{sortedCourses.length}</span>
+                {language === "bn" ? " টি কোর্স" : " courses"}
+              </span>
 
               {/* View Toggle */}
               <div className="flex items-center gap-1 bg-slate-100 dark:bg-white/5 p-1 rounded-lg">
                 <button
                   onClick={() => setViewMode("grid")}
-                  className={`p-2 rounded-md transition-all ${viewMode === "grid"
-                      ? "bg-white dark:bg-white/10 text-[#7A85F0] shadow-sm"
-                      : "text-slate-500"
-                    }`}
+                  className={`p-2 rounded-md transition-all ${viewMode === "grid" ? "bg-white dark:bg-white/10 text-[#7A85F0] shadow-sm" : "text-slate-400"}`}
                 >
-                  <LuGrid3X3 size={16} />
+                  <LuGrid3X3 size={15} />
                 </button>
                 <button
                   onClick={() => setViewMode("list")}
-                  className={`p-2 rounded-md transition-all ${viewMode === "list"
-                      ? "bg-white dark:bg-white/10 text-[#7A85F0] shadow-sm"
-                      : "text-slate-500"
-                    }`}
+                  className={`p-2 rounded-md transition-all ${viewMode === "list" ? "bg-white dark:bg-white/10 text-[#7A85F0] shadow-sm" : "text-slate-400"}`}
                 >
-                  <LuLayoutGrid size={16} />
+                  <LuLayoutGrid size={15} />
                 </button>
               </div>
             </div>
           </div>
-
-          {/* Category Pills */}
-          {categories.length > 0 && (
-            <div className="flex flex-wrap items-center gap-2 mt-4 pt-4 border-t border-slate-100 dark:border-white/5">
-              <span className={`text-xs font-semibold text-slate-500 mr-2 ${bengaliClass}`}>
-                {language === "bn" ? "ক্যাটাগরি:" : "Category:"}
-              </span>
-              <button
-                onClick={() => dispatch(setSelectedCategories([]))}
-                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${selectedCategories.length === 0
-                    ? "bg-[#7A85F0] text-white"
-                    : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
-                  } ${bengaliClass}`}
-              >
-                {language === "bn" ? "সব" : "All"}
-              </button>
-              {categories
-                .filter(cat => cat.name.toLowerCase() !== 'all')
-                .slice(0, 8)
-                .map((cat) => (
-                  <button
-                    key={cat._id}
-                    onClick={() => handleCategoryChange(cat.name)}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${selectedCategories.includes(cat.name)
-                        ? "bg-[#7A85F0] text-white"
-                        : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
-                      } ${bengaliClass}`}
-                  >
-                    {cat.name}
-                  </button>
-                ))}
-            </div>
-          )}
-
-          {/* Results Count */}
-          <div className="mt-4 flex items-center gap-2">
-            <HiOutlineSparkles className="text-[#7A85F0]" size={16} />
-            <span className={`text-sm text-slate-600 dark:text-slate-400 ${bengaliClass}`}>
-              <span className="font-bold text-slate-800 dark:text-white">{sortedCourses.length}</span>
-              {language === "bn" ? " টি কোর্স পাওয়া গেছে" : " courses found"}
-            </span>
-          </div>
         </div>
       </section>
 
-      {/* Courses Grid */}
-      <section className="py-12 lg:py-16 bg-slate-50 dark:bg-[#0d0d0d]">
-        <div className="container mx-auto px-4 lg:px-16">
+      {/* ── Courses Grid ── */}
+      <section className="py-10 lg:py-14 bg-slate-50 dark:bg-[#0d0d0d]">
+        <div className="container mx-auto px-4 lg:px-32">
           <AnimatePresence mode="wait">
             {loading ? (
-              <motion.div
-                key="loading"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className={`grid gap-6 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}
-              >
-                {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <CourseCardSkeleton key={i} />
-                ))}
+              <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                className={`grid gap-6 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}>
+                {[1, 2, 3, 4, 5, 6].map((i) => <CourseCardSkeleton key={i} />)}
               </motion.div>
             ) : sortedCourses.length > 0 ? (
-              <motion.div
-                key="courses"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className={`grid gap-6 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}
-              >
+              <motion.div key="courses" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                className={`grid gap-6 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1"}`}>
                 {sortedCourses.map((course, index) => (
-                  <motion.div
-                    key={course?._id || course?.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05, duration: 0.3 }}
-                  >
+                  <motion.div key={course?._id || course?.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05, duration: 0.3 }}>
                     <CourseCard course={course} view={viewMode === 'grid' ? 'grid' : 'list'} />
                   </motion.div>
                 ))}
               </motion.div>
             ) : (
-              <motion.div
-                key="empty"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                className="text-center py-20"
-              >
-                <div className="w-20 h-20 bg-slate-100 dark:bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <LuSearch className="text-slate-400" size={32} />
+              <motion.div key="empty" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
+                className="text-center py-20">
+                <div className="w-16 h-16 bg-[#EEF0FD] rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <LuSearch className="text-[#7A85F0]" size={28} />
                 </div>
-                <h3 className={`text-lg font-bold text-slate-800 dark:text-white mb-2 ${bengaliClass}`}>
+                <h3 className={`text-base font-bold text-slate-800 dark:text-white mb-2 ${bengaliClass}`}>
                   {language === "bn" ? "কোন কোর্স পাওয়া যায়নি" : "No courses found"}
                 </h3>
-                <p className={`text-sm text-slate-500 ${bengaliClass}`}>
+                <p className={`text-xs text-slate-500 ${bengaliClass}`}>
                   {language === "bn" ? "অন্য কিওয়ার্ড দিয়ে খুঁজুন" : "Try a different search keyword"}
                 </p>
               </motion.div>
@@ -475,35 +420,23 @@ const CourseContent = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-12 lg:py-16 bg-gradient-to-br from-[#7A85F0] to-[#7A85F0]">
-        <div className="container mx-auto px-4 lg:px-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center max-w-xl mx-auto"
-          >
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/20 backdrop-blur-sm rounded-full mb-4">
-              <LuSparkles className="text-white text-xs" />
+      {/* ── CTA ── */}
+      <section className="py-10 lg:py-14 bg-gradient-to-br from-[#7A85F0] to-[#5A63D0]">
+        <div className="container mx-auto px-4 lg:px-32">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-md mx-auto">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/15 backdrop-blur-sm rounded-full mb-3">
+              <LuSparkles className="text-white" size={10} />
               <span className={`text-[10px] font-medium text-white ${bengaliClass}`}>
                 {language === "bn" ? "প্রাইভেট টিউশন" : "Private Tutoring"}
               </span>
             </div>
-
-            <h2 className={`text-xl lg:text-2xl font-bold text-white mb-3 outfit ${bengaliClass}`}>
+            <h2 className={`text-lg lg:text-xl font-bold text-white mb-2 ${bengaliClass}`}>
               {language === "bn" ? "১-অন-১ মেন্টরশিপ দরকার?" : "Need 1-on-1 Mentorship?"}
             </h2>
-            <p className={`text-white/80 text-xs mb-6 ${bengaliClass}`}>
-              {language === "bn"
-                ? "আমাদের এক্সপার্ট মেন্টরদের সাথে প্রাইভেট সেশন বুক করুন।"
-                : "Book private sessions with our expert mentors for personalized learning."}
+            <p className={`text-white/80 text-xs mb-5 ${bengaliClass}`}>
+              {language === "bn" ? "আমাদের এক্সপার্ট মেন্টরদের সাথে প্রাইভেট সেশন বুক করুন।" : "Book private sessions with our expert mentors for personalized learning."}
             </p>
-
-            <Link
-              href="/contact"
-              className={`inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#7A85F0] text-xs font-bold rounded-lg hover:bg-white/90 transition-all shadow-md ${bengaliClass}`}
-            >
+            <Link href="/contact" className={`inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#7A85F0] text-xs font-bold rounded-lg hover:bg-white/90 transition-all shadow-md ${bengaliClass}`}>
               {language === "bn" ? "যোগাযোগ করুন" : "Contact Us"}
               <LuArrowRight size={14} />
             </Link>
@@ -514,12 +447,10 @@ const CourseContent = () => {
   );
 };
 
-const Course = () => {
-  return (
-    <Suspense fallback={<LoadingFallback />}>
-      <CourseContent />
-    </Suspense>
-  );
-};
+const Course = () => (
+  <Suspense fallback={<LoadingFallback />}>
+    <CourseContent />
+  </Suspense>
+);
 
 export default Course;

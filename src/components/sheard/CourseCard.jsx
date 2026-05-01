@@ -174,7 +174,7 @@ const CourseCard = ({ course, view = "grid" }) => {
         <div className={`absolute inset-0 bg-gradient-to-br from-[#7A85F0]/5 via-transparent to-[#7A85F0]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}></div>
 
         {/* Image Section */}
-        <div className="relative h-48 w-full overflow-hidden shrink-0 p-3">
+        <div className="relative h-56 w-full overflow-hidden shrink-0 p-3">
           <Link href={`/courses/${courseId}`} className="block h-full w-full">
             <Image
               width={400}
@@ -204,16 +204,7 @@ const CourseCard = ({ course, view = "grid" }) => {
             <span className="text-xs font-bold text-slate-800 dark:text-white">{rating.toFixed(1)}</span>
           </div>
 
-          {/* Play Overlay - Enhanced */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 via-black/20 to-transparent backdrop-blur-[2px] rounded-xl m-3"
-          >
-            <Link href={`/courses/${courseId}`} className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white border-2 border-white/40 hover:bg-[#7A85F0] hover:border-[#7A85F0] transition-all hover:scale-110 shadow-2xl">
-              <LuPlay className="ml-1" size={24} fill="currentColor" />
-            </Link>
-          </motion.div>
+
 
           {/* Quick Actions - On Hover */}
           <motion.div
@@ -230,7 +221,7 @@ const CourseCard = ({ course, view = "grid" }) => {
         {/* Content Section */}
         <div className="p-5 flex flex-col flex-1 relative">
           {/* Category */}
-          <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center gap-2 mb-2">
             <div className="w-6 h-6 bg-gradient-to-br from-[#7A85F0]/10 to-[#7A85F0]/10 rounded-md flex items-center justify-center">
               <LuLayoutGrid className="text-[#7A85F0] text-xs" />
             </div>
@@ -247,7 +238,7 @@ const CourseCard = ({ course, view = "grid" }) => {
           </Link>
 
           {/* Metadata */}
-          <div className="flex items-center gap-4 mb-4 text-xs text-slate-500 dark:text-slate-400 font-medium pb-4 border-b border-slate-100 dark:border-white/10">
+          <div className="flex items-center gap-4 mb-2 text-xs text-slate-500 dark:text-slate-400 font-medium pb-2 border-b border-slate-100 dark:border-white/10">
             <div className="flex items-center gap-1.5">
               <LuBookOpenCheck className="text-[#7A85F0]" />
               <span>{lessons}</span>
@@ -259,7 +250,7 @@ const CourseCard = ({ course, view = "grid" }) => {
           </div>
 
           {/* Price & Rating Row */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-2">
             <div>
               <p className="text-[9px] text-slate-400 font-medium mb-0.5 uppercase tracking-wider">Course Fee</p>
               <div className="flex items-center gap-1.5">

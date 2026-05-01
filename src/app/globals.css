@@ -505,7 +505,7 @@ body.font-bengali .font-icon {
   animation: riverWave 8s ease-in-out infinite !important;
   color: #ffffff !important;
   border: none !important;
-  box-shadow: 0 10px 25px rgba(230, 45, 38, 0.4) !important;
+  box-shadow: 0 10px 25px rgba(122, 133, 240, 0.35) !important;
   transition: all 0.3s ease !important;
   position: relative !important;
   overflow: hidden !important;
@@ -527,13 +527,13 @@ body.font-bengali .font-icon {
   animation: riverWave 10s linear infinite !important;
   color: #ffffff !important;
   border: none !important;
-  box-shadow: 0 10px 30px rgba(230, 45, 38, 0.4) !important;
+  box-shadow: 0 10px 30px rgba(122, 133, 240, 0.35) !important;
   transition: all 0.3s ease !important;
 }
 
 .special-enroll-btn:hover {
   filter: brightness(1.1);
-  box-shadow: 0 15px 30px rgba(230, 45, 38, 0.4) !important;
+  box-shadow: 0 15px 30px rgba(122, 133, 240, 0.35) !important;
 }
 
 @keyframes shine {

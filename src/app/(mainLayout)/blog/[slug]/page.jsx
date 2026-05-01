@@ -6,28 +6,24 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    FiArrowLeft,
-    FiClock,
-    FiUser,
-    FiCalendar,
-    FiHeart,
-    FiMessageCircle,
-    FiShare2,
-    FiBookOpen,
-    FiTag,
-    FiEye,
-    FiSend,
-    FiTwitter,
-    FiFacebook,
-    FiLinkedin,
-    FiCopy,
-    FiCheck,
-    FiArrowRight,
-    FiBookmark,
-    FiPlay,
-} from 'react-icons/fi';
+    LuArrowLeft,
+    LuArrowRight,
+    LuClock,
+    LuShare2,
+    LuBookOpen,
+    LuTag,
+    LuEye,
+    LuTwitter,
+    LuFacebook,
+    LuLinkedin,
+    LuCopy,
+    LuCheck,
+    LuPlay,
+    LuSparkles,
+    LuCalendar,
+    LuQuote,
+} from 'react-icons/lu';
 import { API_BASE_URL } from '@/config/api';
-import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -35,82 +31,59 @@ export default function SingleBlogPage() {
     const params = useParams();
     const router = useRouter();
     const slug = params.slug;
-    const user = useSelector(state => state.auth?.user);
     const { language } = useLanguage();
+    const bengaliClass = language === 'bn' ? 'hind-siliguri' : '';
 
     const [blog, setBlog] = useState(null);
     const [relatedBlogs, setRelatedBlogs] = useState([]);
-    const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [isLiked, setIsLiked] = useState(false);
-    const [likeCount, setLikeCount] = useState(0);
-    const [commentText, setCommentText] = useState('');
-    const [submittingComment, setSubmittingComment] = useState(false);
     const [showShareMenu, setShowShareMenu] = useState(false);
     const [copied, setCopied] = useState(false);
     const [readProgress, setReadProgress] = useState(0);
 
-    // Translations
+    // i18n
     const text = {
-        blog: language === 'bn' ? 'ব্লগ' : 'Blog',
-        min: language === 'bn' ? 'মিনিট' : 'min',
+        min: language === 'bn' ? 'মিনিট পড়া' : 'min read',
         views: language === 'bn' ? 'ভিউ' : 'views',
-        summary: language === 'bn' ? 'সারসংক্ষেপ' : 'Summary',
+        summary: language === 'bn' ? 'সারসংক্ষেপ' : 'Key Takeaway',
         videoTutorial: language === 'bn' ? 'ভিডিও টিউটোরিয়াল' : 'Video Tutorial',
-        allArticles: language === 'bn' ? 'সব আর্টিকেল দেখুন' : 'View all articles',
-        authorDesc: language === 'bn' ? 'এই প্ল্যাটফর্মের একজন নিবেদিতপ্রাণ কন্টেন্ট ক্রিয়েটর।' : 'A dedicated content creator on this platform.',
-        comments: language === 'bn' ? 'মন্তব্য' : 'Comments',
-        commentsCount: language === 'bn' ? 'টি মন্তব্য' : 'comments',
-        writeComment: language === 'bn' ? 'আপনার মতামত লিখুন...' : 'Write your comment...',
-        loginToComment: language === 'bn' ? 'মন্তব্য করতে লগইন করুন' : 'Please login to comment',
-        posting: language === 'bn' ? 'পোস্ট হচ্ছে...' : 'Posting...',
-        submitComment: language === 'bn' ? 'মন্তব্য করুন' : 'Submit',
-        noComments: language === 'bn' ? 'কোনো মন্তব্য নেই। প্রথম মন্তব্য করুন!' : 'No comments yet. Be the first to comment!',
-        relatedPosts: language === 'bn' ? 'সম্পর্কিত পোস্ট' : 'Related Posts',
-        learnMore: language === 'bn' ? 'আরও শিখতে চান?' : 'Want to learn more?',
-        allBlogsHere: language === 'bn' ? 'আমাদের সব ব্লগ পোস্ট এক জায়গায়' : 'All our blog posts in one place',
-        viewAllBlogs: language === 'bn' ? 'সব ব্লগ দেখুন' : 'View All Blogs',
-        blogNotFound: language === 'bn' ? 'ব্লগ পাওয়া যায়নি' : 'Blog not found',
-        backToBlog: language === 'bn' ? '← ব্লগে ফিরে যান' : '← Back to Blog',
-        loginRequired: language === 'bn' ? 'লগইন করুন' : 'Please login',
-        commentAdded: language === 'bn' ? 'মন্তব্য যোগ হয়েছে!' : 'Comment added!',
-        linkCopied: language === 'bn' ? 'লিংক কপি হয়েছে!' : 'Link copied!',
+        relatedPosts: language === 'bn' ? 'সম্পর্কিত পোস্ট' : 'Related reads',
+        learnMore: language === 'bn' ? 'আরও পড়তে চান?' : 'Want more like this?',
+        allBlogsHere: language === 'bn' ? 'আমাদের সব ব্লগ পোস্ট এক জায়গায়' : 'Discover more articles in our library',
+        viewAllBlogs: language === 'bn' ? 'সব ব্লগ দেখুন' : 'Browse all',
+        blogNotFound: language === 'bn' ? 'ব্লগ পাওয়া যায়নি' : 'Article not found',
+        backToBlog: language === 'bn' ? 'ব্লগে ফিরে যান' : 'Back to blog',
+        readingTime: language === 'bn' ? 'পড়ার সময়' : 'Reading time',
+        share: language === 'bn' ? 'শেয়ার' : 'Share',
     };
 
-    // Reading progress bar
+    // Reading progress (article-body based)
     useEffect(() => {
         const handleScroll = () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (scrollTop / docHeight) * 100;
+            const article = document.getElementById('blog-content');
+            if (!article) return;
+            const rect = article.getBoundingClientRect();
+            const total = rect.height - window.innerHeight;
+            const scrolled = -rect.top;
+            const progress = total > 0 ? (scrolled / total) * 100 : 0;
             setReadProgress(Math.min(100, Math.max(0, progress)));
         };
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [blog]);
 
-    // Fetch blog data
+    // Fetch blog
     useEffect(() => {
         const fetchBlog = async () => {
             if (!slug) return;
-
             setLoading(true);
             try {
-                const token = localStorage.getItem('accessToken');
-                const headers = token ? { Authorization: `Bearer ${token}` } : {};
-
-                const res = await fetch(`${API_BASE_URL}/blogs/slug/${slug}`, { headers });
+                const res = await fetch(`${API_BASE_URL}/blogs/slug/${slug}`);
                 const data = await res.json();
-
                 if (data.success && data.data) {
                     setBlog(data.data);
                     setRelatedBlogs(data.data.relatedBlogs || []);
-                    setIsLiked(data.data.isLiked || false);
-                    setLikeCount(data.data.likeCount || 0);
-
-                    const commentsRes = await fetch(`${API_BASE_URL}/blogs/${data.data._id}/comments`);
-                    const commentsData = await commentsRes.json();
-                    if (commentsData.success) setComments(commentsData.data || []);
                 } else {
                     router.push('/blog');
                 }
@@ -122,50 +95,6 @@ export default function SingleBlogPage() {
         };
         fetchBlog();
     }, [slug, router]);
-
-    const handleLike = async () => {
-        if (!user) { toast.error(language === 'bn' ? 'লগইন করুন' : 'Please login'); return; }
-        try {
-            const token = localStorage.getItem('accessToken');
-            const res = await fetch(`${API_BASE_URL}/blogs/${blog._id}/toggle-like`, {
-                method: 'POST',
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            const data = await res.json();
-            if (data.success) {
-                setIsLiked(data.data.isLiked);
-                setLikeCount(data.data.likeCount);
-            }
-        } catch (error) {
-            toast.error('Failed to like');
-        }
-    };
-
-    const handleSubmitComment = async (e) => {
-        e.preventDefault();
-        if (!user) { toast.error(language === 'bn' ? 'লগইন করুন' : 'Please login'); return; }
-        if (!commentText.trim()) return;
-
-        setSubmittingComment(true);
-        try {
-            const token = localStorage.getItem('accessToken');
-            const res = await fetch(`${API_BASE_URL}/blogs/${blog._id}/comments`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-                body: JSON.stringify({ content: commentText }),
-            });
-            const data = await res.json();
-            if (data.success) {
-                setComments([data.data, ...comments]);
-                setCommentText('');
-                toast.success(language === 'bn' ? 'মন্তব্য যোগ হয়েছে!' : 'Comment added!');
-            }
-        } catch (error) {
-            toast.error('Failed to add comment');
-        } finally {
-            setSubmittingComment(false);
-        }
-    };
 
     const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
     const shareTitle = blog?.title || '';
@@ -188,27 +117,36 @@ export default function SingleBlogPage() {
         setShowShareMenu(false);
     };
 
+    // === Loading ===
     if (loading) {
         return (
-            <div className="min-h-screen bg-white dark:bg-slate-900 flex items-center justify-center">
+            <div className="min-h-screen bg-white dark:bg-[#0a0a0a] flex items-center justify-center">
                 <motion.div
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="w-16 h-16 border-4 border-red-500/30 border-t-red-500 rounded-full"
+                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                    className="w-12 h-12 border-3 border-[#7A85F0]/20 border-t-[#7A85F0] rounded-full"
                 />
             </div>
         );
     }
 
+    // === Not Found ===
     if (!blog) {
         return (
-            <div className="min-h-screen bg-white dark:bg-slate-900 flex items-center justify-center">
-                <div className="text-center">
-                    <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-red-500/20 to-cyan-500/20 flex items-center justify-center">
-                        <FiBookOpen className="text-red-500" size={40} />
+            <div className="min-h-screen bg-white dark:bg-[#0a0a0a] flex items-center justify-center px-4">
+                <div className="text-center max-w-md">
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-[#EEF0FD] dark:bg-[#7A85F0]/10 flex items-center justify-center">
+                        <LuBookOpen className="text-[#7A85F0]" size={32} />
                     </div>
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{text.blogNotFound}</h2>
-                    <Link href="/blog" className="text-red-500 font-semibold hover:underline">{text.backToBlog}</Link>
+                    <h2 className={`text-2xl font-bold text-gray-900 dark:text-white mb-3 ${bengaliClass}`}>
+                        {text.blogNotFound}
+                    </h2>
+                    <Link
+                        href="/blog"
+                        className={`inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#7A85F0] hover:bg-[#5A65D0] text-white font-semibold text-sm shadow-lg shadow-[#7A85F0]/25 transition-all ${bengaliClass}`}
+                    >
+                        <LuArrowLeft size={14} /> {text.backToBlog}
+                    </Link>
                 </div>
             </div>
         );
@@ -217,157 +155,271 @@ export default function SingleBlogPage() {
     return (
         <>
             {/* Reading Progress Bar */}
-            <div className="fixed top-0 left-0 right-0 h-1 z-50">
+            <div className="fixed top-0 left-0 right-0 h-[3px] z-[100] bg-gray-100 dark:bg-gray-900">
                 <motion.div
                     style={{ width: `${readProgress}%` }}
-                    className="h-full bg-gradient-to-r from-red-500 via-cyan-500 to-blue-500"
+                    className="h-full bg-gradient-to-r from-[#7A85F0] to-[#5A65D0]"
+                    transition={{ duration: 0.1 }}
                 />
             </div>
 
-            <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
+            <div className="min-h-screen bg-white dark:bg-[#0a0a0a] font-poppins antialiased">
 
-                {/* Compact Hero Banner */}
-                <div className="relative h-[35vh] md:h-[40vh] overflow-hidden">
-                    {/* Background */}
-                    <div className="absolute inset-0">
-                        {blog.thumbnail ? (
-                            <Image src={blog.thumbnail} alt={blog.title} fill className="object-cover" priority />
-                        ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-red-600 via-cyan-600 to-blue-700" />
-                        )}
-                        {/* Much stronger dark overlay for perfect text visibility */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/50" />
-                    </div>
+                {/* ===== Article Header — Split Layout (Text Left + Image Right) ===== */}
+                <header className="relative pt-10 pb-12 lg:pt-14 lg:pb-16 bg-slate-50 dark:bg-[#050505] overflow-hidden">
+                    <div className="absolute top-10 right-10 w-72 h-72 bg-[#7A85F0]/10 rounded-full blur-3xl pointer-events-none" />
+                    <div className="absolute bottom-10 left-10 w-72 h-72 bg-amber-200/15 rounded-full blur-3xl pointer-events-none" />
 
-                    {/* Back Button */}
-                    <div className="absolute top-6 left-6 z-20">
-                        <Link
-                            href="/blog"
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-white font-medium hover:bg-white/30 transition-all shadow-lg"
-                        >
-                            <FiArrowLeft size={16} />
-                            <span>{text.blog}</span>
-                        </Link>
-                    </div>
-
-                    {/* Content */}
-                    <div className="relative h-full container mx-auto px-4 flex flex-col justify-end pb-8 md:pb-12">
+                    <div className="container mx-auto px-4 lg:px-32 relative z-10">
+                        {/* Back link */}
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            className="max-w-4xl"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="mb-8"
                         >
-                            {/* Category & Reading Time */}
-                            <div className="flex flex-wrap items-center gap-2 mb-4">
+                            <Link
+                                href="/blog"
+                                className={`group inline-flex items-center gap-2 text-xs font-semibold text-gray-500 dark:text-gray-400 hover:text-[#7A85F0] dark:hover:text-[#7A85F0] transition-colors ${bengaliClass}`}
+                            >
+                                <LuArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+                                <span className="uppercase tracking-widest">{text.backToBlog}</span>
+                            </Link>
+                        </motion.div>
+
+                        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
+                            {/* Left — Heading & Meta */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.6 }}
+                                className="lg:col-span-7"
+                            >
                                 {blog.category && (
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500 text-white text-xs font-bold shadow-md">
+                                    <span className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EEF0FD] dark:bg-[#7A85F0]/10 border border-[#7A85F0]/20 text-[#7A85F0] text-[11px] font-semibold uppercase tracking-widest mb-5 ${bengaliClass}`}>
+                                        <LuSparkles size={11} />
                                         {blog.category.name}
                                     </span>
                                 )}
-                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium">
-                                    <FiClock size={12} /> {blog.readingTime} {text.min}
-                                </span>
-                                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium">
-                                    <FiEye size={12} /> {blog.totalViews || 0} {text.views}
-                                </span>
-                            </div>
 
-                            {/* Title - pure white for visibility on overlay */}
-                            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold font-outfit leading-tight mb-5 drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]" style={{ color: '#FFFFFF' }}>
-                                {blog.title}
-                            </h1>
+                                <h1 className={`text-3xl md:text-4xl lg:text-[44px] font-bold text-gray-900 dark:text-white leading-[1.15] tracking-tight mb-5 ${bengaliClass}`}>
+                                    {blog.title}
+                                </h1>
 
-                            {/* Author & Date */}
-                            <div className="flex items-center gap-4">
-                                <div className="flex items-center gap-3">
-                                    <div className="relative">
-                                        {blog.author?.avatar && !blog.author.avatar.includes('example.com') ? (
-                                            <Image src={blog.author.avatar} alt={blog.author.firstName} width={44} height={44} className="rounded-full border-2 border-white/40" />
-                                        ) : (
-                                            <div className="w-11 h-11 rounded-full bg-gradient-to-r from-red-400 to-cyan-400 flex items-center justify-center text-white text-lg font-bold border-2 border-white/40">
-                                                {blog.author?.firstName?.[0]}
-                                            </div>
-                                        )}
-                                        <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-400 rounded-full border-2 border-white" />
-                                    </div>
-                                    <div>
-                                        <p className="text-white font-semibold text-sm drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                                            {blog.author?.firstName} {blog.author?.lastName}
-                                        </p>
-                                        <p className="text-white/90 text-xs drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
+                                <p className={`text-base text-gray-500 dark:text-gray-400 leading-relaxed mb-7 max-w-xl ${bengaliClass}`}>
+                                    {blog.excerpt}
+                                </p>
+
+                                {/* Meta strip */}
+                                <div className="flex flex-wrap items-center gap-3 text-[11px] text-gray-500 dark:text-gray-400 pt-5 border-t border-gray-200 dark:border-white/10">
+                                    <div className="inline-flex items-center gap-1.5">
+                                        <LuCalendar size={12} className="text-[#7A85F0]" />
+                                        <span className={bengaliClass}>
                                             {new Date(blog.publishedAt || blog.createdAt).toLocaleDateString(language === 'bn' ? 'bn-BD' : 'en-US', {
-                                                year: 'numeric', month: 'long', day: 'numeric'
+                                                year: 'numeric',
+                                                month: 'short',
+                                                day: 'numeric',
                                             })}
-                                        </p>
+                                        </span>
+                                    </div>
+                                    <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700" />
+                                    <div className="inline-flex items-center gap-1.5">
+                                        <LuClock size={12} className="text-[#7A85F0]" />
+                                        <span className={bengaliClass}>{blog.readingTime} {text.min}</span>
+                                    </div>
+                                    <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-700" />
+                                    <div className="inline-flex items-center gap-1.5">
+                                        <LuEye size={12} className="text-[#7A85F0]" />
+                                        <span>{(blog.totalViews || 0).toLocaleString()} {text.views}</span>
                                     </div>
                                 </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                </div>
+                            </motion.div>
 
-                {/* Content Section */}
-                <div className="bg-white dark:bg-slate-950">
-                    <div className="container mx-auto px-4 py-12 md:py-20">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                            {/* Right — Featured Image */}
+                            {blog.thumbnail && (
+                                <motion.div
+                                    initial={{ opacity: 0, x: 20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.15 }}
+                                    className="lg:col-span-5 relative"
+                                >
+                                    <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-gray-300/40 dark:shadow-black/40 border border-white/60 dark:border-white/10 group">
+                                        <Image
+                                            src={blog.thumbnail}
+                                            alt={blog.title}
+                                            fill
+                                            className="object-cover group-hover:scale-105 transition-transform duration-700"
+                                            priority
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                                    </div>
 
-                            {/* Sticky Social Bar - Left */}
-                            <div className="hidden lg:block lg:col-span-1">
-                                <div className="sticky top-24 flex flex-col items-center gap-4">
-                                    <motion.button
-                                        whileHover={{ scale: 1.1 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        onClick={handleLike}
-                                        className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all ${isLiked
-                                            ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-lg shadow-rose-500/30'
-                                            : 'bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-rose-100 hover:text-rose-500'
-                                            }`}
+                                    {/* Floating reading time badge */}
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 0.6 }}
+                                        className="absolute -bottom-4 -left-4 bg-white dark:bg-[#111] rounded-2xl px-4 py-2.5 shadow-xl border border-gray-100 dark:border-gray-800 z-10"
                                     >
-                                        <FiHeart size={20} className={isLiked ? 'fill-current' : ''} />
-                                    </motion.button>
-                                    <span className="text-sm font-bold text-slate-600 dark:text-slate-400">{likeCount}</span>
+                                        <div className="flex items-center gap-2.5">
+                                            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#7A85F0] to-[#5A65D0] flex items-center justify-center">
+                                                <LuClock size={14} className="text-white" />
+                                            </div>
+                                            <div>
+                                                <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest leading-none mb-0.5">
+                                                    {text.readingTime}
+                                                </p>
+                                                <p className={`text-sm font-bold text-gray-900 dark:text-white leading-none ${bengaliClass}`}>
+                                                    {blog.readingTime} {text.min}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </motion.div>
 
-                                    <div className="w-8 h-px bg-slate-200 dark:bg-slate-700 my-2" />
+                                    {/* Floating views badge */}
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 0.8 }}
+                                        className="absolute -top-4 -right-4 bg-white dark:bg-[#111] rounded-2xl px-3 py-2 shadow-xl border border-gray-100 dark:border-gray-800 z-10"
+                                    >
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-7 h-7 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+                                                <LuEye size={12} className="text-amber-600" />
+                                            </div>
+                                            <div>
+                                                <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest leading-none">
+                                                    {text.views}
+                                                </p>
+                                                <p className="text-xs font-bold text-gray-900 dark:text-white leading-none mt-0.5">
+                                                    {(blog.totalViews || 0).toLocaleString()}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            )}
+                        </div>
+                    </div>
+                </header>
 
-                                    <button className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
-                                        <FiMessageCircle size={20} />
-                                    </button>
-                                    <span className="text-sm font-bold text-slate-600 dark:text-slate-400">{comments.length}</span>
+                {/* ===== Article Body ===== */}
+                <div className="container mx-auto px-4 lg:px-32 pt-12 lg:pt-16 pb-20">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
 
-                                    <div className="w-8 h-px bg-slate-200 dark:bg-slate-700 my-2" />
+                        {/* Main Article */}
+                        <motion.article
+                            id="blog-content"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
+                            className="lg:col-span-8 max-w-none"
+                        >
+                            {/* Key Takeaway */}
+                            <div className="relative mb-10 p-6 lg:p-8 rounded-2xl bg-gradient-to-br from-[#EEF0FD] to-white dark:from-[#7A85F0]/10 dark:to-[#111] border border-[#7A85F0]/20">
+                                <LuQuote className="absolute top-5 right-5 text-[#7A85F0]/15" size={48} />
+                                <div className="flex items-center gap-2 mb-3">
+                                    <span className="w-1 h-4 rounded-full bg-[#7A85F0]" />
+                                    <span className={`text-[10px] font-bold uppercase tracking-widest text-[#7A85F0] ${bengaliClass}`}>
+                                        {text.summary}
+                                    </span>
+                                </div>
+                                <p className={`text-base lg:text-lg text-gray-700 dark:text-gray-200 leading-relaxed ${bengaliClass}`}>
+                                    {blog.excerpt}
+                                </p>
+                            </div>
 
-                                    <button className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
-                                        <FiBookmark size={20} />
-                                    </button>
+                            {/* Article content */}
+                            <div
+                                className={`prose prose-lg max-w-none dark:prose-invert
+                                    prose-headings:font-poppins prose-headings:text-gray-900 dark:prose-headings:text-white prose-headings:tracking-tight prose-headings:font-bold
+                                    prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:pb-3 prose-h2:border-b prose-h2:border-gray-100 dark:prose-h2:border-gray-800
+                                    prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+                                    prose-p:text-gray-600 dark:prose-p:text-gray-300 prose-p:leading-[1.8] prose-p:text-[15px]
+                                    prose-a:text-[#7A85F0] prose-a:font-semibold prose-a:no-underline hover:prose-a:underline prose-a:underline-offset-4
+                                    prose-strong:text-gray-900 dark:prose-strong:text-white prose-strong:font-semibold
+                                    prose-ul:my-4 prose-li:text-gray-600 dark:prose-li:text-gray-300 prose-li:my-1.5 prose-li:text-[15px] prose-li:leading-relaxed
+                                    prose-img:rounded-2xl prose-img:shadow-lg prose-img:my-8
+                                    prose-code:text-[#7A85F0] prose-code:font-semibold prose-code:bg-[#EEF0FD] dark:prose-code:bg-[#7A85F0]/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none prose-code:text-sm
+                                    prose-pre:bg-gray-900 dark:prose-pre:bg-black prose-pre:text-gray-100 prose-pre:rounded-2xl prose-pre:border prose-pre:border-gray-800 prose-pre:shadow-xl prose-pre:p-5 prose-pre:text-sm
+                                    prose-blockquote:border-l-4 prose-blockquote:border-[#7A85F0] prose-blockquote:bg-[#EEF0FD]/50 dark:prose-blockquote:bg-[#7A85F0]/5 prose-blockquote:rounded-r-xl prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:not-italic prose-blockquote:font-medium ${bengaliClass}`}
+                                dangerouslySetInnerHTML={{ __html: blog.content }}
+                            />
 
-                                    <div className="relative">
+                            {/* Video */}
+                            {blog.videoUrl && (
+                                <div className="mt-12 p-5 bg-gray-900 dark:bg-black rounded-3xl border border-gray-800">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#7A85F0] to-[#5A65D0] flex items-center justify-center text-white">
+                                            <LuPlay size={14} fill="currentColor" />
+                                        </div>
+                                        <h3 className={`text-white font-bold text-sm ${bengaliClass}`}>{text.videoTutorial}</h3>
+                                    </div>
+                                    <div className="aspect-video rounded-2xl overflow-hidden bg-black">
+                                        <iframe src={blog.videoUrl} className="w-full h-full" allowFullScreen />
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Tags + Share */}
+                            <div className="mt-14 pt-8 border-t border-gray-100 dark:border-gray-800">
+                                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+                                    {/* Tags */}
+                                    {blog.tags?.length > 0 && (
+                                        <div className="flex items-center gap-2 flex-wrap">
+                                            <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                                <LuTag size={11} className="text-[#7A85F0]" />
+                                                <span className={bengaliClass}>{language === 'bn' ? 'ট্যাগ' : 'Tags'}</span>
+                                            </div>
+                                            {blog.tags.slice(0, 5).map((tag, idx) => (
+                                                <Link
+                                                    key={idx}
+                                                    href={`/blog?tag=${tag}`}
+                                                    className={`px-2.5 py-1 rounded-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-300 text-[11px] font-medium hover:bg-[#EEF0FD] hover:text-[#7A85F0] hover:border-[#7A85F0]/30 transition-all ${bengaliClass}`}
+                                                >
+                                                    #{tag}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {/* Share */}
+                                    <div className="relative shrink-0">
                                         <button
                                             onClick={() => setShowShareMenu(!showShareMenu)}
-                                            className="w-12 h-12 rounded-xl bg-gradient-to-r from-red-500 to-cyan-500 text-white flex items-center justify-center shadow-lg shadow-red-500/30 hover:shadow-xl transition-all"
+                                            className={`group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 text-gray-600 dark:text-gray-300 hover:border-[#7A85F0]/30 hover:text-[#7A85F0] text-xs font-semibold transition-all ${bengaliClass}`}
                                         >
-                                            <FiShare2 size={20} />
+                                            <LuShare2 size={13} />
+                                            {text.share}
                                         </button>
                                         <AnimatePresence>
                                             {showShareMenu && (
                                                 <motion.div
-                                                    initial={{ opacity: 0, x: -10 }}
-                                                    animate={{ opacity: 1, x: 0 }}
-                                                    exit={{ opacity: 0, x: -10 }}
-                                                    className="absolute left-full ml-3 top-0 py-2 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 min-w-[140px]"
+                                                    initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                    exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                                                    className="absolute right-0 top-full mt-2 py-2 bg-white dark:bg-[#111] rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-800 min-w-[170px] z-30"
                                                 >
-                                                    <button onClick={() => handleShare('twitter')} className="w-full px-4 py-2 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300">
-                                                        <FiTwitter className="text-sky-500" /> Twitter
-                                                    </button>
-                                                    <button onClick={() => handleShare('facebook')} className="w-full px-4 py-2 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300">
-                                                        <FiFacebook className="text-blue-600" /> Facebook
-                                                    </button>
-                                                    <button onClick={() => handleShare('linkedin')} className="w-full px-4 py-2 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300">
-                                                        <FiLinkedin className="text-blue-700" /> LinkedIn
-                                                    </button>
-                                                    <hr className="my-2 border-slate-100 dark:border-slate-700" />
-                                                    <button onClick={copyLink} className="w-full px-4 py-2 flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300">
-                                                        {copied ? <FiCheck className="text-green-500" /> : <FiCopy />} {copied ? 'Copied!' : 'Copy'}
+                                                    {[
+                                                        { onClick: () => handleShare('twitter'), icon: LuTwitter, label: 'Twitter', color: 'text-sky-500' },
+                                                        { onClick: () => handleShare('facebook'), icon: LuFacebook, label: 'Facebook', color: 'text-blue-600' },
+                                                        { onClick: () => handleShare('linkedin'), icon: LuLinkedin, label: 'LinkedIn', color: 'text-blue-700' },
+                                                    ].map((item, i) => (
+                                                        <button
+                                                            key={i}
+                                                            onClick={item.onClick}
+                                                            className="w-full px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-white/5 text-xs font-medium text-gray-700 dark:text-gray-300"
+                                                        >
+                                                            <item.icon className={item.color} size={14} /> {item.label}
+                                                        </button>
+                                                    ))}
+                                                    <div className="my-1 mx-3 h-px bg-gray-100 dark:bg-gray-800" />
+                                                    <button
+                                                        onClick={copyLink}
+                                                        className="w-full px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-white/5 text-xs font-medium text-gray-700 dark:text-gray-300"
+                                                    >
+                                                        {copied ? <LuCheck className="text-green-500" size={14} /> : <LuCopy size={14} />}
+                                                        {copied ? 'Copied!' : 'Copy link'}
                                                     </button>
                                                 </motion.div>
                                             )}
@@ -375,247 +427,97 @@ export default function SingleBlogPage() {
                                     </div>
                                 </div>
                             </div>
+                        </motion.article>
 
-                            {/* Main Content */}
-                            <motion.article
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
-                                className="lg:col-span-7"
-                            >
-                                {/* Excerpt Box */}
-                                <div className="relative mb-12 p-8 rounded-3xl bg-gradient-to-br from-red-50 to-cyan-50 dark:from-slate-800 dark:to-slate-800/80 border border-red-100 dark:border-slate-700">
-                                    <div className="absolute top-0 left-8 -translate-y-1/2 px-4 py-1 bg-gradient-to-r from-red-500 to-cyan-500 text-white text-sm font-semibold rounded-full">
-                                        {text.summary}
-                                    </div>
-                                    <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed italic">
-                                        "{blog.excerpt}"
-                                    </p>
-                                </div>
+                        {/* Sidebar */}
+                        <aside className="lg:col-span-4">
+                            <div className="sticky top-28 space-y-6">
 
-                                {/* Blog Content */}
-                                <div
-                                    className="prose prose-lg dark:prose-invert max-w-none 
-                                    prose-headings:font-outfit prose-headings:text-slate-900 dark:prose-headings:text-white 
-                                    prose-p:text-slate-600 dark:prose-p:text-slate-300 prose-p:leading-relaxed
-                                    prose-a:text-red-600 dark:prose-a:text-red-400 prose-a:no-underline hover:prose-a:underline
-                                    prose-strong:text-slate-900 dark:prose-strong:text-white 
-                                    prose-img:rounded-2xl prose-img:shadow-xl
-                                    prose-pre:bg-slate-900 prose-pre:text-slate-100 prose-pre:rounded-2xl
-                                    prose-blockquote:border-red-500 prose-blockquote:bg-slate-50 dark:prose-blockquote:bg-slate-800/50 prose-blockquote:rounded-r-2xl prose-blockquote:py-4
-                                    prose-li:text-slate-600 dark:prose-li:text-slate-300"
-                                    dangerouslySetInnerHTML={{ __html: blog.content }}
-                                />
-
-                                {/* Video Section */}
-                                {blog.videoUrl && (
-                                    <div className="mt-12 p-6 bg-slate-900 rounded-3xl">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-red-500 to-rose-500 flex items-center justify-center text-white">
-                                                <FiPlay size={18} />
+                                {/* Related Posts */}
+                                {relatedBlogs.length > 0 && (
+                                    <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-100 dark:border-gray-800">
+                                        <div className="flex items-center gap-2.5 mb-5">
+                                            <div className="w-8 h-8 rounded-lg bg-[#EEF0FD] dark:bg-[#7A85F0]/10 flex items-center justify-center">
+                                                <LuBookOpen className="text-[#7A85F0]" size={14} />
                                             </div>
-                                            <h3 className="text-white font-bold">{text.videoTutorial}</h3>
+                                            <h3 className={`text-sm font-bold text-gray-900 dark:text-white ${bengaliClass}`}>
+                                                {text.relatedPosts}
+                                            </h3>
                                         </div>
-                                        <div className="aspect-video rounded-2xl overflow-hidden bg-slate-800">
-                                            <iframe src={blog.videoUrl} className="w-full h-full" allowFullScreen />
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Tags */}
-                                {blog.tags?.length > 0 && (
-                                    <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
-                                        <div className="flex items-center gap-3 flex-wrap">
-                                            <FiTag className="text-slate-400" size={20} />
-                                            {blog.tags.map((tag, idx) => (
+                                        <div className="space-y-4">
+                                            {relatedBlogs.slice(0, 4).map((related, i) => (
                                                 <Link
-                                                    key={idx}
-                                                    href={`/blog?tag=${tag}`}
-                                                    className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-red-500 hover:text-white transition-all"
+                                                    key={related._id}
+                                                    href={`/blog/${related.slug}`}
+                                                    className="group flex gap-3 items-start"
                                                 >
-                                                    #{tag}
+                                                    <div className="w-16 h-16 relative rounded-lg overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-800">
+                                                        {related.thumbnail ? (
+                                                            <Image
+                                                                src={related.thumbnail}
+                                                                alt={related.title}
+                                                                fill
+                                                                className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                                            />
+                                                        ) : (
+                                                            <div className="w-full h-full bg-[#EEF0FD] flex items-center justify-center">
+                                                                <LuBookOpen className="text-[#7A85F0]/40" size={20} />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <span className="text-[10px] font-bold uppercase tracking-widest text-[#7A85F0]">
+                                                            0{i + 1}
+                                                        </span>
+                                                        <h4 className={`text-[13px] font-semibold text-gray-900 dark:text-white line-clamp-2 group-hover:text-[#7A85F0] transition-colors leading-snug mt-0.5 ${bengaliClass}`}>
+                                                            {related.title}
+                                                        </h4>
+                                                        <span className="text-[11px] text-gray-400 flex items-center gap-1 mt-1.5">
+                                                            <LuClock size={10} /> {related.readingTime} {text.min}
+                                                        </span>
+                                                    </div>
                                                 </Link>
                                             ))}
                                         </div>
                                     </div>
                                 )}
 
-                                {/* Mobile Social Bar */}
-                                <div className="lg:hidden mt-10 p-6 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-around">
-                                    <button onClick={handleLike} className={`flex flex-col items-center gap-1 ${isLiked ? 'text-rose-500' : 'text-slate-500'}`}>
-                                        <FiHeart size={24} className={isLiked ? 'fill-current' : ''} />
-                                        <span className="text-xs font-bold">{likeCount}</span>
-                                    </button>
-                                    <button className="flex flex-col items-center gap-1 text-slate-500">
-                                        <FiMessageCircle size={24} />
-                                        <span className="text-xs font-bold">{comments.length}</span>
-                                    </button>
-                                    <button onClick={() => setShowShareMenu(!showShareMenu)} className="flex flex-col items-center gap-1 text-red-500">
-                                        <FiShare2 size={24} />
-                                        <span className="text-xs font-bold">Share</span>
-                                    </button>
-                                </div>
-
-                                {/* Author Card */}
-                                <div className="mt-12 p-8 bg-gradient-to-br from-slate-50 to-red-50/50 dark:from-slate-800 dark:to-teal-900/20 rounded-3xl border border-slate-100 dark:border-slate-700">
-                                    <div className="flex items-start gap-6">
-                                        {blog.author?.avatar && !blog.author.avatar.includes('example.com') ? (
-                                            <Image src={blog.author.avatar} alt={blog.author.firstName} width={80} height={80} className="rounded-2xl" />
-                                        ) : (
-                                            <div className="w-20 h-20 rounded-2xl bg-gradient-to-r from-red-500 to-cyan-500 flex items-center justify-center text-white text-3xl font-bold">
-                                                {blog.author?.firstName?.[0]}
-                                            </div>
-                                        )}
-                                        <div className="flex-1">
-                                            <div className="flex items-center gap-3 mb-2">
-                                                <h4 className="text-xl font-bold text-slate-900 dark:text-white">
-                                                    {blog.author?.firstName} {blog.author?.lastName}
-                                                </h4>
-                                                <span className="px-3 py-1 text-xs font-semibold rounded-full bg-red-500/10 text-red-600 dark:text-red-400 capitalize">
-                                                    {blog.authorRole}
-                                                </span>
-                                            </div>
-                                            <p className="text-slate-500 dark:text-slate-400 mb-4">
-                                                {text.authorDesc}
-                                            </p>
-                                            <Link href={`/blog?author=${blog.author?._id}`} className="inline-flex items-center gap-2 text-red-600 dark:text-red-400 font-semibold hover:gap-3 transition-all">
-                                                {text.allArticles} <FiArrowRight />
-                                            </Link>
+                                {/* CTA */}
+                                <div className="relative overflow-hidden rounded-3xl">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-[#7A85F0] via-[#6B74E8] to-[#5A63D0]" />
+                                    <div className="absolute inset-0 overflow-hidden">
+                                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full" />
+                                        <div className="absolute -bottom-12 -left-12 w-32 h-32 bg-white/5 rounded-full" />
+                                        <div className="absolute top-6 right-8 grid grid-cols-3 gap-2 opacity-15">
+                                            {[...Array(9)].map((_, i) => (
+                                                <div key={i} className="w-1 h-1 bg-white rounded-full" />
+                                            ))}
                                         </div>
                                     </div>
-                                </div>
-
-                                {/* Comments Section */}
-                                <div className="mt-16">
-                                    <div className="flex items-center gap-3 mb-8">
-                                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white">
-                                            <FiMessageCircle size={22} />
+                                    <div className="relative z-10 p-7 text-white">
+                                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm border border-white/20 mb-4">
+                                            <LuSparkles size={11} />
+                                            <span className={`text-[10px] font-semibold uppercase tracking-widest ${bengaliClass}`}>
+                                                {text.learnMore}
+                                            </span>
                                         </div>
-                                        <div>
-                                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{text.comments}</h3>
-                                            <p className="text-slate-400 text-sm">{comments.length} {text.commentsCount}</p>
-                                        </div>
-                                    </div>
-
-                                    {/* Comment Form */}
-                                    {blog.allowComments && (
-                                        <form onSubmit={handleSubmitComment} className="mb-10 p-6 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-lg">
-                                            <textarea
-                                                value={commentText}
-                                                onChange={(e) => setCommentText(e.target.value)}
-                                                placeholder={user ? text.writeComment : text.loginToComment}
-                                                disabled={!user}
-                                                rows={4}
-                                                className="w-full px-5 py-4 rounded-xl border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 resize-none focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 text-slate-800 dark:text-white placeholder-slate-400 disabled:opacity-60"
-                                            />
-                                            <div className="flex justify-end mt-4">
-                                                <button
-                                                    type="submit"
-                                                    disabled={!user || !commentText.trim() || submittingComment}
-                                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-cyan-500 text-white font-semibold disabled:opacity-50 hover:shadow-lg transition-all"
-                                                >
-                                                    <FiSend size={16} />
-                                                    {submittingComment ? text.posting : text.submitComment}
-                                                </button>
-                                            </div>
-                                        </form>
-                                    )}
-
-                                    {/* Comments List */}
-                                    <div className="space-y-4">
-                                        {comments.length === 0 ? (
-                                            <div className="text-center py-12 bg-slate-50 dark:bg-slate-800/50 rounded-2xl">
-                                                <FiMessageCircle className="mx-auto text-slate-300 dark:text-slate-600 mb-4" size={40} />
-                                                <p className="text-slate-500">{text.noComments}</p>
-                                            </div>
-                                        ) : (
-                                            comments.map((comment, idx) => (
-                                                <motion.div
-                                                    key={comment._id}
-                                                    initial={{ opacity: 0, y: 20 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    transition={{ delay: idx * 0.1 }}
-                                                    className="p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700"
-                                                >
-                                                    <div className="flex items-start gap-4">
-                                                        <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-slate-400 to-slate-500 flex items-center justify-center text-white font-bold flex-shrink-0">
-                                                            {comment.user?.firstName?.[0] || 'U'}
-                                                        </div>
-                                                        <div className="flex-1">
-                                                            <div className="flex items-center gap-3 mb-2">
-                                                                <span className="font-semibold text-slate-900 dark:text-white">
-                                                                    {comment.user?.firstName} {comment.user?.lastName}
-                                                                </span>
-                                                                <span className="text-xs text-slate-400">
-                                                                    {new Date(comment.createdAt).toLocaleDateString('bn-BD')}
-                                                                </span>
-                                                            </div>
-                                                            <p className="text-slate-600 dark:text-slate-300">{comment.content}</p>
-                                                        </div>
-                                                    </div>
-                                                </motion.div>
-                                            ))
-                                        )}
+                                        <h3 className={`text-xl font-bold mb-2 leading-tight ${bengaliClass}`}>
+                                            {language === 'bn' ? 'আরো অসাধারণ আর্টিকেল' : 'More great reads await'}
+                                        </h3>
+                                        <p className={`text-white/80 text-xs mb-5 leading-relaxed ${bengaliClass}`}>
+                                            {text.allBlogsHere}
+                                        </p>
+                                        <Link
+                                            href="/blog"
+                                            className={`group inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#7A85F0] font-bold text-xs rounded-full shadow-lg hover:-translate-y-0.5 transition-all ${bengaliClass}`}
+                                        >
+                                            {text.viewAllBlogs}
+                                            <LuArrowRight size={12} className="group-hover:translate-x-0.5 transition-transform" />
+                                        </Link>
                                     </div>
                                 </div>
-                            </motion.article>
-
-                            {/* Sidebar */}
-                            <aside className="lg:col-span-4">
-                                <div className="sticky top-24 space-y-8">
-                                    {/* Related Posts */}
-                                    {relatedBlogs.length > 0 && (
-                                        <div className="bg-white dark:bg-slate-800 rounded-3xl p-6 border border-slate-100 dark:border-slate-700 shadow-lg">
-                                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center text-white">
-                                                    <FiBookOpen size={18} />
-                                                </div>
-                                                {text.relatedPosts}
-                                            </h3>
-                                            <div className="space-y-4">
-                                                {relatedBlogs.map((related) => (
-                                                    <Link key={related._id} href={`/blog/${related.slug}`} className="group flex gap-4">
-                                                        <div className="w-20 h-16 relative rounded-xl overflow-hidden flex-shrink-0">
-                                                            {related.thumbnail ? (
-                                                                <Image src={related.thumbnail} alt={related.title} fill className="object-cover group-hover:scale-110 transition-transform" />
-                                                            ) : (
-                                                                <div className="w-full h-full bg-slate-100 dark:bg-slate-700" />
-                                                            )}
-                                                        </div>
-                                                        <div className="flex-1 min-w-0">
-                                                            <h4 className="font-medium text-slate-900 dark:text-white line-clamp-2 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors text-sm">
-                                                                {related.title}
-                                                            </h4>
-                                                            <span className="text-xs text-slate-400 flex items-center gap-1 mt-1">
-                                                                <FiClock size={10} /> {related.readingTime} min
-                                                            </span>
-                                                        </div>
-                                                    </Link>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {/* CTA */}
-                                    <div className="relative overflow-hidden rounded-3xl p-8">
-                                        <div className="absolute inset-0 bg-gradient-to-br from-red-500 via-cyan-500 to-blue-600" />
-                                        <motion.div
-                                            animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
-                                            transition={{ duration: 5, repeat: Infinity }}
-                                            className="absolute top-0 right-0 w-40 h-40 bg-white/20 rounded-full blur-2xl"
-                                        />
-                                        <div className="relative z-10 text-center">
-                                            <div className="text-5xl mb-4">🚀</div>
-                                            <h3 className="text-xl font-bold text-white mb-2">{text.learnMore}</h3>
-                                            <p className="text-white/80 text-sm mb-6">{text.allBlogsHere}</p>
-                                            <Link href="/blog" className="inline-block py-3 px-8 bg-white text-red-600 font-bold rounded-xl hover:shadow-xl transition-all">
-                                                {text.viewAllBlogs}
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            </aside>
-                        </div>
+                            </div>
+                        </aside>
                     </div>
                 </div>
             </div>

@@ -86,7 +86,7 @@ const DesignTemplatePage = () => {
         <div className="min-h-screen bg-white dark:bg-[#0a0a0a]">
             {/* Hero Section */}
             <section className="py-12 lg:py-16 bg-slate-50 dark:bg-[#0a0a0a]">
-                <div className="container mx-auto px-4 lg:px-16">
+                <div className="container mx-auto px-4 lg:px-32">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
@@ -138,7 +138,7 @@ const DesignTemplatePage = () => {
 
             {/* Filters & View Toggle */}
             <section className="py-6 bg-white dark:bg-[#0a0a0a] border-b border-slate-100 dark:border-white/5">
-                <div className="container mx-auto px-4 lg:px-16">
+                <div className="container mx-auto px-4 lg:px-32">
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                         {/* Category Filters */}
                         <div className="flex flex-wrap items-center gap-2">
@@ -183,7 +183,7 @@ const DesignTemplatePage = () => {
 
             {/* Templates Grid */}
             <section className="py-12 lg:py-16 bg-slate-50 dark:bg-[#0d0d0d]">
-                <div className="container mx-auto px-4 lg:px-16">
+                <div className="container mx-auto px-4 lg:px-32">
                     {loading ? (
                         <div className="flex items-center justify-center py-20">
                             <div className="w-10 h-10 border-3 border-[#7A85F0]/30 border-t-[#7A85F0] rounded-full animate-spin"></div>
@@ -293,7 +293,7 @@ const DesignTemplatePage = () => {
 
             {/* CTA Section */}
             <section className="py-12 lg:py-16 bg-gradient-to-br from-[#7A85F0] to-[#7A85F0]">
-                <div className="container mx-auto px-4 lg:px-16">
+                <div className="container mx-auto px-4 lg:px-32">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}

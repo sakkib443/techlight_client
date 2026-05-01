@@ -162,7 +162,7 @@ const WebsiteDetailsPage = () => {
                 {/* Grid Pattern */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.015)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none"></div>
 
-                <div className="container mx-auto px-4 lg:px-24 relative z-10">
+                <div className="container mx-auto px-4 lg:px-32 relative z-10">
                     <div className="max-w-3xl">
                         {/* Breadcrumb */}
                         <motion.div
@@ -288,7 +288,7 @@ const WebsiteDetailsPage = () => {
 
             {/* Main Content */}
             <section className="bg-white dark:bg-slate-950">
-                <div className="container mx-auto px-4 lg:px-24 pb-20 relative z-20">
+                <div className="container mx-auto px-4 lg:px-32 pb-20 relative z-20">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
                         {/* Left Content */}
