@@ -149,7 +149,7 @@ const Preloader = () => {
                     key="preloader"
                     variants={containerExit}
                     exit="exit"
-                    className="fixed inset-0 z-[9999] pointer-events-none"
+                    className="fixed inset-0 z-[10001] pointer-events-none"
                 >
                     {/* === Top Curtain (42% — holds logo + wordmark) === */}
                     <motion.div
