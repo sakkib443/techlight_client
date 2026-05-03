@@ -90,29 +90,23 @@ const AdminSidebar = () => {
       submenu: [
         { title: 'All Courses', href: '/dashboard/admin/course', icon: FiBook },
         { title: 'Create Course', href: '/dashboard/admin/course/create', icon: FiFileText },
-        { title: 'All Modules', href: '/dashboard/admin/module', icon: FiLayers },
-        { title: 'Create Module', href: '/dashboard/admin/module/create', icon: FiFileText },
-        { title: 'All Lessons', href: '/dashboard/admin/lesson', icon: FiPlay },
-        { title: 'Create Lesson', href: '/dashboard/admin/lesson/create', icon: FiFileText },
+        // ──── Hidden Features (uncomment when needed) ────
+        // { title: 'All Modules', href: '/dashboard/admin/module', icon: FiLayers },
+        // { title: 'Create Module', href: '/dashboard/admin/module/create', icon: FiFileText },
+        // { title: 'All Lessons', href: '/dashboard/admin/lesson', icon: FiPlay },
+        // { title: 'Create Lesson', href: '/dashboard/admin/lesson/create', icon: FiFileText },
+        // ──── End Hidden ────
         { title: 'Enrollments', href: '/dashboard/admin/enrollment', icon: FiUserCheck },
         { title: 'All Batches', href: '/dashboard/admin/batch', icon: FiUsers },
         { title: 'Create Batch', href: '/dashboard/admin/batch/create', icon: FiFileText },
         { title: 'Instructors', href: '/dashboard/admin/instructor', icon: FiUserCheck },
-        { title: 'Live Classes', href: '/dashboard/admin/live-class', icon: FiPlay },
-        { title: 'Schedule Class', href: '/dashboard/admin/live-class/create', icon: FiFileText },
+        // ──── Hidden Features (uncomment when needed) ────
+        // { title: 'Live Classes', href: '/dashboard/admin/live-class', icon: FiPlay },
+        // { title: 'Schedule Class', href: '/dashboard/admin/live-class/create', icon: FiFileText },
+        // ──── End Hidden ────
       ],
     },
-    {
-      title: 'Marketplace',
-      icon: FiGlobe,
-      gradient: 'from-emerald-500 to-red-500',
-      submenu: [
-        { title: 'All Websites', href: '/dashboard/admin/website', icon: FiGlobe },
-        { title: 'Create Website', href: '/dashboard/admin/website/create', icon: FiFileText },
-        { title: 'All Design Templates', href: '/dashboard/admin/design-template', icon: FiLayers },
-        { title: 'Create Design Template', href: '/dashboard/admin/design-template/create', icon: FiFileText },
-      ],
-    },
+    // ──── Marketplace REMOVED (was: Websites + Design Templates) ────
     {
       title: 'Categories',
       icon: FiLayers,
