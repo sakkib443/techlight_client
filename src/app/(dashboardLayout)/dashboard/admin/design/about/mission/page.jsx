@@ -108,20 +108,16 @@ const AboutMissionDesignPage = () => {
             <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 mb-6">
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Mission</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <InputField label="Title (English)" value={content.mission?.title} onChange={(e) => setContent({ ...content, mission: { ...content.mission, title: e.target.value } })} placeholder="Our Mission" />
-                    <InputField label="Title (Bengali)" value={content.mission?.titleBn} onChange={(e) => setContent({ ...content, mission: { ...content.mission, titleBn: e.target.value } })} placeholder="?????? ????" />
-                    <InputField label="Description (English)" value={content.mission?.text} onChange={(e) => setContent({ ...content, mission: { ...content.mission, text: e.target.value } })} textarea placeholder="Mission description..." />
-                    <InputField label="Description (Bengali)" value={content.mission?.textBn} onChange={(e) => setContent({ ...content, mission: { ...content.mission, textBn: e.target.value } })} textarea placeholder="???? ?????..." />
+                    <InputField label="Title" value={content.mission?.title} onChange={(e) => setContent({ ...content, mission: { ...content.mission, title: e.target.value } })} placeholder="Our Mission" />
+                    <InputField label="Description" value={content.mission?.text} onChange={(e) => setContent({ ...content, mission: { ...content.mission, text: e.target.value } })} textarea placeholder="Mission description..." />
                 </div>
             </div>
 
             <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Vision</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <InputField label="Title (English)" value={content.vision?.title} onChange={(e) => setContent({ ...content, vision: { ...content.vision, title: e.target.value } })} placeholder="Our Vision" />
-                    <InputField label="Title (Bengali)" value={content.vision?.titleBn} onChange={(e) => setContent({ ...content, vision: { ...content.vision, titleBn: e.target.value } })} placeholder="?????? ????" />
-                    <InputField label="Description (English)" value={content.vision?.text} onChange={(e) => setContent({ ...content, vision: { ...content.vision, text: e.target.value } })} textarea placeholder="Vision description..." />
-                    <InputField label="Description (Bengali)" value={content.vision?.textBn} onChange={(e) => setContent({ ...content, vision: { ...content.vision, textBn: e.target.value } })} textarea placeholder="???? ?????..." />
+                    <InputField label="Title" value={content.vision?.title} onChange={(e) => setContent({ ...content, vision: { ...content.vision, title: e.target.value } })} placeholder="Our Vision" />
+                    <InputField label="Description" value={content.vision?.text} onChange={(e) => setContent({ ...content, vision: { ...content.vision, text: e.target.value } })} textarea placeholder="Vision description..." />
                 </div>
             </div>
         </div>

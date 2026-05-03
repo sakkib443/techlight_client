@@ -74,28 +74,16 @@ const AboutFounderDesignPage = () => {
             <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name (English)</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
                         <input value={content.name || ''} onChange={(e) => setContent({ ...content, name: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name (Bengali)</label>
-                        <input value={content.nameBn || ''} onChange={(e) => setContent({ ...content, nameBn: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Title (English)</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Title</label>
                         <input value={content.title || ''} onChange={(e) => setContent({ ...content, title: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Title (Bengali)</label>
-                        <input value={content.titleBn || ''} onChange={(e) => setContent({ ...content, titleBn: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
-                    </div>
                     <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Quote (English)</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Quote</label>
                         <textarea value={content.quote || ''} onChange={(e) => setContent({ ...content, quote: e.target.value })} rows={3} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
-                    </div>
-                    <div className="md:col-span-2">
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Quote (Bengali)</label>
-                        <textarea value={content.quoteBn || ''} onChange={(e) => setContent({ ...content, quoteBn: e.target.value })} rows={3} className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
                     </div>
                     <div className="md:col-span-2">
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Image URL</label>

@@ -160,31 +160,18 @@ export default function EditModulePage({ params: paramsPromise }) {
                     </select>
                 </div>
 
-                {/* Titles */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Module Title (English) *</label>
-                        <input
-                            type="text"
-                            name="title"
-                            value={formData.title}
-                            onChange={handleChange}
-                            required
-                            placeholder="e.g. Getting Started"
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Module Title (বাংলা)</label>
-                        <input
-                            type="text"
-                            name="titleBn"
-                            value={formData.titleBn}
-                            onChange={handleChange}
-                            placeholder="যেমনঃ শুরু করা যাক"
-                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
-                        />
-                    </div>
+                {/* Title */}
+                <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-2">Module Title *</label>
+                    <input
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        required
+                        placeholder="e.g. Getting Started"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
+                    />
                 </div>
 
                 {/* Description */}

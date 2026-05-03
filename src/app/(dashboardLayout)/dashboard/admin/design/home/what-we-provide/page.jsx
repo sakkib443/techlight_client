@@ -64,7 +64,7 @@ const WhatWeProvideDesignPage = () => {
     const addFeature = () => {
         setContent({
             ...content,
-            features: [...(content.features || []), { title: '', titleBn: '', description: '', descriptionBn: '', emoji: '??' }]
+            features: [...(content.features || []), { title: '', description: '', emoji: '🎯' }]
         });
     };
 
@@ -135,18 +135,12 @@ const WhatWeProvideDesignPage = () => {
             {/* Badge Section */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 mb-6">
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Badge</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                     <InputField
-                        label="Badge Text (English)"
+                        label="Badge Text"
                         value={content.badge?.text}
                         onChange={(e) => setContent({ ...content, badge: { ...content.badge, text: e.target.value } })}
                         placeholder="Why Choose Us"
-                    />
-                    <InputField
-                        label="Badge Text (Bengali)"
-                        value={content.badge?.textBn}
-                        onChange={(e) => setContent({ ...content, badge: { ...content.badge, textBn: e.target.value } })}
-                        placeholder="??? ?????? ???? ?????"
                     />
                 </div>
             </div>
@@ -156,28 +150,16 @@ const WhatWeProvideDesignPage = () => {
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Heading</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <InputField
-                        label="Text Before Highlight (English)"
+                        label="Text Before Highlight"
                         value={content.heading?.text1}
                         onChange={(e) => setContent({ ...content, heading: { ...content.heading, text1: e.target.value } })}
                         placeholder="What We "
                     />
                     <InputField
-                        label="Text Before Highlight (Bengali)"
-                        value={content.heading?.text1Bn}
-                        onChange={(e) => setContent({ ...content, heading: { ...content.heading, text1Bn: e.target.value } })}
-                        placeholder="???? ?? "
-                    />
-                    <InputField
-                        label="Highlighted Text (English)"
+                        label="Highlighted Text"
                         value={content.heading?.highlight}
                         onChange={(e) => setContent({ ...content, heading: { ...content.heading, highlight: e.target.value } })}
                         placeholder="Provide"
-                    />
-                    <InputField
-                        label="Highlighted Text (Bengali)"
-                        value={content.heading?.highlightBn}
-                        onChange={(e) => setContent({ ...content, heading: { ...content.heading, highlightBn: e.target.value } })}
-                        placeholder="?????? ???"
                     />
                 </div>
             </div>
@@ -185,18 +167,12 @@ const WhatWeProvideDesignPage = () => {
             {/* Description Section */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 mb-6">
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Description</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                     <InputField
-                        label="Description (English)"
+                        label="Description"
                         value={content.description?.text}
                         onChange={(e) => setContent({ ...content, description: { ...content.description, text: e.target.value } })}
                         placeholder="We are committed to providing the best learning experience."
-                    />
-                    <InputField
-                        label="Description (Bengali)"
-                        value={content.description?.textBn}
-                        onChange={(e) => setContent({ ...content, description: { ...content.description, textBn: e.target.value } })}
-                        placeholder="???? ???? ????? ???????? ?????? ???? ????????????????"
                     />
                 </div>
             </div>
@@ -227,34 +203,22 @@ const WhatWeProvideDesignPage = () => {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <InputField
-                                label="Title (English)"
+                                label="Title"
                                 value={feature.title}
                                 onChange={(e) => updateFeature(index, 'title', e.target.value)}
                                 placeholder="Lifetime Support"
                             />
                             <InputField
-                                label="Title (Bengali)"
-                                value={feature.titleBn}
-                                onChange={(e) => updateFeature(index, 'titleBn', e.target.value)}
-                                placeholder="???????? ???????"
-                            />
-                            <InputField
-                                label="Description (English)"
+                                label="Description"
                                 value={feature.description}
                                 onChange={(e) => updateFeature(index, 'description', e.target.value)}
                                 placeholder="Get lifetime support for all your purchases."
                             />
                             <InputField
-                                label="Description (Bengali)"
-                                value={feature.descriptionBn}
-                                onChange={(e) => updateFeature(index, 'descriptionBn', e.target.value)}
-                                placeholder="????? ?? ??????? ???? ???????? ??????? ????"
-                            />
-                            <InputField
                                 label="Emoji"
                                 value={feature.emoji}
                                 onChange={(e) => updateFeature(index, 'emoji', e.target.value)}
-                                placeholder="??"
+                                placeholder="🎯"
                             />
                         </div>
                     </div>
@@ -264,18 +228,12 @@ const WhatWeProvideDesignPage = () => {
             {/* CTA Section */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Call to Action</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                     <InputField
-                        label="Button Text (English)"
+                        label="Button Text"
                         value={content.cta?.text}
                         onChange={(e) => setContent({ ...content, cta: { ...content.cta, text: e.target.value } })}
                         placeholder="Learn More About Us"
-                    />
-                    <InputField
-                        label="Button Text (Bengali)"
-                        value={content.cta?.textBn}
-                        onChange={(e) => setContent({ ...content, cta: { ...content.cta, textBn: e.target.value } })}
-                        placeholder="?????? ???????? ??? ?????"
                     />
                 </div>
             </div>

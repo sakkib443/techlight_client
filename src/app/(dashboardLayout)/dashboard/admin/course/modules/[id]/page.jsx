@@ -225,9 +225,6 @@ export default function CourseModulesPage({ params: paramsPromise }) {
                                                 <span className="px-3 py-1 bg-amber-500 text-white text-[8px] font-black rounded-lg uppercase tracking-widest shadow-lg shadow-amber-500/20">Staging</span>
                                             )}
                                         </div>
-                                        <div className="flex items-center gap-3">
-                                            <p className="text-xs font-black text-indigo-400 dark:text-indigo-500 opacity-60 uppercase tracking-widest italic">{mod.titleBn || 'UNTITLED_LANG_BN'}</p>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -284,23 +281,13 @@ export default function CourseModulesPage({ params: paramsPromise }) {
                         <form onSubmit={handleSubmit} className="p-10 space-y-10 overflow-y-auto flex-1 custom-scrollbar">
                             <div className="space-y-8">
                                 <div className="space-y-3">
-                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">Primary Identifier (EN)</label>
+                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">Module Title</label>
                                     <input
                                         required
                                         value={modal.data.title}
                                         onChange={(e) => setModal({ ...modal, data: { ...modal.data, title: e.target.value } })}
                                         className="w-full px-8 py-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all font-black text-slate-800 dark:text-white tracking-tight"
                                         placeholder="e.g. Advanced System Patterns"
-                                    />
-                                </div>
-
-                                <div className="space-y-3">
-                                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-2">Local Identifier (BN)</label>
-                                    <input
-                                        value={modal.data.titleBn}
-                                        onChange={(e) => setModal({ ...modal, data: { ...modal.data, titleBn: e.target.value } })}
-                                        className="w-full px-8 py-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all font-bold text-slate-800 dark:text-white"
-                                        placeholder="মডিউলের বাংলা নাম..."
                                     />
                                 </div>
 

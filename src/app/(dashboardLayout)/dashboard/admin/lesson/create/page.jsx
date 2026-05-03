@@ -194,57 +194,31 @@ export default function CreateLessonPage() {
                         <h2 className="font-semibold text-gray-800">Basic Information</h2>
                     </div>
 
-                    {/* Titles */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label className={labelClass}>Lesson Title (English) *</label>
-                            <input
-                                type="text"
-                                name="title"
-                                value={formData.title}
-                                onChange={handleChange}
-                                required
-                                placeholder="e.g. Introduction to React"
-                                className={inputClass}
-                            />
-                        </div>
-                        <div>
-                            <label className={labelClass}>Lesson Title (Bengali)</label>
-                            <input
-                                type="text"
-                                name="titleBn"
-                                value={formData.titleBn}
-                                onChange={handleChange}
-                                placeholder="বাংলায় শিরোনাম (ঐচ্ছিক)"
-                                className={inputClass}
-                            />
-                        </div>
+                    {/* Title */}
+                    <div>
+                        <label className={labelClass}>Lesson Title *</label>
+                        <input
+                            type="text"
+                            name="title"
+                            value={formData.title}
+                            onChange={handleChange}
+                            required
+                            placeholder="e.g. Introduction to React"
+                            className={inputClass}
+                        />
                     </div>
 
-                    {/* Descriptions */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label className={labelClass}>Description (English)</label>
-                            <textarea
-                                name="description"
-                                value={formData.description}
-                                onChange={handleChange}
-                                rows={3}
-                                placeholder="Brief description of the lesson..."
-                                className={`${inputClass} resize-none`}
-                            />
-                        </div>
-                        <div>
-                            <label className={labelClass}>Description (Bengali)</label>
-                            <textarea
-                                name="descriptionBn"
-                                value={formData.descriptionBn}
-                                onChange={handleChange}
-                                rows={3}
-                                placeholder="পাঠের সংক্ষিপ্ত বিবরণ..."
-                                className={`${inputClass} resize-none`}
-                            />
-                        </div>
+                    {/* Description */}
+                    <div>
+                        <label className={labelClass}>Description</label>
+                        <textarea
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            rows={3}
+                            placeholder="Brief description of the lesson..."
+                            className={`${inputClass} resize-none`}
+                        />
                     </div>
 
                     {/* Course & Module */}

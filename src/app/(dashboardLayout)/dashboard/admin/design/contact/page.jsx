@@ -180,7 +180,7 @@ const ContactDesignPage = () => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div>
-                            <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Badge (English)</label>
+                            <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Badge</label>
                             <input
                                 type="text"
                                 value={contactContent.hero?.badge || ''}
@@ -190,17 +190,7 @@ const ContactDesignPage = () => {
                             />
                         </div>
                         <div>
-                            <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Badge (?????)</label>
-                            <input
-                                type="text"
-                                value={contactContent.hero?.badgeBn || ''}
-                                onChange={(e) => updateHero('badgeBn', e.target.value)}
-                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
-                                placeholder="??????? ????"
-                            />
-                        </div>
-                        <div>
-                            <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Title Part 1 (English)</label>
+                            <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Title Part 1</label>
                             <input
                                 type="text"
                                 value={contactContent.hero?.title1 || ''}
@@ -219,24 +209,14 @@ const ContactDesignPage = () => {
                                 placeholder="Connect"
                             />
                         </div>
-                        <div className="lg:col-span-2">
-                            <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Subtitle (English)</label>
+                        <div className="lg:col-span-4">
+                            <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Subtitle</label>
                             <textarea
                                 value={contactContent.hero?.subtitle || ''}
                                 onChange={(e) => updateHero('subtitle', e.target.value)}
                                 rows={2}
                                 className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
                                 placeholder="Have questions? We'd love to hear from you..."
-                            />
-                        </div>
-                        <div className="lg:col-span-2">
-                            <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Subtitle (?????)</label>
-                            <textarea
-                                value={contactContent.hero?.subtitleBn || ''}
-                                onChange={(e) => updateHero('subtitleBn', e.target.value)}
-                                rows={2}
-                                className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
-                                placeholder="???? ?????? ???? ?????? ????? ?????..."
                             />
                         </div>
                     </div>
@@ -273,41 +253,23 @@ const ContactDesignPage = () => {
                         </div>
                         <div className="flex items-start gap-3">
                             <LuMapPin className="text-purple-500 shrink-0 mt-3" size={18} />
-                            <div className="flex-1 space-y-2">
-                                <input
-                                    type="text"
-                                    value={contactContent.contactInfo?.address || ''}
-                                    onChange={(e) => updateContactInfo('address', e.target.value)}
-                                    className={`w-full px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
-                                    placeholder="Address (English)"
-                                />
-                                <input
-                                    type="text"
-                                    value={contactContent.contactInfo?.addressBn || ''}
-                                    onChange={(e) => updateContactInfo('addressBn', e.target.value)}
-                                    className={`w-full px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
-                                    placeholder="?????? (?????)"
-                                />
-                            </div>
+                            <input
+                                type="text"
+                                value={contactContent.contactInfo?.address || ''}
+                                onChange={(e) => updateContactInfo('address', e.target.value)}
+                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                placeholder="Address"
+                            />
                         </div>
                         <div className="flex items-start gap-3">
                             <LuClock className="text-pink-500 shrink-0 mt-3" size={18} />
-                            <div className="flex-1 space-y-2">
-                                <input
-                                    type="text"
-                                    value={contactContent.contactInfo?.officeHours || ''}
-                                    onChange={(e) => updateContactInfo('officeHours', e.target.value)}
-                                    className={`w-full px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
-                                    placeholder="Office Hours (English)"
-                                />
-                                <input
-                                    type="text"
-                                    value={contactContent.contactInfo?.officeHoursBn || ''}
-                                    onChange={(e) => updateContactInfo('officeHoursBn', e.target.value)}
-                                    className={`w-full px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
-                                    placeholder="???? ?????? (?????)"
-                                />
-                            </div>
+                            <input
+                                type="text"
+                                value={contactContent.contactInfo?.officeHours || ''}
+                                onChange={(e) => updateContactInfo('officeHours', e.target.value)}
+                                className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                placeholder="Office Hours"
+                            />
                         </div>
                     </div>
                 </div>
@@ -393,30 +355,18 @@ const ContactDesignPage = () => {
                         <h3 className={`font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>WhatsApp Quick Help Section</h3>
                     </div>
                     <div className="space-y-4">
-                        <div className="grid grid-cols-2 gap-3">
-                            <div>
-                                <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Title (English)</label>
-                                <input
-                                    type="text"
-                                    value={contactContent.whatsappSection?.title || ''}
-                                    onChange={(e) => updateWhatsappSection('title', e.target.value)}
-                                    className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
-                                    placeholder="Need Quick Help?"
-                                />
-                            </div>
-                            <div>
-                                <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Title (?????)</label>
-                                <input
-                                    type="text"
-                                    value={contactContent.whatsappSection?.titleBn || ''}
-                                    onChange={(e) => updateWhatsappSection('titleBn', e.target.value)}
-                                    className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
-                                    placeholder="????? ??????? ??????"
-                                />
-                            </div>
+                        <div>
+                            <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Title</label>
+                            <input
+                                type="text"
+                                value={contactContent.whatsappSection?.title || ''}
+                                onChange={(e) => updateWhatsappSection('title', e.target.value)}
+                                className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                placeholder="Need Quick Help?"
+                            />
                         </div>
                         <div>
-                            <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Description (English)</label>
+                            <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Description</label>
                             <textarea
                                 value={contactContent.whatsappSection?.description || ''}
                                 onChange={(e) => updateWhatsappSection('description', e.target.value)}
@@ -426,36 +376,14 @@ const ContactDesignPage = () => {
                             />
                         </div>
                         <div>
-                            <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Description (?????)</label>
-                            <textarea
-                                value={contactContent.whatsappSection?.descriptionBn || ''}
-                                onChange={(e) => updateWhatsappSection('descriptionBn', e.target.value)}
-                                rows={2}
-                                className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
-                                placeholder="????????? ????????? ???? ????? ????..."
+                            <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Button Text</label>
+                            <input
+                                type="text"
+                                value={contactContent.whatsappSection?.buttonText || ''}
+                                onChange={(e) => updateWhatsappSection('buttonText', e.target.value)}
+                                className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                placeholder="Chat on WhatsApp"
                             />
-                        </div>
-                        <div className="grid grid-cols-2 gap-3">
-                            <div>
-                                <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Button Text (English)</label>
-                                <input
-                                    type="text"
-                                    value={contactContent.whatsappSection?.buttonText || ''}
-                                    onChange={(e) => updateWhatsappSection('buttonText', e.target.value)}
-                                    className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
-                                    placeholder="Chat on WhatsApp"
-                                />
-                            </div>
-                            <div>
-                                <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Button Text (?????)</label>
-                                <input
-                                    type="text"
-                                    value={contactContent.whatsappSection?.buttonTextBn || ''}
-                                    onChange={(e) => updateWhatsappSection('buttonTextBn', e.target.value)}
-                                    className={`w-full mt-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500 hind-siliguri`}
-                                    placeholder="????????????? ????? ????"
-                                />
-                            </div>
                         </div>
                     </div>
                 </div>

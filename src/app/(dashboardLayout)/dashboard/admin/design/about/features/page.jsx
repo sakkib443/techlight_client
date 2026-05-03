@@ -52,7 +52,7 @@ const AboutFeaturesDesignPage = () => {
         }
     };
 
-    const addFeature = () => setContent({ ...content, features: [...content.features, { title: '', titleBn: '', description: '', descriptionBn: '', emoji: '??' }] });
+    const addFeature = () => setContent({ ...content, features: [...content.features, { title: '', description: '', emoji: '🎯' }] });
     const removeFeature = (i) => setContent({ ...content, features: content.features.filter((_, idx) => idx !== i) });
     const updateFeature = (i, field, value) => {
         const updated = [...content.features];
@@ -79,9 +79,8 @@ const AboutFeaturesDesignPage = () => {
 
             <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 mb-6">
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Header</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input value={content.badge?.text || ''} onChange={(e) => setContent({ ...content, badge: { ...content.badge, text: e.target.value } })} placeholder="Badge (English)" className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
-                    <input value={content.badge?.textBn || ''} onChange={(e) => setContent({ ...content, badge: { ...content.badge, textBn: e.target.value } })} placeholder="Badge (Bengali)" className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
+                <div className="grid grid-cols-1 gap-4">
+                    <input value={content.badge?.text || ''} onChange={(e) => setContent({ ...content, badge: { ...content.badge, text: e.target.value } })} placeholder="Badge Text" className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
                 </div>
             </div>
 
@@ -99,10 +98,8 @@ const AboutFeaturesDesignPage = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <input value={feature.emoji || ''} onChange={(e) => updateFeature(i, 'emoji', e.target.value)} placeholder="Emoji" className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800" />
                             <div></div>
-                            <input value={feature.title || ''} onChange={(e) => updateFeature(i, 'title', e.target.value)} placeholder="Title (English)" className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
-                            <input value={feature.titleBn || ''} onChange={(e) => updateFeature(i, 'titleBn', e.target.value)} placeholder="Title (Bengali)" className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
-                            <textarea value={feature.description || ''} onChange={(e) => updateFeature(i, 'description', e.target.value)} placeholder="Description (English)" rows={2} className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
-                            <textarea value={feature.descriptionBn || ''} onChange={(e) => updateFeature(i, 'descriptionBn', e.target.value)} placeholder="Description (Bengali)" rows={2} className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
+                            <input value={feature.title || ''} onChange={(e) => updateFeature(i, 'title', e.target.value)} placeholder="Title" className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
+                            <textarea value={feature.description || ''} onChange={(e) => updateFeature(i, 'description', e.target.value)} placeholder="Description" rows={2} className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" />
                         </div>
                     </div>
                 ))}

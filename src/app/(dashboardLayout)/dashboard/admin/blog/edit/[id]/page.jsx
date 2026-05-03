@@ -318,17 +318,6 @@ export default function EditBlogPage() {
                                 : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-red-500'
                                 } focus:outline-none focus:ring-2 focus:ring-red-500/20`}
                         />
-                        <input
-                            type="text"
-                            name="titleBn"
-                            value={formData.titleBn}
-                            onChange={handleChange}
-                            placeholder="বাংলা শিরোনাম (ঐচ্ছিক)"
-                            className={`w-full mt-3 px-4 py-2.5 rounded-xl border transition-all ${isDark
-                                ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-red-500'
-                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-red-500'
-                                } focus:outline-none focus:ring-2 focus:ring-red-500/20`}
-                        />
                     </div>
 
                     {/* Excerpt */}
