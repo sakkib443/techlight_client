@@ -99,8 +99,10 @@ const UserSidebar = () => {
             gradient: 'from-[#7A85F0] to-[#7A85F0]',
             submenu: [
                 { title: 'My Courses', href: '/dashboard/user/courses', icon: FiBook, count: stats?.totalEnrolled },
-                { title: 'Live Classes', href: '/dashboard/user/live-classes', icon: FiCalendar },
-                { title: 'My Schedule', href: '/dashboard/user/schedule', icon: FiClock },
+                // ──── Hidden Features (uncomment when needed) ────
+                // { title: 'Live Classes', href: '/dashboard/user/live-classes', icon: FiCalendar },
+                // { title: 'My Schedule', href: '/dashboard/user/schedule', icon: FiClock },
+                // ──── End Hidden ────
                 { title: 'Assignments', href: '/dashboard/user/assignments', icon: FiLayout },
             ],
         },
@@ -113,16 +115,7 @@ const UserSidebar = () => {
                 { title: 'Points & Badges', href: '/dashboard/user/points', icon: FiStar },
             ],
         },
-        {
-            title: 'Digital Assets',
-            icon: FiDownload,
-            gradient: 'from-[#7A85F0] to-[#c41e18]',
-            submenu: [
-                { title: 'All Assets', href: '/dashboard/user/downloads', icon: FiDownload, count: downloads?.length },
-                { title: 'Softwares', href: '/dashboard/user/assets/softwares', icon: FiCode },
-                { title: 'Websites', href: '/dashboard/user/assets/websites', icon: FiGlobe },
-            ],
-        },
+        // ──── Digital Assets REMOVED (was: Downloads, Softwares, Websites) ────
         {
             title: 'Purchase History',
             href: '/dashboard/user/purchases',
@@ -204,7 +197,7 @@ const UserSidebar = () => {
                             }`}
                     >
                         <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" size={18} />
-                        <span className="text-sm font-medium">Return to Marketplace</span>
+                        <span className="text-sm font-medium">Back to Website</span>
                     </Link>
                 </div>
 
