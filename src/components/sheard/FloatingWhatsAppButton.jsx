@@ -20,16 +20,30 @@ const FloatingWhatsAppButton = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
 
+    // Normalize whatsapp/phone value into a usable chat link
+    const buildWhatsAppLink = (raw) => {
+        if (!raw || typeof raw !== "string") return "#";
+        const value = raw.trim();
+        if (value === "" || value === "#") return "#";
+        // Already a full link (wa.me / api.whatsapp.com / http...)
+        if (/^https?:\/\//i.test(value)) return value;
+        // Otherwise treat as a phone number → strip non-digits
+        const digits = value.replace(/[^0-9]/g, "");
+        if (!digits) return "#";
+        return `https://wa.me/${digits}`;
+    };
+
     // Pull dynamic WhatsApp link from API
     useEffect(() => {
         const fetchLink = async () => {
             try {
                 const res = await fetch(`${API_BASE_URL}/designs/contact`);
                 const data = await res.json();
-                const link = data?.data?.contactContent?.socialLinks?.whatsapp;
-                if (link && typeof link === "string" && link.trim() !== "") {
-                    setWhatsappLink(link.trim());
-                }
+                const info = data?.data?.contactContent;
+                // Prefer the whatsapp field, fall back to the phone number
+                const raw = info?.socialLinks?.whatsapp || info?.contactInfo?.phone;
+                const link = buildWhatsAppLink(raw);
+                if (link !== "#") setWhatsappLink(link);
             } catch {
                 /* silently fail — button still shows with "#" fallback */
             }

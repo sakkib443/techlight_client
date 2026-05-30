@@ -67,7 +67,7 @@ export default function EditBlogPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const token = localStorage.getItem('accessToken');
+                const token = localStorage.getItem('token');
 
                 // Fetch blog
                 const blogRes = await fetch(`${API_BASE_URL}/blogs/${blogId}`, {
@@ -161,7 +161,7 @@ export default function EditBlogPage() {
         uploadData.append('image', file);
 
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/upload/image`, {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${token}` },
@@ -209,7 +209,7 @@ export default function EditBlogPage() {
 
         setSaving(true);
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/blogs/${blogId}`, {
                 method: 'PATCH',
                 headers: {

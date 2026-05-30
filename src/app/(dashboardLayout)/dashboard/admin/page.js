@@ -191,7 +191,7 @@ export default function AdminDashboard() {
 
       // Fetch notifications for recent activities
       try {
-        const notifRes = await fetch(`${BASE_URL}/notifications?limit=5`, { headers: { 'Authorization': `Bearer ${token}` } });
+        const notifRes = await fetch(`${API_URL}/notifications?limit=5`, { headers: { 'Authorization': `Bearer ${token}` } });
         const notifData = await notifRes.json();
         if (notifData.data) {
           setRecentActivities(notifData.data.map(n => ({
@@ -227,8 +227,6 @@ export default function AdminDashboard() {
       title: 'Total Likes',
       value: dashboardData.totalLikes || 0,
       subtitle: 'Across all products',
-      change: '+15.2%',
-      changeType: 'up',
       icon: FiHeart,
       color: 'bg-rose-500',
     },
@@ -236,8 +234,6 @@ export default function AdminDashboard() {
       title: 'Today Revenue',
       value: dashboardData.todayRevenue,
       subtitle: "Today's earnings",
-      change: '+8.5%',
-      changeType: 'up',
       icon: FiDollarSign,
       color: 'bg-emerald-600',
     },
@@ -245,8 +241,6 @@ export default function AdminDashboard() {
       title: 'Monthly Revenue',
       value: dashboardData.monthlyRevenue,
       subtitle: 'This month',
-      change: '+18.2%',
-      changeType: 'up',
       icon: FiTrendingUp,
       color: 'bg-amber-500',
     },
@@ -254,8 +248,6 @@ export default function AdminDashboard() {
       title: 'Total Orders',
       value: dashboardData.totalOrders,
       subtitle: `${dashboardData.completedOrders || 0} completed`,
-      change: '+24.5%',
-      changeType: 'up',
       icon: FiPackage,
       color: 'bg-indigo-600',
     },
