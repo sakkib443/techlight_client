@@ -20,6 +20,7 @@ export default function LessonCreateTab() {
     const [loading, setLoading] = useState(false);
     const [createdLessons, setCreatedLessons] = useState([]);
     const [showCreatedList, setShowCreatedList] = useState(false); // Collapsed by default
+    const [fieldErrors, setFieldErrors] = useState([]);
     const [activeTab, setActiveTab] = useState('video');
     const [formData, setFormData] = useState({
         title: '',
@@ -132,6 +133,21 @@ export default function LessonCreateTab() {
 
     const handleSubmit = async (e) => {
         e?.preventDefault();
+        setFieldErrors([]);
+
+        if (!formData.course) {
+            setFieldErrors([{ path: 'course', message: 'Please select a course' }]);
+            return;
+        }
+        if (!formData.module) {
+            setFieldErrors([{ path: 'module', message: 'Please select a module' }]);
+            return;
+        }
+        if (!formData.title.trim()) {
+            setFieldErrors([{ path: 'title', message: 'Lesson title is required' }]);
+            return;
+        }
+
         setLoading(true);
 
         try {
@@ -181,16 +197,17 @@ export default function LessonCreateTab() {
                     isFree: false,
                 }));
 
-                alert('Lesson Created Successfully! ?');
             } else {
-                const errorMsg = result.errorMessages
-                    ? result.errorMessages.map(err => `${err.path.split('.').pop()}: ${err.message}`).join('\n')
-                    : result.message;
-                alert(`Validation Error ?\n\n${errorMsg}`);
+                setFieldErrors(
+                    result.errorMessages?.length
+                        ? result.errorMessages
+                        : [{ path: '', message: result.message || 'Failed to create lesson' }]
+                );
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         } catch (err) {
             console.error('Create error:', err);
-            alert('Network error!');
+            setFieldErrors([{ path: '', message: 'Network error. Please try again.' }]);
         } finally {
             setLoading(false);
         }
@@ -268,6 +285,18 @@ export default function LessonCreateTab() {
                     </div>
                 </div>
             </div>
+
+            {/* Validation Errors */}
+            {fieldErrors.length > 0 && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 space-y-1">
+                    <p className="text-sm font-semibold text-red-700">Please fix the following:</p>
+                    {fieldErrors.map((err, i) => (
+                        <p key={i} className="text-sm text-red-600">
+                            {err.path ? `${err.path.split('.').pop()}: ${err.message}` : err.message}
+                        </p>
+                    ))}
+                </div>
+            )}
 
             {/* Collapsible Created Lessons - Compact */}
             {createdLessons.length > 0 && (

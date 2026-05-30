@@ -34,6 +34,7 @@ import {
   FiLock,
   FiTag,
   FiEdit3,
+  FiPlus,
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 
@@ -97,7 +98,15 @@ const AdminSidebar = () => {
         // { title: 'Create Lesson', href: '/dashboard/admin/lesson/create', icon: FiFileText },
         // ──── End Hidden ────
         { title: 'Enrollments', href: '/dashboard/admin/enrollment', icon: FiUserCheck },
-        { title: 'Instructors', href: '/dashboard/admin/instructor', icon: FiUserCheck },
+      ],
+    },
+    {
+      title: 'Mentor',
+      icon: FiUserCheck,
+      gradient: 'from-teal-500 to-cyan-500',
+      submenu: [
+        { title: 'All Mentors', href: '/dashboard/admin/instructor', icon: FiUsers },
+        { title: 'Add Mentor', href: '/dashboard/admin/instructor/create', icon: FiPlus },
       ],
     },
     // ──── Marketplace REMOVED (was: Websites + Design Templates) ────
@@ -175,8 +184,11 @@ const AdminSidebar = () => {
 
         {/* Logo */}
         <div className={`relative px-6 py-5 border-b ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
-          <Link href="/" className="block w-32 h-10 group">
-            <img src="/images/Techlight IT Institutelogo.png" alt="TECHLIGHT IT" className="w-full h-full object-contain group-hover:opacity-80 transition-opacity" />
+          <Link href="/" className="flex items-center gap-2 group">
+            <span className="font-extrabold tracking-tight text-2xl group-hover:opacity-80 transition-opacity">
+              <span className="text-[#7A85F0]">Tech</span><span className={isDark ? 'text-white' : 'text-gray-800'}>light</span>
+            </span>
+            <span className={`text-[9px] font-semibold uppercase tracking-widest leading-tight ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>IT<br />Institute</span>
           </Link>
         </div>
 

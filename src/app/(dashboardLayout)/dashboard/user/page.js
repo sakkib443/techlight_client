@@ -148,20 +148,20 @@ export default function UserDashboard() {
                             My Courses
                         </Link>
                         <Link
-                            href="/dashboard/user/certificates"
+                            href="/dashboard/user/wishlist"
                             className={`px-4 py-2.5 rounded-xl font-bold text-sm transition-all ${isDark
                                 ? 'bg-slate-700 text-slate-200 hover:bg-slate-600'
                                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                                 }`}
                         >
-                            My Certificates
+                            My Wishlist
                         </Link>
                     </div>
                 </div>
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* Enrolled Courses */}
                 <div className={`${cardClass} p-5 relative group overflow-hidden`}>
                     <div className="relative z-10 flex items-start justify-between">
@@ -202,27 +202,6 @@ export default function UserDashboard() {
                         </div>
                     </div>
                     <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#7A85F0] to-[#fb923c] transition-all duration-300 group-hover:w-full w-0`} />
-                </div>
-
-                {/* Certificates */}
-                <div className={`${cardClass} p-5 relative group overflow-hidden`}>
-                    <div className="relative z-10 flex items-start justify-between">
-                        <div>
-                            <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Certificates
-                            </p>
-                            <h3 className={`text-3xl font-bold mt-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                {(enrollmentStats?.certificatesEarned || 0).toString().padStart(2, '0')}
-                            </h3>
-                            <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Earned achievements
-                            </p>
-                        </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-red-500 flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
-                            <FiAward size={20} />
-                        </div>
-                    </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-emerald-500 to-red-500 transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
                 {/* Completed */}
@@ -366,24 +345,13 @@ export default function UserDashboard() {
                             </h2>
                         </div>
                         <div className="p-3 space-y-2">
-                            <Link href="/dashboard/user/schedule" className={`flex items-center gap-3 p-3 rounded-xl transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
-                                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#7A85F0]/10 to-[#7A85F0]/5 flex items-center justify-center">
-                                    <FiCalendar size={16} className="text-[#7A85F0]" />
+                            <Link href="/dashboard/user/wishlist" className={`flex items-center gap-3 p-3 rounded-xl transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
+                                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-rose-500/10 to-rose-500/5 flex items-center justify-center">
+                                    <FiStar size={16} className="text-rose-500" />
                                 </div>
                                 <div className="flex-1">
-                                    <p className={`text-sm font-bold ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>My Schedule</p>
-                                    <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Upcoming classes</p>
-                                </div>
-                                <FiChevronRight size={14} className={isDark ? 'text-slate-600' : 'text-slate-300'} />
-                            </Link>
-
-                            <Link href="/dashboard/user/certificates" className={`flex items-center gap-3 p-3 rounded-xl transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
-                                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 flex items-center justify-center">
-                                    <FiAward size={16} className="text-emerald-500" />
-                                </div>
-                                <div className="flex-1">
-                                    <p className={`text-sm font-bold ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>Certificates</p>
-                                    <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>View achievements</p>
+                                    <p className={`text-sm font-bold ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>My Wishlist</p>
+                                    <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Saved courses</p>
                                 </div>
                                 <FiChevronRight size={14} className={isDark ? 'text-slate-600' : 'text-slate-300'} />
                             </Link>

@@ -153,6 +153,24 @@ const CourseCreateTab = ({ onSuccess }) => {
         const BASE_URL = API_BASE_URL;
         const token = localStorage.getItem('token');
 
+        const cleanArray = (arr) =>
+            Array.isArray(arr) ? arr.map((s) => (s || '').trim()).filter(Boolean) : [];
+
+        const payload = {
+            ...data,
+            features: cleanArray(data.features),
+            requirements: cleanArray(data.requirements),
+            whatYouWillLearn: cleanArray(data.whatYouWillLearn),
+            targetAudience: cleanArray(data.targetAudience),
+            jobOpportunities: cleanArray(data.jobOpportunities),
+            softwareWeLearn: cleanArray(data.softwareWeLearn),
+            tags: cleanArray(data.tags),
+            faq: Array.isArray(data.faq)
+                ? data.faq.filter((f) => f?.question?.trim() && f?.answer?.trim())
+                : [],
+        };
+        if (!payload.discountPrice) delete payload.discountPrice;
+
         try {
             const response = await fetch(`${BASE_URL}/courses`, {
                 method: 'POST',
@@ -160,7 +178,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(payload),
             });
 
             const result = await response.json();

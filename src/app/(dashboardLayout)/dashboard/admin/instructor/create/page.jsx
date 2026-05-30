@@ -13,7 +13,10 @@ import { API_BASE_URL } from '@/config/api';
 const instructorSchema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
     designation: z.string().optional().or(z.literal('')),
+    subject: z.string().optional().or(z.literal('')),
     bio: z.string().optional().or(z.literal('')),
+    details: z.string().optional().or(z.literal('')),
+    lifeJourney: z.string().optional().or(z.literal('')),
     image: z.string().optional().or(z.literal('')),
     email: z.string().optional().or(z.literal('')),
     phone: z.string().optional().or(z.literal('')),
@@ -24,6 +27,10 @@ const instructorSchema = z.object({
         github: z.string().optional().or(z.literal('')),
     }).optional(),
     specialization: z.string().optional().or(z.literal('')),
+    education: z.string().optional().or(z.literal('')),
+    workExperience: z.string().optional().or(z.literal('')),
+    trainingYears: z.string().optional().or(z.literal('')),
+    trainingStudents: z.string().optional().or(z.literal('')),
     isActive: z.boolean().default(true),
     user: z.string().optional().nullable(),
 });
@@ -72,13 +79,22 @@ export default function CreateInstructorPage() {
             const payload = {
                 name: data.name,
                 ...(data.designation && { designation: data.designation }),
+                ...(data.subject && { subject: data.subject }),
                 ...(data.bio && { bio: data.bio }),
+                ...(data.details && { details: data.details }),
+                ...(data.lifeJourney && { lifeJourney: data.lifeJourney }),
                 ...(data.image && { image: data.image }),
                 ...(data.email && { email: data.email }),
                 ...(data.phone && { phone: data.phone }),
                 user: data.user && data.user !== '' ? data.user : null,
                 isActive: data.isActive,
                 specialization: data.specialization ? data.specialization.split(',').map(s => s.trim()).filter(s => s) : [],
+                education: data.education ? data.education.split('\n').map(s => s.trim()).filter(s => s) : [],
+                workExperience: data.workExperience ? data.workExperience.split('\n').map(s => s.trim()).filter(s => s) : [],
+                trainingExperience: {
+                    years: data.trainingYears || '',
+                    students: data.trainingStudents || '',
+                },
                 socialLinks: {
                     ...(data.socialLinks?.facebook && { facebook: data.socialLinks.facebook }),
                     ...(data.socialLinks?.twitter && { twitter: data.socialLinks.twitter }),
@@ -98,11 +114,15 @@ export default function CreateInstructorPage() {
 
             const result = await res.json();
             if (result.success) {
-                alert('Instructor created successfully!');
+                alert('Mentor created successfully!');
                 router.push('/dashboard/admin/instructor');
             } else {
-                // Show specific error message from backend
-                const errorMsg = result.message || result.errorMessages?.[0]?.message || 'Failed to create instructor';
+                // Show specific field-level errors from backend
+                const errorMsg = result.errorMessages?.length
+                    ? result.errorMessages
+                        .map(err => `${err.path ? err.path.split('.').pop() + ': ' : ''}${err.message}`)
+                        .join(' | ')
+                    : (result.message || 'Failed to create mentor');
                 setSubmitError(errorMsg);
             }
         } catch (error) {
@@ -124,8 +144,8 @@ export default function CreateInstructorPage() {
         <div className="p-6 max-w-4xl mx-auto">
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h1 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>Add Instructor</h1>
-                    <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Create a new instructor profile</p>
+                    <h1 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>Add Mentor</h1>
+                    <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Create a new mentor profile</p>
                 </div>
                 <button
                     onClick={() => router.back()}
@@ -175,6 +195,18 @@ export default function CreateInstructorPage() {
                             {errors.designation && <p className="mt-1 text-xs text-red-500">{errors.designation.message}</p>}
                         </div>
 
+                        <div className="md:col-span-2">
+                            <label className={labelClass}>Subject / Expertise</label>
+                            <div className="relative">
+                                <FiBriefcase className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                                <input
+                                    {...register('subject')}
+                                    className={`${inputBase} pl-11`}
+                                    placeholder="e.g. Full-Stack Web Development"
+                                />
+                            </div>
+                        </div>
+
                         <div>
                             <label className={labelClass}>Email Address</label>
                             <div className="relative">
@@ -218,7 +250,7 @@ export default function CreateInstructorPage() {
                             <textarea
                                 {...register('bio')}
                                 className={`${inputBase} min-h-[120px] py-4`}
-                                placeholder="A brief biography of the instructor..."
+                                placeholder="A brief biography of the mentor..."
                             />
                         </div>
 
@@ -228,6 +260,60 @@ export default function CreateInstructorPage() {
                                 {...register('specialization')}
                                 className={inputBase}
                                 placeholder="React, Node.js, UI/UX, Python"
+                            />
+                        </div>
+
+                        <div>
+                            <label className={labelClass}>Years of Experience</label>
+                            <input
+                                {...register('trainingYears')}
+                                className={inputBase}
+                                placeholder="e.g. 8"
+                            />
+                        </div>
+
+                        <div>
+                            <label className={labelClass}>Students Trained</label>
+                            <input
+                                {...register('trainingStudents')}
+                                className={inputBase}
+                                placeholder="e.g. 2000"
+                            />
+                        </div>
+
+                        <div className="md:col-span-2">
+                            <label className={labelClass}>Education (one per line)</label>
+                            <textarea
+                                {...register('education')}
+                                className={`${inputBase} min-h-[100px] py-4`}
+                                placeholder={"B.Sc in CSE, BUET\nM.Sc in Software Engineering"}
+                            />
+                        </div>
+
+                        <div className="md:col-span-2">
+                            <label className={labelClass}>Work Experience (one per line)</label>
+                            <textarea
+                                {...register('workExperience')}
+                                className={`${inputBase} min-h-[100px] py-4`}
+                                placeholder={"Senior Engineer at Google (2020-Present)\nFull-Stack Developer at Pathao (2017-2020)"}
+                            />
+                        </div>
+
+                        <div className="md:col-span-2">
+                            <label className={labelClass}>Details / About</label>
+                            <textarea
+                                {...register('details')}
+                                className={`${inputBase} min-h-[120px] py-4`}
+                                placeholder="Detailed description shown on the mentor profile page..."
+                            />
+                        </div>
+
+                        <div className="md:col-span-2">
+                            <label className={labelClass}>Life Journey</label>
+                            <textarea
+                                {...register('lifeJourney')}
+                                className={`${inputBase} min-h-[120px] py-4`}
+                                placeholder="The mentor's inspirational journey..."
                             />
                         </div>
 
@@ -289,7 +375,7 @@ export default function CreateInstructorPage() {
                         {loading ? 'Creating...' : (
                             <>
                                 <FiSave size={20} />
-                                Save Instructor
+                                Save Mentor
                             </>
                         )}
                     </button>

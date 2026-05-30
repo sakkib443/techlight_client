@@ -35,7 +35,7 @@ export default function InstructorListPage() {
     };
 
     const handleDelete = async (id) => {
-        if (!confirm('Are you sure you want to delete this instructor?')) return;
+        if (!confirm('Are you sure you want to delete this mentor?')) return;
         try {
             const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/instructors/${id}`, {
@@ -45,7 +45,7 @@ export default function InstructorListPage() {
             const data = await res.json();
             if (data.success) {
                 setInstructors(prev => prev.filter(inst => inst._id !== id));
-                alert('Instructor deleted successfully');
+                alert('Mentor deleted successfully');
             }
         } catch (error) {
             console.error('Error deleting instructor:', error);
@@ -61,15 +61,15 @@ export default function InstructorListPage() {
         <div className="p-6">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                 <div>
-                    <h1 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>Instructors</h1>
-                    <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Manage your course instructors and mentors</p>
+                    <h1 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>Mentors</h1>
+                    <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Manage your course mentors</p>
                 </div>
                 <Link
                     href="/dashboard/admin/instructor/create"
                     className="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-600/20 font-semibold text-sm"
                 >
                     <FiPlus size={18} />
-                    Add Instructor
+                    Add Mentor
                 </Link>
             </div>
 
@@ -77,7 +77,7 @@ export default function InstructorListPage() {
                 <FiSearch className="text-slate-400" size={20} />
                 <input
                     type="text"
-                    placeholder="Search instructors by name or designation..."
+                    placeholder="Search mentors by name or designation..."
                     className="w-full bg-transparent border-none outline-none text-sm placeholder:text-slate-500"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -93,8 +93,8 @@ export default function InstructorListPage() {
                     <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <FiUser className="text-slate-400" size={32} />
                     </div>
-                    <h3 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-slate-900'}`}>No Instructors found</h3>
-                    <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Start by adding your first instructor</p>
+                    <h3 className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-slate-900'}`}>No Mentors found</h3>
+                    <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Start by adding your first mentor</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -123,7 +123,7 @@ export default function InstructorListPage() {
                             </div>
 
                             <p className={`text-sm line-clamp-3 mb-6 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                {instructor.bio || 'No bio provided for this instructor.'}
+                                {instructor.bio || 'No bio provided for this mentor.'}
                             </p>
 
                             <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">

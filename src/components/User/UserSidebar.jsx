@@ -32,6 +32,7 @@ import {
 import { useTheme } from '@/providers/ThemeProvider';
 import { fetchMyStats } from '@/redux/enrollmentSlice';
 import { fetchMyOrders } from '@/redux/orderSlice';
+import { hydrateWishlist } from '@/redux/wishlistSlice';
 
 const UserSidebar = () => {
     const [isOpen, setIsOpen] = useState(true);
@@ -44,6 +45,7 @@ const UserSidebar = () => {
     // Redux State
     const { stats } = useSelector((state) => state.enrollment);
     const { orders } = useSelector((state) => state.order);
+    const { items: wishlistItems = [] } = useSelector((state) => state.wishlist || {});
 
     useEffect(() => {
         const userData = localStorage.getItem('user');
@@ -56,6 +58,7 @@ const UserSidebar = () => {
         // Fetch dynamic data
         dispatch(fetchMyStats());
         dispatch(fetchMyOrders());
+        dispatch(hydrateWishlist());
     }, [dispatch]);
 
     // Exact match for active state (following Admin Dashboard style)
@@ -91,21 +94,18 @@ const UserSidebar = () => {
             gradient: 'from-indigo-500 to-purple-500'
         },
         {
-            title: 'Learning Area',
+            title: 'My Courses',
+            href: '/dashboard/user/courses',
             icon: FiBook,
             gradient: 'from-[#7A85F0] to-[#7A85F0]',
-            submenu: [
-                { title: 'My Courses', href: '/dashboard/user/courses', icon: FiBook, count: stats?.totalEnrolled },
-                { title: 'My Schedule', href: '/dashboard/user/schedule', icon: FiClock },
-                { title: 'Assignments', href: '/dashboard/user/assignments', icon: FiLayout },
-            ],
+            count: stats?.totalEnrolled
         },
         {
-            title: 'Certificates',
-            href: '/dashboard/user/certificates',
-            icon: FiAward,
-            gradient: 'from-[#7A85F0] to-[#7A85F0]',
-            count: stats?.certificatesEarned
+            title: 'Wishlist',
+            href: '/dashboard/user/wishlist',
+            icon: FiHeart,
+            gradient: 'from-rose-500 to-[#c41e18]',
+            count: wishlistItems?.length || undefined
         },
         {
             title: 'Purchase History',
@@ -161,8 +161,11 @@ const UserSidebar = () => {
 
                 {/* Logo */}
                 <div className={`relative px-6 py-5 border-b ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
-                    <Link href="/" className="block w-32 h-10 group">
-                        <img src="/images/Techlight IT Institutelogo.png" alt="TECHLIGHT IT" className="w-full h-full object-contain group-hover:opacity-80 transition-opacity" />
+                    <Link href="/" className="flex items-center gap-2 group">
+                        <span className="font-extrabold tracking-tight text-2xl group-hover:opacity-80 transition-opacity">
+                            <span className="text-[#7A85F0]">Tech</span><span className={isDark ? 'text-white' : 'text-gray-800'}>light</span>
+                        </span>
+                        <span className={`text-[9px] font-semibold uppercase tracking-widest leading-tight ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>IT<br />Institute</span>
                     </Link>
                 </div>
 

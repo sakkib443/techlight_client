@@ -12,6 +12,17 @@ const CategoryPage = () => {
   const [viewMode, setViewMode] = useState('tree');
   const [expandedParents, setExpandedParents] = useState([]);
   const [editData, setEditData] = useState(null);
+  const [editErrors, setEditErrors] = useState([]);
+
+  const openEdit = (cat) => {
+    setEditErrors([]);
+    setEditData(cat);
+  };
+
+  const closeEdit = () => {
+    setEditErrors([]);
+    setEditData(null);
+  };
 
   const fetchCategories = async () => {
     setLoading(true);
@@ -82,20 +93,49 @@ const CategoryPage = () => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    setEditErrors([]);
+
+    if (!editData.name?.trim()) {
+      setEditErrors([{ path: 'name', message: 'Name is required' }]);
+      return;
+    }
+
+    // Only send allowed fields; normalize parentCategory to an id string or null
+    const payload = {
+      name: editData.name.trim(),
+      slug: editData.slug || '',
+      description: editData.description || '',
+      image: editData.image || '',
+      type: editData.type,
+      status: editData.status || 'active',
+      parentCategory: editData.isParent
+        ? null
+        : (editData.parentCategory?._id || editData.parentCategory || null),
+    };
+
     try {
       const token = localStorage.getItem('token');
-      await fetch(`${API_URL}/categories/admin/${editData._id}`, {
+      const res = await fetch(`${API_URL}/categories/admin/${editData._id}`, {
         method: 'PATCH',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(editData)
+        body: JSON.stringify(payload)
       });
-      setEditData(null);
-      fetchCategories();
+      const result = await res.json();
+      if (res.ok) {
+        closeEdit();
+        fetchCategories();
+      } else {
+        setEditErrors(
+          result.errorMessages?.length
+            ? result.errorMessages
+            : [{ path: '', message: result.message || 'Failed to update' }]
+        );
+      }
     } catch (err) {
-      alert('Failed to update');
+      setEditErrors([{ path: '', message: 'Network error. Please try again.' }]);
     }
   };
 
@@ -245,7 +285,7 @@ const CategoryPage = () => {
                     {parent.status}
                   </span>
                   <div className="flex gap-1">
-                    <button onClick={() => setEditData(parent)} className="p-2 text-slate-400 hover:text-blue-500 hover:bg-blue-50 rounded-md transition-colors">
+                    <button onClick={() => openEdit(parent)} className="p-2 text-slate-400 hover:text-blue-500 hover:bg-blue-50 rounded-md transition-colors">
                       <FiEdit3 size={16} />
                     </button>
                     <button onClick={() => handleDelete(parent._id)} className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-colors">
@@ -269,7 +309,7 @@ const CategoryPage = () => {
                           {child.status}
                         </span>
                         <div className="flex gap-1">
-                          <button onClick={() => setEditData(child)} className="p-1.5 text-slate-400 hover:text-blue-500 hover:bg-blue-50 rounded transition-colors">
+                          <button onClick={() => openEdit(child)} className="p-1.5 text-slate-400 hover:text-blue-500 hover:bg-blue-50 rounded transition-colors">
                             <FiEdit3 size={14} />
                           </button>
                           <button onClick={() => handleDelete(child._id)} className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded transition-colors">
@@ -319,7 +359,7 @@ const CategoryPage = () => {
                   </p>
                 )}
                 <div className="flex gap-2 pt-3 border-t border-gray-100 dark:border-slate-700">
-                  <button onClick={() => setEditData(cat)} className="flex-1 py-2 bg-gray-50 dark:bg-slate-700 hover:bg-gray-100 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 rounded-md text-xs font-medium transition-colors">
+                  <button onClick={() => openEdit(cat)} className="flex-1 py-2 bg-gray-50 dark:bg-slate-700 hover:bg-gray-100 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 rounded-md text-xs font-medium transition-colors">
                     Edit
                   </button>
                   <button onClick={() => handleDelete(cat._id)} className="p-2 text-red-500 hover:bg-red-50 rounded-md transition-colors">
@@ -346,12 +386,21 @@ const CategoryPage = () => {
                   <p className="text-xs text-slate-500">{editData.isParent ? 'Root Category' : 'Sub-Category'}</p>
                 </div>
               </div>
-              <button onClick={() => setEditData(null)} className="p-2 text-slate-400 hover:text-slate-600 hover:bg-gray-100 rounded-md transition-colors">
+              <button onClick={closeEdit} className="p-2 text-slate-400 hover:text-slate-600 hover:bg-gray-100 rounded-md transition-colors">
                 <FiX size={20} />
               </button>
             </div>
 
             <form onSubmit={handleUpdate} className="p-4 space-y-4 overflow-y-auto flex-1">
+              {editErrors.length > 0 && (
+                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md space-y-1">
+                  {editErrors.map((err, i) => (
+                    <p key={i} className="text-xs text-red-600 dark:text-red-400 font-medium">
+                      {err.path ? `${err.path.split('.').pop()}: ${err.message}` : err.message}
+                    </p>
+                  ))}
+                </div>
+              )}
               <div>
                 <label className="text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5 block">Name</label>
                 <input
@@ -454,7 +503,7 @@ const CategoryPage = () => {
               <div className="flex gap-2 pt-4">
                 <button
                   type="button"
-                  onClick={() => setEditData(null)}
+                  onClick={closeEdit}
                   className="flex-1 py-2 bg-gray-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-md text-sm font-medium hover:bg-gray-200 transition-colors"
                 >
                   Cancel

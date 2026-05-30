@@ -99,7 +99,7 @@ export default function EditModulePage({ params: paramsPromise }) {
                 router.push('/dashboard/admin/module');
             } else {
                 const errorMsg = result.errorMessages
-                    ? result.errorMessages.map(err => `${err.path}: ${err.message}`).join('\n')
+                    ? result.errorMessages.map(err => `${err.path ? err.path.split('.').pop() + ': ' : ''}${err.message}`).join('\n')
                     : result.message;
                 alert(`Error ❌\n\n${errorMsg}`);
             }

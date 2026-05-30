@@ -5,6 +5,7 @@ import cartReducer from "./cartSlice";
 import orderReducer from "./orderSlice";
 import enrollmentReducer from "./enrollmentSlice";
 import reviewReducer from "./reviewSlice";
+import wishlistReducer from "./wishlistSlice";
 
 export default configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export default configureStore({
     order: orderReducer,
     enrollment: enrollmentReducer,
     reviews: reviewReducer,
+    wishlist: wishlistReducer,
   },
 });
 

@@ -143,6 +143,24 @@ export default function EditCoursePage() {
     const BASE_URL = API_BASE_URL;
     const token = localStorage.getItem('token');
 
+    const cleanArray = (arr) =>
+      Array.isArray(arr) ? arr.map((s) => (s || '').trim()).filter(Boolean) : [];
+
+    const payload = {
+      ...values,
+      category: values.category?._id || values.category,
+      features: cleanArray(values.features),
+      requirements: cleanArray(values.requirements),
+      whatYouWillLearn: cleanArray(values.whatYouWillLearn),
+      targetAudience: cleanArray(values.targetAudience),
+      jobOpportunities: cleanArray(values.jobOpportunities),
+      softwareWeLearn: cleanArray(values.softwareWeLearn),
+      tags: cleanArray(values.tags),
+      faq: Array.isArray(values.faq)
+        ? values.faq.filter((f) => f?.question?.trim() && f?.answer?.trim())
+        : [],
+    };
+
     try {
       const response = await fetch(`${BASE_URL}/courses/${id}`, {
         method: 'PATCH',
@@ -150,10 +168,7 @@ export default function EditCoursePage() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-          ...values,
-          category: values.category?._id || values.category
-        }),
+        body: JSON.stringify(payload),
       });
 
       if (response.ok) {
@@ -161,7 +176,10 @@ export default function EditCoursePage() {
         router.push('/dashboard/admin/course');
       } else {
         const err = await response.json();
-        alert(`Error: ${err.message}`);
+        const errorMsg = err.errorMessages?.length
+          ? err.errorMessages.map((e) => `${e.path ? e.path.split('.').pop() + ': ' : ''}${e.message}`).join('\n')
+          : (err.message || 'Failed to update course');
+        alert(`Error:\n\n${errorMsg}`);
       }
     } catch (error) { alert('Network error'); }
     finally { setLoading(false); }

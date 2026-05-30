@@ -1,9 +1,10 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "@/redux/cartSlice";
+import { toggleWishlist, hydrateWishlist } from "@/redux/wishlistSlice";
 import { BiCategory } from "react-icons/bi";
 import { FaStar, FaArrowRight } from "react-icons/fa";
 import { LuBookOpenCheck, LuClock, LuUsers, LuPlay, LuLayoutGrid, LuShoppingCart, LuHeart, LuList, LuCheck, LuEye, LuSparkles } from "react-icons/lu";
@@ -19,8 +20,14 @@ const CourseCard = ({ course, view = "grid" }) => {
   const [isHovered, setIsHovered] = useState(false);
   const courseId = course._id || course.id;
   const { items: categories = [] } = useSelector((state) => state.categories);
+  const { items: wishlistItems = [] } = useSelector((state) => state.wishlist || {});
+  const isWishlisted = wishlistItems.some((i) => i.id === courseId);
   const { t, language } = useLanguage();
   const bengaliClass = language === "bn" ? "hind-siliguri" : "";
+
+  useEffect(() => {
+    dispatch(hydrateWishlist());
+  }, [dispatch]);
 
   // Get category name from ID or object
   const getCategoryName = (categoryData) => {
@@ -58,6 +65,22 @@ const CourseCard = ({ course, view = "grid" }) => {
     }));
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 2000);
+  };
+
+  // Handle Wishlist toggle
+  const handleToggleWishlist = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dispatch(toggleWishlist({
+      id: courseId,
+      title: title,
+      price: price,
+      discountPrice: discountPrice,
+      image: thumbnail,
+      category: getCategoryName(course.category),
+      rating: rating,
+      type: type,
+    }));
   };
 
   // List View Rendering
@@ -122,7 +145,13 @@ const CourseCard = ({ course, view = "grid" }) => {
         <div className="w-full md:w-[25%] p-6 bg-slate-50/50 dark:bg-white/5 flex flex-col items-center justify-center text-center gap-1 border-l border-slate-100 dark:border-white/5">
           <div className="flex w-full justify-end gap-2 mb-2 text-slate-400">
             <button className="hover:text-[#7A85F0] transition-colors"><LuList size={18} /></button>
-            <button className="hover:text-amber-500 transition-colors"><LuHeart size={18} /></button>
+            <button
+              onClick={handleToggleWishlist}
+              title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
+              className={`transition-colors ${isWishlisted ? 'text-rose-500' : 'hover:text-rose-500'}`}
+            >
+              <LuHeart size={18} fill={isWishlisted ? "currentColor" : "none"} />
+            </button>
           </div>
 
           <div className="text-3xl font-bold text-[#7A85F0] font-outfit mb-1">
@@ -212,8 +241,14 @@ const CourseCard = ({ course, view = "grid" }) => {
             animate={{ opacity: isHovered ? 1 : 0, x: isHovered ? 0 : 20 }}
             className="absolute right-4 bottom-4 flex flex-col gap-2"
           >
-            <button className="w-9 h-9 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm rounded-lg flex items-center justify-center text-slate-600 dark:text-white hover:bg-[#7A85F0] hover:text-white transition-all shadow-lg">
-              <LuHeart size={16} />
+            <button
+              onClick={handleToggleWishlist}
+              title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
+              className={`w-9 h-9 backdrop-blur-sm rounded-lg flex items-center justify-center transition-all shadow-lg ${isWishlisted
+                ? 'bg-rose-500 text-white'
+                : 'bg-white/95 dark:bg-slate-800/95 text-slate-600 dark:text-white hover:bg-rose-500 hover:text-white'}`}
+            >
+              <LuHeart size={16} fill={isWishlisted ? "currentColor" : "none"} />
             </button>
           </motion.div>
         </div>
