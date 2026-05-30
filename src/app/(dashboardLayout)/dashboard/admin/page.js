@@ -11,7 +11,7 @@ import {
   FiRefreshCw, FiMoreVertical, FiCheckCircle,
   FiClock, FiAlertCircle, FiBarChart2, FiPlay,
   FiTarget, FiZap, FiStar, FiHeart, FiCode, FiGlobe,
-  FiLayers, FiCreditCard
+  FiLayers, FiCreditCard, FiUserCheck
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 import { API_URL } from '@/config/api';
@@ -264,15 +264,15 @@ export default function AdminDashboard() {
   // Product stats for cards
   const productStats = [
     { title: 'Courses', value: dashboardData.totalCourses, icon: FiBook, color: 'bg-indigo-600', href: '/dashboard/admin/course' },
-    { title: 'Software', value: dashboardData.totalSoftware, icon: FiCode, color: 'bg-cyan-600', href: '/dashboard/admin/software' },
-    { title: 'Websites', value: dashboardData.totalWebsites, icon: FiGlobe, color: 'bg-rose-500', href: '/dashboard/admin/website' },
+    { title: 'Lessons', value: dashboardData.totalLessons, icon: FiPlay, color: 'bg-cyan-600', href: '/dashboard/admin/lesson' },
+    { title: 'Enrollments', value: dashboardData.totalEnrollments, icon: FiUserCheck, color: 'bg-rose-500', href: '/dashboard/admin/enrollment' },
     { title: 'Categories', value: dashboardData.categories, icon: FiLayers, color: 'bg-amber-500', href: '/dashboard/admin/category' },
   ];
 
   const quickActions = [
     { title: 'Add Course', href: '/dashboard/admin/course/create', icon: FiBook, color: 'bg-amber-500' },
-    { title: 'Add Website', href: '/dashboard/admin/website/create', icon: FiGlobe, color: 'bg-rose-500' },
-    { title: 'Add Software', href: '/dashboard/admin/software/create', icon: FiCode, color: 'bg-cyan-600' },
+    { title: 'Add Module', href: '/dashboard/admin/module/create', icon: FiLayers, color: 'bg-rose-500' },
+    { title: 'Add Lesson', href: '/dashboard/admin/lesson/create', icon: FiPlay, color: 'bg-cyan-600' },
     { title: 'Add Category', href: '/dashboard/admin/category/create', icon: FiLayers, color: 'bg-indigo-600' },
   ];
 

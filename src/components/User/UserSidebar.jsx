@@ -32,7 +32,6 @@ import {
 import { useTheme } from '@/providers/ThemeProvider';
 import { fetchMyStats } from '@/redux/enrollmentSlice';
 import { fetchMyOrders } from '@/redux/orderSlice';
-import { fetchMyDownloads } from '@/redux/downloadSlice';
 
 const UserSidebar = () => {
     const [isOpen, setIsOpen] = useState(true);
@@ -45,7 +44,6 @@ const UserSidebar = () => {
     // Redux State
     const { stats } = useSelector((state) => state.enrollment);
     const { orders } = useSelector((state) => state.order);
-    const { downloads } = useSelector((state) => state.download);
 
     useEffect(() => {
         const userData = localStorage.getItem('user');
@@ -58,7 +56,6 @@ const UserSidebar = () => {
         // Fetch dynamic data
         dispatch(fetchMyStats());
         dispatch(fetchMyOrders());
-        dispatch(fetchMyDownloads());
     }, [dispatch]);
 
     // Exact match for active state (following Admin Dashboard style)
@@ -99,48 +96,23 @@ const UserSidebar = () => {
             gradient: 'from-[#7A85F0] to-[#7A85F0]',
             submenu: [
                 { title: 'My Courses', href: '/dashboard/user/courses', icon: FiBook, count: stats?.totalEnrolled },
-                { title: 'Live Classes', href: '/dashboard/user/live-classes', icon: FiCalendar },
                 { title: 'My Schedule', href: '/dashboard/user/schedule', icon: FiClock },
                 { title: 'Assignments', href: '/dashboard/user/assignments', icon: FiLayout },
             ],
         },
         {
-            title: 'Achievements',
+            title: 'Certificates',
+            href: '/dashboard/user/certificates',
             icon: FiAward,
             gradient: 'from-[#7A85F0] to-[#7A85F0]',
-            submenu: [
-                { title: 'Certificates', href: '/dashboard/user/certificates', icon: FiAward, count: stats?.certificatesEarned },
-                { title: 'Points & Badges', href: '/dashboard/user/points', icon: FiStar },
-            ],
-        },
-        {
-            title: 'Digital Assets',
-            icon: FiDownload,
-            gradient: 'from-[#7A85F0] to-[#c41e18]',
-            submenu: [
-                { title: 'All Assets', href: '/dashboard/user/downloads', icon: FiDownload, count: downloads?.length },
-                { title: 'Softwares', href: '/dashboard/user/assets/softwares', icon: FiCode },
-                { title: 'Websites', href: '/dashboard/user/assets/websites', icon: FiGlobe },
-            ],
+            count: stats?.certificatesEarned
         },
         {
             title: 'Purchase History',
-            href: '/dashboard/user/purchases',
+            href: '/dashboard/user/payments',
             icon: FiShoppingBag,
             gradient: 'from-[#7A85F0] to-[#fb923c]',
             count: orders?.length
-        },
-        {
-            title: 'My Favorites',
-            href: '/dashboard/user/favorites',
-            icon: FiHeart,
-            gradient: 'from-rose-500 to-pink-500'
-        },
-        {
-            title: 'My Reviews',
-            href: '/dashboard/user/reviews',
-            icon: FiStar,
-            gradient: 'from-yellow-400 to-amber-500'
         },
         {
             title: 'Profile Settings',

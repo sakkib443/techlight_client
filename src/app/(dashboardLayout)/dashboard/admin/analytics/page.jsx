@@ -194,12 +194,6 @@ export default function AnalyticsPage() {
                         <FiRefreshCw size={14} className={loading ? 'animate-spin' : ''} />
                         Refresh
                     </button>
-                    <button
-                        onClick={() => router.push('/dashboard/admin/reports')}
-                        className="px-4 py-2 bg-indigo-600 text-white rounded-md text-sm font-normal hover:bg-indigo-700 transition-all"
-                    >
-                        Export Report
-                    </button>
                 </div>
             </div>
 

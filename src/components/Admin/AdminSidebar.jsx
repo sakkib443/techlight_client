@@ -95,22 +95,7 @@ const AdminSidebar = () => {
         { title: 'All Lessons', href: '/dashboard/admin/lesson', icon: FiPlay },
         { title: 'Create Lesson', href: '/dashboard/admin/lesson/create', icon: FiFileText },
         { title: 'Enrollments', href: '/dashboard/admin/enrollment', icon: FiUserCheck },
-        { title: 'All Batches', href: '/dashboard/admin/batch', icon: FiUsers },
-        { title: 'Create Batch', href: '/dashboard/admin/batch/create', icon: FiFileText },
         { title: 'Instructors', href: '/dashboard/admin/instructor', icon: FiUserCheck },
-        { title: 'Live Classes', href: '/dashboard/admin/live-class', icon: FiPlay },
-        { title: 'Schedule Class', href: '/dashboard/admin/live-class/create', icon: FiFileText },
-      ],
-    },
-    {
-      title: 'Marketplace',
-      icon: FiGlobe,
-      gradient: 'from-emerald-500 to-red-500',
-      submenu: [
-        { title: 'All Websites', href: '/dashboard/admin/website', icon: FiGlobe },
-        { title: 'Create Website', href: '/dashboard/admin/website/create', icon: FiFileText },
-        { title: 'All Design Templates', href: '/dashboard/admin/design-template', icon: FiLayers },
-        { title: 'Create Design Template', href: '/dashboard/admin/design-template/create', icon: FiFileText },
       ],
     },
     {
@@ -150,29 +135,6 @@ const AdminSidebar = () => {
       submenu: [
         { title: 'All Blogs', href: '/dashboard/admin/blog', icon: FiEdit3 },
         { title: 'Create Blog', href: '/dashboard/admin/blog/create', icon: FiFileText },
-      ],
-    },
-    {
-      title: 'Like & Rating',
-      href: '/dashboard/admin/favorites-ratings',
-      icon: FiStar,
-      gradient: 'from-rose-500 to-pink-500'
-    },
-    {
-      title: 'Reports',
-      href: '/dashboard/admin/reports',
-      icon: FiFileText,
-      gradient: 'from-cyan-500 to-blue-500'
-    },
-    {
-      title: 'Design',
-      icon: FiImage,
-      gradient: 'from-pink-500 to-purple-500',
-      submenu: [
-        { title: 'Home Page', href: '/dashboard/admin/design/home', icon: FiHome },
-        { title: 'About Page', href: '/dashboard/admin/design/about', icon: FiGrid },
-        { title: 'Contact Page', href: '/dashboard/admin/design/contact', icon: FiMessageSquare },
-        { title: 'Top Header', href: '/dashboard/admin/design/topheader', icon: FiLayers },
       ],
     },
     {

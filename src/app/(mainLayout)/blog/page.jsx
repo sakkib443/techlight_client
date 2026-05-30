@@ -77,18 +77,6 @@ export default function BlogPage() {
         });
     };
 
-    if (loading) {
-        return (
-            <div className="min-h-screen bg-white dark:bg-[#0a0a0a] flex items-center justify-center">
-                <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="w-10 h-10 border-3 border-[#7A85F0]/30 border-t-[#7A85F0] rounded-full"
-                />
-            </div>
-        );
-    }
-
     const featured = featuredBlogs[0] || blogs[0];
 
     return (
@@ -131,6 +119,16 @@ export default function BlogPage() {
             {/* ── Main Content ── */}
             <div className="container mx-auto px-4 lg:px-32 py-8">
 
+                {loading ? (
+                    <div className="flex justify-center items-center py-32">
+                        <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            className="w-10 h-10 border-3 border-[#7A85F0]/30 border-t-[#7A85F0] rounded-full"
+                        />
+                    </div>
+                ) : (
+                <>
                 {/* Featured + Sidebar */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
 
@@ -383,6 +381,8 @@ export default function BlogPage() {
                             <LuChevronRight size={18} />
                         </button>
                     </div>
+                )}
+                </>
                 )}
             </div>
         </div>
