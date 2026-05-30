@@ -176,7 +176,7 @@ const UserSidebar = () => {
                             }`}
                     >
                         <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" size={18} />
-                        <span className="text-sm font-medium">Return to Marketplace</span>
+                        <span className="text-sm font-medium">Back to Website</span>
                     </Link>
                 </div>
 

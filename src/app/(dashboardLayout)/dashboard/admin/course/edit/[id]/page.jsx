@@ -15,12 +15,9 @@ import { API_BASE_URL } from '@/config/api';
 
 const courseValidationSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters"),
-  titleBn: z.string().min(3, "Bengali title must be at least 3 characters").optional().or(z.literal('')),
   slug: z.string().min(1, "Slug is required"),
   description: z.string().min(50, "Description must be at least 50 characters"),
-  descriptionBn: z.string().min(50, "Bengali description must be at least 50 characters").optional().or(z.literal('')),
   shortDescription: z.string().max(500).optional().or(z.literal('')),
-  shortDescriptionBn: z.string().max(500).optional().or(z.literal('')),
   thumbnail: z.string().url("Must be a valid URL"),
   bannerImage: z.string().url("Must be a valid URL").optional().or(z.literal('')),
   category: z.string().min(1, "Category is required"),
@@ -29,7 +26,7 @@ const courseValidationSchema = z.object({
   discountPrice: z.coerce.number().min(0).optional().nullable(),
   courseType: z.enum(['online', 'offline', 'recorded']),
   level: z.enum(['beginner', 'intermediate', 'advanced']),
-  language: z.enum(['bangla', 'english', 'both']),
+  language: z.enum(['english']),
   tags: z.array(z.string()).optional(),
   features: z.array(z.string()).optional(),
   requirements: z.array(z.string()).optional(),
@@ -68,7 +65,7 @@ export default function EditCoursePage() {
     defaultValues: {
       courseType: 'recorded',
       level: 'beginner',
-      language: 'bangla',
+      language: 'english',
       status: 'draft',
       features: [''],
       requirements: [''],
@@ -131,7 +128,6 @@ export default function EditCoursePage() {
           sampleVideoUrl: course.sampleVideoUrl || '',
           bannerImage: course.bannerImage || '',
           shortDescription: course.shortDescription || '',
-          shortDescriptionBn: course.shortDescriptionBn || '',
           metaTitle: course.metaTitle || '',
           metaDescription: course.metaDescription || '',
         });
@@ -219,17 +215,11 @@ export default function EditCoursePage() {
           <div className={cardClass}>
             <h2 className={`text-sm font-semibold border-b pb-3 mb-2 ${isDark ? 'text-slate-300 border-slate-800' : 'text-slate-700 border-slate-100'}`}>Basic Metadata</h2>
             <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className={labelClass}>Course Title (English)</label>
+                  <label className={labelClass}>Course Title</label>
                   <input {...register('title')} placeholder="e.g. Video Editing Masterclass" className={inputClass} />
                   {errors.title && <p className="text-rose-500 text-xs mt-1">{errors.title.message}</p>}
                 </div>
-                <div>
-                  <label className={labelClass}>Course Title (বাংলা)</label>
-                  <input {...register('titleBn')} placeholder="যেমনঃ ভিডিও এডিটিং কোর্স" className={inputClass} />
-                </div>
-              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Course Type *</label>
@@ -264,13 +254,10 @@ export default function EditCoursePage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className={labelClass}>Language</label>
                   <select {...register('language')} className={inputClass}>
-                    <option value="bangla">Bangla</option>
                     <option value="english">English</option>
-                    <option value="both">Both</option>
                   </select>
                 </div>
                 <div>
@@ -433,11 +420,11 @@ export default function EditCoursePage() {
             <h2 className={`text-sm font-semibold border-b pb-3 mb-4 ${isDark ? 'text-slate-300 border-slate-800' : 'text-slate-700 border-slate-100'}`}>Description</h2>
             <div className="space-y-4">
               <div>
-                <label className={labelClass}>Short Description (English)</label>
+                <label className={labelClass}>Short Description</label>
                 <textarea {...register('shortDescription')} rows={2} className={`${inputClass} resize-none`} placeholder="Brief wrap-up..."></textarea>
               </div>
               <div>
-                <label className={labelClass}>Full Description (English)</label>
+                <label className={labelClass}>Full Description</label>
                 <textarea {...register('description')} rows={5} className={`${inputClass} resize-none`} placeholder="Detailed course content..."></textarea>
                 {errors.description && <p className="text-rose-500 text-xs mt-1">{errors.description.message}</p>}
               </div>

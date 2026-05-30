@@ -78,29 +78,17 @@ export default function TextContentManager({ textBlocks = [], mainContent = '', 
                     <FiAlignLeft className="text-amber-600" />
                     Main Lesson Text Content
                 </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div>
-                        <label className="text-xs font-semibold text-slate-600 mb-1 block">Content (English)</label>
-                        <textarea
-                            value={mainContent}
-                            onChange={(e) => onChangeMain('textContent', e.target.value)}
-                            placeholder="Write lesson content in English... (Supports HTML)"
-                            rows={6}
-                            className={`${inputClass} resize-none font-mono text-xs`}
-                        />
-                    </div>
-                    <div>
-                        <label className="text-xs font-semibold text-slate-600 mb-1 block">Content (?????)</label>
-                        <textarea
-                            value={mainContentBn}
-                            onChange={(e) => onChangeMain('textContentBn', e.target.value)}
-                            placeholder="??????? ???? ???????? ?????... (HTML ??????? ???)"
-                            rows={6}
-                            className={`${inputClass} resize-none font-mono text-xs`}
-                        />
-                    </div>
+                <div>
+                    <label className="text-xs font-semibold text-slate-600 mb-1 block">Content</label>
+                    <textarea
+                        value={mainContent}
+                        onChange={(e) => onChangeMain('textContent', e.target.value)}
+                        placeholder="Write lesson content here... (Supports HTML)"
+                        rows={6}
+                        className={`${inputClass} resize-none font-mono text-xs`}
+                    />
                 </div>
-                <p className="text-[10px] text-slate-500">?? Tip: You can use HTML tags like &lt;b&gt;, &lt;i&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;code&gt; for formatting</p>
+                <p className="text-[10px] text-slate-500">💡 Tip: You can use HTML tags like &lt;b&gt;, &lt;i&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;code&gt; for formatting</p>
             </div>
 
             {/* Additional Text Blocks */}
@@ -195,36 +183,16 @@ export default function TextContentManager({ textBlocks = [], mainContent = '', 
                                 className={inputClass}
                             />
                         </div>
-                        <div>
-                            <label className="text-xs font-semibold text-slate-600 mb-1 block">Title (?????)</label>
-                            <input
-                                type="text"
-                                value={formData.titleBn}
-                                onChange={(e) => setFormData(prev => ({ ...prev, titleBn: e.target.value }))}
-                                placeholder="??? ?????????"
-                                className={inputClass}
-                            />
-                        </div>
                     </div>
 
                     {/* Content */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
                         <div>
-                            <label className="text-xs font-semibold text-slate-600 mb-1 block">Content (English) *</label>
+                            <label className="text-xs font-semibold text-slate-600 mb-1 block">Content *</label>
                             <textarea
                                 value={formData.content}
                                 onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
                                 placeholder="Write content here... (HTML supported)"
-                                rows={8}
-                                className={`${inputClass} resize-none font-mono text-xs`}
-                            />
-                        </div>
-                        <div>
-                            <label className="text-xs font-semibold text-slate-600 mb-1 block">Content (?????)</label>
-                            <textarea
-                                value={formData.contentBn}
-                                onChange={(e) => setFormData(prev => ({ ...prev, contentBn: e.target.value }))}
-                                placeholder="??????? ???????? ?????..."
                                 rows={8}
                                 className={`${inputClass} resize-none font-mono text-xs`}
                             />

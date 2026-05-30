@@ -229,7 +229,6 @@ export default function AllModulesPage() {
                                                         </div>
                                                         <div>
                                                             <h3 className="text-sm font-medium text-gray-900 dark:text-white">{mod.title}</h3>
-                                                            <p className="text-xs text-gray-500">{mod.titleBn || '—'}</p>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -340,9 +339,6 @@ export default function AllModulesPage() {
                                                                             {/* Title */}
                                                                             <div className="flex-1 min-w-0">
                                                                                 <p className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">{lesson.title}</p>
-                                                                                {lesson.titleBn && (
-                                                                                    <p className="text-xs text-gray-400 truncate">{lesson.titleBn}</p>
-                                                                                )}
                                                                             </div>
 
                                                                             {/* Duration */}

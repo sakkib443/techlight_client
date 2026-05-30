@@ -134,31 +134,18 @@ export default function CreateModulePage() {
                     </select>
                 </div>
 
-                {/* Titles */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label className={labelClass}>Module Title (English) *</label>
-                        <input
-                            type="text"
-                            name="title"
-                            value={formData.title}
-                            onChange={handleChange}
-                            required
-                            placeholder="e.g. Getting Started"
-                            className={inputClass}
-                        />
-                    </div>
-                    <div>
-                        <label className={labelClass}>Module Title (?????)</label>
-                        <input
-                            type="text"
-                            name="titleBn"
-                            value={formData.titleBn}
-                            onChange={handleChange}
-                            placeholder="????? ???? ??? ???"
-                            className={inputClass}
-                        />
-                    </div>
+                {/* Title */}
+                <div>
+                    <label className={labelClass}>Module Title *</label>
+                    <input
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        required
+                        placeholder="e.g. Getting Started"
+                        className={inputClass}
+                    />
                 </div>
 
                 {/* Description */}

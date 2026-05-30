@@ -42,12 +42,9 @@ const SectionHeader = ({ title, icon: Icon, className = "" }) => (
 // Zod Schema updated to match ICourse interface
 const courseValidationSchema = z.object({
     title: z.string().min(3, "Title must be at least 3 characters"),
-    titleBn: z.string().min(3, "Bengali title must be at least 3 characters").optional().or(z.literal('')),
     slug: z.string().min(1, "Slug is required"),
     description: z.string().min(50, "Description must be at least 50 characters"),
-    descriptionBn: z.string().min(50, "Bengali description must be at least 50 characters").optional().or(z.literal('')),
     shortDescription: z.string().max(500).optional().or(z.literal('')),
-    shortDescriptionBn: z.string().max(500).optional().or(z.literal('')),
     thumbnail: z.string().url("Must be a valid URL"),
     bannerImage: z.string().url("Must be a valid URL").optional().or(z.literal('')),
     category: z.string().min(1, "Category is required"),
@@ -57,7 +54,7 @@ const courseValidationSchema = z.object({
     priceLabel: z.string().max(100).optional().or(z.literal('')),
     courseType: z.enum(['online', 'offline', 'recorded']),
     level: z.enum(['beginner', 'intermediate', 'advanced']),
-    language: z.enum(['bangla', 'english', 'both']),
+    language: z.enum(['english']),
     tags: z.array(z.string()).optional(),
     features: z.array(z.string()).optional(),
     requirements: z.array(z.string()).optional(),
@@ -92,7 +89,7 @@ const CourseCreateTab = ({ onSuccess }) => {
         defaultValues: {
             courseType: 'online',
             level: 'beginner',
-            language: 'bangla',
+            language: 'english',
             status: 'draft',
             features: [''],
             requirements: [''],
@@ -211,32 +208,17 @@ const CourseCreateTab = ({ onSuccess }) => {
                     <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                         <SectionHeader title="Basic Information" icon={FiBookOpen} className="bg-gradient-to-r from-indigo-50 to-purple-50" />
                         <div className="p-6 space-y-5">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                <FormField label="Course Title (English)" error={errors.title} required>
-                                    <input {...register('title')} autoComplete="off" className={inputBase} placeholder="e.g. Complete Video Editing Masterclass" />
-                                </FormField>
-                                <FormField label="Course Title (?????)" error={errors.titleBn}>
-                                    <input {...register('titleBn')} className={inputBase} placeholder="????? ????????? ????? ?????? ?????" />
-                                </FormField>
-                            </div>
+                            <FormField label="Course Title" error={errors.title} required>
+                                <input {...register('title')} autoComplete="off" className={inputBase} placeholder="e.g. Complete Video Editing Masterclass" />
+                            </FormField>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                <FormField label="Short Description (English)" error={errors.shortDescription}>
-                                    <textarea {...register('shortDescription')} rows={2} className={inputBase} placeholder="A brief one-liner summary..." />
-                                </FormField>
-                                <FormField label="Short Description (?????)" error={errors.shortDescriptionBn}>
-                                    <textarea {...register('shortDescriptionBn')} rows={2} className={inputBase} placeholder="????? ???????? ??? ???? ?????..." />
-                                </FormField>
-                            </div>
+                            <FormField label="Short Description" error={errors.shortDescription}>
+                                <textarea {...register('shortDescription')} rows={2} className={inputBase} placeholder="A brief one-liner summary..." />
+                            </FormField>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                <FormField label="Full Description (English)" error={errors.description} required>
-                                    <textarea {...register('description')} rows={5} className={inputBase} placeholder="Write detailed course description..." />
-                                </FormField>
-                                <FormField label="Full Description (?????)" error={errors.descriptionBn}>
-                                    <textarea {...register('descriptionBn')} rows={5} className={inputBase} placeholder="??????? ????????? ???? ?????..." />
-                                </FormField>
-                            </div>
+                            <FormField label="Full Description" error={errors.description} required>
+                                <textarea {...register('description')} rows={5} className={inputBase} placeholder="Write detailed course description..." />
+                            </FormField>
                         </div>
                     </div>
 
@@ -428,8 +410,8 @@ const CourseCreateTab = ({ onSuccess }) => {
                                 </div>
                             </FormField>
                             <FormField label="Price Label (Custom Text)">
-                                <input {...register('priceLabel')} className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white font-bold outline-none focus:border-amber-500 transition-all" placeholder="e.g. ফ্রি, যোগাযোগ করুন, মাত্র ৫০০০ টাকা!" />
-                                <p className="text-xs text-slate-500 mt-1">খালি রাখলে শুধু টাকার অ্যামাউন্ট দেখাবে</p>
+                                <input {...register('priceLabel')} className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white font-bold outline-none focus:border-amber-500 transition-all" placeholder="e.g. Free, Contact Us, Only $50!" />
+                                <p className="text-xs text-slate-500 mt-1">Leave empty to show only the price amount</p>
                             </FormField>
                         </div>
                     </div>
@@ -490,9 +472,7 @@ const CourseCreateTab = ({ onSuccess }) => {
                             </FormField>
                             <FormField label="Language">
                                 <select {...register('language')} className={selectBase}>
-                                    <option value="bangla">Bangla</option>
                                     <option value="english">English</option>
-                                    <option value="both">Both</option>
                                 </select>
                             </FormField>
                         </div>

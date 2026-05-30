@@ -90,14 +90,17 @@ const AdminSidebar = () => {
       submenu: [
         { title: 'All Courses', href: '/dashboard/admin/course', icon: FiBook },
         { title: 'Create Course', href: '/dashboard/admin/course/create', icon: FiFileText },
-        { title: 'All Modules', href: '/dashboard/admin/module', icon: FiLayers },
-        { title: 'Create Module', href: '/dashboard/admin/module/create', icon: FiFileText },
-        { title: 'All Lessons', href: '/dashboard/admin/lesson', icon: FiPlay },
-        { title: 'Create Lesson', href: '/dashboard/admin/lesson/create', icon: FiFileText },
+        // ──── Hidden Features (uncomment when needed) ────
+        // { title: 'All Modules', href: '/dashboard/admin/module', icon: FiLayers },
+        // { title: 'Create Module', href: '/dashboard/admin/module/create', icon: FiFileText },
+        // { title: 'All Lessons', href: '/dashboard/admin/lesson', icon: FiPlay },
+        // { title: 'Create Lesson', href: '/dashboard/admin/lesson/create', icon: FiFileText },
+        // ──── End Hidden ────
         { title: 'Enrollments', href: '/dashboard/admin/enrollment', icon: FiUserCheck },
         { title: 'Instructors', href: '/dashboard/admin/instructor', icon: FiUserCheck },
       ],
     },
+    // ──── Marketplace REMOVED (was: Websites + Design Templates) ────
     {
       title: 'Categories',
       icon: FiLayers,
