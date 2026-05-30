@@ -252,7 +252,6 @@ export default function EditCoursePage() {
                     {instructors.map(i => <option key={i._id} value={i._id}>{i.name}</option>)}
                   </select>
                 </div>
-              </div>
 
                 <div>
                   <label className={labelClass}>Language</label>
