@@ -101,6 +101,22 @@ const AdminSidebar = () => {
       ],
     },
     {
+      title: 'Batch',
+      icon: FiLayers,
+      gradient: 'from-cyan-500 to-blue-500',
+      submenu: [
+        { title: 'All Batches', href: '/dashboard/admin/batch', icon: FiLayers },
+        { title: 'Create Batch', href: '/dashboard/admin/batch/create', icon: FiPlus },
+        { title: 'Batch Students', href: '/dashboard/admin/batch/students', icon: FiUsers },
+      ],
+    },
+    {
+      title: 'Certificates',
+      href: '/dashboard/admin/certification',
+      icon: FiAward,
+      gradient: 'from-yellow-500 to-orange-500'
+    },
+    {
       title: 'Mentor',
       icon: FiUserCheck,
       gradient: 'from-teal-500 to-cyan-500',

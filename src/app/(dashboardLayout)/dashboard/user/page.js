@@ -267,6 +267,11 @@ export default function UserDashboard() {
                                         <h4 className={`font-bold text-sm truncate ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
                                             {enroll.course?.title}
                                         </h4>
+                                        {enroll.batch?.batchName && (
+                                            <p className={`text-[10px] font-bold mt-0.5 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>
+                                                Batch: {enroll.batch.batchName}
+                                            </p>
+                                        )}
                                         <div className="flex items-center gap-3 mt-2">
                                             <div className={`flex-1 h-1.5 rounded-full overflow-hidden ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}>
                                                 <div className="h-full bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] rounded-full" style={{ width: `${enroll.progress || 0}%` }}></div>

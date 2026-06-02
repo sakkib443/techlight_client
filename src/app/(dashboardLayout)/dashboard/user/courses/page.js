@@ -337,6 +337,12 @@ export default function UserCoursesPage() {
                                     </div>
                                 </div>
 
+                                {enroll.batch?.batchName && (
+                                    <div className={`flex items-center gap-1.5 text-[10px] font-bold px-2 py-1.5 rounded-lg ${isDark ? 'bg-cyan-500/10 text-cyan-400' : 'bg-cyan-50 text-cyan-600'}`}>
+                                        <FiUsers size={11} /> Batch: {enroll.batch.batchName}
+                                    </div>
+                                )}
+
                                 {/* Action Button */}
                                 <Link
                                     href={`/learn/${enroll.course?._id}`}
@@ -371,6 +377,11 @@ export default function UserCoursesPage() {
                                     <span className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
                                         {enroll.completedLessons || 0} lessons completed
                                     </span>
+                                    {enroll.batch?.batchName && (
+                                        <span className={`text-[10px] font-bold ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>
+                                            • {enroll.batch.batchName}
+                                        </span>
+                                    )}
                                 </div>
                             </div>
                             <div className="text-right shrink-0">

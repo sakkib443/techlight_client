@@ -101,6 +101,13 @@ const UserSidebar = () => {
             count: stats?.totalEnrolled
         },
         {
+            title: 'My Certificates',
+            href: '/dashboard/user/certificates',
+            icon: FiAward,
+            gradient: 'from-amber-500 to-orange-500',
+            count: stats?.certificatesEarned || undefined
+        },
+        {
             title: 'Wishlist',
             href: '/dashboard/user/wishlist',
             icon: FiHeart,
