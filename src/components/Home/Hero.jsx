@@ -45,12 +45,9 @@ const Hero = () => {
     }));
 
     return (
-        <section className="relative min-h-[75vh] overflow-hidden flex flex-col">
-            {/* ===== Background Image ===== */}
-            <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: "url('/images/bg hero.png')" }}
-            />
+        <section className="relative min-h-[75vh] overflow-hidden flex flex-col" style={{ backgroundColor: '#E31E27' }}>
+            {/* ===== Background Color ===== */}
+            <div className="absolute inset-0 bg-[#E31E27]" />
 
             {/* ===== Animated Overlay Elements ===== */}
 
@@ -88,9 +85,9 @@ const Hero = () => {
                             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
                             className="mb-6"
                         >
-                            <h1 style={{ fontSize: '50px', lineHeight: '1.15', fontWeight: '600' }} className="text-gray-900 tracking-tight">
+                            <h1 style={{ fontSize: '50px', lineHeight: '1.15', fontWeight: '600' }} className="text-white tracking-tight">
                                 {getTitle()}{' '}
-                                <span className="text-[#7A85F0]">{getTitleHighlight()}</span>
+                                <span className="text-white/80">{getTitleHighlight()}</span>
                             </h1>
                         </motion.div>
 
@@ -99,7 +96,7 @@ const Hero = () => {
                             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
                             className="mb-8"
                         >
-                            <p className="text-gray-500 max-w-lg leading-relaxed" style={{ fontSize: '14px' }}>
+                            <p className="text-white/70 max-w-lg leading-relaxed" style={{ fontSize: '14px' }}>
                                 {getDescriptionText()}
                             </p>
                         </motion.div>
@@ -117,7 +114,7 @@ const Hero = () => {
                             </Link>
 
                             <Link href="/contact">
-                                <button className="group flex items-center gap-3 text-gray-600 hover:text-[#7A85F0] transition-colors">
+                                <button className="group flex items-center gap-3 text-white/80 hover:text-white transition-colors">
                                     <div className="w-12 h-12 rounded-full bg-white shadow-lg shadow-gray-200/50 flex items-center justify-center group-hover:shadow-[#7A85F0]/20 transition-all">
                                         <LuPhone size={18} className="text-[#7A85F0]" />
                                     </div>
@@ -129,10 +126,10 @@ const Hero = () => {
                         {/* Stats bottom line — like SkillArt */}
                         <motion.div
                             variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
-                            className="mb-6 text-base font-bold text-gray-800"
+                            className="mb-6 text-base font-bold text-white"
                         >
                             Explore{" "}
-                            <span className="text-[#7A85F0]">1350+</span>{" "}
+                            <span className="text-white">1350+</span>{" "}
                             Courses within Subject
                         </motion.div>
 
@@ -150,8 +147,8 @@ const Hero = () => {
                                 ))}
                             </div>
                             <div>
-                                <span className="text-[#7A85F0] font-bold text-sm">10k+</span>
-                                <span className="text-gray-500 text-sm ml-1">Enrollment</span>
+                                <span className="text-white font-bold text-sm">10k+</span>
+                                <span className="text-white/70 text-sm ml-1">Enrollment</span>
                             </div>
                         </motion.div>
                     </motion.div>
@@ -277,7 +274,7 @@ const Hero = () => {
             </div>
 
             {/* ===== Bottom Stats Bar ===== */}
-            <div className="hidden lg:block relative w-full z-20 bg-[#7A85F0] shadow-[0_-10px_30px_rgba(0,0,0,0.1)]">
+            <div className="hidden lg:block relative w-full z-20 bg-[#C01920] shadow-[0_-10px_30px_rgba(0,0,0,0.1)]">
                 <div className="container mx-auto px-4 lg:px-20 py-5">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {displayStats.map((stat, index) => (
