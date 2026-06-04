@@ -9,7 +9,6 @@ import TopCategories from "@/components/Home/TopCategories";
 import PopularCourse from "@/components/Home/PopularCourse";
 import WhatWeProvide from "@/components/Home/WhatWeProvide";
 import Testimonials from "@/components/Home/Testimonials";
-import Newsletter from "@/components/Home/Newsletter";
 import { fetchCoursesData } from "@/redux/CourseSlice";
 import Lenis from 'lenis';
 
@@ -73,8 +72,6 @@ const HomePage = () => {
         {/* 6. Testimonials */}
         <Testimonials />
 
-        {/* 7. Newsletter */}
-        <Newsletter />
       </main>
     </div>
   );
