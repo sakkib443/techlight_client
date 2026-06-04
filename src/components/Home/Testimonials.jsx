@@ -1,58 +1,48 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { LuChevronLeft, LuChevronRight, LuStar, LuQuote } from "react-icons/lu";
+import { LuChevronLeft, LuChevronRight, LuStar, LuQuote, LuPenLine, LuX, LuCheck } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
+import { useRouter } from "next/navigation";
+import { API_BASE_URL } from "@/config/api";
+import toast from "react-hot-toast";
+
+const COLORS = ['#E31E27', '#F59E0B', '#10B981', '#3B82F6', '#8B5CF6', '#EC4899'];
 
 /* ── Single Testimonial Card ── */
 const TestimonialCard = ({ card, bengaliClass }) => (
     <div className="bg-white dark:bg-[#141414] rounded-2xl p-7 shadow-lg shadow-gray-100/80 dark:shadow-black/20 border border-gray-100 dark:border-gray-800 relative overflow-hidden flex flex-col h-full">
-        {/* Quote watermark */}
         <div className="absolute top-4 right-5 opacity-[0.05]">
             <LuQuote size={50} className="text-[#E31E27]" />
         </div>
-
-        {/* Accent line */}
-        <div
-            className="absolute top-0 left-0 w-full h-[3px]"
-            style={{ background: `linear-gradient(90deg, ${card.color}40, ${card.color}10)` }}
-        />
-
+        <div className="absolute top-0 left-0 w-full h-[3px]"
+            style={{ background: `linear-gradient(90deg, ${card.color}40, ${card.color}10)` }} />
         <div className="relative z-10 flex flex-col flex-1">
-            {/* Stars */}
             <div className="flex items-center gap-0.5 mb-4">
                 {[...Array(5)].map((_, i) => (
-                    <LuStar
-                        key={i}
-                        size={14}
-                        className={i < card.rating ? 'text-amber-400 fill-amber-400' : 'text-gray-200 dark:text-gray-700'}
-                    />
+                    <LuStar key={i} size={14}
+                        className={i < card.rating ? 'text-amber-400 fill-amber-400' : 'text-gray-200 dark:text-gray-700'} />
                 ))}
             </div>
-
-            {/* Review */}
             <p className={`text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-6 flex-1 ${bengaliClass}`}>
                 &ldquo;{card.review}&rdquo;
             </p>
-
-            {/* Divider + User */}
             <div className="border-t border-gray-100 dark:border-gray-800 pt-5">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div
-                            className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md"
-                            style={{ backgroundColor: card.color }}
-                        >
-                            {card.initial}
-                        </div>
+                        {card.userImage ? (
+                            <img src={card.userImage} alt={card.name}
+                                className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-md" />
+                        ) : (
+                            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md"
+                                style={{ backgroundColor: card.color }}>
+                                {card.initial}
+                            </div>
+                        )}
                         <div>
-                            <h4 className={`font-semibold text-gray-900 dark:text-white text-[13px] ${bengaliClass}`}>
-                                {card.name}
-                            </h4>
-                            <p className={`text-gray-400 text-[11px] ${bengaliClass}`}>
-                                {card.designation}
-                            </p>
+                            <h4 className={`font-semibold text-gray-900 dark:text-white text-[13px] ${bengaliClass}`}>{card.name}</h4>
+                            <p className={`text-gray-400 text-[11px] ${bengaliClass}`}>{card.designation}</p>
                         </div>
                     </div>
                     <span className={`px-2.5 py-1 rounded-full text-[10px] font-semibold bg-[#FEE2E2] text-[#E31E27] border border-[#E31E27]/10 whitespace-nowrap ${bengaliClass}`}>
@@ -64,103 +54,187 @@ const TestimonialCard = ({ card, bengaliClass }) => (
     </div>
 );
 
+/* ── Add Testimonial Modal ── */
+const AddTestimonialModal = ({ onClose, onSuccess, bengaliClass, language }) => {
+    const [form, setForm] = useState({ name: '', designation: '', course: '', review: '', rating: 5 });
+    const [submitting, setSubmitting] = useState(false);
+    const [hover, setHover] = useState(0);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (form.review.trim().length < 20) {
+            toast.error(language === 'bn' ? 'রিভিউ কমপক্ষে ২০ অক্ষর হতে হবে' : 'Review must be at least 20 characters');
+            return;
+        }
+        setSubmitting(true);
+        try {
+            const token = localStorage.getItem('token');
+            const res = await fetch(`${API_BASE_URL}/testimonials`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify(form),
+            });
+            const data = await res.json();
+            if (data.success) {
+                toast.success(language === 'bn' ? 'টেস্টিমোনিয়াল যোগ হয়েছে!' : 'Testimonial added successfully!');
+                onSuccess();
+                onClose();
+            } else {
+                toast.error(data.message || 'Something went wrong');
+            }
+        } catch {
+            toast.error(language === 'bn' ? 'সার্ভার সমস্যা হয়েছে' : 'Server error. Please try again.');
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+            <motion.div initial={{ opacity: 0, scale: 0.92, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.92, y: 20 }}
+                className="relative w-full max-w-lg bg-white dark:bg-[#111] rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 p-6 z-10">
+
+                <div className="flex items-center justify-between mb-5">
+                    <div>
+                        <h3 className={`text-lg font-bold text-gray-900 dark:text-white ${bengaliClass}`}>
+                            {language === 'bn' ? 'আপনার অভিজ্ঞতা শেয়ার করুন' : 'Share Your Experience'}
+                        </h3>
+                        <p className={`text-xs text-gray-400 mt-0.5 ${bengaliClass}`}>
+                            {language === 'bn' ? 'আপনার রিভিউ সবার দেখার জন্য প্রকাশিত হবে' : 'Your review will be visible to everyone'}
+                        </p>
+                    </div>
+                    <button onClick={onClose} className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center text-gray-500 hover:bg-gray-200 transition-all">
+                        <LuX size={15} />
+                    </button>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Rating Stars */}
+                    <div>
+                        <label className={`text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 block ${bengaliClass}`}>
+                            {language === 'bn' ? 'রেটিং দিন' : 'Your Rating'}
+                        </label>
+                        <div className="flex gap-1">
+                            {[1, 2, 3, 4, 5].map(star => (
+                                <button key={star} type="button"
+                                    onClick={() => setForm(f => ({ ...f, rating: star }))}
+                                    onMouseEnter={() => setHover(star)}
+                                    onMouseLeave={() => setHover(0)}>
+                                    <LuStar size={24}
+                                        className={`transition-colors ${star <= (hover || form.rating) ? 'text-amber-400 fill-amber-400' : 'text-gray-300'}`} />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                        <div>
+                            <label className={`text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 block ${bengaliClass}`}>
+                                {language === 'bn' ? 'আপনার নাম *' : 'Your Name *'}
+                            </label>
+                            <input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                                placeholder={language === 'bn' ? 'রাকিব হাসান' : 'John Doe'}
+                                className="w-full px-3 py-2.5 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#E31E27] text-gray-800 dark:text-white" />
+                        </div>
+                        <div>
+                            <label className={`text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 block ${bengaliClass}`}>
+                                {language === 'bn' ? 'পদবী / পেশা *' : 'Designation *'}
+                            </label>
+                            <input required value={form.designation} onChange={e => setForm(f => ({ ...f, designation: e.target.value }))}
+                                placeholder={language === 'bn' ? 'ওয়েব ডেভেলপার' : 'Web Developer'}
+                                className="w-full px-3 py-2.5 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#E31E27] text-gray-800 dark:text-white" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label className={`text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 block ${bengaliClass}`}>
+                            {language === 'bn' ? 'কোর্সের নাম *' : 'Course Name *'}
+                        </label>
+                        <input required value={form.course} onChange={e => setForm(f => ({ ...f, course: e.target.value }))}
+                            placeholder={language === 'bn' ? 'ওয়েব ডেভেলপমেন্ট' : 'Web Development'}
+                            className="w-full px-3 py-2.5 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#E31E27] text-gray-800 dark:text-white" />
+                    </div>
+
+                    <div>
+                        <label className={`text-xs font-semibold text-gray-600 dark:text-gray-400 mb-1 block ${bengaliClass}`}>
+                            {language === 'bn' ? 'আপনার অভিজ্ঞতা লিখুন *' : 'Your Review *'}
+                        </label>
+                        <textarea required rows={4} value={form.review} onChange={e => setForm(f => ({ ...f, review: e.target.value }))}
+                            placeholder={language === 'bn' ? 'টেকলাইট আইটি-তে পড়ার অভিজ্ঞতা শেয়ার করুন...' : 'Share your learning experience at Techlight IT...'}
+                            className={`w-full px-3 py-2.5 text-sm bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#E31E27] text-gray-800 dark:text-white resize-none ${bengaliClass}`} />
+                        <p className="text-[10px] text-gray-400 mt-1">{form.review.length}/1000</p>
+                    </div>
+
+                    <button type="submit" disabled={submitting}
+                        className={`w-full flex items-center justify-center gap-2 py-3 rounded-full bg-[#E31E27] hover:bg-[#C01920] text-white font-bold text-sm transition-all shadow-lg shadow-[#E31E27]/25 disabled:opacity-60 ${bengaliClass}`}>
+                        {submitting ? (
+                            <><span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                                {language === 'bn' ? 'যোগ হচ্ছে...' : 'Submitting...'}</>
+                        ) : (
+                            <><LuCheck size={15} /> {language === 'bn' ? 'টেস্টিমোনিয়াল জমা দিন' : 'Submit Testimonial'}</>
+                        )}
+                    </button>
+                </form>
+            </motion.div>
+        </div>
+    );
+};
+
 /* ── Main Component ── */
 const Testimonials = () => {
     const { language } = useLanguage();
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
+    const router = useRouter();
+    const [testimonials, setTestimonials] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [startIndex, setStartIndex] = useState(0);
     const [direction, setDirection] = useState(1);
+    const [showModal, setShowModal] = useState(false);
 
-    const testimonials = [
-        {
-            id: 1,
-            review: language === 'bn'
-                ? 'টেকলাইট আইটি ইনস্টিটিউট থেকে ওয়েব ডেভেলপমেন্ট কোর্স করার পর আমার ক্যারিয়ার সম্পূর্ণ বদলে গেছে। প্রতিটি ক্লাস ছিল হাতে-কলমে শেখানো।'
-                : 'After completing the Web Development course from Techlight IT, my career changed completely. Every class was hands-on learning.',
-            name: language === 'bn' ? 'রাকিব হাসান' : 'Rakib Hasan',
-            designation: language === 'bn' ? 'জুনিয়র ডেভেলপার, ব্রেইন স্টেশন ২৩' : 'Junior Developer, Brain Station 23',
-            course: language === 'bn' ? 'ওয়েব ডেভেলপমেন্ট' : 'Web Development',
-            rating: 5, initial: 'R', color: '#E31E27',
-        },
-        {
-            id: 2,
-            review: language === 'bn'
-                ? 'গ্রাফিক ডিজাইন কোর্সটি আমার জন্য গেম চেঞ্জার ছিল। ইন্সট্রাক্টররা অত্যন্ত সহায়ক এবং কারিকুলাম ইন্ডাস্ট্রি স্ট্যান্ডার্ড মেনে তৈরি।'
-                : 'The Graphic Design course was a game changer for me. Instructors were extremely helpful and the curriculum follows industry standards.',
-            name: language === 'bn' ? 'ফাতেমা আক্তার' : 'Fatema Akter',
-            designation: language === 'bn' ? 'ইউআই ডিজাইনার, ফ্রিল্যান্সার' : 'UI Designer, Freelancer',
-            course: language === 'bn' ? 'গ্রাফিক ডিজাইন' : 'Graphic Design',
-            rating: 5, initial: 'F', color: '#F59E0B',
-        },
-        {
-            id: 3,
-            review: language === 'bn'
-                ? 'ডিজিটাল মার্কেটিং কোর্সের পর আমি নিজে ৩টি ক্লায়েন্টের কাজ পেয়েছি। রিয়েল প্রজেক্টে কাজ করার সুযোগ সবচেয়ে ভালো দিক।'
-                : 'After the Digital Marketing course, I landed 3 clients on my own. Working on real projects was the best part of this course.',
-            name: language === 'bn' ? 'আরিফ রহমান' : 'Arif Rahman',
-            designation: language === 'bn' ? 'ডিজিটাল মার্কেটার, স্বনিয়োজিত' : 'Digital Marketer, Self-employed',
-            course: language === 'bn' ? 'ডিজিটাল মার্কেটিং' : 'Digital Marketing',
-            rating: 5, initial: 'A', color: '#10B981',
-        },
-        {
-            id: 4,
-            review: language === 'bn'
-                ? 'টেকলাইটের সাপোর্ট অসাধারণ। কোর্স শেষ হওয়ার পরেও জব প্লেসমেন্টে সাহায্য করেছে। লাইফটাইম সাপোর্টের প্রমিজটা তারা সত্যিই রাখে!'
-                : 'Techlight\'s support is amazing. They helped with job placement even after the course. They truly keep their lifetime support promise!',
-            name: language === 'bn' ? 'নুসরাত জাহান' : 'Nusrat Jahan',
-            designation: language === 'bn' ? 'ফ্রন্টেন্ড ডেভেলপার, টেকনোভা' : 'Frontend Developer, Technova',
-            course: 'MERN Stack',
-            rating: 5, initial: 'N', color: '#EF4444',
-        },
-        {
-            id: 5,
-            review: language === 'bn'
-                ? 'ইউটিউব থেকে শিখতাম আগে, কিন্তু স্ট্রাকচার্ড কোর্স করার পর বুঝলাম পার্থক্যটা কত বেশি। টেকলাইটের কোর্স প্রফেশনাল লেভেলের।'
-                : 'I used to learn from YouTube, but after a structured course I realized the huge difference. Techlight courses are truly professional.',
-            name: language === 'bn' ? 'তানভীর আহমেদ' : 'Tanvir Ahmed',
-            designation: language === 'bn' ? 'ব্যাকেন্ড ডেভেলপার' : 'Backend Developer',
-            course: language === 'bn' ? 'পাইথন প্রোগ্রামিং' : 'Python Programming',
-            rating: 4, initial: 'T', color: '#8B5CF6',
-        },
-        {
-            id: 6,
-            review: language === 'bn'
-                ? 'সার্টিফিকেট পাওয়ার পর ফ্রিল্যান্সিং প্রোফাইলে ক্লায়েন্ট রিকোয়েস্ট দ্বিগুণ হয়ে গেছে। টেকলাইটের সার্টিফিকেট সত্যিই ভ্যালু আছে।'
-                : 'After getting the certificate, my freelancing profile saw double the client requests. Techlight certificates truly have market value.',
-            name: language === 'bn' ? 'শারমিন সুলতানা' : 'Sharmin Sultana',
-            designation: language === 'bn' ? 'গ্রাফিক ডিজাইনার, ফাইভার' : 'Graphic Designer, Fiverr',
-            course: language === 'bn' ? 'মোশন গ্রাফিক্স' : 'Motion Graphics',
-            rating: 5, initial: 'S', color: '#EC4899',
-        },
-    ];
+    const fetchTestimonials = useCallback(async () => {
+        try {
+            const res = await fetch(`${API_BASE_URL}/testimonials`);
+            const data = await res.json();
+            if (data.success && data.data?.length > 0) {
+                setTestimonials(data.data);
+            }
+        } catch (err) {
+            console.error('Failed to fetch testimonials');
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    useEffect(() => { fetchTestimonials(); }, [fetchTestimonials]);
 
     const total = testimonials.length;
-    const visibleCount = 3;
+    const visibleCount = Math.min(3, total);
 
     const getVisibleCards = () => {
-        const cards = [];
-        for (let i = 0; i < visibleCount; i++) {
-            cards.push(testimonials[(startIndex + i) % total]);
-        }
-        return cards;
+        if (total === 0) return [];
+        return Array.from({ length: visibleCount }, (_, i) => testimonials[(startIndex + i) % total]);
     };
 
     const handleNext = useCallback(() => {
+        if (total <= visibleCount) return;
         setDirection(1);
-        setStartIndex((prev) => (prev + 1) % total);
-    }, [total]);
+        setStartIndex(prev => (prev + 1) % total);
+    }, [total, visibleCount]);
 
     const handlePrev = () => {
+        if (total <= visibleCount) return;
         setDirection(-1);
-        setStartIndex((prev) => (prev - 1 + total) % total);
+        setStartIndex(prev => (prev - 1 + total) % total);
     };
 
     useEffect(() => {
-        const timer = setInterval(handleNext, 3000);
+        if (total <= visibleCount) return;
+        const timer = setInterval(handleNext, 4000);
         return () => clearInterval(timer);
-    }, [handleNext]);
-
-    const visibleCards = getVisibleCards();
+    }, [handleNext, total, visibleCount]);
 
     const isVisible = (i) => {
         for (let j = 0; j < visibleCount; j++) {
@@ -169,124 +243,130 @@ const Testimonials = () => {
         return false;
     };
 
+    const handleAddClick = () => {
+        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        if (!token) {
+            router.push('/login');
+        } else {
+            setShowModal(true);
+        }
+    };
+
+    const visibleCards = getVisibleCards();
+
     return (
         <section className="py-20 lg:py-28 bg-gradient-to-b from-gray-50 to-white dark:from-[#0a0a0a] dark:to-[#111] overflow-hidden">
             <div className="container mx-auto px-4 lg:px-32">
 
                 {/* Header */}
-                <motion.div
-                    className="text-center mb-14"
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                >
+                <motion.div className="text-center mb-14"
+                    initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }} transition={{ duration: 0.5 }}>
                     <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4">
                         {language === 'bn' ? 'ছাত্রদের মতামত' : 'Student Reviews'}
                     </span>
                     <h2 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white leading-tight mb-3 ${bengaliClass}`}>
                         {language === 'bn'
                             ? <>আমাদের শিক্ষার্থীরা কী <span className="text-[#E31E27]">বলছে</span></>
-                            : <>What Our Students <span className="text-[#E31E27]">Say</span></>
-                        }
+                            : <>What Our Students <span className="text-[#E31E27]">Say</span></>}
                     </h2>
-                    <p className={`text-gray-500 dark:text-gray-400 text-sm max-w-lg mx-auto ${bengaliClass}`}>
+                    <p className={`text-gray-500 dark:text-gray-400 text-sm max-w-lg mx-auto mb-6 ${bengaliClass}`}>
                         {language === 'bn'
                             ? 'আমাদের সফল শিক্ষার্থীদের অভিজ্ঞতা থেকে জানুন কেন টেকলাইট সেরা।'
                             : 'Hear from our successful students about their learning experience at Techlight.'}
                     </p>
+
+                    {/* Add Testimonial Button */}
+                    <motion.button onClick={handleAddClick}
+                        whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                        className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#E31E27] hover:bg-[#C01920] text-white text-sm font-semibold shadow-lg shadow-[#E31E27]/25 transition-all ${bengaliClass}`}>
+                        <LuPenLine size={15} />
+                        {language === 'bn' ? 'আপনার অভিজ্ঞতা যোগ করুন' : 'Add Your Review'}
+                    </motion.button>
                 </motion.div>
 
-                {/* ── Conveyor Belt Cards ── */}
-                <div className="relative overflow-hidden">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <AnimatePresence initial={false} mode="popLayout">
-                            {visibleCards.map((card) => (
-                                <motion.div
-                                    key={card.id}
-                                    layout
-                                    initial={{
-                                        x: direction > 0 ? 350 : -350,
-                                        opacity: 0,
-                                        scale: 0.85,
-                                    }}
-                                    animate={{
-                                        x: 0,
-                                        opacity: 1,
-                                        scale: 1,
-                                    }}
-                                    exit={{
-                                        x: direction > 0 ? -350 : 350,
-                                        opacity: 0,
-                                        scale: 0.85,
-                                    }}
-                                    transition={{
-                                        x: { type: "spring", stiffness: 80, damping: 22, mass: 1.2 },
-                                        opacity: { duration: 0.6, ease: "easeInOut" },
-                                        scale: { duration: 0.6, ease: "easeInOut" },
-                                        layout: { type: "spring", stiffness: 80, damping: 22, mass: 1.2 },
-                                    }}
-                                >
-                                    <TestimonialCard card={card} bengaliClass={bengaliClass} />
-                                </motion.div>
-                            ))}
-                        </AnimatePresence>
-                    </div>
-                </div>
-
-                {/* Controls */}
-                <div className="flex items-center justify-center gap-5 mt-10">
-                    <button
-                        onClick={handlePrev}
-                        className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-[#E31E27] hover:text-white hover:border-[#E31E27] transition-all shadow-sm"
-                    >
-                        <LuChevronLeft size={18} />
-                    </button>
-
-                    <div className="flex items-center gap-1.5">
-                        {testimonials.map((_, i) => (
-                            <button
-                                key={i}
-                                onClick={() => {
-                                    setDirection(i > startIndex ? 1 : -1);
-                                    setStartIndex(i);
-                                }}
-                                className={`rounded-full transition-all duration-300 ${startIndex === i
-                                    ? 'w-7 h-2 bg-[#E31E27]'
-                                    : 'w-2 h-2 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400'
-                                    }`}
-                            />
+                {/* Loading */}
+                {loading ? (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-pulse">
+                        {[...Array(3)].map((_, i) => (
+                            <div key={i} className="h-56 bg-gray-200 dark:bg-gray-800 rounded-2xl" />
                         ))}
                     </div>
-
-                    <button
-                        onClick={handleNext}
-                        className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-[#E31E27] hover:text-white hover:border-[#E31E27] transition-all shadow-sm"
-                    >
-                        <LuChevronRight size={18} />
-                    </button>
-                </div>
-
-                {/* Avatar row */}
-                <div className="flex items-center justify-center -space-x-1 mt-5">
-                    {testimonials.map((item, i) => (
-                        <div
-                            key={item.id}
-                            onClick={() => {
-                                setDirection(i > startIndex ? 1 : -1);
-                                setStartIndex(i);
-                            }}
-                            className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-[10px] font-bold cursor-pointer transition-all duration-500 border-2 border-white dark:border-[#111] ${isVisible(i)
-                                ? 'scale-125 opacity-100 ring-2 ring-[#E31E27]/30 z-10'
-                                : 'opacity-30 hover:opacity-60 hover:scale-110'
-                                }`}
-                            style={{ backgroundColor: item.color }}
-                        >
-                            {item.initial}
+                ) : total === 0 ? (
+                    <div className="text-center py-16 text-gray-400 text-sm">
+                        {language === 'bn' ? 'এখনো কোনো রিভিউ নেই। প্রথম রিভিউ দিন!' : 'No reviews yet. Be the first to add one!'}
+                    </div>
+                ) : (
+                    <>
+                        {/* Cards */}
+                        <div className="relative overflow-hidden">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <AnimatePresence initial={false} mode="popLayout">
+                                    {visibleCards.map((card) => (
+                                        <motion.div key={card._id || card.id} layout
+                                            initial={{ x: direction > 0 ? 350 : -350, opacity: 0, scale: 0.85 }}
+                                            animate={{ x: 0, opacity: 1, scale: 1 }}
+                                            exit={{ x: direction > 0 ? -350 : 350, opacity: 0, scale: 0.85 }}
+                                            transition={{
+                                                x: { type: "spring", stiffness: 80, damping: 22, mass: 1.2 },
+                                                opacity: { duration: 0.6 }, scale: { duration: 0.6 },
+                                                layout: { type: "spring", stiffness: 80, damping: 22, mass: 1.2 },
+                                            }}>
+                                            <TestimonialCard card={card} bengaliClass={bengaliClass} />
+                                        </motion.div>
+                                    ))}
+                                </AnimatePresence>
+                            </div>
                         </div>
-                    ))}
-                </div>
+
+                        {/* Controls */}
+                        {total > visibleCount && (
+                            <>
+                                <div className="flex items-center justify-center gap-5 mt-10">
+                                    <button onClick={handlePrev}
+                                        className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-[#E31E27] hover:text-white hover:border-[#E31E27] transition-all shadow-sm">
+                                        <LuChevronLeft size={18} />
+                                    </button>
+                                    <div className="flex items-center gap-1.5">
+                                        {testimonials.map((_, i) => (
+                                            <button key={i}
+                                                onClick={() => { setDirection(i > startIndex ? 1 : -1); setStartIndex(i); }}
+                                                className={`rounded-full transition-all duration-300 ${startIndex === i ? 'w-7 h-2 bg-[#E31E27]' : 'w-2 h-2 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400'}`} />
+                                        ))}
+                                    </div>
+                                    <button onClick={handleNext}
+                                        className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-[#E31E27] hover:text-white hover:border-[#E31E27] transition-all shadow-sm">
+                                        <LuChevronRight size={18} />
+                                    </button>
+                                </div>
+
+                                <div className="flex items-center justify-center -space-x-1 mt-5">
+                                    {testimonials.map((item, i) => (
+                                        <div key={item._id || item.id}
+                                            onClick={() => { setDirection(i > startIndex ? 1 : -1); setStartIndex(i); }}
+                                            className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-[10px] font-bold cursor-pointer transition-all duration-500 border-2 border-white dark:border-[#111] ${isVisible(i) ? 'scale-125 opacity-100 ring-2 ring-[#E31E27]/30 z-10' : 'opacity-30 hover:opacity-60 hover:scale-110'}`}
+                                            style={{ backgroundColor: item.color || '#E31E27' }}>
+                                            {item.initial}
+                                        </div>
+                                    ))}
+                                </div>
+                            </>
+                        )}
+                    </>
+                )}
             </div>
+
+            {/* Modal */}
+            <AnimatePresence>
+                {showModal && (
+                    <AddTestimonialModal
+                        onClose={() => setShowModal(false)}
+                        onSuccess={fetchTestimonials}
+                        bengaliClass={bengaliClass}
+                        language={language}
+                    />
+                )}
+            </AnimatePresence>
         </section>
     );
 };

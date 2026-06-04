@@ -164,6 +164,12 @@ const AdminSidebar = () => {
       gradient: 'from-[#E31E27] to-rose-500'
     },
     {
+      title: 'Testimonials',
+      href: '/dashboard/admin/testimonials',
+      icon: FiMessageSquare,
+      gradient: 'from-amber-500 to-orange-500'
+    },
+    {
       title: 'Blog',
       icon: FiEdit3,
       gradient: 'from-red-500 to-cyan-500',
