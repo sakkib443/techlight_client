@@ -170,6 +170,7 @@ const AdminSidebar = () => {
       icon: FiGlobe,
       gradient: 'from-indigo-500 to-purple-500',
       submenu: [
+        { title: 'Home', href: '/dashboard/admin/design/home', icon: FiHome },
         { title: 'Contact Page', href: '/dashboard/admin/design/contact', icon: FiMessageSquare },
       ],
     },
