@@ -187,7 +187,7 @@ const Navbar = () => {
                 <img
                   src="/images/logo.png"
                   alt="Techlight IT"
-                  className={`object-contain transition-all duration-300 ${isSticky ? 'h-8' : 'h-10'}`}
+                  className={`object-contain transition-all duration-300 ${isSticky ? 'h-10' : 'h-12'}`}
                 />
               </Link>
             </div>

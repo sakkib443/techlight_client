@@ -101,7 +101,7 @@ const Footer = () => {
               <img
                 src="/images/logo.png"
                 alt="Techlight IT"
-                className="h-11 w-auto object-contain"
+                className="h-14 w-auto object-contain"
               />
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed max-w-sm">

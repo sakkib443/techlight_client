@@ -213,7 +213,7 @@ const AdminSidebar = () => {
             <img
               src="/images/logo.png"
               alt="Techlight IT"
-              className="h-9 w-auto object-contain group-hover:opacity-80 transition-opacity"
+              className="h-12 w-auto object-contain group-hover:opacity-80 transition-opacity"
             />
           </Link>
         </div>

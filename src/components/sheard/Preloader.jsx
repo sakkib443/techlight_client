@@ -413,32 +413,6 @@ const Preloader = () => {
                         style={{ height: SPLIT, paddingBottom: "32px" }}
                     >
                         <div className="flex flex-col items-center w-full max-w-md">
-                            {/* Logo Mark */}
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.5, rotate: -15 }}
-                                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                                transition={{ duration: 0.9, ease: [0.34, 1.56, 0.64, 1] }}
-                                className="relative mb-8"
-                            >
-                                <motion.div
-                                    animate={{ scale: [1, 1.6, 1], opacity: [0.5, 0, 0.5] }}
-                                    transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                                    className="absolute inset-0 rounded-2xl bg-[#7A85F0]/40 blur-2xl"
-                                />
-                                <motion.div
-                                    animate={{ scale: [1, 1.3, 1], opacity: [0.6, 0.2, 0.6] }}
-                                    transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                                    className="absolute inset-0 rounded-2xl bg-[#A5AEFF]/30 blur-xl"
-                                />
-                                <div className="relative flex items-center justify-center">
-                                    <img
-                                        src="/images/logo.png"
-                                        alt="Techlight IT"
-                                        className="h-16 w-auto object-contain drop-shadow-2xl"
-                                    />
-                                </div>
-                            </motion.div>
-
                             {/* Wordmark */}
                             <motion.div
                                 variants={letterContainer}
