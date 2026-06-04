@@ -3,7 +3,7 @@ import { API_URL } from '@/config/api';
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { LuUsers, LuBookOpen, LuTrophy, LuGraduationCap, LuArrowRight, LuPlay } from "react-icons/lu";
+import { LuUsers, LuBookOpen, LuTrophy, LuGraduationCap, LuArrowRight, LuPhone } from "react-icons/lu";
 
 const Hero = () => {
     const [heroData, setHeroData] = useState(null);
@@ -105,12 +105,14 @@ const Hero = () => {
                                 </button>
                             </Link>
 
-                            <button className="group flex items-center gap-3 text-gray-600 hover:text-[#7A85F0] transition-colors">
-                                <div className="w-12 h-12 rounded-full bg-white shadow-lg shadow-gray-200/50 flex items-center justify-center group-hover:shadow-[#7A85F0]/20 transition-all">
-                                    <LuPlay size={18} className="text-[#7A85F0] ml-0.5" />
-                                </div>
-                                <span className="text-sm font-semibold">Watch the video</span>
-                            </button>
+                            <Link href="/contact">
+                                <button className="group flex items-center gap-3 text-gray-600 hover:text-[#7A85F0] transition-colors">
+                                    <div className="w-12 h-12 rounded-full bg-white shadow-lg shadow-gray-200/50 flex items-center justify-center group-hover:shadow-[#7A85F0]/20 transition-all">
+                                        <LuPhone size={18} className="text-[#7A85F0]" />
+                                    </div>
+                                    <span className="text-sm font-semibold">Contact Us</span>
+                                </button>
+                            </Link>
                         </motion.div>
 
                         {/* Stats bottom line — like SkillArt */}
