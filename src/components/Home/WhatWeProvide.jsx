@@ -1,33 +1,53 @@
 "use client";
 
-import React from "react";
+import { API_URL } from '@/config/api';
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { LuClock, LuHeadphones, LuSparkles, LuArrowRight } from "react-icons/lu";
-import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
 
-const WhatWeProvide = () => {
-    const { t, language } = useLanguage();
-    const bengaliClass = language === "bn" ? "hind-siliguri" : "";
+const DEFAULTS = {
+    badge: 'About Our Platform',
+    title: 'Breaking Barriers Through',
+    titleHighlight: 'Language & Technology',
+    description:
+        'The core mission of Techlight IT Institute is to empower individuals with both technical and practical skills to enhance their career opportunities. Learn hands-on from our industry expert instructors.',
+    buttonText: 'Explore All Courses',
+    buttonLink: '/courses',
+    features: [
+        { title: 'Flexible Schedule', desc: 'Learn at your own pace and time' },
+        { title: '24/7 Online Support', desc: 'Get help whenever you need it' },
+        { title: 'Smart Learning Process', desc: 'Modern methods for easy learning' },
+    ],
+};
 
-    const features = [
-        {
-            icon: LuClock,
-            title: language === 'bn' ? 'ফ্লেক্সিবল শিডিউল' : 'Flexible Schedule',
-            desc: language === 'bn' ? 'আপনার সুবিধামতো সময়ে ক্লাস করুন' : 'Learn at your own pace and time',
-        },
-        {
-            icon: LuHeadphones,
-            title: language === 'bn' ? '২৪/৭ সাপোর্ট' : '24/7 Online Support',
-            desc: language === 'bn' ? 'যেকোনো সমস্যায় সাহায্য পান' : 'Get help whenever you need it',
-        },
-        {
-            icon: LuSparkles,
-            title: language === 'bn' ? 'স্মার্ট লার্নিং' : 'Smart Learning Process',
-            desc: language === 'bn' ? 'আধুনিক পদ্ধতিতে সহজে শিখুন' : 'Modern methods for easy learning',
-        },
-    ];
+const ICONS = [LuClock, LuHeadphones, LuSparkles];
+
+const WhatWeProvide = () => {
+    const [data, setData] = useState(DEFAULTS);
+
+    useEffect(() => {
+        const fetchProvide = async () => {
+            try {
+                const res = await fetch(`${API_URL}/design/provide`);
+                const json = await res.json();
+                const pc = json?.data?.provideContent;
+                if (pc && Object.keys(pc).length) {
+                    setData({
+                        ...DEFAULTS,
+                        ...pc,
+                        features: pc.features?.length ? pc.features : DEFAULTS.features,
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching provide content:', error);
+            }
+        };
+        fetchProvide();
+    }, []);
+
+    const features = (data.features || DEFAULTS.features).slice(0, 3);
 
     return (
         <section className="py-16 lg:py-20 bg-white dark:bg-[#0a0a0a] relative overflow-hidden">
@@ -61,7 +81,6 @@ const WhatWeProvide = () => {
                                 height={450}
                                 className="w-full h-[350px] lg:h-[420px] object-cover"
                             />
-                            {/* Gradient overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
                         </div>
 
@@ -78,15 +97,12 @@ const WhatWeProvide = () => {
                                     <LuSparkles size={18} className="text-[#7A85F0]" />
                                 </div>
                                 <div>
-                                    <p className="text-xs text-gray-400 font-medium">
-                                        {language === 'bn' ? 'সাফল্যের হার' : 'Success Rate'}
-                                    </p>
+                                    <p className="text-xs text-gray-400 font-medium">Success Rate</p>
                                     <p className="text-sm font-bold text-gray-900 dark:text-white">95%</p>
                                 </div>
                             </div>
                         </motion.div>
 
-                        {/* Decorative purple shape behind image */}
                         <div className="absolute -top-4 -left-4 w-full h-full rounded-2xl border-2 border-[#7A85F0]/15 -z-10" />
                     </motion.div>
 
@@ -100,48 +116,47 @@ const WhatWeProvide = () => {
                         {/* Badge */}
                         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEF0FD] border border-[#7A85F0]/20 mb-5">
                             <span className="text-[#7A85F0] text-xs">⚡</span>
-                            <span className={`text-xs font-semibold text-[#7A85F0] uppercase tracking-wider ${bengaliClass}`}>
-                                {language === 'bn' ? 'আমাদের প্ল্যাটফর্ম সম্পর্কে' : 'About Our Platform'}
+                            <span className="text-xs font-semibold text-[#7A85F0] uppercase tracking-wider">
+                                {data.badge}
                             </span>
                         </div>
 
                         {/* Heading */}
-                        <h2 className={`text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-snug mb-4 ${bengaliClass}`}>
-                            {language === 'bn'
-                                ? <>ভাষা ও প্রযুক্তির মাধ্যমে<br /><span className="text-[#7A85F0]">ক্যারিয়ার গড়ুন</span></>
-                                : <>Breaking Barriers Through<br /><span className="text-[#7A85F0]">Language & Technology</span></>
-                            }
+                        <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-snug mb-4">
+                            {data.title}{' '}
+                            <span className="text-[#7A85F0]">{data.titleHighlight}</span>
                         </h2>
 
                         {/* Description */}
-                        <p className={`text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-8 max-w-lg ${bengaliClass}`}>
-                            {language === 'bn'
-                                ? 'টেকলাইট আইটি ইনস্টিটিউটের মূল লক্ষ্য হলো শিক্ষার্থীদের প্রযুক্তিগত এবং ব্যবহারিক দক্ষতা দিয়ে ক্যারিয়ার গড়তে সাহায্য করা। আমাদের ইন্ডাস্ট্রি এক্সপার্ট ইন্সট্রাক্টরদের হাতে-কলমে শেখার সুযোগ নিন।'
-                                : 'The core mission of Techlight IT Institute is to empower individuals with both technical and practical skills to enhance their career opportunities. Learn hands-on from our industry expert instructors.'}
+                        <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed mb-8 max-w-lg">
+                            {data.description}
                         </p>
 
                         {/* 3 Features Row */}
                         <div className="grid grid-cols-3 gap-4 mb-8">
-                            {features.map((f, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.3 + i * 0.1 }}
-                                    className="text-center group"
-                                >
-                                    <div className="w-11 h-11 mx-auto mb-2.5 rounded-xl bg-[#EEF0FD] border border-[#7A85F0]/10 flex items-center justify-center group-hover:bg-[#7A85F0] transition-colors duration-300">
-                                        <f.icon size={18} className="text-[#7A85F0] group-hover:text-white transition-colors duration-300" />
-                                    </div>
-                                    <p className={`text-xs font-bold text-gray-900 dark:text-white leading-tight ${bengaliClass}`}>
-                                        {f.title}
-                                    </p>
-                                    <p className={`text-[10px] text-gray-400 mt-0.5 ${bengaliClass}`}>
-                                        {f.desc}
-                                    </p>
-                                </motion.div>
-                            ))}
+                            {features.map((f, i) => {
+                                const Icon = ICONS[i] || LuSparkles;
+                                return (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: 0.3 + i * 0.1 }}
+                                        className="text-center group"
+                                    >
+                                        <div className="w-11 h-11 mx-auto mb-2.5 rounded-xl bg-[#EEF0FD] border border-[#7A85F0]/10 flex items-center justify-center group-hover:bg-[#7A85F0] transition-colors duration-300">
+                                            <Icon size={18} className="text-[#7A85F0] group-hover:text-white transition-colors duration-300" />
+                                        </div>
+                                        <p className="text-xs font-bold text-gray-900 dark:text-white leading-tight">
+                                            {f.title}
+                                        </p>
+                                        <p className="text-[10px] text-gray-400 mt-0.5">
+                                            {f.desc}
+                                        </p>
+                                    </motion.div>
+                                );
+                            })}
                         </div>
 
                         {/* CTA Button */}
@@ -151,9 +166,9 @@ const WhatWeProvide = () => {
                             viewport={{ once: true }}
                             transition={{ delay: 0.6 }}
                         >
-                            <Link href="/courses">
-                                <button className={`group px-7 py-3 rounded-full bg-[#7A85F0] hover:bg-[#6B74E8] text-white text-sm font-semibold shadow-lg shadow-[#7A85F0]/20 hover:shadow-[#7A85F0]/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 ${bengaliClass}`}>
-                                    {language === 'bn' ? 'সকল কোর্স দেখুন' : 'Explore All Courses'}
+                            <Link href={data.buttonLink || '/courses'}>
+                                <button className="group px-7 py-3 rounded-full bg-[#7A85F0] hover:bg-[#6B74E8] text-white text-sm font-semibold shadow-lg shadow-[#7A85F0]/20 hover:shadow-[#7A85F0]/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2">
+                                    {data.buttonText}
                                     <LuArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
                                 </button>
                             </Link>

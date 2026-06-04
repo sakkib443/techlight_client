@@ -48,62 +48,6 @@ const AnimatedCounter = ({ value }) => {
 };
 
 // Video Modal Component
-const VideoModal = ({ isOpen, onClose, videoUrl }) => {
-  if (!isOpen || !videoUrl) return null;
-
-  const getEmbedUrl = (url) => {
-    if (url.includes('youtube.com') || url.includes('youtu.be')) {
-      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-      const match = url.match(regExp);
-      return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}?autoplay=1` : url;
-    }
-    if (url.includes('vimeo.com')) {
-      const regExp = /vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|album\/(?:\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/;
-      const match = url.match(regExp);
-      return match ? `https://player.vimeo.com/video/${match[1]}?autoplay=1` : url;
-    }
-    return url;
-  };
-
-  const embedUrl = getEmbedUrl(videoUrl);
-  const isDirectVideo = embedUrl.match(/\.(mp4|webm|ogg)$/) || embedUrl.includes('cloudinary');
-
-  return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        className="relative w-full max-w-5xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl"
-      >
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 bg-white/10 hover:bg-white/20 text-white rounded-full backdrop-blur-md transition-all"
-        >
-          <LuX size={24} />
-        </button>
-
-        {isDirectVideo ? (
-          <video
-            src={embedUrl}
-            controls
-            autoPlay
-            className="w-full h-full object-contain"
-          />
-        ) : (
-          <iframe
-            src={embedUrl}
-            className="w-full h-full"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          />
-        )}
-      </motion.div>
-    </div>
-  );
-};
-
 const SingleCourse = () => {
   const { courseid: id } = useParams();
   const router = useRouter();
@@ -121,7 +65,6 @@ const SingleCourse = () => {
   const [loadingBatches, setLoadingBatches] = useState(false);
 
   const [expandedModule, setExpandedModule] = useState(0);
-  const [showVideoModal, setShowVideoModal] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState(null);
 
   const bengaliClass = language === "bn" ? "hind-siliguri" : "";
@@ -400,14 +343,6 @@ const SingleCourse = () => {
                       <span className="uppercase tracking-widest text-lg">{t("courseDetails.enrollNow")}</span>
                       <FaArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                     </motion.button>
-                    {currentCourse.sampleVideoUrl && (
-                      <button
-                        onClick={() => setShowVideoModal(true)}
-                        className="w-full py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-[#EEF0FD] dark:hover:bg-[#7A85F0]/5 hover:border-[#7A85F0]/30 transition-all flex items-center justify-center gap-2"
-                      >
-                        <LuVideo size={18} /> Sample Lesson
-                      </button>
-                    )}
                   </div>
                 </div>
               </div>
@@ -927,13 +862,6 @@ const SingleCourse = () => {
                       >
                         Add to Cart
                       </button>
-                      <button
-                        onClick={() => setShowVideoModal(true)}
-                        disabled={!currentCourse.sampleVideoUrl}
-                        className={`w-full py-2.5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-gray-600 dark:text-gray-400 font-medium rounded-xl transition-colors flex items-center justify-center gap-2 text-sm ${currentCourse.sampleVideoUrl ? 'hover:border-[#7A85F0]/40 hover:text-[#7A85F0]' : 'opacity-50 cursor-not-allowed'}`}
-                      >
-                        <LuVideo size={14} /> Sample Lesson
-                      </button>
                     </div>
 
                     {/* What's Included mirroring Website style */}
@@ -994,15 +922,6 @@ const SingleCourse = () => {
           </div>
         </div>
       </section >
-      <AnimatePresence>
-        {showVideoModal && (
-          <VideoModal
-            isOpen={showVideoModal}
-            onClose={() => setShowVideoModal(false)}
-            videoUrl={currentCourse.sampleVideoUrl}
-          />
-        )}
-      </AnimatePresence>
     </div >
   );
 };

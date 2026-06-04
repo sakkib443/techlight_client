@@ -30,8 +30,19 @@ const Hero = () => {
         fetchHeroDesign();
     }, []);
 
-    const getBadgeText = () => heroData?.badge?.text || 'Welcome to Techlight IT';
-    const getDescriptionText = () => heroData?.description?.text || 'Access thousands of premium courses, software, and digital products. Built by experts, ready for you to launch in minutes.';
+    const getBadgeText = () => heroData?.badge || 'Welcome to Techlight IT';
+    const getTitle = () => heroData?.title || "Start learning from the world's";
+    const getTitleHighlight = () => heroData?.titleHighlight || 'best institutions';
+    const getDescriptionText = () => heroData?.description || 'Access thousands of premium courses, software, and digital products. Built by experts, ready for you to launch in minutes.';
+    const getBtnText = () => heroData?.primaryButtonText || 'Get Started';
+    const getBtnLink = () => heroData?.primaryButtonLink || '/courses';
+
+    // Merge dynamic stat values over the default icons
+    const displayStats = stats.map((s, i) => ({
+        ...s,
+        value: heroData?.stats?.[i]?.value || s.value,
+        label: heroData?.stats?.[i]?.label || s.label,
+    }));
 
     return (
         <section className="relative min-h-[75vh] overflow-hidden flex flex-col">
@@ -78,8 +89,8 @@ const Hero = () => {
                             className="mb-6"
                         >
                             <h1 style={{ fontSize: '50px', lineHeight: '1.15', fontWeight: '600' }} className="text-gray-900 tracking-tight">
-                                Start learning from the<br />
-                                world&apos;s <span className="text-[#7A85F0]">best institutions</span>
+                                {getTitle()}{' '}
+                                <span className="text-[#7A85F0]">{getTitleHighlight()}</span>
                             </h1>
                         </motion.div>
 
@@ -98,9 +109,9 @@ const Hero = () => {
                             variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
                             className="flex flex-wrap gap-5 items-center mb-10"
                         >
-                            <Link href="/courses">
+                            <Link href={getBtnLink()}>
                                 <button className="group px-8 py-3.5 rounded-full bg-[#7A85F0] hover:bg-[#5A65D0] text-white text-sm font-bold shadow-lg shadow-[#7A85F0]/25 hover:shadow-[#7A85F0]/40 transition-all duration-300 flex items-center gap-2.5">
-                                    Get Started
+                                    {getBtnText()}
                                     <LuArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />
                                 </button>
                             </Link>
@@ -269,7 +280,7 @@ const Hero = () => {
             <div className="hidden lg:block relative w-full z-20 bg-[#7A85F0] shadow-[0_-10px_30px_rgba(0,0,0,0.1)]">
                 <div className="container mx-auto px-4 lg:px-20 py-5">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        {stats.map((stat, index) => (
+                        {displayStats.map((stat, index) => (
                             <motion.div
                                 key={index}
                                 initial={{ opacity: 0, y: 10 }}

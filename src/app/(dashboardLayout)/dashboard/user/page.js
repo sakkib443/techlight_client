@@ -3,13 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMyDownloads } from '@/redux/downloadSlice';
 import { fetchMyEnrollments, fetchMyStats } from '@/redux/enrollmentSlice';
 import {
     FiBook, FiAward, FiClock, FiTrendingUp, FiArrowRight,
     FiUser, FiMail, FiPhone, FiCalendar, FiLoader,
     FiShield, FiPlay, FiStar, FiRefreshCw, FiGrid, FiExternalLink,
-    FiCheck, FiChevronRight, FiDownload, FiCode, FiGlobe, FiZap, FiTarget
+    FiCheck, FiChevronRight, FiCode, FiGlobe, FiZap, FiTarget, FiCheckCircle
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 
@@ -21,7 +20,6 @@ export default function UserDashboard() {
     const [hasMounted, setHasMounted] = useState(false);
 
     const { enrollments, stats: enrollmentStats, loading: enrollLoading } = useSelector((state) => state.enrollment);
-    const { downloads, loading: downloadLoading } = useSelector((state) => state.download);
 
     useEffect(() => {
         setHasMounted(true);
@@ -34,14 +32,12 @@ export default function UserDashboard() {
 
         dispatch(fetchMyEnrollments());
         dispatch(fetchMyStats());
-        dispatch(fetchMyDownloads());
     }, [dispatch]);
 
     const handleSync = () => {
         setIsSyncing(true);
         dispatch(fetchMyEnrollments());
         dispatch(fetchMyStats());
-        dispatch(fetchMyDownloads());
         setTimeout(() => setIsSyncing(false), 1000);
     };
 
@@ -50,7 +46,7 @@ export default function UserDashboard() {
         : 'bg-white border-slate-200/60 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] hover:shadow-md'
         }`;
 
-    if (enrollLoading || downloadLoading) {
+    if (enrollLoading) {
         return (
             <div className="space-y-6">
                 {/* Loading Header */}
@@ -75,8 +71,7 @@ export default function UserDashboard() {
         );
     }
 
-    const softwareCount = downloads.filter(d => d.productType === 'software').length;
-    const websiteCount = downloads.filter(d => d.productType === 'website').length;
+    const inProgressCount = enrollments.filter(e => (e.progress || 0) > 0 && (e.progress || 0) < 100).length;
 
     return (
         <div className="space-y-6">
@@ -141,7 +136,7 @@ export default function UserDashboard() {
                         <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                             {enrollments.length > 0
                                 ? `Continue your learning journey. You have ${enrollments.length} active course${enrollments.length > 1 ? 's' : ''}.`
-                                : 'Start your learning journey today. Explore our courses and digital assets.'
+                                : 'Start your learning journey today. Explore our courses.'
                             }
                         </p>
                     </div>
@@ -153,20 +148,20 @@ export default function UserDashboard() {
                             My Courses
                         </Link>
                         <Link
-                            href="/dashboard/user/downloads"
+                            href="/dashboard/user/wishlist"
                             className={`px-4 py-2.5 rounded-xl font-bold text-sm transition-all ${isDark
                                 ? 'bg-slate-700 text-slate-200 hover:bg-slate-600'
                                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                                 }`}
                         >
-                            My Assets
+                            My Wishlist
                         </Link>
                     </div>
                 </div>
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* Enrolled Courses */}
                 <div className={`${cardClass} p-5 relative group overflow-hidden`}>
                     <div className="relative z-10 flex items-start justify-between">
@@ -188,64 +183,43 @@ export default function UserDashboard() {
                     <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#7A85F0] to-[#c41e18] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
-                {/* Digital Assets */}
+                {/* In Progress */}
                 <div className={`${cardClass} p-5 relative group overflow-hidden`}>
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Digital Assets
+                                In Progress
                             </p>
                             <h3 className={`text-3xl font-bold mt-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                {downloads.length.toString().padStart(2, '0')}
+                                {inProgressCount.toString().padStart(2, '0')}
                             </h3>
                             <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                {softwareCount} software, {websiteCount} web
+                                Courses ongoing
                             </p>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#7A85F0] to-[#fb923c] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
-                            <FiDownload size={20} />
+                            <FiTrendingUp size={20} />
                         </div>
                     </div>
                     <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#7A85F0] to-[#fb923c] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
-                {/* Certificates */}
+                {/* Completed */}
                 <div className={`${cardClass} p-5 relative group overflow-hidden`}>
                     <div className="relative z-10 flex items-start justify-between">
                         <div>
                             <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Certificates
+                                Completed
                             </p>
                             <h3 className={`text-3xl font-bold mt-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                {(enrollmentStats?.certificatesEarned || 0).toString().padStart(2, '0')}
+                                {(enrollmentStats?.completedCourses || 0).toString().padStart(2, '0')}
                             </h3>
                             <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Earned achievements
-                            </p>
-                        </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-red-500 flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
-                            <FiAward size={20} />
-                        </div>
-                    </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-emerald-500 to-red-500 transition-all duration-300 group-hover:w-full w-0`} />
-                </div>
-
-                {/* Reward Points */}
-                <div className={`${cardClass} p-5 relative group overflow-hidden`}>
-                    <div className="relative z-10 flex items-start justify-between">
-                        <div>
-                            <p className={`text-[10px] font-bold uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Reward Points
-                            </p>
-                            <h3 className={`text-3xl font-bold mt-1 ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                                1,250
-                            </h3>
-                            <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                                Top 10% learner
+                                Courses finished
                             </p>
                         </div>
                         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#7A85F0] to-[#7A85F0] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
-                            <FiStar size={20} />
+                            <FiCheckCircle size={20} />
                         </div>
                     </div>
                     <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] transition-all duration-300 group-hover:w-full w-0`} />
@@ -293,6 +267,11 @@ export default function UserDashboard() {
                                         <h4 className={`font-bold text-sm truncate ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>
                                             {enroll.course?.title}
                                         </h4>
+                                        {enroll.batch?.batchName && (
+                                            <p className={`text-[10px] font-bold mt-0.5 ${isDark ? 'text-cyan-400' : 'text-cyan-600'}`}>
+                                                Batch: {enroll.batch.batchName}
+                                            </p>
+                                        )}
                                         <div className="flex items-center gap-3 mt-2">
                                             <div className={`flex-1 h-1.5 rounded-full overflow-hidden ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}>
                                                 <div className="h-full bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] rounded-full" style={{ width: `${enroll.progress || 0}%` }}></div>
@@ -371,29 +350,18 @@ export default function UserDashboard() {
                             </h2>
                         </div>
                         <div className="p-3 space-y-2">
-                            <Link href="/dashboard/user/downloads" className={`flex items-center gap-3 p-3 rounded-xl transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
-                                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#7A85F0]/10 to-[#7A85F0]/5 flex items-center justify-center">
-                                    <FiDownload size={16} className="text-[#7A85F0]" />
+                            <Link href="/dashboard/user/wishlist" className={`flex items-center gap-3 p-3 rounded-xl transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
+                                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-rose-500/10 to-rose-500/5 flex items-center justify-center">
+                                    <FiStar size={16} className="text-rose-500" />
                                 </div>
                                 <div className="flex-1">
-                                    <p className={`text-sm font-bold ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>My Downloads</p>
-                                    <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Access digital assets</p>
+                                    <p className={`text-sm font-bold ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>My Wishlist</p>
+                                    <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Saved courses</p>
                                 </div>
                                 <FiChevronRight size={14} className={isDark ? 'text-slate-600' : 'text-slate-300'} />
                             </Link>
 
-                            <Link href="/dashboard/user/certificates" className={`flex items-center gap-3 p-3 rounded-xl transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
-                                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-500/10 to-emerald-500/5 flex items-center justify-center">
-                                    <FiAward size={16} className="text-emerald-500" />
-                                </div>
-                                <div className="flex-1">
-                                    <p className={`text-sm font-bold ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>Certificates</p>
-                                    <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>View achievements</p>
-                                </div>
-                                <FiChevronRight size={14} className={isDark ? 'text-slate-600' : 'text-slate-300'} />
-                            </Link>
-
-                            <Link href="/dashboard/user/purchases" className={`flex items-center gap-3 p-3 rounded-xl transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
+                            <Link href="/dashboard/user/payments" className={`flex items-center gap-3 p-3 rounded-xl transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
                                 <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#7A85F0]/10 to-[#7A85F0]/5 flex items-center justify-center">
                                     <FiClock size={16} className="text-[#7A85F0]" />
                                 </div>

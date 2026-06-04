@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useSelector, useDispatch } from 'react-redux';
+import { hydrateWishlist } from '@/redux/wishlistSlice';
 import {
     FiSearch,
     FiBell,
@@ -23,17 +25,22 @@ import { useTheme } from '@/providers/ThemeProvider';
 
 const UserHeader = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
     const [showNotifications, setShowNotifications] = useState(false);
     const [showProfile, setShowProfile] = useState(false);
     const { toggleTheme, isDark } = useTheme();
     const [user, setUser] = useState(null);
+    const [mounted, setMounted] = useState(false);
+    const { items: wishlistItems = [] } = useSelector((state) => state.wishlist || {});
 
     useEffect(() => {
+        setMounted(true);
+        dispatch(hydrateWishlist());
         const userData = localStorage.getItem('user');
         if (userData) {
             setUser(JSON.parse(userData));
         }
-    }, []);
+    }, [dispatch]);
 
     // Student specific notifications
     const notifications = [
@@ -114,6 +121,23 @@ const UserHeader = () => {
                         </div>
                         <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     </button>
+
+                    {/* Wishlist */}
+                    <Link
+                        href="/dashboard/user/wishlist"
+                        className={`relative p-2.5 rounded-xl transition-colors ${isDark
+                            ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-rose-400'
+                            : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-rose-500'
+                            }`}
+                        title="My Wishlist"
+                    >
+                        <FiHeart size={18} />
+                        {mounted && wishlistItems.length > 0 && (
+                            <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-rose-500 to-[#c41e18] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                                {wishlistItems.length}
+                            </span>
+                        )}
+                    </Link>
 
                     {/* Notifications */}
                     <div className="relative dropdown-container">
@@ -258,29 +282,7 @@ const UserHeader = () => {
                                         My Courses
                                     </Link>
                                     <Link
-                                        href="/dashboard/user/certificates"
-                                        onClick={handleMenuClick}
-                                        className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${isDark
-                                            ? 'text-slate-400 hover:bg-slate-700/50 hover:text-slate-200'
-                                            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-800'
-                                            }`}
-                                    >
-                                        <FiAward size={16} />
-                                        Certificates
-                                    </Link>
-                                    <Link
-                                        href="/dashboard/user/favorites"
-                                        onClick={handleMenuClick}
-                                        className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${isDark
-                                            ? 'text-slate-400 hover:bg-slate-700/50 hover:text-slate-200'
-                                            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-800'
-                                            }`}
-                                    >
-                                        <FiHeart size={16} />
-                                        Favorites
-                                    </Link>
-                                    <Link
-                                        href="/dashboard/user/purchases"
+                                        href="/dashboard/user/payments"
                                         onClick={handleMenuClick}
                                         className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${isDark
                                             ? 'text-slate-400 hover:bg-slate-700/50 hover:text-slate-200'

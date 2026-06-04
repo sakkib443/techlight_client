@@ -670,12 +670,6 @@ export default function EnrollmentsPage() {
                                                 {selectedEnrollment.batch?.batchName || 'Not Assigned'}
                                             </span>
                                         </div>
-                                        <button
-                                            onClick={() => { setShowDetailsModal(false); openBatchModal(selectedEnrollment); }}
-                                            className="text-xs text-indigo-500 hover:underline font-medium"
-                                        >
-                                            Change
-                                        </button>
                                     </div>
                                 </div>
                                 <div>

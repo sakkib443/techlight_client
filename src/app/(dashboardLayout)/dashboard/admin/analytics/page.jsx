@@ -138,32 +138,24 @@ export default function AnalyticsPage() {
             title: 'Global Revenue',
             value: data?.totalRevenue || 0,
             icon: FiDollarSign,
-            trend: 'up',
-            trendValue: '12%',
             color: 'bg-indigo-600'
         },
         {
             title: 'Successful Orders',
             value: data?.totalOrders || 0,
             icon: FiShoppingBag,
-            trend: 'up',
-            trendValue: '8%',
             color: 'bg-rose-500'
         },
         {
             title: 'Active Accounts',
             value: data?.totalUsers || 0,
             icon: FiUsers,
-            trend: 'up',
-            trendValue: '15%',
             color: 'bg-emerald-500'
         },
         {
             title: 'Inventory Scope',
             value: totalProducts,
             icon: FiPackage,
-            trend: 'up',
-            trendValue: '+5',
             color: 'bg-amber-500'
         },
     ];
@@ -193,12 +185,6 @@ export default function AnalyticsPage() {
                     >
                         <FiRefreshCw size={14} className={loading ? 'animate-spin' : ''} />
                         Refresh
-                    </button>
-                    <button
-                        onClick={() => router.push('/dashboard/admin/reports')}
-                        className="px-4 py-2 bg-indigo-600 text-white rounded-md text-sm font-normal hover:bg-indigo-700 transition-all"
-                    >
-                        Export Report
                     </button>
                 </div>
             </div>

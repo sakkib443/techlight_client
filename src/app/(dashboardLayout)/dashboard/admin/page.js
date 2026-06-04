@@ -11,7 +11,7 @@ import {
   FiRefreshCw, FiMoreVertical, FiCheckCircle,
   FiClock, FiAlertCircle, FiBarChart2, FiPlay,
   FiTarget, FiZap, FiStar, FiHeart, FiCode, FiGlobe,
-  FiLayers, FiCreditCard
+  FiLayers, FiCreditCard, FiUserCheck
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 import { API_URL } from '@/config/api';
@@ -191,7 +191,7 @@ export default function AdminDashboard() {
 
       // Fetch notifications for recent activities
       try {
-        const notifRes = await fetch(`${BASE_URL}/notifications?limit=5`, { headers: { 'Authorization': `Bearer ${token}` } });
+        const notifRes = await fetch(`${API_URL}/notifications?limit=5`, { headers: { 'Authorization': `Bearer ${token}` } });
         const notifData = await notifRes.json();
         if (notifData.data) {
           setRecentActivities(notifData.data.map(n => ({
@@ -227,8 +227,6 @@ export default function AdminDashboard() {
       title: 'Total Likes',
       value: dashboardData.totalLikes || 0,
       subtitle: 'Across all products',
-      change: '+15.2%',
-      changeType: 'up',
       icon: FiHeart,
       color: 'bg-rose-500',
     },
@@ -236,8 +234,6 @@ export default function AdminDashboard() {
       title: 'Today Revenue',
       value: dashboardData.todayRevenue,
       subtitle: "Today's earnings",
-      change: '+8.5%',
-      changeType: 'up',
       icon: FiDollarSign,
       color: 'bg-emerald-600',
     },
@@ -245,8 +241,6 @@ export default function AdminDashboard() {
       title: 'Monthly Revenue',
       value: dashboardData.monthlyRevenue,
       subtitle: 'This month',
-      change: '+18.2%',
-      changeType: 'up',
       icon: FiTrendingUp,
       color: 'bg-amber-500',
     },
@@ -254,8 +248,6 @@ export default function AdminDashboard() {
       title: 'Total Orders',
       value: dashboardData.totalOrders,
       subtitle: `${dashboardData.completedOrders || 0} completed`,
-      change: '+24.5%',
-      changeType: 'up',
       icon: FiPackage,
       color: 'bg-indigo-600',
     },
@@ -264,15 +256,15 @@ export default function AdminDashboard() {
   // Product stats for cards
   const productStats = [
     { title: 'Courses', value: dashboardData.totalCourses, icon: FiBook, color: 'bg-indigo-600', href: '/dashboard/admin/course' },
-    { title: 'Software', value: dashboardData.totalSoftware, icon: FiCode, color: 'bg-cyan-600', href: '/dashboard/admin/software' },
-    { title: 'Websites', value: dashboardData.totalWebsites, icon: FiGlobe, color: 'bg-rose-500', href: '/dashboard/admin/website' },
+    { title: 'Lessons', value: dashboardData.totalLessons, icon: FiPlay, color: 'bg-cyan-600', href: '/dashboard/admin/lesson' },
+    { title: 'Enrollments', value: dashboardData.totalEnrollments, icon: FiUserCheck, color: 'bg-rose-500', href: '/dashboard/admin/enrollment' },
     { title: 'Categories', value: dashboardData.categories, icon: FiLayers, color: 'bg-amber-500', href: '/dashboard/admin/category' },
   ];
 
   const quickActions = [
     { title: 'Add Course', href: '/dashboard/admin/course/create', icon: FiBook, color: 'bg-amber-500' },
-    { title: 'Add Website', href: '/dashboard/admin/website/create', icon: FiGlobe, color: 'bg-rose-500' },
-    { title: 'Add Software', href: '/dashboard/admin/software/create', icon: FiCode, color: 'bg-cyan-600' },
+    { title: 'Add Module', href: '/dashboard/admin/module/create', icon: FiLayers, color: 'bg-rose-500' },
+    { title: 'Add Lesson', href: '/dashboard/admin/lesson/create', icon: FiPlay, color: 'bg-cyan-600' },
     { title: 'Add Category', href: '/dashboard/admin/category/create', icon: FiLayers, color: 'bg-indigo-600' },
   ];
 

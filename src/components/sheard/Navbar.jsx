@@ -8,7 +8,8 @@ import {
   LuLogOut, LuLayoutDashboard, LuShoppingCart,
   LuUser, LuArrowRight, LuHeart
 } from "react-icons/lu";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { hydrateWishlist } from "@/redux/wishlistSlice";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
@@ -19,11 +20,14 @@ const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { items = [] } = useSelector((state) => state.cart || {});
+  const { items: wishlistItems = [] } = useSelector((state) => state.wishlist || {});
+  const dispatch = useDispatch();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    dispatch(hydrateWishlist());
+  }, [dispatch]);
 
   useEffect(() => {
     try {
@@ -77,7 +81,7 @@ const Navbar = () => {
   const menu = [
     { href: "/", label: "Home" },
     { href: "/courses", label: "Courses" },
-    { href: "/pricing", label: "Pricing" },
+    { href: "/mentors", label: "Mentor" },
     { href: "/blog", label: "Blog" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
@@ -208,9 +212,11 @@ const Navbar = () => {
             <div className="flex items-center gap-3 lg:gap-4">
 
               {/* Wishlist — circular border */}
-              <Link href="#" className="hidden lg:flex relative w-11 h-11 items-center justify-center rounded-full border-2 border-gray-200 text-gray-400 hover:text-[#7A85F0] hover:border-[#7A85F0] transition-all duration-300">
+              <Link href="/dashboard/user/wishlist" className="hidden lg:flex relative w-11 h-11 items-center justify-center rounded-full border-2 border-gray-200 text-gray-400 hover:text-[#7A85F0] hover:border-[#7A85F0] transition-all duration-300">
                 <LuHeart size={18} />
-                <span className="absolute -top-1 -right-1 w-[18px] h-[18px] bg-[#7A85F0] text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-white">0</span>
+                <span className="absolute -top-1 -right-1 w-[18px] h-[18px] bg-[#7A85F0] text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-white">
+                  {mounted ? wishlistItems.length : 0}
+                </span>
               </Link>
 
               {/* Cart — circular border */}

@@ -67,7 +67,7 @@ export default function EditBlogPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const token = localStorage.getItem('accessToken');
+                const token = localStorage.getItem('token');
 
                 // Fetch blog
                 const blogRes = await fetch(`${API_BASE_URL}/blogs/${blogId}`, {
@@ -161,7 +161,7 @@ export default function EditBlogPage() {
         uploadData.append('image', file);
 
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/upload/image`, {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${token}` },
@@ -209,7 +209,7 @@ export default function EditBlogPage() {
 
         setSaving(true);
         try {
-            const token = localStorage.getItem('accessToken');
+            const token = localStorage.getItem('token');
             const res = await fetch(`${API_BASE_URL}/blogs/${blogId}`, {
                 method: 'PATCH',
                 headers: {
@@ -314,17 +314,6 @@ export default function EditBlogPage() {
                             onChange={handleChange}
                             placeholder="Enter your blog title..."
                             className={`w-full px-4 py-3 rounded-xl border text-lg font-medium transition-all ${isDark
-                                ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-red-500'
-                                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-red-500'
-                                } focus:outline-none focus:ring-2 focus:ring-red-500/20`}
-                        />
-                        <input
-                            type="text"
-                            name="titleBn"
-                            value={formData.titleBn}
-                            onChange={handleChange}
-                            placeholder="বাংলা শিরোনাম (ঐচ্ছিক)"
-                            className={`w-full mt-3 px-4 py-2.5 rounded-xl border transition-all ${isDark
                                 ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-500 focus:border-red-500'
                                 : 'bg-slate-50 border-slate-200 text-slate-900 placeholder-slate-400 focus:border-red-500'
                                 } focus:outline-none focus:ring-2 focus:ring-red-500/20`}

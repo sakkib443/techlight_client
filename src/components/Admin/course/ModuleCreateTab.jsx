@@ -13,6 +13,7 @@ export default function ModuleCreateTab({ onSuccess }) {
     const [loading, setLoading] = useState(false);
     const [createdModules, setCreatedModules] = useState([]);
     const [showCreatedList, setShowCreatedList] = useState(false); // Collapsed by default
+    const [fieldErrors, setFieldErrors] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
         titleBn: '',
@@ -55,6 +56,17 @@ export default function ModuleCreateTab({ onSuccess }) {
 
     const handleSubmit = async (e) => {
         e?.preventDefault();
+        setFieldErrors([]);
+
+        if (!formData.course) {
+            setFieldErrors([{ path: 'course', message: 'Please select a course' }]);
+            return;
+        }
+        if (!formData.title.trim()) {
+            setFieldErrors([{ path: 'title', message: 'Module title is required' }]);
+            return;
+        }
+
         setLoading(true);
 
         try {
@@ -90,16 +102,16 @@ export default function ModuleCreateTab({ onSuccess }) {
                     order: prev.order + 1,
                 }));
 
-                alert('Module Created Successfully! ?');
             } else {
-                const errorMsg = result.errorMessages
-                    ? result.errorMessages.map(err => `${err.path}: ${err.message}`).join('\n')
-                    : result.message;
-                alert(`Error ?\n\n${errorMsg}`);
+                setFieldErrors(
+                    result.errorMessages?.length
+                        ? result.errorMessages
+                        : [{ path: '', message: result.message || 'Failed to create module' }]
+                );
             }
         } catch (err) {
             console.error('Create error:', err);
-            alert('Network error!');
+            setFieldErrors([{ path: '', message: 'Network error. Please try again.' }]);
         } finally {
             setLoading(false);
         }
@@ -198,6 +210,18 @@ export default function ModuleCreateTab({ onSuccess }) {
                             </div>
                         </div>
                     )}
+                </div>
+            )}
+
+            {/* Validation Errors */}
+            {fieldErrors.length > 0 && (
+                <div className="bg-red-50 border border-red-200 rounded-xl p-4 space-y-1">
+                    <p className="text-sm font-semibold text-red-700">Please fix the following:</p>
+                    {fieldErrors.map((err, i) => (
+                        <p key={i} className="text-sm text-red-600">
+                            {err.path ? `${err.path.split('.').pop()}: ${err.message}` : err.message}
+                        </p>
+                    ))}
                 </div>
             )}
 

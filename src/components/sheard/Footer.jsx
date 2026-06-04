@@ -36,7 +36,6 @@ const Footer = () => {
     { to: "/", label: "Home" },
     { to: "/about", label: "About Us" },
     { to: "/courses", label: "Courses" },
-    { to: "/pricing", label: "Pricing" },
     { to: "/blog", label: "Blog" },
     { to: "/contact", label: "Contact" },
     { to: "/faq", label: "FAQ" },

@@ -32,7 +32,7 @@ import {
 import { useTheme } from '@/providers/ThemeProvider';
 import { fetchMyStats } from '@/redux/enrollmentSlice';
 import { fetchMyOrders } from '@/redux/orderSlice';
-import { fetchMyDownloads } from '@/redux/downloadSlice';
+import { hydrateWishlist } from '@/redux/wishlistSlice';
 
 const UserSidebar = () => {
     const [isOpen, setIsOpen] = useState(true);
@@ -45,7 +45,7 @@ const UserSidebar = () => {
     // Redux State
     const { stats } = useSelector((state) => state.enrollment);
     const { orders } = useSelector((state) => state.order);
-    const { downloads } = useSelector((state) => state.download);
+    const { items: wishlistItems = [] } = useSelector((state) => state.wishlist || {});
 
     useEffect(() => {
         const userData = localStorage.getItem('user');
@@ -58,7 +58,7 @@ const UserSidebar = () => {
         // Fetch dynamic data
         dispatch(fetchMyStats());
         dispatch(fetchMyOrders());
-        dispatch(fetchMyDownloads());
+        dispatch(hydrateWishlist());
     }, [dispatch]);
 
     // Exact match for active state (following Admin Dashboard style)
@@ -94,53 +94,32 @@ const UserSidebar = () => {
             gradient: 'from-indigo-500 to-purple-500'
         },
         {
-            title: 'Learning Area',
+            title: 'My Courses',
+            href: '/dashboard/user/courses',
             icon: FiBook,
             gradient: 'from-[#7A85F0] to-[#7A85F0]',
-            submenu: [
-                { title: 'My Courses', href: '/dashboard/user/courses', icon: FiBook, count: stats?.totalEnrolled },
-                { title: 'Live Classes', href: '/dashboard/user/live-classes', icon: FiCalendar },
-                { title: 'My Schedule', href: '/dashboard/user/schedule', icon: FiClock },
-                { title: 'Assignments', href: '/dashboard/user/assignments', icon: FiLayout },
-            ],
+            count: stats?.totalEnrolled
         },
         {
-            title: 'Achievements',
+            title: 'My Certificates',
+            href: '/dashboard/user/certificates',
             icon: FiAward,
-            gradient: 'from-[#7A85F0] to-[#7A85F0]',
-            submenu: [
-                { title: 'Certificates', href: '/dashboard/user/certificates', icon: FiAward, count: stats?.certificatesEarned },
-                { title: 'Points & Badges', href: '/dashboard/user/points', icon: FiStar },
-            ],
+            gradient: 'from-amber-500 to-orange-500',
+            count: stats?.certificatesEarned || undefined
         },
         {
-            title: 'Digital Assets',
-            icon: FiDownload,
-            gradient: 'from-[#7A85F0] to-[#c41e18]',
-            submenu: [
-                { title: 'All Assets', href: '/dashboard/user/downloads', icon: FiDownload, count: downloads?.length },
-                { title: 'Softwares', href: '/dashboard/user/assets/softwares', icon: FiCode },
-                { title: 'Websites', href: '/dashboard/user/assets/websites', icon: FiGlobe },
-            ],
+            title: 'Wishlist',
+            href: '/dashboard/user/wishlist',
+            icon: FiHeart,
+            gradient: 'from-rose-500 to-[#c41e18]',
+            count: wishlistItems?.length || undefined
         },
         {
             title: 'Purchase History',
-            href: '/dashboard/user/purchases',
+            href: '/dashboard/user/payments',
             icon: FiShoppingBag,
             gradient: 'from-[#7A85F0] to-[#fb923c]',
             count: orders?.length
-        },
-        {
-            title: 'My Favorites',
-            href: '/dashboard/user/favorites',
-            icon: FiHeart,
-            gradient: 'from-rose-500 to-pink-500'
-        },
-        {
-            title: 'My Reviews',
-            href: '/dashboard/user/reviews',
-            icon: FiStar,
-            gradient: 'from-yellow-400 to-amber-500'
         },
         {
             title: 'Profile Settings',
@@ -189,8 +168,11 @@ const UserSidebar = () => {
 
                 {/* Logo */}
                 <div className={`relative px-6 py-5 border-b ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
-                    <Link href="/" className="block w-32 h-10 group">
-                        <img src="/images/Techlight IT Institutelogo.png" alt="TECHLIGHT IT" className="w-full h-full object-contain group-hover:opacity-80 transition-opacity" />
+                    <Link href="/" className="flex items-center gap-2 group">
+                        <span className="font-extrabold tracking-tight text-2xl group-hover:opacity-80 transition-opacity">
+                            <span className="text-[#7A85F0]">Tech</span><span className={isDark ? 'text-white' : 'text-gray-800'}>light</span>
+                        </span>
+                        <span className={`text-[9px] font-semibold uppercase tracking-widest leading-tight ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>IT<br />Institute</span>
                     </Link>
                 </div>
 
@@ -204,7 +186,7 @@ const UserSidebar = () => {
                             }`}
                     >
                         <FiArrowLeft className="group-hover:-translate-x-1 transition-transform" size={18} />
-                        <span className="text-sm font-medium">Return to Marketplace</span>
+                        <span className="text-sm font-medium">Back to Website</span>
                     </Link>
                 </div>
 
