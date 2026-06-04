@@ -183,11 +183,12 @@ const Navbar = () => {
 
             {/* Left: Logo */}
             <div className="flex items-center">
-              <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-                <span className={`font-extrabold tracking-tight transition-all duration-300 ${isSticky ? 'text-xl' : 'text-2xl'}`}>
-                  <span className="text-[#7A85F0]">Tech</span><span className="text-gray-800">light</span>
-                </span>
-                <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-widest leading-tight">IT<br/>Institute</span>
+              <Link href="/" className="flex items-center flex-shrink-0">
+                <img
+                  src="/images/logo.png"
+                  alt="Techlight IT"
+                  className={`object-contain transition-all duration-300 ${isSticky ? 'h-8' : 'h-10'}`}
+                />
               </Link>
             </div>
 

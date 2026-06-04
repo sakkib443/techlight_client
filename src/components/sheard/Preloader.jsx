@@ -430,29 +430,12 @@ const Preloader = () => {
                                     transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                                     className="absolute inset-0 rounded-2xl bg-[#A5AEFF]/30 blur-xl"
                                 />
-                                <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-[#7A85F0] via-[#6B74E8] to-[#5A65D0] flex items-center justify-center shadow-2xl shadow-[#7A85F0]/50 border border-white/10">
-                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-                                        <motion.path
-                                            initial={{ pathLength: 0, opacity: 0 }}
-                                            animate={{ pathLength: 1, opacity: 1 }}
-                                            transition={{ duration: 1.2, delay: 0.5 }}
-                                            d="M12 2L4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4z"
-                                            stroke="white"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                        <motion.path
-                                            initial={{ pathLength: 0, opacity: 0 }}
-                                            animate={{ pathLength: 1, opacity: 1 }}
-                                            transition={{ duration: 0.7, delay: 1.4 }}
-                                            d="M9 12l2 2 4-4"
-                                            stroke="white"
-                                            strokeWidth="2.2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                    </svg>
+                                <div className="relative flex items-center justify-center">
+                                    <img
+                                        src="/images/logo.png"
+                                        alt="Techlight IT"
+                                        className="h-16 w-auto object-contain drop-shadow-2xl"
+                                    />
                                 </div>
                             </motion.div>
 

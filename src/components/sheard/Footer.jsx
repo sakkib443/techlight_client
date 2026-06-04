@@ -97,16 +97,12 @@ const Footer = () => {
 
           {/* Brand Section */}
           <div className="lg:col-span-2 space-y-5">
-            <Link href="/" className="inline-flex items-center gap-2.5">
-              <div className="w-10 h-10 bg-[#7A85F0] rounded-xl flex items-center justify-center shadow-lg shadow-[#7A85F0]/20">
-                <LuGraduationCap className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <span className="text-2xl font-extrabold tracking-tight">
-                  <span className="text-[#7A85F0]">Tech</span><span className="text-gray-800">light</span>
-                </span>
-                <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-widest ml-1.5">IT Institute</span>
-              </div>
+            <Link href="/" className="inline-flex items-center">
+              <img
+                src="/images/logo.png"
+                alt="Techlight IT"
+                className="h-11 w-auto object-contain"
+              />
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed max-w-sm">
               Your trusted platform for premium courses, expert mentorship, and career-ready skills. Building the next generation of tech leaders in Bangladesh.

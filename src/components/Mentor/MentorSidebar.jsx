@@ -175,7 +175,7 @@ const MentorSidebar = () => {
                 {/* Logo with Mentor Badge */}
                 <div className={`relative px-6 py-5 border-b ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
                     <Link href="/" className="block w-32 h-10 group">
-                        <img src="/images/Techlight IT Institutelogo.png" alt="TECHLIGHT IT" className="w-full h-full object-contain group-hover:opacity-80 transition-opacity" />
+                        <img src="/images/logo.png" alt="Techlight IT" className="w-full h-full object-contain group-hover:opacity-80 transition-opacity" />
                     </Link>
                     <span className="absolute top-3 right-4 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full">
                         Mentor

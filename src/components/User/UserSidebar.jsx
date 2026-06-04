@@ -168,11 +168,12 @@ const UserSidebar = () => {
 
                 {/* Logo */}
                 <div className={`relative px-6 py-5 border-b ${isDark ? 'border-white/5' : 'border-slate-200'}`}>
-                    <Link href="/" className="flex items-center gap-2 group">
-                        <span className="font-extrabold tracking-tight text-2xl group-hover:opacity-80 transition-opacity">
-                            <span className="text-[#7A85F0]">Tech</span><span className={isDark ? 'text-white' : 'text-gray-800'}>light</span>
-                        </span>
-                        <span className={`text-[9px] font-semibold uppercase tracking-widest leading-tight ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>IT<br />Institute</span>
+                    <Link href="/" className="flex items-center group">
+                        <img
+                            src="/images/logo.png"
+                            alt="Techlight IT"
+                            className="h-9 w-auto object-contain group-hover:opacity-80 transition-opacity"
+                        />
                     </Link>
                 </div>
 
