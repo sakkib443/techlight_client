@@ -101,14 +101,27 @@ const ContactPage = () => {
         fetchContent();
     }, []);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmitting(true);
-        setTimeout(() => {
+        try {
+            const res = await fetch(`${API_URL}/contact`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+            const data = await res.json();
+            if (data.success) {
+                setMessageSent(true);
+                setFormData({ name: "", email: "", subject: "", message: "" });
+            } else {
+                alert(language === 'bn' ? 'কিছু একটা সমস্যা হয়েছে, আবার চেষ্টা করুন।' : 'Something went wrong. Please try again.');
+            }
+        } catch (error) {
+            alert(language === 'bn' ? 'সার্ভার সংযোগ ব্যর্থ হয়েছে।' : 'Server connection failed. Please try again.');
+        } finally {
             setSubmitting(false);
-            setMessageSent(true);
-            setFormData({ name: "", email: "", subject: "", message: "" });
-        }, 800);
+        }
     };
 
     const handleChange = (e) => {

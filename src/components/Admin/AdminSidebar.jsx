@@ -35,6 +35,7 @@ import {
   FiTag,
   FiEdit3,
   FiPlus,
+  FiInbox,
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 
@@ -155,6 +156,12 @@ const AdminSidebar = () => {
       href: '/dashboard/admin/coupons',
       icon: FiTag,
       gradient: 'from-amber-500 to-orange-500'
+    },
+    {
+      title: 'Messages',
+      href: '/dashboard/admin/messages',
+      icon: FiInbox,
+      gradient: 'from-[#E31E27] to-rose-500'
     },
     {
       title: 'Blog',
