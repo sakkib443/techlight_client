@@ -1,4 +1,4 @@
-// ===================================================================
+﻿// ===================================================================
 // Techlight IT Institute - Certificate PDF Generator
 // Builds a standard, professional certificate PDF from certificate data
 // using jsPDF (no extra dependency, runs in the browser).
@@ -27,7 +27,7 @@ const buildDoc = (cert) => {
     const W = doc.internal.pageSize.getWidth(); // ~297
     const H = doc.internal.pageSize.getHeight(); // ~210
 
-    const brand = [122, 133, 240]; // #7A85F0
+    const brand = [122, 133, 240]; // #E31E27
     const dark = [30, 41, 59]; // slate-800
     const gray = [100, 116, 139]; // slate-500
 

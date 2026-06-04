@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
@@ -77,7 +77,7 @@ const AboutPage = () => {
 
     // === Stats ===
     const stats = [
-        { num: 50, suffix: "K+", label: language === "bn" ? "শিক্ষার্থী" : "Active Students", icon: LuUsers, color: "#7A85F0" },
+        { num: 50, suffix: "K+", label: language === "bn" ? "শিক্ষার্থী" : "Active Students", icon: LuUsers, color: "#E31E27" },
         { num: 120, suffix: "+", label: language === "bn" ? "এক্সপার্ট মেন্টর" : "Expert Mentors", icon: LuGraduationCap, color: "#F59E0B" },
         { num: 500, suffix: "+", label: language === "bn" ? "প্রিমিয়াম কোর্স" : "Premium Courses", icon: LuBookOpen, color: "#10B981" },
         { num: 98, suffix: "%", label: language === "bn" ? "সফলতার হার" : "Success Rate", icon: LuTrendingUp, color: "#EF4444" },
@@ -89,7 +89,7 @@ const AboutPage = () => {
             icon: LuLightbulb,
             title: language === "bn" ? "ইন্ডাস্ট্রি এক্সপার্ট" : "Industry Experts",
             desc: language === "bn" ? "টেক ইন্ডাস্ট্রির শীর্ষ পেশাদারদের কাছ থেকে শিখুন।" : "Learn from top professionals in the tech industry.",
-            color: "#7A85F0",
+            color: "#E31E27",
         },
         {
             icon: LuRocket,
@@ -165,7 +165,7 @@ const AboutPage = () => {
             {/* ===== 1. HERO ===== */}
             <section className="relative pt-12 pb-20 lg:pt-20 lg:pb-28 bg-slate-50 dark:bg-[#050505] overflow-hidden">
                 {/* Soft gradient blobs */}
-                <div className="absolute top-20 right-10 w-72 h-72 bg-[#7A85F0]/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-20 right-10 w-72 h-72 bg-[#E31E27]/10 rounded-full blur-3xl pointer-events-none" />
                 <div className="absolute bottom-10 left-10 w-80 h-80 bg-amber-200/20 rounded-full blur-3xl pointer-events-none" />
 
                 <div className="container mx-auto px-4 lg:px-32 relative z-10">
@@ -178,10 +178,10 @@ const AboutPage = () => {
                             transition={{ duration: 0.7 }}
                         >
                             {/* Badge */}
-                            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#7A85F0]/20 rounded-full shadow-sm mb-5">
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#E31E27]/20 rounded-full shadow-sm mb-5">
                                 <span className="flex h-1.5 w-1.5 relative">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7A85F0] opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#7A85F0]"></span>
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E31E27] opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E31E27]"></span>
                                 </span>
                                 <span className={`text-[10px] font-medium text-slate-600 dark:text-slate-300 ${bengaliClass}`}>
                                     {language === "bn" ? "আমাদের সম্পর্কে" : "About Us"}
@@ -191,9 +191,9 @@ const AboutPage = () => {
                             {/* Title */}
                             <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-[1.15] mb-5 ${bengaliClass}`}>
                                 {language === "bn" ? (
-                                    <>দক্ষতা গড়ে তোলে <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7A85F0] to-[#6B74E8]">ক্যারিয়ার পাল্টায়</span></>
+                                    <>দক্ষতা গড়ে তোলে <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#CC1B24]">ক্যারিয়ার পাল্টায়</span></>
                                 ) : (
-                                    <>Building Skills, <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7A85F0] to-[#6B74E8]">Shaping Futures</span></>
+                                    <>Building Skills, <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#CC1B24]">Shaping Futures</span></>
                                 )}
                             </h1>
 
@@ -207,14 +207,14 @@ const AboutPage = () => {
                             {/* CTAs */}
                             <div className="flex flex-wrap items-center gap-4 mb-10">
                                 <Link href="/courses">
-                                    <button className="group px-7 py-3 rounded-full bg-[#7A85F0] hover:bg-[#5A65D0] text-white text-sm font-bold shadow-lg shadow-[#7A85F0]/25 hover:shadow-[#7A85F0]/40 transition-all flex items-center gap-2">
+                                    <button className="group px-7 py-3 rounded-full bg-[#E31E27] hover:bg-[#C01920] text-white text-sm font-bold shadow-lg shadow-[#E31E27]/25 hover:shadow-[#E31E27]/40 transition-all flex items-center gap-2">
                                         {language === "bn" ? "কোর্স দেখুন" : "Explore Courses"}
                                         <LuArrowRight className="group-hover:translate-x-1 transition-transform" size={15} />
                                     </button>
                                 </Link>
-                                <button className="group flex items-center gap-3 text-slate-600 dark:text-slate-300 hover:text-[#7A85F0] transition-colors">
+                                <button className="group flex items-center gap-3 text-slate-600 dark:text-slate-300 hover:text-[#E31E27] transition-colors">
                                     <div className="w-10 h-10 rounded-full bg-white dark:bg-white/5 shadow-md flex items-center justify-center group-hover:scale-110 transition-transform">
-                                        <LuPlay size={14} className="text-[#7A85F0] ml-0.5" fill="currentColor" />
+                                        <LuPlay size={14} className="text-[#E31E27] ml-0.5" fill="currentColor" />
                                     </div>
                                     <span className={`text-sm font-semibold ${bengaliClass}`}>
                                         {language === "bn" ? "ভিডিও দেখুন" : "Watch Video"}
@@ -232,7 +232,7 @@ const AboutPage = () => {
                                 </div>
                                 <div className="h-10 w-px bg-slate-200 dark:bg-white/10" />
                                 <div>
-                                    <p className="text-2xl font-bold text-[#7A85F0]">50K+</p>
+                                    <p className="text-2xl font-bold text-[#E31E27]">50K+</p>
                                     <p className={`text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium ${bengaliClass}`}>
                                         {language === "bn" ? "সন্তুষ্ট শিক্ষার্থী" : "Happy Students"}
                                     </p>
@@ -265,7 +265,7 @@ const AboutPage = () => {
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                                         <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 shadow-lg">
-                                            <p className="text-[9px] font-bold text-[#7A85F0] uppercase tracking-widest">Live Class</p>
+                                            <p className="text-[9px] font-bold text-[#E31E27] uppercase tracking-widest">Live Class</p>
                                             <p className="text-[11px] font-semibold text-gray-700">50+ Students</p>
                                         </div>
                                     </div>
@@ -281,7 +281,7 @@ const AboutPage = () => {
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                                         <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
-                                            <div className="w-5 h-5 bg-[#7A85F0] rounded-full flex items-center justify-center">
+                                            <div className="w-5 h-5 bg-[#E31E27] rounded-full flex items-center justify-center">
                                                 <span className="text-white text-[8px]">🎓</span>
                                             </div>
                                             <span className="text-white text-[9px] font-bold">Seminar</span>
@@ -329,7 +329,7 @@ const AboutPage = () => {
                                 >
                                     <div className="flex items-center gap-2">
                                         <div className="flex -space-x-1.5">
-                                            <div className="w-6 h-6 rounded-full bg-[#7A85F0] flex items-center justify-center text-white text-[9px] font-bold border-2 border-white">S</div>
+                                            <div className="w-6 h-6 rounded-full bg-[#E31E27] flex items-center justify-center text-white text-[9px] font-bold border-2 border-white">S</div>
                                             <div className="w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center text-white text-[9px] font-bold border-2 border-white">A</div>
                                             <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-[9px] font-bold border-2 border-white">R</div>
                                         </div>
@@ -356,7 +356,7 @@ const AboutPage = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.1 }}
-                                className="group relative bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:border-[#7A85F0]/30 hover:shadow-xl hover:shadow-[#7A85F0]/5 transition-all overflow-hidden"
+                                className="group relative bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:border-[#E31E27]/30 hover:shadow-xl hover:shadow-[#E31E27]/5 transition-all overflow-hidden"
                             >
                                 <div className="absolute -top-4 -right-4 opacity-5 group-hover:opacity-10 transition-opacity">
                                     <stat.icon size={80} style={{ color: stat.color }} />
@@ -387,14 +387,14 @@ const AboutPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-[#EEF0FD] border border-[#7A85F0]/20 mb-4 ${bengaliClass}`}>
+                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bengaliClass}`}>
                             {language === "bn" ? "আমাদের যাত্রা" : "Our Purpose"}
                         </span>
                         <h2 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 leading-tight ${bengaliClass}`}>
                             {language === "bn" ? (
-                                <>উদ্দেশ্য চালিত, <span className="text-[#7A85F0]">পরিশ্রমী</span></>
+                                <>উদ্দেশ্য চালিত, <span className="text-[#E31E27]">পরিশ্রমী</span></>
                             ) : (
-                                <>Driven by Purpose, <span className="text-[#7A85F0]">Fueled by Passion</span></>
+                                <>Driven by Purpose, <span className="text-[#E31E27]">Fueled by Passion</span></>
                             )}
                         </h2>
                         <p className={`text-gray-500 dark:text-gray-400 text-sm max-w-2xl mx-auto ${bengaliClass}`}>
@@ -410,11 +410,11 @@ const AboutPage = () => {
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className="relative bg-white dark:bg-[#111] rounded-3xl p-8 border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:shadow-[#7A85F0]/10 transition-all group overflow-hidden"
+                            className="relative bg-white dark:bg-[#111] rounded-3xl p-8 border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:shadow-[#E31E27]/10 transition-all group overflow-hidden"
                         >
-                            <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#7A85F0]/5 rounded-full group-hover:scale-150 transition-transform duration-700" />
+                            <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#E31E27]/5 rounded-full group-hover:scale-150 transition-transform duration-700" />
                             <div className="relative z-10">
-                                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#7A85F0] to-[#5A65D0] flex items-center justify-center mb-5 shadow-lg shadow-[#7A85F0]/30">
+                                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#E31E27] to-[#C01920] flex items-center justify-center mb-5 shadow-lg shadow-[#E31E27]/30">
                                     <LuTarget size={24} className="text-white" />
                                 </div>
                                 <h3 className={`text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 ${bengaliClass}`}>
@@ -432,8 +432,8 @@ const AboutPage = () => {
                                         language === "bn" ? "ইন্ডাস্ট্রি-রেডি কারিকুলাম" : "Industry-ready curriculum",
                                     ].map((item, i) => (
                                         <div key={i} className="flex items-center gap-2">
-                                            <div className="w-4 h-4 rounded-full bg-[#7A85F0]/15 flex items-center justify-center shrink-0">
-                                                <LuCheck size={10} className="text-[#7A85F0]" strokeWidth={3} />
+                                            <div className="w-4 h-4 rounded-full bg-[#E31E27]/15 flex items-center justify-center shrink-0">
+                                                <LuCheck size={10} className="text-[#E31E27]" strokeWidth={3} />
                                             </div>
                                             <span className={`text-xs text-gray-600 dark:text-gray-400 ${bengaliClass}`}>{item}</span>
                                         </div>
@@ -491,14 +491,14 @@ const AboutPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-[#EEF0FD] border border-[#7A85F0]/20 mb-4 ${bengaliClass}`}>
+                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bengaliClass}`}>
                             {language === "bn" ? "কেন আমরা" : "Why Choose Us"}
                         </span>
                         <h2 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 leading-tight ${bengaliClass}`}>
                             {language === "bn" ? (
-                                <>যা আমাদের <span className="text-[#7A85F0]">আলাদা</span> করে</>
+                                <>যা আমাদের <span className="text-[#E31E27]">আলাদা</span> করে</>
                             ) : (
-                                <>What Makes Us <span className="text-[#7A85F0]">Different</span></>
+                                <>What Makes Us <span className="text-[#E31E27]">Different</span></>
                             )}
                         </h2>
                         <p className={`text-gray-500 dark:text-gray-400 text-sm max-w-2xl mx-auto ${bengaliClass}`}>
@@ -516,7 +516,7 @@ const AboutPage = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.08 }}
-                                className="group relative bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:border-[#7A85F0]/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#7A85F0]/5 transition-all"
+                                className="group relative bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:border-[#E31E27]/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#E31E27]/5 transition-all"
                             >
                                 <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all group-hover:scale-110" style={{ backgroundColor: `${f.color}15` }}>
                                     <f.icon size={22} style={{ color: f.color }} />
@@ -528,7 +528,7 @@ const AboutPage = () => {
                                     {f.desc}
                                 </p>
                                 <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <span className={`text-xs font-semibold text-[#7A85F0] flex items-center gap-1 ${bengaliClass}`}>
+                                    <span className={`text-xs font-semibold text-[#E31E27] flex items-center gap-1 ${bengaliClass}`}>
                                         {language === "bn" ? "আরো জানুন" : "Learn more"}
                                         <LuArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
                                     </span>
@@ -548,21 +548,21 @@ const AboutPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-[#EEF0FD] border border-[#7A85F0]/20 mb-4 ${bengaliClass}`}>
+                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bengaliClass}`}>
                             {language === "bn" ? "মাইলফলক" : "Milestones"}
                         </span>
                         <h2 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 leading-tight ${bengaliClass}`}>
                             {language === "bn" ? (
-                                <>আমাদের <span className="text-[#7A85F0]">যাত্রা</span></>
+                                <>আমাদের <span className="text-[#E31E27]">যাত্রা</span></>
                             ) : (
-                                <>Our <span className="text-[#7A85F0]">Journey</span></>
+                                <>Our <span className="text-[#E31E27]">Journey</span></>
                             )}
                         </h2>
                     </motion.div>
 
                     <div className="relative max-w-5xl mx-auto">
                         {/* Connector line */}
-                        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#7A85F0]/30 to-transparent hidden lg:block" />
+                        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#E31E27]/30 to-transparent hidden lg:block" />
 
                         <div className="space-y-10 lg:space-y-16">
                             {milestones.map((m, i) => (
@@ -576,7 +576,7 @@ const AboutPage = () => {
                                 >
                                     <div className={`lg:w-1/2 ${i % 2 === 0 ? "lg:text-right lg:pr-12" : "lg:text-left lg:pl-12"}`}>
                                         <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-100 dark:border-gray-800 shadow-lg shadow-gray-200/30 dark:shadow-black/20 hover:shadow-xl transition-shadow">
-                                            <span className="inline-block px-3 py-1 bg-[#EEF0FD] text-[#7A85F0] rounded-full text-xs font-bold mb-3">
+                                            <span className="inline-block px-3 py-1 bg-[#FEE2E2] text-[#E31E27] rounded-full text-xs font-bold mb-3">
                                                 {m.year}
                                             </span>
                                             <h3 className={`text-lg font-bold text-gray-900 dark:text-white mb-2 ${bengaliClass}`}>
@@ -589,8 +589,8 @@ const AboutPage = () => {
                                     </div>
 
                                     {/* Center dot */}
-                                    <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-white dark:bg-[#0a0a0a] border-4 border-[#7A85F0] items-center justify-center shadow-lg z-10">
-                                        <span className="w-3 h-3 rounded-full bg-[#7A85F0]" />
+                                    <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-white dark:bg-[#0a0a0a] border-4 border-[#E31E27] items-center justify-center shadow-lg z-10">
+                                        <span className="w-3 h-3 rounded-full bg-[#E31E27]" />
                                     </div>
 
                                     <div className="lg:w-1/2" />
@@ -610,14 +610,14 @@ const AboutPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-[#EEF0FD] border border-[#7A85F0]/20 mb-4 ${bengaliClass}`}>
+                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bengaliClass}`}>
                             {language === "bn" ? "আমাদের টিম" : "Our Team"}
                         </span>
                         <h2 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 leading-tight ${bengaliClass}`}>
                             {language === "bn" ? (
-                                <>আপনাকে যারা <span className="text-[#7A85F0]">এগিয়ে নেবে</span></>
+                                <>আপনাকে যারা <span className="text-[#E31E27]">এগিয়ে নেবে</span></>
                             ) : (
-                                <>Meet The People Who <span className="text-[#7A85F0]">Lead The Way</span></>
+                                <>Meet The People Who <span className="text-[#E31E27]">Lead The Way</span></>
                             )}
                         </h2>
                     </motion.div>
@@ -632,7 +632,7 @@ const AboutPage = () => {
                                 transition={{ delay: i * 0.1 }}
                                 className="group relative"
                             >
-                                <div className="relative rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-white dark:bg-[#111] shadow-lg shadow-gray-200/30 dark:shadow-black/20 hover:shadow-2xl hover:shadow-[#7A85F0]/10 transition-all">
+                                <div className="relative rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-white dark:bg-[#111] shadow-lg shadow-gray-200/30 dark:shadow-black/20 hover:shadow-2xl hover:shadow-[#E31E27]/10 transition-all">
                                     {/* Image */}
                                     <div className="relative aspect-[4/5] overflow-hidden">
                                         <img
@@ -645,7 +645,7 @@ const AboutPage = () => {
                                         {/* Social on hover */}
                                         <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all">
                                             {[FaLinkedinIn, FaTwitter, FaFacebookF].map((Icon, idx) => (
-                                                <a key={idx} href="#" className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-700 hover:bg-[#7A85F0] hover:text-white transition-colors">
+                                                <a key={idx} href="#" className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-700 hover:bg-[#E31E27] hover:text-white transition-colors">
                                                     <Icon size={11} />
                                                 </a>
                                             ))}
@@ -657,7 +657,7 @@ const AboutPage = () => {
                                         <h3 className={`text-base font-bold text-gray-900 dark:text-white mb-0.5 ${bengaliClass}`}>
                                             {member.name}
                                         </h3>
-                                        <p className={`text-xs font-semibold text-[#7A85F0] mb-2 ${bengaliClass}`}>
+                                        <p className={`text-xs font-semibold text-[#E31E27] mb-2 ${bengaliClass}`}>
                                             {member.role}
                                         </p>
                                         <p className={`text-xs text-gray-500 dark:text-gray-400 leading-relaxed ${bengaliClass}`}>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,7 @@ import Link from "next/link";
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center py-20">
-    <div className="w-10 h-10 border-3 border-[#7A85F0]/30 border-t-[#7A85F0] rounded-full animate-spin" />
+    <div className="w-10 h-10 border-3 border-[#E31E27]/30 border-t-[#E31E27] rounded-full animate-spin" />
   </div>
 );
 
@@ -123,7 +123,7 @@ const CourseContent = () => {
       {/* Hero Section with Floating Elements */}
       <section className="relative py-12 lg:py-16 bg-slate-50 dark:bg-[#0a0a0a] overflow-hidden">
         {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#7A85F0]/5 via-transparent to-[#7A85F0]/5"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#E31E27]/5 via-transparent to-[#E31E27]/5"></div>
 
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(230,45,38,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(230,45,38,0.02)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
@@ -132,12 +132,12 @@ const CourseContent = () => {
         <motion.div
           animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-20 -left-20 w-96 h-96 bg-gradient-to-br from-[#7A85F0]/15 to-transparent rounded-full blur-3xl"
+          className="absolute -top-20 -left-20 w-96 h-96 bg-gradient-to-br from-[#E31E27]/15 to-transparent rounded-full blur-3xl"
         />
         <motion.div
           animate={{ scale: [1.15, 1, 1.15], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 10, repeat: Infinity, delay: 3, ease: "easeInOut" }}
-          className="absolute -bottom-20 -right-20 w-96 h-96 bg-gradient-to-br from-[#7A85F0]/15 to-transparent rounded-full blur-3xl"
+          className="absolute -bottom-20 -right-20 w-96 h-96 bg-gradient-to-br from-[#E31E27]/15 to-transparent rounded-full blur-3xl"
         />
 
         {/* Professional Floating Elements */}
@@ -149,7 +149,7 @@ const CourseContent = () => {
             className="absolute top-16 left-[8%] hidden lg:block"
           >
             <div className="w-12 h-12 bg-white/70 dark:bg-white/10 backdrop-blur-md rounded-xl shadow-lg shadow-black/5 flex items-center justify-center border border-white/60 dark:border-white/20">
-              <LuBookOpen className="text-[#7A85F0]" size={20} />
+              <LuBookOpen className="text-[#E31E27]" size={20} />
             </div>
           </motion.div>
 
@@ -159,7 +159,7 @@ const CourseContent = () => {
             transition={{ duration: 7, repeat: Infinity, delay: 1.5, ease: "easeInOut" }}
             className="absolute top-24 right-[10%] hidden lg:block"
           >
-            <div className="w-13 h-13 bg-gradient-to-br from-[#7A85F0] to-[#6470E0] backdrop-blur-md rounded-2xl shadow-lg shadow-[#7A85F0]/25 flex items-center justify-center rotate-6">
+            <div className="w-13 h-13 bg-gradient-to-br from-[#E31E27] to-[#6470E0] backdrop-blur-md rounded-2xl shadow-lg shadow-[#E31E27]/25 flex items-center justify-center rotate-6">
               <LuUsers className="text-white" size={20} />
             </div>
           </motion.div>
@@ -187,10 +187,10 @@ const CourseContent = () => {
           </motion.div>
 
           {/* Subtle floating dots */}
-          <motion.div animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 4, repeat: Infinity }} className="absolute top-1/2 left-8 w-1.5 h-1.5 bg-[#7A85F0]/50 rounded-full hidden lg:block" />
-          <motion.div animate={{ opacity: [0.6, 0.3, 0.6] }} transition={{ duration: 5, repeat: Infinity, delay: 1 }} className="absolute top-1/3 left-14 w-1 h-1 bg-[#7A85F0]/40 rounded-full hidden lg:block" />
-          <motion.div animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 4.5, repeat: Infinity, delay: 2 }} className="absolute bottom-1/3 right-10 w-1.5 h-1.5 bg-[#7A85F0]/50 rounded-full hidden lg:block" />
-          <motion.div animate={{ opacity: [0.5, 0.2, 0.5] }} transition={{ duration: 5, repeat: Infinity, delay: 0.5 }} className="absolute bottom-1/2 right-20 w-1 h-1 bg-[#7A85F0]/40 rounded-full hidden lg:block" />
+          <motion.div animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 4, repeat: Infinity }} className="absolute top-1/2 left-8 w-1.5 h-1.5 bg-[#E31E27]/50 rounded-full hidden lg:block" />
+          <motion.div animate={{ opacity: [0.6, 0.3, 0.6] }} transition={{ duration: 5, repeat: Infinity, delay: 1 }} className="absolute top-1/3 left-14 w-1 h-1 bg-[#E31E27]/40 rounded-full hidden lg:block" />
+          <motion.div animate={{ opacity: [0.3, 0.6, 0.3] }} transition={{ duration: 4.5, repeat: Infinity, delay: 2 }} className="absolute bottom-1/3 right-10 w-1.5 h-1.5 bg-[#E31E27]/50 rounded-full hidden lg:block" />
+          <motion.div animate={{ opacity: [0.5, 0.2, 0.5] }} transition={{ duration: 5, repeat: Infinity, delay: 0.5 }} className="absolute bottom-1/2 right-20 w-1 h-1 bg-[#E31E27]/40 rounded-full hidden lg:block" />
         </div>
 
         <div className="container mx-auto px-4 lg:px-32 relative z-10">
@@ -201,10 +201,10 @@ const CourseContent = () => {
             className="text-center max-w-3xl mx-auto"
           >
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/80 dark:bg-white/5 backdrop-blur-sm border border-[#7A85F0]/20 rounded-full shadow-sm mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/80 dark:bg-white/5 backdrop-blur-sm border border-[#E31E27]/20 rounded-full shadow-sm mb-4">
               <span className="flex h-1.5 w-1.5 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7A85F0] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#7A85F0]"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E31E27] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E31E27]"></span>
               </span>
               <span className={`text-[10px] font-medium text-slate-600 dark:text-slate-300 ${bengaliClass}`}>
                 {language === "bn" ? "প্রিমিয়াম কোর্স" : "Premium Courses"}
@@ -215,11 +215,11 @@ const CourseContent = () => {
             <h1 className={`text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 dark:text-white mb-3 outfit leading-tight ${bengaliClass}`}>
               {language === "bn" ? "আমাদের " : "Discover Our "}
               <span className="relative">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7A85F0] to-[#7A85F0]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#E31E27]">
                   {language === "bn" ? "প্রিমিয়াম কোর্স" : "Premium Courses"}
                 </span>
                 <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none">
-                  <path d="M1 5.5C47.6667 2.16667 141 -1.8 199 5.5" stroke="#7A85F0" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M1 5.5C47.6667 2.16667 141 -1.8 199 5.5" stroke="#E31E27" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </span>
             </h1>
@@ -233,9 +233,9 @@ const CourseContent = () => {
 
             {/* Stats Cards */}
             <div className="flex flex-wrap justify-center gap-4 lg:gap-6">
-              <div className="group flex items-center gap-2 px-4 py-2.5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-md hover:border-[#7A85F0]/30 transition-all duration-300">
-                <div className="w-9 h-9 bg-gradient-to-br from-[#7A85F0]/10 to-[#7A85F0]/5 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <LuBookOpen className="text-[#7A85F0] text-base" />
+              <div className="group flex items-center gap-2 px-4 py-2.5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-md hover:border-[#E31E27]/30 transition-all duration-300">
+                <div className="w-9 h-9 bg-gradient-to-br from-[#E31E27]/10 to-[#E31E27]/5 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <LuBookOpen className="text-[#E31E27] text-base" />
                 </div>
                 <div className="text-left">
                   <p className="text-lg font-bold text-slate-800 dark:text-white outfit">{courses.length || '20'}+</p>
@@ -243,9 +243,9 @@ const CourseContent = () => {
                 </div>
               </div>
 
-              <div className="group flex items-center gap-2 px-4 py-2.5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-md hover:border-[#7A85F0]/30 transition-all duration-300">
-                <div className="w-9 h-9 bg-gradient-to-br from-[#7A85F0]/10 to-[#7A85F0]/5 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <HiOutlineSparkles className="text-[#7A85F0] text-base" />
+              <div className="group flex items-center gap-2 px-4 py-2.5 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-xl border border-slate-100 dark:border-white/10 shadow-sm hover:shadow-md hover:border-[#E31E27]/30 transition-all duration-300">
+                <div className="w-9 h-9 bg-gradient-to-br from-[#E31E27]/10 to-[#E31E27]/5 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <HiOutlineSparkles className="text-[#E31E27] text-base" />
                 </div>
                 <div className="text-left">
                   <p className="text-lg font-bold text-slate-800 dark:text-white outfit">10+</p>
@@ -278,7 +278,7 @@ const CourseContent = () => {
                 <select
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
-                  className={`appearance-none pl-3.5 pr-8 py-2.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-[12px] font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#7A85F0] cursor-pointer transition-colors ${bengaliClass}`}
+                  className={`appearance-none pl-3.5 pr-8 py-2.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-[12px] font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#E31E27] cursor-pointer transition-colors ${bengaliClass}`}
                 >
                   {courseTypes.map((type) => (
                     <option key={type.name} value={type.name}>{language === 'bn' ? 'টাইপ: ' : 'Type: '}{type.label}</option>
@@ -292,7 +292,7 @@ const CourseContent = () => {
                 <select
                   value={selectedCategories[0] || ""}
                   onChange={(e) => handleCategoryChange(e.target.value)}
-                  className={`appearance-none pl-3.5 pr-8 py-2.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-[12px] font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#7A85F0] cursor-pointer transition-colors ${bengaliClass}`}
+                  className={`appearance-none pl-3.5 pr-8 py-2.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-[12px] font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#E31E27] cursor-pointer transition-colors ${bengaliClass}`}
                 >
                   <option value="">{language === 'bn' ? 'ক্যাটাগরি: সব' : 'Category: All'}</option>
                   {categories
@@ -310,7 +310,7 @@ const CourseContent = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className={`appearance-none pl-9 pr-8 py-2.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-[12px] font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#7A85F0] cursor-pointer transition-colors ${bengaliClass}`}
+                  className={`appearance-none pl-9 pr-8 py-2.5 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-[12px] font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:border-[#E31E27] cursor-pointer transition-colors ${bengaliClass}`}
                 >
                   <option value="default">{language === 'bn' ? 'সর্ট করুন' : 'Sort By'}</option>
                   <option value="rating">{language === 'bn' ? 'টপ রেটেড' : 'Top Rated'}</option>
@@ -337,15 +337,15 @@ const CourseContent = () => {
             <div className="flex items-center gap-3">
               {/* Search */}
               <div className="relative hidden sm:block">
-                <div className="absolute left-2.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-[#7A85F0]/10 rounded-lg flex items-center justify-center pointer-events-none">
-                  <LuSearch className="text-[#7A85F0]" size={13} />
+                <div className="absolute left-2.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-[#E31E27]/10 rounded-lg flex items-center justify-center pointer-events-none">
+                  <LuSearch className="text-[#E31E27]" size={13} />
                 </div>
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={language === "bn" ? "কোর্স খুঁজুন..." : "Search courses..."}
-                  className={`w-48 lg:w-56 pl-12 pr-8 py-2.5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#7A85F0]/30 focus:border-[#7A85F0] focus:bg-white dark:focus:bg-white/10 outline-none transition-all text-slate-800 dark:text-white text-[12px] placeholder-slate-400 ${bengaliClass}`}
+                  className={`w-48 lg:w-56 pl-12 pr-8 py-2.5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#E31E27]/30 focus:border-[#E31E27] focus:bg-white dark:focus:bg-white/10 outline-none transition-all text-slate-800 dark:text-white text-[12px] placeholder-slate-400 ${bengaliClass}`}
                 />
                 {searchQuery && (
                   <button onClick={() => setSearchQuery("")} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
@@ -359,7 +359,7 @@ const CourseContent = () => {
 
               {/* Count */}
               <span className={`text-[12px] text-slate-500 whitespace-nowrap ${bengaliClass}`}>
-                <span className="font-bold text-[#7A85F0]">{sortedCourses.length}</span>
+                <span className="font-bold text-[#E31E27]">{sortedCourses.length}</span>
                 {language === "bn" ? " টি কোর্স" : " courses"}
               </span>
 
@@ -367,13 +367,13 @@ const CourseContent = () => {
               <div className="flex items-center gap-1 bg-slate-100 dark:bg-white/5 p-1 rounded-lg">
                 <button
                   onClick={() => setViewMode("grid")}
-                  className={`p-2 rounded-md transition-all ${viewMode === "grid" ? "bg-white dark:bg-white/10 text-[#7A85F0] shadow-sm" : "text-slate-400"}`}
+                  className={`p-2 rounded-md transition-all ${viewMode === "grid" ? "bg-white dark:bg-white/10 text-[#E31E27] shadow-sm" : "text-slate-400"}`}
                 >
                   <LuGrid3X3 size={15} />
                 </button>
                 <button
                   onClick={() => setViewMode("list")}
-                  className={`p-2 rounded-md transition-all ${viewMode === "list" ? "bg-white dark:bg-white/10 text-[#7A85F0] shadow-sm" : "text-slate-400"}`}
+                  className={`p-2 rounded-md transition-all ${viewMode === "list" ? "bg-white dark:bg-white/10 text-[#E31E27] shadow-sm" : "text-slate-400"}`}
                 >
                   <LuLayoutGrid size={15} />
                 </button>
@@ -405,8 +405,8 @@ const CourseContent = () => {
             ) : (
               <motion.div key="empty" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
                 className="text-center py-20">
-                <div className="w-16 h-16 bg-[#EEF0FD] rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <LuSearch className="text-[#7A85F0]" size={28} />
+                <div className="w-16 h-16 bg-[#FEE2E2] rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <LuSearch className="text-[#E31E27]" size={28} />
                 </div>
                 <h3 className={`text-base font-bold text-slate-800 dark:text-white mb-2 ${bengaliClass}`}>
                   {language === "bn" ? "কোন কোর্স পাওয়া যায়নি" : "No courses found"}
@@ -421,7 +421,7 @@ const CourseContent = () => {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-10 lg:py-14 bg-gradient-to-br from-[#7A85F0] to-[#5A63D0]">
+      <section className="py-10 lg:py-14 bg-gradient-to-br from-[#E31E27] to-[#5A63D0]">
         <div className="container mx-auto px-4 lg:px-32">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-md mx-auto">
             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/15 backdrop-blur-sm rounded-full mb-3">
@@ -436,7 +436,7 @@ const CourseContent = () => {
             <p className={`text-white/80 text-xs mb-5 ${bengaliClass}`}>
               {language === "bn" ? "আমাদের এক্সপার্ট মেন্টরদের সাথে প্রাইভেট সেশন বুক করুন।" : "Book private sessions with our expert mentors for personalized learning."}
             </p>
-            <Link href="/contact" className={`inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#7A85F0] text-xs font-bold rounded-lg hover:bg-white/90 transition-all shadow-md ${bengaliClass}`}>
+            <Link href="/contact" className={`inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#E31E27] text-xs font-bold rounded-lg hover:bg-white/90 transition-all shadow-md ${bengaliClass}`}>
               {language === "bn" ? "যোগাযোগ করুন" : "Contact Us"}
               <LuArrowRight size={14} />
             </Link>

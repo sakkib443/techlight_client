@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -490,11 +490,11 @@ export default function CertificationsPage() {
             {/* Preview */}
             <div className="p-5">
               <div className={`rounded-lg border-2 p-6 text-center ${isDark ? 'border-slate-700 bg-slate-900/40' : 'border-indigo-100 bg-slate-50'}`}>
-                <p className="text-lg font-bold"><span className="text-[#7A85F0]">Tech</span><span className={isDark ? 'text-white' : 'text-gray-800'}>light</span></p>
+                <p className="text-lg font-bold"><span className="text-[#E31E27]">Tech</span><span className={isDark ? 'text-white' : 'text-gray-800'}>light</span></p>
                 <p className={`text-[10px] uppercase tracking-widest ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>IT Institute</p>
                 <p className={`mt-4 text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Certificate of Completion</p>
                 <p className={`mt-3 text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>This is to certify that</p>
-                <p className="text-xl font-bold text-[#7A85F0] mt-1">{selected.studentName}</p>
+                <p className="text-xl font-bold text-[#E31E27] mt-1">{selected.studentName}</p>
                 <p className={`mt-2 text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>has successfully completed</p>
                 <p className={`text-base font-semibold mt-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>{selected.title || selected.courseName}</p>
                 {selected.batch?.batchName && (

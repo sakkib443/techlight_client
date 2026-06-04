@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -135,11 +135,11 @@ const Preloader = () => {
 
     // Animated background blobs (each slowly orbits + pulses, not sliding)
     const blobs = [
-        { color: "rgba(122,133,240,0.5)", size: 600, x: "25%", y: "30%", duration: 16, delay: 0 },
-        { color: "rgba(90,101,208,0.45)", size: 700, x: "75%", y: "70%", duration: 20, delay: 2 },
-        { color: "rgba(165,174,255,0.4)", size: 500, x: "60%", y: "20%", duration: 18, delay: 4 },
-        { color: "rgba(76,99,237,0.35)", size: 550, x: "30%", y: "75%", duration: 22, delay: 1 },
-        { color: "rgba(122,133,240,0.3)", size: 450, x: "80%", y: "40%", duration: 19, delay: 3 },
+        { color: "rgba(227,30,39,0.5)", size: 600, x: "25%", y: "30%", duration: 16, delay: 0 },
+        { color: "rgba(192,25,32,0.45)", size: 700, x: "75%", y: "70%", duration: 20, delay: 2 },
+        { color: "rgba(248,113,113,0.4)", size: 500, x: "60%", y: "20%", duration: 18, delay: 4 },
+        { color: "rgba(192,25,32,0.35)", size: 550, x: "30%", y: "75%", duration: 22, delay: 1 },
+        { color: "rgba(227,30,39,0.3)", size: 450, x: "80%", y: "40%", duration: 19, delay: 3 },
     ];
 
     return (
@@ -195,7 +195,7 @@ const Preloader = () => {
                             className="absolute inset-0"
                             style={{
                                 backgroundImage:
-                                    "linear-gradient(rgba(122,133,240,0.7) 1px, transparent 1px), linear-gradient(90deg, rgba(122,133,240,0.7) 1px, transparent 1px)",
+                                    "linear-gradient(rgba(227,30,39,0.7) 1px, transparent 1px), linear-gradient(90deg, rgba(227,30,39,0.7) 1px, transparent 1px)",
                                 backgroundSize: "50px 50px",
                                 maskImage:
                                     "radial-gradient(ellipse 80% 100% at 50% 100%, black 30%, transparent 80%)",
@@ -218,7 +218,7 @@ const Preloader = () => {
                                     ease: "easeOut",
                                     times: [0, 0.2, 1],
                                 }}
-                                className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[400px] h-[400px] rounded-full border border-[#7A85F0]/40 pointer-events-none"
+                                className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[400px] h-[400px] rounded-full border border-[#E31E27]/40 pointer-events-none"
                             />
                         ))}
                     </motion.div>
@@ -267,7 +267,7 @@ const Preloader = () => {
                             className="absolute inset-0"
                             style={{
                                 backgroundImage:
-                                    "linear-gradient(rgba(122,133,240,0.7) 1px, transparent 1px), linear-gradient(90deg, rgba(122,133,240,0.7) 1px, transparent 1px)",
+                                    "linear-gradient(rgba(227,30,39,0.7) 1px, transparent 1px), linear-gradient(90deg, rgba(227,30,39,0.7) 1px, transparent 1px)",
                                 backgroundSize: "50px 50px",
                                 maskImage:
                                     "radial-gradient(ellipse 80% 100% at 50% 0%, black 30%, transparent 80%)",
@@ -290,7 +290,7 @@ const Preloader = () => {
                                     ease: "easeOut",
                                     times: [0, 0.2, 1],
                                 }}
-                                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-[#7A85F0]/40 pointer-events-none"
+                                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-[#E31E27]/40 pointer-events-none"
                             />
                         ))}
                     </motion.div>
@@ -315,7 +315,7 @@ const Preloader = () => {
                             className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[60%] h-12 rounded-full"
                             style={{
                                 background:
-                                    "radial-gradient(ellipse, rgba(122,133,240,0.4) 0%, transparent 70%)",
+                                    "radial-gradient(ellipse, rgba(227,30,39,0.4) 0%, transparent 70%)",
                                 filter: "blur(20px)",
                             }}
                         />
@@ -326,7 +326,7 @@ const Preloader = () => {
                                 className="absolute inset-0"
                                 style={{
                                     background:
-                                        "linear-gradient(90deg, transparent 0%, rgba(122,133,240,0.4) 30%, rgba(165,174,255,0.9) 50%, rgba(122,133,240,0.4) 70%, transparent 100%)",
+                                        "linear-gradient(90deg, transparent 0%, rgba(227,30,39,0.4) 30%, rgba(248,113,113,0.9) 50%, rgba(227,30,39,0.4) 70%, transparent 100%)",
                                 }}
                             />
                             {/* Shimmer pass */}
@@ -341,7 +341,7 @@ const Preloader = () => {
                         <motion.div
                             animate={{ rotate: [0, 180, 360], scale: [1, 1.2, 1] }}
                             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-0 w-2 h-2 rotate-45 bg-gradient-to-br from-[#A5AEFF] to-[#7A85F0] shadow-[0_0_15px_rgba(122,133,240,0.9)]"
+                            className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-0 w-2 h-2 rotate-45 bg-gradient-to-br from-[#F87171] to-[#E31E27] shadow-[0_0_15px_rgba(227,30,39,0.9)]"
                         />
                     </motion.div>
 
@@ -369,11 +369,11 @@ const Preloader = () => {
                                     delay: p.delay,
                                     ease: "linear",
                                 }}
-                                className="absolute rounded-full bg-[#A5AEFF]"
+                                className="absolute rounded-full bg-[#F87171]"
                                 style={{
                                     width: p.size,
                                     height: p.size,
-                                    boxShadow: `0 0 ${p.size * 5}px rgba(122,133,240,1)`,
+                                    boxShadow: `0 0 ${p.size * 5}px rgba(227,30,39,1)`,
                                 }}
                             />
                         ))}
@@ -400,7 +400,7 @@ const Preloader = () => {
                         style={{
                             top: SPLIT,
                             background:
-                                "radial-gradient(circle, rgba(122,133,240,0.3) 0%, rgba(122,133,240,0.1) 40%, transparent 70%)",
+                                "radial-gradient(circle, rgba(227,30,39,0.3) 0%, rgba(227,30,39,0.1) 40%, transparent 70%)",
                             filter: "blur(40px)",
                         }}
                     />
@@ -428,7 +428,7 @@ const Preloader = () => {
                                         style={{
                                             fontFamily: "var(--font-poppins)",
                                             textShadow:
-                                                "0 0 40px rgba(122,133,240,0.6), 0 0 80px rgba(122,133,240,0.3)",
+                                                "0 0 40px rgba(227,30,39,0.6), 0 0 80px rgba(227,30,39,0.3)",
                                         }}
                                     >
                                         {letter}
@@ -453,14 +453,14 @@ const Preloader = () => {
                                 transition={{ delay: 1.7, duration: 0.6 }}
                                 className="flex items-center gap-3 mb-7"
                             >
-                                <span className="w-8 h-px bg-gradient-to-r from-transparent to-[#7A85F0]" />
+                                <span className="w-8 h-px bg-gradient-to-r from-transparent to-[#E31E27]" />
                                 <span
-                                    className="text-[10px] md:text-xs font-medium text-[#A5AEFF] tracking-[0.5em] uppercase"
+                                    className="text-[10px] md:text-xs font-medium text-[#F87171] tracking-[0.5em] uppercase"
                                     style={{ fontFamily: "var(--font-poppins)" }}
                                 >
                                     IT Institute
                                 </span>
-                                <span className="w-8 h-px bg-gradient-to-l from-transparent to-[#7A85F0]" />
+                                <span className="w-8 h-px bg-gradient-to-l from-transparent to-[#E31E27]" />
                             </motion.div>
 
                             {/* Progress Track */}
@@ -476,9 +476,9 @@ const Preloader = () => {
                                         style={{
                                             width: `${percent}%`,
                                             background:
-                                                "linear-gradient(90deg, #7A85F0 0%, #A5AEFF 50%, #7A85F0 100%)",
+                                                "linear-gradient(90deg, #E31E27 0%, #F87171 50%, #E31E27 100%)",
                                             boxShadow:
-                                                "0 0 12px rgba(122,133,240,0.8), 0 0 24px rgba(122,133,240,0.4)",
+                                                "0 0 12px rgba(227,30,39,0.8), 0 0 24px rgba(227,30,39,0.4)",
                                         }}
                                         transition={{ duration: 0.1 }}
                                     >
@@ -502,8 +502,8 @@ const Preloader = () => {
                                             style={{ fontFamily: "var(--font-poppins)" }}
                                         >
                                             <span className="relative flex w-1.5 h-1.5">
-                                                <span className="absolute inline-flex w-full h-full rounded-full bg-[#7A85F0] opacity-75 animate-ping" />
-                                                <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-[#7A85F0]" />
+                                                <span className="absolute inline-flex w-full h-full rounded-full bg-[#E31E27] opacity-75 animate-ping" />
+                                                <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-[#E31E27]" />
                                             </span>
                                             {statuses[statusIdx]}
                                         </motion.span>
@@ -532,7 +532,7 @@ const Preloader = () => {
                             className="flex items-center gap-2 text-[10px] font-medium text-white/40 tracking-widest uppercase"
                             style={{ fontFamily: "var(--font-poppins)" }}
                         >
-                            <span className="w-2 h-2 rounded-full bg-[#7A85F0] animate-pulse" />
+                            <span className="w-2 h-2 rounded-full bg-[#E31E27] animate-pulse" />
                             <span>System Online</span>
                         </div>
                     </motion.div>
@@ -579,7 +579,7 @@ const Preloader = () => {
                             style={{ fontFamily: "var(--font-poppins)" }}
                         >
                             <span>Premium Experience</span>
-                            <span className="w-2 h-2 rounded-full bg-[#A5AEFF] animate-pulse" />
+                            <span className="w-2 h-2 rounded-full bg-[#F87171] animate-pulse" />
                         </div>
                     </motion.div>
                 </motion.div>

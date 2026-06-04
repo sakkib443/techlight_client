@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -54,7 +54,7 @@ const HomePage = () => {
   }, [dispatch, mounted]);
 
   return (
-    <div className="relative min-h-screen bg-white dark:bg-black selection:bg-[#7A85F0]/20 selection:text-[#7A85F0] font-poppins antialiased">
+    <div className="relative min-h-screen bg-white dark:bg-black selection:bg-[#E31E27]/20 selection:text-[#E31E27] font-poppins antialiased">
       <main className="relative">
         {/* 1. Hero Section */}
         <section className="relative w-full overflow-hidden z-0 bg-white dark:bg-black">

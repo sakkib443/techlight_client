@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -42,7 +42,7 @@ export default function UserDashboard() {
     };
 
     const cardClass = `rounded-2xl border transition-all duration-300 ${isDark
-        ? 'bg-slate-800/50 border-white/5 hover:border-[#7A85F0]/20'
+        ? 'bg-slate-800/50 border-white/5 hover:border-[#E31E27]/20'
         : 'bg-white border-slate-200/60 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] hover:shadow-md'
         }`;
 
@@ -78,7 +78,7 @@ export default function UserDashboard() {
             {/* Professional Compact Header */}
             <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-5 ${cardClass}`}>
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7A85F0] to-[#7A85F0] flex items-center justify-center text-white shadow-md shadow-[#7A85F0]/10">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#E31E27] to-[#E31E27] flex items-center justify-center text-white shadow-md shadow-[#E31E27]/10">
                         <FiGrid size={24} />
                     </div>
                     <div>
@@ -103,7 +103,7 @@ export default function UserDashboard() {
                     </button>
                     <Link
                         href="/courses"
-                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] text-white rounded-xl text-sm font-bold shadow-md shadow-[#7A85F0]/10 hover:scale-105 transition-all"
+                        className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#E31E27] to-[#E31E27] text-white rounded-xl text-sm font-bold shadow-md shadow-[#E31E27]/10 hover:scale-105 transition-all"
                     >
                         <FiBook size={16} />
                         Browse
@@ -116,22 +116,22 @@ export default function UserDashboard() {
                 ? 'bg-gradient-to-r from-slate-800 to-slate-800/50 border border-white/5'
                 : 'bg-gradient-to-r from-slate-50 to-white border border-slate-100'
                 }`}>
-                <div className="absolute top-0 right-0 w-40 h-40 bg-[#7A85F0]/10 blur-[60px] rounded-full" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#7A85F0]/10 blur-[50px] rounded-full" />
+                <div className="absolute top-0 right-0 w-40 h-40 bg-[#E31E27]/10 blur-[60px] rounded-full" />
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#E31E27]/10 blur-[50px] rounded-full" />
 
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
                         <div className="flex items-center gap-2 mb-2">
                             <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${isDark
-                                ? 'bg-[#7A85F0]/10 text-[#7A85F0]'
-                                : 'bg-[#7A85F0]/10 text-[#7A85F0]'
+                                ? 'bg-[#E31E27]/10 text-[#E31E27]'
+                                : 'bg-[#E31E27]/10 text-[#E31E27]'
                                 }`}>
                                 <FiZap size={10} className="inline mr-1" />
                                 Active Learner
                             </span>
                         </div>
                         <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
-                            Welcome back, <span className="text-[#7A85F0]">{user?.firstName || 'Learner'}</span>! ??
+                            Welcome back, <span className="text-[#E31E27]">{user?.firstName || 'Learner'}</span>! ??
                         </h2>
                         <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                             {enrollments.length > 0
@@ -143,7 +143,7 @@ export default function UserDashboard() {
                     <div className="flex items-center gap-3">
                         <Link
                             href="/dashboard/user/courses"
-                            className="px-4 py-2.5 bg-gradient-to-r from-[#7A85F0] to-[#c41e18] text-white rounded-xl font-bold text-sm shadow-md hover:scale-105 transition-all"
+                            className="px-4 py-2.5 bg-gradient-to-r from-[#E31E27] to-[#c41e18] text-white rounded-xl font-bold text-sm shadow-md hover:scale-105 transition-all"
                         >
                             My Courses
                         </Link>
@@ -176,11 +176,11 @@ export default function UserDashboard() {
                                 {enrollmentStats?.completedCourses || 0} completed
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#7A85F0] to-[#c41e18] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#E31E27] to-[#c41e18] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
                             <FiBook size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#7A85F0] to-[#c41e18] transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#E31E27] to-[#c41e18] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
                 {/* In Progress */}
@@ -197,11 +197,11 @@ export default function UserDashboard() {
                                 Courses ongoing
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#7A85F0] to-[#fb923c] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#E31E27] to-[#fb923c] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
                             <FiTrendingUp size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#7A85F0] to-[#fb923c] transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#E31E27] to-[#fb923c] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
 
                 {/* Completed */}
@@ -218,11 +218,11 @@ export default function UserDashboard() {
                                 Courses finished
                             </p>
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#7A85F0] to-[#7A85F0] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#E31E27] to-[#E31E27] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform duration-300">
                             <FiCheckCircle size={20} />
                         </div>
                     </div>
-                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] transition-all duration-300 group-hover:w-full w-0`} />
+                    <div className={`absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#E31E27] to-[#E31E27] transition-all duration-300 group-hover:w-full w-0`} />
                 </div>
             </div>
 
@@ -233,7 +233,7 @@ export default function UserDashboard() {
                         <h2 className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
                             Continue Learning
                         </h2>
-                        <Link href="/dashboard/user/courses" className="text-xs font-bold text-[#7A85F0] hover:underline flex items-center gap-1">
+                        <Link href="/dashboard/user/courses" className="text-xs font-bold text-[#E31E27] hover:underline flex items-center gap-1">
                             View All <FiArrowRight size={12} />
                         </Link>
                     </div>
@@ -251,7 +251,7 @@ export default function UserDashboard() {
                             </p>
                             <Link
                                 href="/courses"
-                                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] text-white rounded-xl font-bold text-sm shadow-md hover:scale-105 transition-all"
+                                className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#E31E27] to-[#E31E27] text-white rounded-xl font-bold text-sm shadow-md hover:scale-105 transition-all"
                             >
                                 Browse Courses <FiArrowRight size={14} />
                             </Link>
@@ -274,14 +274,14 @@ export default function UserDashboard() {
                                         )}
                                         <div className="flex items-center gap-3 mt-2">
                                             <div className={`flex-1 h-1.5 rounded-full overflow-hidden ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}>
-                                                <div className="h-full bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] rounded-full" style={{ width: `${enroll.progress || 0}%` }}></div>
+                                                <div className="h-full bg-gradient-to-r from-[#E31E27] to-[#E31E27] rounded-full" style={{ width: `${enroll.progress || 0}%` }}></div>
                                             </div>
-                                            <span className="text-[10px] font-bold text-[#7A85F0] whitespace-nowrap">{enroll.progress || 0}%</span>
+                                            <span className="text-[10px] font-bold text-[#E31E27] whitespace-nowrap">{enroll.progress || 0}%</span>
                                         </div>
                                     </div>
                                     <Link href={`/learn/${enroll.course?._id}`} className={`p-2.5 rounded-xl transition-all ${isDark
-                                        ? 'bg-slate-700 text-slate-300 hover:bg-[#7A85F0] hover:text-white'
-                                        : 'bg-slate-100 text-slate-500 hover:bg-[#7A85F0] hover:text-white'
+                                        ? 'bg-slate-700 text-slate-300 hover:bg-[#E31E27] hover:text-white'
+                                        : 'bg-slate-100 text-slate-500 hover:bg-[#E31E27] hover:text-white'
                                         }`}>
                                         <FiPlay size={16} />
                                     </Link>
@@ -302,7 +302,7 @@ export default function UserDashboard() {
                         </div>
                         <div className="p-5">
                             <div className="flex items-center gap-4 mb-5">
-                                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#7A85F0] to-[#7A85F0] flex items-center justify-center text-white text-xl font-bold shadow-md">
+                                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#E31E27] to-[#E31E27] flex items-center justify-center text-white text-xl font-bold shadow-md">
                                     {user?.firstName?.[0] || 'S'}
                                 </div>
                                 <div className="min-w-0 flex-1">
@@ -318,13 +318,13 @@ export default function UserDashboard() {
                             <div className="space-y-2">
                                 <div className={`flex items-center justify-between p-3 rounded-xl text-xs ${isDark ? 'bg-slate-800/50' : 'bg-slate-50'}`}>
                                     <span className={`flex items-center gap-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                        <FiShield size={12} className="text-[#7A85F0]" /> Status
+                                        <FiShield size={12} className="text-[#E31E27]" /> Status
                                     </span>
-                                    <span className="font-bold text-[#7A85F0]">Verified</span>
+                                    <span className="font-bold text-[#E31E27]">Verified</span>
                                 </div>
                                 <div className={`flex items-center justify-between p-3 rounded-xl text-xs ${isDark ? 'bg-slate-800/50' : 'bg-slate-50'}`}>
                                     <span className={`flex items-center gap-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                                        <FiCalendar size={12} className="text-[#7A85F0]" /> Joined
+                                        <FiCalendar size={12} className="text-[#E31E27]" /> Joined
                                     </span>
                                     <span className={`font-bold ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Jan 2025</span>
                                 </div>
@@ -333,8 +333,8 @@ export default function UserDashboard() {
                             <Link
                                 href="/dashboard/user/profile"
                                 className={`mt-4 w-full flex items-center justify-center gap-2 p-3 rounded-xl text-xs font-bold transition-all ${isDark
-                                    ? 'bg-slate-700 text-slate-200 hover:bg-[#7A85F0] hover:text-white'
-                                    : 'bg-slate-100 text-slate-600 hover:bg-[#7A85F0] hover:text-white'
+                                    ? 'bg-slate-700 text-slate-200 hover:bg-[#E31E27] hover:text-white'
+                                    : 'bg-slate-100 text-slate-600 hover:bg-[#E31E27] hover:text-white'
                                     }`}
                             >
                                 Edit Profile <FiChevronRight size={12} />
@@ -362,8 +362,8 @@ export default function UserDashboard() {
                             </Link>
 
                             <Link href="/dashboard/user/payments" className={`flex items-center gap-3 p-3 rounded-xl transition-all ${isDark ? 'hover:bg-slate-800/50' : 'hover:bg-slate-50'}`}>
-                                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#7A85F0]/10 to-[#7A85F0]/5 flex items-center justify-center">
-                                    <FiClock size={16} className="text-[#7A85F0]" />
+                                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#E31E27]/10 to-[#E31E27]/5 flex items-center justify-center">
+                                    <FiClock size={16} className="text-[#E31E27]" />
                                 </div>
                                 <div className="flex-1">
                                     <p className={`text-sm font-bold ${isDark ? 'text-slate-200' : 'text-slate-700'}`}>Purchase History</p>

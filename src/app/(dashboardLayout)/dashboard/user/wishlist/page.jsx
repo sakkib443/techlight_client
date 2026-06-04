@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useEffect } from 'react';
 import Link from 'next/link';
@@ -142,7 +142,7 @@ export default function UserWishlistPage() {
                                 <div className="flex items-center gap-2 pt-1">
                                     <button
                                         onClick={() => handleAddToCart(item)}
-                                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] text-white rounded-lg text-xs font-bold shadow-md shadow-[#7A85F0]/10 hover:scale-[1.02] transition-all"
+                                        className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-[#E31E27] to-[#E31E27] text-white rounded-lg text-xs font-bold shadow-md shadow-[#E31E27]/10 hover:scale-[1.02] transition-all"
                                     >
                                         <FiShoppingCart size={15} />
                                         Add to Cart

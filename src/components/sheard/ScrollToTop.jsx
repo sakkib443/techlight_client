@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { LuArrowUp } from "react-icons/lu";
@@ -9,7 +9,7 @@ import { useLanguage } from "@/context/LanguageContext";
  * Scroll-to-top button.
  * - Appears after scrolling 300px down
  * - Circular progress ring around the button shows scroll position
- * - Matches site brand: primary #7A85F0
+ * - Matches site brand: primary #E31E27
  */
 const ScrollToTop = () => {
     const { language } = useLanguage();
@@ -98,7 +98,7 @@ const ScrollToTop = () => {
                                 cy={size / 2}
                                 r={radius}
                                 fill="none"
-                                stroke="#7A85F0"
+                                stroke="#E31E27"
                                 strokeWidth={strokeWidth}
                                 strokeLinecap="round"
                                 strokeDasharray={circumference}
@@ -108,10 +108,10 @@ const ScrollToTop = () => {
                         </svg>
 
                         {/* Inner button */}
-                        <div className="absolute inset-1 rounded-full bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 shadow-lg shadow-[#7A85F0]/15 group-hover:shadow-[#7A85F0]/30 group-hover:bg-[#7A85F0] dark:group-hover:bg-[#7A85F0] transition-all duration-300 flex items-center justify-center">
+                        <div className="absolute inset-1 rounded-full bg-white dark:bg-[#111] border border-gray-100 dark:border-gray-800 shadow-lg shadow-[#E31E27]/15 group-hover:shadow-[#E31E27]/30 group-hover:bg-[#E31E27] dark:group-hover:bg-[#E31E27] transition-all duration-300 flex items-center justify-center">
                             <LuArrowUp
                                 size={16}
-                                className="text-[#7A85F0] group-hover:text-white transition-colors duration-300"
+                                className="text-[#E31E27] group-hover:text-white transition-colors duration-300"
                                 strokeWidth={2.5}
                             />
                         </div>

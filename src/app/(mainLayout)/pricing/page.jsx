@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -59,7 +59,7 @@ const PricingPage = () => {
             priceMonthly: 999,
             priceYearly: 9999,
             popular: true,
-            color: "#7A85F0",
+            color: "#E31E27",
             features: [
                 { text: language === "bn" ? "সব ফ্রি ফিচার" : "Everything in Free", included: true },
                 { text: language === "bn" ? "৫০+ প্রিমিয়াম কোর্সে অ্যাক্সেস" : "Access to 50+ premium courses", included: true },
@@ -192,10 +192,10 @@ const PricingPage = () => {
             {/* ===== Hero Section ===== */}
             <section className="relative py-12 lg:py-16 bg-slate-50 dark:bg-[#0a0a0a] overflow-hidden">
                 {/* Background texture */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#7A85F0]/5 via-transparent to-[#7A85F0]/5"></div>
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(122,133,240,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(122,133,240,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
-                <div className="absolute -top-20 -left-20 w-80 h-80 bg-[#7A85F0]/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[#7A85F0]/[0.06] rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#E31E27]/5 via-transparent to-[#E31E27]/5"></div>
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(227,30,39,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(227,30,39,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+                <div className="absolute -top-20 -left-20 w-80 h-80 bg-[#E31E27]/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[#E31E27]/[0.06] rounded-full blur-3xl pointer-events-none"></div>
                 <div className="container mx-auto px-4 lg:px-32">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -204,10 +204,10 @@ const PricingPage = () => {
                         className="text-center max-w-3xl mx-auto"
                     >
                         {/* Badge */}
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#7A85F0]/20 rounded-full shadow-sm mb-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#E31E27]/20 rounded-full shadow-sm mb-4">
                             <span className="flex h-1.5 w-1.5 relative">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7A85F0] opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#7A85F0]"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E31E27] opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E31E27]"></span>
                             </span>
                             <span className={`text-[10px] font-medium text-slate-600 dark:text-slate-300 ${bengaliClass}`}>
                                 {language === "bn" ? "প্রাইসিং প্ল্যান" : "Pricing Plans"}
@@ -217,9 +217,9 @@ const PricingPage = () => {
                         {/* Title */}
                         <h1 className={`text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 dark:text-white mb-3 leading-tight ${bengaliClass}`}>
                             {language === "bn" ? (
-                                <>আপনার জন্য সঠিক <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7A85F0] to-[#7A85F0]">প্ল্যান</span></>
+                                <>আপনার জন্য সঠিক <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#E31E27]">প্ল্যান</span></>
                             ) : (
-                                <>Choose Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7A85F0] to-[#7A85F0]">Plan</span></>
+                                <>Choose Your Perfect <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#E31E27]">Plan</span></>
                             )}
                         </h1>
 
@@ -235,7 +235,7 @@ const PricingPage = () => {
                             <button
                                 onClick={() => setBillingCycle("monthly")}
                                 className={`px-5 py-2 rounded-full text-xs font-semibold transition-all ${billingCycle === "monthly"
-                                    ? "bg-[#7A85F0] text-white shadow-md"
+                                    ? "bg-[#E31E27] text-white shadow-md"
                                     : "text-slate-500 dark:text-slate-400 hover:text-slate-700"
                                     } ${bengaliClass}`}
                             >
@@ -244,7 +244,7 @@ const PricingPage = () => {
                             <button
                                 onClick={() => setBillingCycle("yearly")}
                                 className={`relative px-5 py-2 rounded-full text-xs font-semibold transition-all flex items-center gap-2 ${billingCycle === "yearly"
-                                    ? "bg-[#7A85F0] text-white shadow-md"
+                                    ? "bg-[#E31E27] text-white shadow-md"
                                     : "text-slate-500 dark:text-slate-400 hover:text-slate-700"
                                     } ${bengaliClass}`}
                             >
@@ -277,8 +277,8 @@ const PricingPage = () => {
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                                     className={`relative rounded-2xl p-6 lg:p-7 transition-all flex flex-col ${isPopular
-                                        ? "bg-gradient-to-br from-[#7A85F0] via-[#6B74E8] to-[#5A63D0] text-white shadow-2xl shadow-[#7A85F0]/25 lg:scale-[1.03]"
-                                        : "bg-white dark:bg-[#111] text-gray-900 dark:text-white border border-gray-100 dark:border-gray-800 shadow-md shadow-gray-200/40 dark:shadow-black/20 hover:border-[#7A85F0]/30 hover:shadow-lg"
+                                        ? "bg-gradient-to-br from-[#E31E27] via-[#CC1B24] to-[#5A63D0] text-white shadow-2xl shadow-[#E31E27]/25 lg:scale-[1.03]"
+                                        : "bg-white dark:bg-[#111] text-gray-900 dark:text-white border border-gray-100 dark:border-gray-800 shadow-md shadow-gray-200/40 dark:shadow-black/20 hover:border-[#E31E27]/30 hover:shadow-lg"
                                         }`}
                                 >
                                     {/* Best Value Badge */}
@@ -337,8 +337,8 @@ const PricingPage = () => {
                                     {/* CTA */}
                                     <Link href={plan.href} className="block mb-5">
                                         <button className={`group w-full py-2.5 rounded-lg text-xs transition-all flex items-center justify-center gap-1.5 ${isPopular
-                                            ? "bg-white text-[#7A85F0] hover:shadow-lg hover:-translate-y-0.5"
-                                            : "bg-[#7A85F0] text-white hover:bg-[#5A65D0] shadow-md shadow-[#7A85F0]/20"
+                                            ? "bg-white text-[#E31E27] hover:shadow-lg hover:-translate-y-0.5"
+                                            : "bg-[#E31E27] text-white hover:bg-[#C01920] shadow-md shadow-[#E31E27]/20"
                                             } ${bengaliClass}`} style={{ fontWeight: 600 }}>
                                             {plan.cta}
                                             <LuArrowRight className="group-hover:translate-x-0.5 transition-transform" size={13} />
@@ -359,13 +359,13 @@ const PricingPage = () => {
                                                 <div className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${feature.included
                                                     ? isPopular
                                                         ? "bg-white/20"
-                                                        : "bg-[#EEF0FD] dark:bg-[#7A85F0]/15"
+                                                        : "bg-[#FEE2E2] dark:bg-[#E31E27]/15"
                                                     : isPopular
                                                         ? "bg-white/5"
                                                         : "bg-gray-100 dark:bg-gray-800"
                                                     }`}>
                                                     {feature.included ? (
-                                                        <LuCheck size={10} className={isPopular ? "text-white" : "text-[#7A85F0]"} strokeWidth={3.5} />
+                                                        <LuCheck size={10} className={isPopular ? "text-white" : "text-[#E31E27]"} strokeWidth={3.5} />
                                                     ) : (
                                                         <LuX size={10} className={isPopular ? "text-white/30" : "text-gray-400"} />
                                                     )}
@@ -401,10 +401,10 @@ const PricingPage = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.1 }}
-                                className="bg-white dark:bg-[#111] rounded-2xl p-5 border border-gray-100 dark:border-gray-800 hover:border-[#7A85F0]/30 transition-all text-center"
+                                className="bg-white dark:bg-[#111] rounded-2xl p-5 border border-gray-100 dark:border-gray-800 hover:border-[#E31E27]/30 transition-all text-center"
                             >
-                                <div className="w-12 h-12 rounded-xl bg-[#EEF0FD] flex items-center justify-center mx-auto mb-3">
-                                    <item.icon size={20} className="text-[#7A85F0]" />
+                                <div className="w-12 h-12 rounded-xl bg-[#FEE2E2] flex items-center justify-center mx-auto mb-3">
+                                    <item.icon size={20} className="text-[#E31E27]" />
                                 </div>
                                 <h4 className={`text-sm font-bold text-gray-900 dark:text-white mb-1 ${bengaliClass}`}>
                                     {item.title}
@@ -428,14 +428,14 @@ const PricingPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-[#EEF0FD] border border-[#7A85F0]/20 mb-4 ${bengaliClass}`}>
+                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bengaliClass}`}>
                             {language === "bn" ? "তুলনা" : "Compare"}
                         </span>
                         <h2 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 ${bengaliClass}`}>
                             {language === "bn" ? (
-                                <>সব <span className="text-[#7A85F0]">ফিচার</span> তুলনা করুন</>
+                                <>সব <span className="text-[#E31E27]">ফিচার</span> তুলনা করুন</>
                             ) : (
-                                <>Compare All <span className="text-[#7A85F0]">Features</span></>
+                                <>Compare All <span className="text-[#E31E27]">Features</span></>
                             )}
                         </h2>
                         <p className={`text-gray-500 dark:text-gray-400 text-sm max-w-lg mx-auto ${bengaliClass}`}>
@@ -467,12 +467,12 @@ const PricingPage = () => {
                                                 <span className="text-[11px] text-gray-400 font-medium">৳0</span>
                                             </div>
                                         </th>
-                                        <th className="px-6 py-5 bg-[#EEF0FD]/50 dark:bg-[#7A85F0]/10">
+                                        <th className="px-6 py-5 bg-[#FEE2E2]/50 dark:bg-[#E31E27]/10">
                                             <div className="flex flex-col items-center gap-1">
-                                                <span className={`text-sm font-bold text-[#7A85F0] ${bengaliClass}`}>
+                                                <span className={`text-sm font-bold text-[#E31E27] ${bengaliClass}`}>
                                                     {language === "bn" ? "বেসিক" : "Basic"}
                                                 </span>
-                                                <span className="text-[11px] text-[#7A85F0]/70 font-medium">৳999/mo</span>
+                                                <span className="text-[11px] text-[#E31E27]/70 font-medium">৳999/mo</span>
                                             </div>
                                         </th>
                                         <th className="px-6 py-5">
@@ -505,15 +505,15 @@ const PricingPage = () => {
                                                     <span className={`text-xs text-gray-600 dark:text-gray-400 ${bengaliClass}`}>{row.free}</span>
                                                 )}
                                             </td>
-                                            <td className="px-6 py-4 text-center bg-[#EEF0FD]/30 dark:bg-[#7A85F0]/5">
+                                            <td className="px-6 py-4 text-center bg-[#FEE2E2]/30 dark:bg-[#E31E27]/5">
                                                 {typeof row.basic === "boolean" ? (
                                                     row.basic ? (
-                                                        <LuCheck size={18} className="text-[#7A85F0] mx-auto" strokeWidth={3} />
+                                                        <LuCheck size={18} className="text-[#E31E27] mx-auto" strokeWidth={3} />
                                                     ) : (
                                                         <LuX size={18} className="text-gray-300 dark:text-gray-700 mx-auto" />
                                                     )
                                                 ) : (
-                                                    <span className={`text-xs font-semibold text-[#7A85F0] ${bengaliClass}`}>{row.basic}</span>
+                                                    <span className={`text-xs font-semibold text-[#E31E27] ${bengaliClass}`}>{row.basic}</span>
                                                 )}
                                             </td>
                                             <td className="px-6 py-4 text-center">
@@ -545,14 +545,14 @@ const PricingPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-[#EEF0FD] border border-[#7A85F0]/20 mb-4 ${bengaliClass}`}>
+                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bengaliClass}`}>
                             {language === "bn" ? "প্রশ্নোত্তর" : "FAQ"}
                         </span>
                         <h2 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 ${bengaliClass}`}>
                             {language === "bn" ? (
-                                <>সাধারণ <span className="text-[#7A85F0]">প্রশ্ন</span></>
+                                <>সাধারণ <span className="text-[#E31E27]">প্রশ্ন</span></>
                             ) : (
-                                <>Common <span className="text-[#7A85F0]">Questions</span></>
+                                <>Common <span className="text-[#E31E27]">Questions</span></>
                             )}
                         </h2>
                     </motion.div>
@@ -590,7 +590,7 @@ const PricingPage = () => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: i * 0.1 }}
-                                className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:border-[#7A85F0]/30 transition-all"
+                                className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:border-[#E31E27]/30 transition-all"
                             >
                                 <h4 className={`text-base font-bold text-gray-900 dark:text-white mb-2 ${bengaliClass}`}>
                                     {item.q}
@@ -604,7 +604,7 @@ const PricingPage = () => {
 
                     <div className="text-center mt-10">
                         <Link href="/faq">
-                            <button className={`inline-flex items-center gap-2 text-sm font-semibold text-[#7A85F0] hover:text-[#5A65D0] transition-colors ${bengaliClass}`}>
+                            <button className={`inline-flex items-center gap-2 text-sm font-semibold text-[#E31E27] hover:text-[#C01920] transition-colors ${bengaliClass}`}>
                                 {language === "bn" ? "সব প্রশ্ন দেখুন" : "View All Questions"}
                                 <LuArrowRight size={14} />
                             </button>
@@ -623,7 +623,7 @@ const PricingPage = () => {
                         transition={{ duration: 0.6 }}
                         className="relative rounded-[2rem] overflow-hidden max-w-5xl mx-auto"
                     >
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#7A85F0] via-[#6B74E8] to-[#5A63D0]" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#E31E27] via-[#CC1B24] to-[#5A63D0]" />
 
                         <div className="absolute inset-0 overflow-hidden">
                             <div className="absolute -top-20 -right-20 w-72 h-72 bg-white/5 rounded-full" />
@@ -654,7 +654,7 @@ const PricingPage = () => {
 
                             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                                 <Link href="/register">
-                                    <button className={`group px-8 py-3.5 rounded-full bg-white text-[#7A85F0] font-bold text-sm shadow-xl shadow-black/10 hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2.5 ${bengaliClass}`}>
+                                    <button className={`group px-8 py-3.5 rounded-full bg-white text-[#E31E27] font-bold text-sm shadow-xl shadow-black/10 hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2.5 ${bengaliClass}`}>
                                         {language === "bn" ? "ফ্রি শুরু করুন" : "Start Free Trial"}
                                         <LuArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />
                                     </button>

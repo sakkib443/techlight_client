@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { API_URL } from '@/config/api';
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -76,7 +76,7 @@ const Hero = () => {
                             className="mb-6"
                         >
                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm">
-                                <span className="text-[#7A85F0] text-sm">⚡</span>
+                                <span className="text-[#E31E27] text-sm">⚡</span>
                                 <span className="text-gray-700 text-xs font-medium">
                                     {getBadgeText()}
                                 </span>
@@ -90,7 +90,7 @@ const Hero = () => {
                         >
                             <h1 style={{ fontSize: '50px', lineHeight: '1.15', fontWeight: '600' }} className="text-gray-900 tracking-tight">
                                 {getTitle()}{' '}
-                                <span className="text-[#7A85F0]">{getTitleHighlight()}</span>
+                                <span className="text-[#E31E27]">{getTitleHighlight()}</span>
                             </h1>
                         </motion.div>
 
@@ -110,16 +110,16 @@ const Hero = () => {
                             className="flex flex-wrap gap-5 items-center mb-10"
                         >
                             <Link href={getBtnLink()}>
-                                <button className="group px-8 py-3.5 rounded-full bg-[#7A85F0] hover:bg-[#5A65D0] text-white text-sm font-bold shadow-lg shadow-[#7A85F0]/25 hover:shadow-[#7A85F0]/40 transition-all duration-300 flex items-center gap-2.5">
+                                <button className="group px-8 py-3.5 rounded-full bg-[#E31E27] hover:bg-[#C01920] text-white text-sm font-bold shadow-lg shadow-[#E31E27]/25 hover:shadow-[#E31E27]/40 transition-all duration-300 flex items-center gap-2.5">
                                     {getBtnText()}
                                     <LuArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />
                                 </button>
                             </Link>
 
                             <Link href="/contact">
-                                <button className="group flex items-center gap-3 text-gray-600 hover:text-[#7A85F0] transition-colors">
-                                    <div className="w-12 h-12 rounded-full bg-white shadow-lg shadow-gray-200/50 flex items-center justify-center group-hover:shadow-[#7A85F0]/20 transition-all">
-                                        <LuPhone size={18} className="text-[#7A85F0]" />
+                                <button className="group flex items-center gap-3 text-gray-600 hover:text-[#E31E27] transition-colors">
+                                    <div className="w-12 h-12 rounded-full bg-white shadow-lg shadow-gray-200/50 flex items-center justify-center group-hover:shadow-[#E31E27]/20 transition-all">
+                                        <LuPhone size={18} className="text-[#E31E27]" />
                                     </div>
                                     <span className="text-sm font-semibold">Contact Us</span>
                                 </button>
@@ -132,7 +132,7 @@ const Hero = () => {
                             className="mb-6 text-base font-bold text-gray-800"
                         >
                             Explore{" "}
-                            <span className="text-[#7A85F0]">1350+</span>{" "}
+                            <span className="text-[#E31E27]">1350+</span>{" "}
                             Courses within Subject
                         </motion.div>
 
@@ -144,13 +144,13 @@ const Hero = () => {
                             <div className="flex -space-x-2.5">
                                 {['S', 'A', 'R', 'K'].map((letter, i) => (
                                     <div key={i} className="w-9 h-9 rounded-full border-2 border-white shadow-sm flex items-center justify-center text-white text-xs font-bold"
-                                        style={{ backgroundColor: ['#7A85F0', '#F59E0B', '#10B981', '#EF4444'][i] }}>
+                                        style={{ backgroundColor: ['#E31E27', '#F59E0B', '#10B981', '#EF4444'][i] }}>
                                         {letter}
                                     </div>
                                 ))}
                             </div>
                             <div>
-                                <span className="text-[#7A85F0] font-bold text-sm">10k+</span>
+                                <span className="text-[#E31E27] font-bold text-sm">10k+</span>
                                 <span className="text-gray-500 text-sm ml-1">Enrollment</span>
                             </div>
                         </motion.div>
@@ -180,7 +180,7 @@ const Hero = () => {
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                                         <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2 shadow-lg">
-                                            <p className="text-[10px] font-bold text-[#7A85F0] uppercase tracking-widest">Live Class</p>
+                                            <p className="text-[10px] font-bold text-[#E31E27] uppercase tracking-widest">Live Class</p>
                                             <p className="text-xs font-semibold text-gray-700">50+ Students</p>
                                         </div>
                                     </div>
@@ -202,7 +202,7 @@ const Hero = () => {
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                                             <div className="absolute bottom-3 left-3 flex items-center gap-1.5">
-                                                <div className="w-6 h-6 bg-[#7A85F0] rounded-full flex items-center justify-center">
+                                                <div className="w-6 h-6 bg-[#E31E27] rounded-full flex items-center justify-center">
                                                     <span className="text-white text-[10px]">🎓</span>
                                                 </div>
                                                 <span className="text-white text-[10px] font-bold drop-shadow-lg">Seminar</span>
@@ -260,7 +260,7 @@ const Hero = () => {
                             >
                                 <div className="flex items-center gap-2">
                                     <div className="flex -space-x-2">
-                                        <div className="w-7 h-7 rounded-full bg-[#7A85F0] flex items-center justify-center text-white text-xs font-bold border-2 border-white">S</div>
+                                        <div className="w-7 h-7 rounded-full bg-[#E31E27] flex items-center justify-center text-white text-xs font-bold border-2 border-white">S</div>
                                         <div className="w-7 h-7 rounded-full bg-amber-500 flex items-center justify-center text-white text-xs font-bold border-2 border-white">A</div>
                                         <div className="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center text-white text-xs font-bold border-2 border-white">R</div>
                                     </div>
@@ -277,7 +277,7 @@ const Hero = () => {
             </div>
 
             {/* ===== Bottom Stats Bar ===== */}
-            <div className="hidden lg:block relative w-full z-20 bg-[#7A85F0] shadow-[0_-10px_30px_rgba(0,0,0,0.1)]">
+            <div className="hidden lg:block relative w-full z-20 bg-[#E31E27] shadow-[0_-10px_30px_rgba(0,0,0,0.1)]">
                 <div className="container mx-auto px-4 lg:px-20 py-5">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {displayStats.map((stat, index) => (

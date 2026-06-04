@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useRef } from 'react';
 import { LuArrowRight, LuPlay, LuZap, LuSmile, LuTrophy } from 'react-icons/lu';
@@ -60,7 +60,7 @@ const AboutHero = () => {
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="text-5xl sm:text-7xl lg:text-[80px] font-black leading-[0.85] tracking-tight text-gray-900 dark:text-white"
                         >
-                            {language === 'bn' ? <span className="text-[#7A85F0]">{t("aboutPage.title1")}</span> : <span className="text-[#7A85F0]">BEYOND</span>} <br />
+                            {language === 'bn' ? <span className="text-[#E31E27]">{t("aboutPage.title1")}</span> : <span className="text-[#E31E27]">BEYOND</span>} <br />
                             <span className="text-red-500 italic font-serif inline-flex items-center gap-4">
                                 {language === 'bn' ? t("aboutPage.title2") : 'ORDINARY'}
                                 <span className="h-[3px] w-16 lg:w-32 bg-gray-900 dark:bg-white inline-block rounded-full" />
@@ -95,7 +95,7 @@ const AboutHero = () => {
 
                                 <button className="flex items-center gap-4 group">
                                     <div className="w-14 h-14 rounded-2xl border-2 border-gray-200 dark:border-white/10 flex items-center justify-center group-hover:bg-gray-900 dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-black transition-all duration-500">
-                                        <LuPlay className="ml-1 text-[#7A85F0]" />
+                                        <LuPlay className="ml-1 text-[#E31E27]" />
                                     </div>
                                     <span className={`font-black text-sm tracking-[0.2em] uppercase text-gray-900 dark:text-white ${headingFont}`}>
                                         Showreel
@@ -171,7 +171,7 @@ const AboutHero = () => {
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
                                             <div className="absolute bottom-3 left-3 flex items-center gap-1.5">
-                                                <div className="w-6 h-6 bg-[#7A85F0] rounded-full flex items-center justify-center">
+                                                <div className="w-6 h-6 bg-[#E31E27] rounded-full flex items-center justify-center">
                                                     <span className="text-white text-[10px]">📝</span>
                                                 </div>
                                                 <span className="text-white text-[10px] font-bold drop-shadow-lg">Exam Hall</span>
@@ -209,7 +209,7 @@ const AboutHero = () => {
                                 <div className="flex items-center gap-2">
                                     <div className="flex -space-x-2">
                                         <div className="w-7 h-7 rounded-full bg-red-500 flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">S</div>
-                                        <div className="w-7 h-7 rounded-full bg-[#7A85F0] flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">A</div>
+                                        <div className="w-7 h-7 rounded-full bg-[#E31E27] flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">A</div>
                                         <div className="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">R</div>
                                     </div>
                                     <div>
@@ -226,7 +226,7 @@ const AboutHero = () => {
                                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                             />
                             <motion.div
-                                className="absolute top-[50%] -left-3 w-3 h-3 bg-[#7A85F0] rounded-full z-10"
+                                className="absolute top-[50%] -left-3 w-3 h-3 bg-[#E31E27] rounded-full z-10"
                                 animate={{ y: [0, 8, 0] }}
                                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
                             />
@@ -242,10 +242,10 @@ const AboutHero = () => {
                         {[1, 2, 3, 4].map((i) => (
                             <div key={i} className="flex items-center gap-16 px-8">
                                 {[
-                                    { text: 'TECHLIGHT', icon: LuZap, iconColor: 'text-[#7A85F0]' },
+                                    { text: 'TECHLIGHT', icon: LuZap, iconColor: 'text-[#E31E27]' },
                                     { text: 'Innovation', icon: LuTrophy, iconColor: 'text-red-500' },
                                     { text: 'Excellence', icon: LuSmile, iconColor: 'text-red-500' },
-                                    { text: 'Elite Training', icon: LuZap, iconColor: 'text-[#7A85F0]' }
+                                    { text: 'Elite Training', icon: LuZap, iconColor: 'text-[#E31E27]' }
                                 ].map((item, idx) => (
                                     <div key={idx} className="flex items-center gap-16 group">
                                         <div className="flex items-center gap-4">
@@ -254,7 +254,7 @@ const AboutHero = () => {
                                                 {item.text}
                                             </span>
                                         </div>
-                                        <div className="w-1.5 h-1.5 rounded-full bg-[#7A85F0]/50" />
+                                        <div className="w-1.5 h-1.5 rounded-full bg-[#E31E27]/50" />
                                     </div>
                                 ))}
                             </div>

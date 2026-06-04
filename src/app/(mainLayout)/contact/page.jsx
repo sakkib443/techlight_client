@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -123,7 +123,7 @@ const ContactPage = () => {
             subtitle: language === "bn" ? "যেকোনো সময় লিখুন" : "Write anytime",
             value: content.contactInfo.email,
             link: `mailto:${content.contactInfo.email}`,
-            color: "#7A85F0",
+            color: "#E31E27",
         },
         {
             icon: LuPhone,
@@ -198,7 +198,7 @@ const ContactPage = () => {
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
                                 transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
-                                className="w-20 h-20 bg-gradient-to-br from-[#7A85F0] to-[#5A65D0] rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg shadow-[#7A85F0]/30"
+                                className="w-20 h-20 bg-gradient-to-br from-[#E31E27] to-[#C01920] rounded-full flex items-center justify-center mx-auto mb-5 shadow-lg shadow-[#E31E27]/30"
                             >
                                 <LuCheck className="text-white text-3xl" strokeWidth={3} />
                             </motion.div>
@@ -210,7 +210,7 @@ const ContactPage = () => {
                             </p>
                             <button
                                 onClick={() => setMessageSent(false)}
-                                className={`px-7 py-3 rounded-full bg-[#7A85F0] hover:bg-[#5A65D0] text-white font-semibold text-sm shadow-lg shadow-[#7A85F0]/25 transition-all ${bengaliClass}`}
+                                className={`px-7 py-3 rounded-full bg-[#E31E27] hover:bg-[#C01920] text-white font-semibold text-sm shadow-lg shadow-[#E31E27]/25 transition-all ${bengaliClass}`}
                             >
                                 {language === "bn" ? "বন্ধ করুন" : "Close"}
                             </button>
@@ -222,10 +222,10 @@ const ContactPage = () => {
             {/* ===== HERO ===== */}
             <section className="relative py-12 lg:py-16 bg-slate-50 dark:bg-[#0a0a0a] overflow-hidden">
                 {/* Background texture */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#7A85F0]/5 via-transparent to-[#7A85F0]/5"></div>
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(122,133,240,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(122,133,240,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
-                <div className="absolute -top-20 -left-20 w-80 h-80 bg-[#7A85F0]/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[#7A85F0]/[0.06] rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#E31E27]/5 via-transparent to-[#E31E27]/5"></div>
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(227,30,39,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(227,30,39,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+                <div className="absolute -top-20 -left-20 w-80 h-80 bg-[#E31E27]/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[#E31E27]/[0.06] rounded-full blur-3xl pointer-events-none"></div>
 
                 <div className="container mx-auto px-4 lg:px-32 relative z-10">
                     <motion.div
@@ -234,10 +234,10 @@ const ContactPage = () => {
                         transition={{ duration: 0.6 }}
                         className="text-center max-w-3xl mx-auto"
                     >
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#7A85F0]/20 rounded-full shadow-sm mb-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#E31E27]/20 rounded-full shadow-sm mb-4">
                             <span className="flex h-1.5 w-1.5 relative">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7A85F0] opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#7A85F0]"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E31E27] opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E31E27]"></span>
                             </span>
                             <span className={`text-[10px] font-medium text-slate-600 dark:text-slate-300 ${bengaliClass}`}>
                                 {language === "bn" ? content.hero.badgeBn : content.hero.badge}
@@ -246,7 +246,7 @@ const ContactPage = () => {
 
                         <h1 className={`text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 dark:text-white mb-3 leading-tight ${bengaliClass}`}>
                             {language === "bn" ? content.hero.title1Bn : content.hero.title1}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7A85F0] to-[#6B74E8]">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#CC1B24]">
                                 {language === "bn" ? content.hero.title2Bn : content.hero.title2}
                             </span>
                         </h1>
@@ -276,7 +276,7 @@ const ContactPage = () => {
                                 >
                                     <CardWrapper
                                         {...wrapperProps}
-                                        className={`group block bg-white dark:bg-[#111] rounded-2xl p-5 lg:p-6 border border-gray-100 dark:border-gray-800 hover:border-[#7A85F0]/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#7A85F0]/5 transition-all ${item.link ? "cursor-pointer" : ""}`}
+                                        className={`group block bg-white dark:bg-[#111] rounded-2xl p-5 lg:p-6 border border-gray-100 dark:border-gray-800 hover:border-[#E31E27]/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#E31E27]/5 transition-all ${item.link ? "cursor-pointer" : ""}`}
                                     >
                                         <div className="flex items-start justify-between mb-4">
                                             <div
@@ -287,7 +287,7 @@ const ContactPage = () => {
                                             </div>
                                             {item.link && (
                                                 <div className="w-8 h-8 rounded-full bg-gray-50 dark:bg-white/5 flex items-center justify-center opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all">
-                                                    <LuArrowRight size={13} className="text-[#7A85F0]" />
+                                                    <LuArrowRight size={13} className="text-[#E31E27]" />
                                                 </div>
                                             )}
                                         </div>
@@ -322,7 +322,7 @@ const ContactPage = () => {
                             className="lg:col-span-3 bg-white dark:bg-[#111] rounded-3xl p-6 lg:p-8 border border-gray-100 dark:border-gray-800 shadow-lg shadow-gray-200/30 dark:shadow-black/20"
                         >
                             <div className="flex items-center gap-3 mb-7">
-                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7A85F0] to-[#5A65D0] flex items-center justify-center shadow-md shadow-[#7A85F0]/25">
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E31E27] to-[#C01920] flex items-center justify-center shadow-md shadow-[#E31E27]/25">
                                     <LuSend size={16} className="text-white" />
                                 </div>
                                 <div>
@@ -340,7 +340,7 @@ const ContactPage = () => {
                                     {/* Name */}
                                     <div>
                                         <label htmlFor="name" className={`flex items-center gap-1.5 text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2 ${bengaliClass}`}>
-                                            <LuUser size={12} className="text-[#7A85F0]" />
+                                            <LuUser size={12} className="text-[#E31E27]" />
                                             {language === "bn" ? "আপনার নাম" : "Your Name"}
                                         </label>
                                         <input
@@ -348,7 +348,7 @@ const ContactPage = () => {
                                             id="name"
                                             value={formData.name}
                                             onChange={handleChange}
-                                            className={`w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#7A85F0]/30 focus:border-[#7A85F0] outline-none transition-all text-gray-800 dark:text-white text-sm placeholder-gray-400 ${bengaliClass}`}
+                                            className={`w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#E31E27]/30 focus:border-[#E31E27] outline-none transition-all text-gray-800 dark:text-white text-sm placeholder-gray-400 ${bengaliClass}`}
                                             placeholder={language === "bn" ? "জন ডো" : "John Doe"}
                                             required
                                         />
@@ -357,7 +357,7 @@ const ContactPage = () => {
                                     {/* Email */}
                                     <div>
                                         <label htmlFor="email" className={`flex items-center gap-1.5 text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2 ${bengaliClass}`}>
-                                            <LuAtSign size={12} className="text-[#7A85F0]" />
+                                            <LuAtSign size={12} className="text-[#E31E27]" />
                                             {language === "bn" ? "ইমেইল" : "Email"}
                                         </label>
                                         <input
@@ -365,7 +365,7 @@ const ContactPage = () => {
                                             id="email"
                                             value={formData.email}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#7A85F0]/30 focus:border-[#7A85F0] outline-none transition-all text-gray-800 dark:text-white text-sm placeholder-gray-400"
+                                            className="w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#E31E27]/30 focus:border-[#E31E27] outline-none transition-all text-gray-800 dark:text-white text-sm placeholder-gray-400"
                                             placeholder="you@example.com"
                                             required
                                         />
@@ -375,7 +375,7 @@ const ContactPage = () => {
                                 {/* Subject */}
                                 <div>
                                     <label htmlFor="subject" className={`flex items-center gap-1.5 text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2 ${bengaliClass}`}>
-                                        <LuPenLine size={12} className="text-[#7A85F0]" />
+                                        <LuPenLine size={12} className="text-[#E31E27]" />
                                         {language === "bn" ? "বিষয়" : "Subject"}
                                     </label>
                                     <input
@@ -383,7 +383,7 @@ const ContactPage = () => {
                                         id="subject"
                                         value={formData.subject}
                                         onChange={handleChange}
-                                        className={`w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#7A85F0]/30 focus:border-[#7A85F0] outline-none transition-all text-gray-800 dark:text-white text-sm placeholder-gray-400 ${bengaliClass}`}
+                                        className={`w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#E31E27]/30 focus:border-[#E31E27] outline-none transition-all text-gray-800 dark:text-white text-sm placeholder-gray-400 ${bengaliClass}`}
                                         placeholder={language === "bn" ? "আমরা কিভাবে সাহায্য করতে পারি?" : "How can we help?"}
                                         required
                                     />
@@ -392,7 +392,7 @@ const ContactPage = () => {
                                 {/* Message */}
                                 <div>
                                     <label htmlFor="message" className={`flex items-center gap-1.5 text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2 ${bengaliClass}`}>
-                                        <LuMessageCircle size={12} className="text-[#7A85F0]" />
+                                        <LuMessageCircle size={12} className="text-[#E31E27]" />
                                         {language === "bn" ? "বার্তা" : "Message"}
                                     </label>
                                     <textarea
@@ -400,7 +400,7 @@ const ContactPage = () => {
                                         rows="5"
                                         value={formData.message}
                                         onChange={handleChange}
-                                        className={`w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#7A85F0]/30 focus:border-[#7A85F0] outline-none transition-all text-gray-800 dark:text-white text-sm placeholder-gray-400 resize-none ${bengaliClass}`}
+                                        className={`w-full px-4 py-3 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:ring-2 focus:ring-[#E31E27]/30 focus:border-[#E31E27] outline-none transition-all text-gray-800 dark:text-white text-sm placeholder-gray-400 resize-none ${bengaliClass}`}
                                         placeholder={language === "bn" ? "আপনার বার্তা লিখুন..." : "Tell us about your project or question..."}
                                         required
                                     ></textarea>
@@ -410,7 +410,7 @@ const ContactPage = () => {
                                 <button
                                     type="submit"
                                     disabled={submitting}
-                                    className={`group w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-[#7A85F0] hover:bg-[#5A65D0] text-white font-bold text-sm rounded-full shadow-lg shadow-[#7A85F0]/25 hover:shadow-[#7A85F0]/40 transition-all disabled:opacity-60 disabled:cursor-not-allowed ${bengaliClass}`}
+                                    className={`group w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-[#E31E27] hover:bg-[#C01920] text-white font-bold text-sm rounded-full shadow-lg shadow-[#E31E27]/25 hover:shadow-[#E31E27]/40 transition-all disabled:opacity-60 disabled:cursor-not-allowed ${bengaliClass}`}
                                 >
                                     {submitting ? (
                                         <>
@@ -484,8 +484,8 @@ const ContactPage = () => {
                             {/* Stats / Trust */}
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="bg-white dark:bg-[#111] rounded-2xl p-4 border border-gray-100 dark:border-gray-800 text-center">
-                                    <div className="w-10 h-10 mx-auto rounded-xl bg-[#EEF0FD] flex items-center justify-center mb-2">
-                                        <LuZap size={16} className="text-[#7A85F0]" />
+                                    <div className="w-10 h-10 mx-auto rounded-xl bg-[#FEE2E2] flex items-center justify-center mb-2">
+                                        <LuZap size={16} className="text-[#E31E27]" />
                                     </div>
                                     <p className="text-xl font-bold text-gray-900 dark:text-white">&lt; 1h</p>
                                     <p className={`text-[10px] text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide ${bengaliClass}`}>
@@ -540,14 +540,14 @@ const ContactPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-[#EEF0FD] border border-[#7A85F0]/20 mb-4 ${bengaliClass}`}>
+                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bengaliClass}`}>
                             {language === "bn" ? "অবস্থান" : "Location"}
                         </span>
                         <h2 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 leading-tight ${bengaliClass}`}>
                             {language === "bn" ? (
-                                <>আমাদের <span className="text-[#7A85F0]">খুঁজে পাবেন</span></>
+                                <>আমাদের <span className="text-[#E31E27]">খুঁজে পাবেন</span></>
                             ) : (
-                                <>Find Us <span className="text-[#7A85F0]">Here</span></>
+                                <>Find Us <span className="text-[#E31E27]">Here</span></>
                             )}
                         </h2>
                         <p className={`text-gray-500 dark:text-gray-400 text-sm max-w-lg mx-auto ${bengaliClass}`}>
@@ -575,11 +575,11 @@ const ContactPage = () => {
                         {/* Floating address card */}
                         <div className="absolute top-6 left-6 bg-white dark:bg-[#111] rounded-2xl p-4 lg:p-5 shadow-2xl border border-gray-100 dark:border-gray-800 max-w-xs hidden md:block">
                             <div className="flex items-start gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7A85F0] to-[#5A65D0] flex items-center justify-center shrink-0 shadow-md shadow-[#7A85F0]/30">
+                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E31E27] to-[#C01920] flex items-center justify-center shrink-0 shadow-md shadow-[#E31E27]/30">
                                     <LuMapPin size={16} className="text-white" />
                                 </div>
                                 <div>
-                                    <p className={`text-[10px] font-bold uppercase tracking-widest text-[#7A85F0] mb-1 ${bengaliClass}`}>
+                                    <p className={`text-[10px] font-bold uppercase tracking-widest text-[#E31E27] mb-1 ${bengaliClass}`}>
                                         {language === "bn" ? "আমাদের অফিস" : "Our Office"}
                                     </p>
                                     <h4 className={`text-sm font-bold text-gray-900 dark:text-white mb-1 ${bengaliClass}`}>
@@ -604,14 +604,14 @@ const ContactPage = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-[#EEF0FD] border border-[#7A85F0]/20 mb-4 ${bengaliClass}`}>
+                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bengaliClass}`}>
                             {language === "bn" ? "প্রশ্নোত্তর" : "Quick FAQ"}
                         </span>
                         <h2 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 leading-tight ${bengaliClass}`}>
                             {language === "bn" ? (
-                                <>সাধারণ <span className="text-[#7A85F0]">প্রশ্ন</span></>
+                                <>সাধারণ <span className="text-[#E31E27]">প্রশ্ন</span></>
                             ) : (
-                                <>Common <span className="text-[#7A85F0]">Questions</span></>
+                                <>Common <span className="text-[#E31E27]">Questions</span></>
                             )}
                         </h2>
                     </motion.div>
@@ -626,7 +626,7 @@ const ContactPage = () => {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.05 }}
-                                    className={`bg-white dark:bg-[#111] rounded-xl border transition-all overflow-hidden ${isOpen ? "border-[#7A85F0]/40 shadow-md shadow-[#7A85F0]/10" : "border-gray-100 dark:border-gray-800 hover:border-[#7A85F0]/20"}`}
+                                    className={`bg-white dark:bg-[#111] rounded-xl border transition-all overflow-hidden ${isOpen ? "border-[#E31E27]/40 shadow-md shadow-[#E31E27]/10" : "border-gray-100 dark:border-gray-800 hover:border-[#E31E27]/20"}`}
                                 >
                                     <button
                                         onClick={() => setOpenFaq(isOpen ? -1 : i)}
@@ -635,7 +635,7 @@ const ContactPage = () => {
                                         <h3 className={`text-sm lg:text-base text-gray-800 dark:text-gray-100 ${bengaliClass}`} style={{ fontWeight: 600 }}>
                                             {faq.q}
                                         </h3>
-                                        <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen ? "bg-[#7A85F0] text-white rotate-180" : "bg-gray-100 dark:bg-gray-800 text-gray-500"}`}>
+                                        <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen ? "bg-[#E31E27] text-white rotate-180" : "bg-gray-100 dark:bg-gray-800 text-gray-500"}`}>
                                             <LuChevronDown size={14} />
                                         </div>
                                     </button>
@@ -649,7 +649,7 @@ const ContactPage = () => {
                                                 className="overflow-hidden"
                                             >
                                                 <div className="px-5 pb-4">
-                                                    <div className="border-l-2 border-[#7A85F0]/30 pl-3.5">
+                                                    <div className="border-l-2 border-[#E31E27]/30 pl-3.5">
                                                         <p className={`text-gray-500 dark:text-gray-400 text-[13px] leading-relaxed ${bengaliClass}`}>
                                                             {faq.a}
                                                         </p>
@@ -665,7 +665,7 @@ const ContactPage = () => {
 
                     <div className="text-center mt-8">
                         <Link href="/faq">
-                            <button className={`inline-flex items-center gap-2 text-sm font-semibold text-[#7A85F0] hover:text-[#5A65D0] transition-colors ${bengaliClass}`}>
+                            <button className={`inline-flex items-center gap-2 text-sm font-semibold text-[#E31E27] hover:text-[#C01920] transition-colors ${bengaliClass}`}>
                                 {language === "bn" ? "সব প্রশ্ন দেখুন" : "View All Questions"}
                                 <LuArrowRight size={14} />
                             </button>

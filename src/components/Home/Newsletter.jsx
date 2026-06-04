@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
@@ -28,15 +28,15 @@ const Newsletter = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="relative rounded-[2rem] overflow-hidden bg-gradient-to-br from-[#7A85F0]/[0.06] via-white to-amber-50/30 dark:from-[#7A85F0]/[0.08] dark:via-[#0d0d0d] dark:to-[#0d0d0d] border border-gray-100 dark:border-gray-800"
+                    className="relative rounded-[2rem] overflow-hidden bg-gradient-to-br from-[#E31E27]/[0.06] via-white to-amber-50/30 dark:from-[#E31E27]/[0.08] dark:via-[#0d0d0d] dark:to-[#0d0d0d] border border-gray-100 dark:border-gray-800"
                 >
                     {/* Decorative elements */}
                     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                        <div className="absolute -top-16 -right-16 w-48 h-48 bg-[#7A85F0]/[0.06] rounded-full blur-2xl" />
+                        <div className="absolute -top-16 -right-16 w-48 h-48 bg-[#E31E27]/[0.06] rounded-full blur-2xl" />
                         <div className="absolute -bottom-12 -left-12 w-40 h-40 bg-amber-400/[0.06] rounded-full blur-2xl" />
                         <div className="absolute top-8 right-12 grid grid-cols-4 gap-2.5 opacity-[0.08]">
                             {[...Array(12)].map((_, i) => (
-                                <div key={i} className="w-1.5 h-1.5 bg-[#7A85F0] rounded-full" />
+                                <div key={i} className="w-1.5 h-1.5 bg-[#E31E27] rounded-full" />
                             ))}
                         </div>
                     </div>
@@ -49,9 +49,9 @@ const Newsletter = () => {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2 }}
-                                className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#EEF0FD] border border-[#7A85F0]/15 mb-6"
+                                className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#FEE2E2] border border-[#E31E27]/15 mb-6"
                             >
-                                <LuMail size={24} className="text-[#7A85F0]" />
+                                <LuMail size={24} className="text-[#E31E27]" />
                             </motion.div>
 
                             {/* Heading */}
@@ -63,8 +63,8 @@ const Newsletter = () => {
                                 className={`text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 ${bengaliClass}`}
                             >
                                 {language === 'bn'
-                                    ? <>আমাদের <span className="text-[#7A85F0]">নিউজলেটার</span> সাবস্ক্রাইব করুন</>
-                                    : <>Subscribe to Our <span className="text-[#7A85F0]">Newsletter</span></>
+                                    ? <>আমাদের <span className="text-[#E31E27]">নিউজলেটার</span> সাবস্ক্রাইব করুন</>
+                                    : <>Subscribe to Our <span className="text-[#E31E27]">Newsletter</span></>
                                 }
                             </motion.h2>
 
@@ -98,17 +98,17 @@ const Newsletter = () => {
                                         onChange={(e) => setEmail(e.target.value)}
                                         placeholder={language === 'bn' ? 'আপনার ইমেইল দিন...' : 'Enter your email...'}
                                         required
-                                        className={`w-full pl-11 pr-4 py-3.5 rounded-xl bg-white dark:bg-[#141414] border border-gray-200 dark:border-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-[#7A85F0] focus:ring-2 focus:ring-[#7A85F0]/10 transition-all ${bengaliClass}`}
+                                        className={`w-full pl-11 pr-4 py-3.5 rounded-xl bg-white dark:bg-[#141414] border border-gray-200 dark:border-gray-700 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-[#E31E27] focus:ring-2 focus:ring-[#E31E27]/10 transition-all ${bengaliClass}`}
                                     />
                                 </div>
 
                                 <button
                                     type="submit"
                                     disabled={submitted}
-                                    className={`group w-full sm:w-auto px-7 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-[#7A85F0]/20 hover:shadow-[#7A85F0]/30 hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed ${
+                                    className={`group w-full sm:w-auto px-7 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-[#E31E27]/20 hover:shadow-[#E31E27]/30 hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed ${
                                         submitted
                                             ? 'bg-emerald-500'
-                                            : 'bg-[#7A85F0] hover:bg-[#6B74E8]'
+                                            : 'bg-[#E31E27] hover:bg-[#CC1B24]'
                                     } ${bengaliClass}`}
                                 >
                                     {submitted ? (
@@ -134,7 +134,7 @@ const Newsletter = () => {
                                 className="flex items-center justify-center gap-4 mt-6 text-[11px] text-gray-400"
                             >
                                 <span className="flex items-center gap-1">
-                                    <LuSparkles size={12} className="text-[#7A85F0]" />
+                                    <LuSparkles size={12} className="text-[#E31E27]" />
                                     {language === 'bn' ? 'স্প্যাম নেই' : 'No spam'}
                                 </span>
                                 <span className="w-1 h-1 bg-gray-300 dark:bg-gray-600 rounded-full" />

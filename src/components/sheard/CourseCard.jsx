@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
@@ -90,7 +90,7 @@ const CourseCard = ({ course, view = "grid" }) => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ y: -2 }}
-        className="group w-full flex flex-col md:flex-row bg-white dark:bg-[#0d0d0d] rounded-2xl border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-black/20 hover:border-[#7A85F0]/20 transition-all duration-300"
+        className="group w-full flex flex-col md:flex-row bg-white dark:bg-[#0d0d0d] rounded-2xl border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-black/20 hover:border-[#E31E27]/20 transition-all duration-300"
       >
         {/* Left: Image (35%) */}
         <div className="relative w-full md:w-[35%] h-56 md:h-auto shrink-0 overflow-hidden p-3">
@@ -105,7 +105,7 @@ const CourseCard = ({ course, view = "grid" }) => {
           </Link>
           {/* Play Overlay */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20 backdrop-blur-[1px]">
-            <Link href={`/courses/${courseId}`} className="w-14 h-14 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/50 hover:bg-[#7A85F0] hover:border-[#7A85F0] transition-all hover:scale-110">
+            <Link href={`/courses/${courseId}`} className="w-14 h-14 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/50 hover:bg-[#E31E27] hover:border-[#E31E27] transition-all hover:scale-110">
               <LuPlay className="ml-1" size={20} fill="currentColor" />
             </Link>
           </div>
@@ -114,7 +114,7 @@ const CourseCard = ({ course, view = "grid" }) => {
         {/* Middle: Content (40%) */}
         <div className="flex-1 p-6 border-r border-slate-50 dark:border-white/5 flex flex-col justify-center">
           <Link href={`/courses/${courseId}`}>
-            <h3 className={`text-xl font-bold text-slate-800 dark:text-white leading-tight mb-2 hover:text-[#7A85F0] transition-colors ${bengaliClass}`}>
+            <h3 className={`text-xl font-bold text-slate-800 dark:text-white leading-tight mb-2 hover:text-[#E31E27] transition-colors ${bengaliClass}`}>
               {title}
             </h3>
           </Link>
@@ -127,15 +127,15 @@ const CourseCard = ({ course, view = "grid" }) => {
 
           <ul className="space-y-2 mb-4">
             <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
-              <LuClock className="text-[#7A85F0] mt-0.5 shrink-0" size={16} />
+              <LuClock className="text-[#E31E27] mt-0.5 shrink-0" size={16} />
               <span>Duration: {duration}</span>
             </li>
             <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
-              <LuUsers className="text-[#7A85F0] mt-0.5 shrink-0" size={16} />
+              <LuUsers className="text-[#E31E27] mt-0.5 shrink-0" size={16} />
               <span>{students}</span>
             </li>
             <li className="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
-              <LuCheck className="text-[#7A85F0] mt-0.5 shrink-0" size={16} />
+              <LuCheck className="text-[#E31E27] mt-0.5 shrink-0" size={16} />
               <span>Lifetime Access</span>
             </li>
           </ul>
@@ -144,7 +144,7 @@ const CourseCard = ({ course, view = "grid" }) => {
         {/* Right: Actions (25%) */}
         <div className="w-full md:w-[25%] p-6 bg-slate-50/50 dark:bg-white/5 flex flex-col items-center justify-center text-center gap-1 border-l border-slate-100 dark:border-white/5">
           <div className="flex w-full justify-end gap-2 mb-2 text-slate-400">
-            <button className="hover:text-[#7A85F0] transition-colors"><LuList size={18} /></button>
+            <button className="hover:text-[#E31E27] transition-colors"><LuList size={18} /></button>
             <button
               onClick={handleToggleWishlist}
               title={isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
@@ -154,7 +154,7 @@ const CourseCard = ({ course, view = "grid" }) => {
             </button>
           </div>
 
-          <div className="text-3xl font-bold text-[#7A85F0] font-outfit mb-1">
+          <div className="text-3xl font-bold text-[#E31E27] font-outfit mb-1">
             {priceLabel || `৳${(discountPrice || price).toLocaleString()}`}
           </div>
 
@@ -172,13 +172,13 @@ const CourseCard = ({ course, view = "grid" }) => {
             <button
               onClick={handleAddToCart}
               disabled={isAdded}
-              className={`p-2.5 border rounded-xl transition-all shadow-sm ${isAdded ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-white dark:bg-white/10 border-slate-200 dark:border-white/10 text-slate-600 dark:text-white hover:text-[#7A85F0] hover:border-[#7A85F0]'}`}
+              className={`p-2.5 border rounded-xl transition-all shadow-sm ${isAdded ? 'bg-emerald-500 border-emerald-500 text-white' : 'bg-white dark:bg-white/10 border-slate-200 dark:border-white/10 text-slate-600 dark:text-white hover:text-[#E31E27] hover:border-[#E31E27]'}`}
             >
               {isAdded ? <LuCheck size={20} /> : <LuShoppingCart size={20} />}
             </button>
             <Link
               href={`/courses/${courseId}`}
-              className="flex-1 py-2.5 bg-white dark:bg-white/10 border border-[#7A85F0] text-[#7A85F0] rounded-xl text-sm font-medium hover:bg-[#7A85F0] hover:text-white transition-all shadow-sm flex items-center justify-center gap-2"
+              className="flex-1 py-2.5 bg-white dark:bg-white/10 border border-[#E31E27] text-[#E31E27] rounded-xl text-sm font-medium hover:bg-[#E31E27] hover:text-white transition-all shadow-sm flex items-center justify-center gap-2"
             >
               Details
             </Link>
@@ -197,10 +197,10 @@ const CourseCard = ({ course, view = "grid" }) => {
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className="group w-full h-full flex flex-col"
     >
-      <div className={`relative h-full bg-white dark:bg-[#0d0d0d] rounded-2xl border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-2xl hover:shadow-slate-200/60 dark:hover:shadow-black/30 hover:border-[#7A85F0]/30 transition-all duration-500 flex flex-col`}>
+      <div className={`relative h-full bg-white dark:bg-[#0d0d0d] rounded-2xl border border-slate-100 dark:border-white/10 overflow-hidden hover:shadow-2xl hover:shadow-slate-200/60 dark:hover:shadow-black/30 hover:border-[#E31E27]/30 transition-all duration-500 flex flex-col`}>
 
         {/* Gradient Glow Effect on Hover */}
-        <div className={`absolute inset-0 bg-gradient-to-br from-[#7A85F0]/5 via-transparent to-[#7A85F0]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}></div>
+        <div className={`absolute inset-0 bg-gradient-to-br from-[#E31E27]/5 via-transparent to-[#E31E27]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}></div>
 
         {/* Image Section */}
         <div className="relative h-56 w-full overflow-hidden shrink-0 p-3">
@@ -220,7 +220,7 @@ const CourseCard = ({ course, view = "grid" }) => {
                 ? 'bg-gradient-to-r from-blue-500 to-blue-600'
                 : type.toLowerCase() === 'online'
                   ? 'bg-gradient-to-r from-emerald-500 to-emerald-600'
-                  : 'bg-gradient-to-r from-[#7A85F0] to-[#7A85F0]'
+                  : 'bg-gradient-to-r from-[#E31E27] to-[#E31E27]'
               }`}>
               <LuSparkles size={12} />
               {type}
@@ -257,8 +257,8 @@ const CourseCard = ({ course, view = "grid" }) => {
         <div className="p-5 flex flex-col flex-1 relative">
           {/* Category */}
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-6 h-6 bg-gradient-to-br from-[#7A85F0]/10 to-[#7A85F0]/10 rounded-md flex items-center justify-center">
-              <LuLayoutGrid className="text-[#7A85F0] text-xs" />
+            <div className="w-6 h-6 bg-gradient-to-br from-[#E31E27]/10 to-[#E31E27]/10 rounded-md flex items-center justify-center">
+              <LuLayoutGrid className="text-[#E31E27] text-xs" />
             </div>
             <span className={`text-xs font-medium text-slate-500 dark:text-slate-400 ${bengaliClass}`}>
               {getCategoryName(course.category)}
@@ -267,7 +267,7 @@ const CourseCard = ({ course, view = "grid" }) => {
 
           {/* Title */}
           <Link href={`/courses/${courseId}`} className="mb-2 block group/title">
-            <h3 className={`text-base font-bold text-slate-800 dark:text-white leading-tight line-clamp-2 group-hover/title:text-[#7A85F0] transition-colors ${bengaliClass}`}>
+            <h3 className={`text-base font-bold text-slate-800 dark:text-white leading-tight line-clamp-2 group-hover/title:text-[#E31E27] transition-colors ${bengaliClass}`}>
               {title}
             </h3>
           </Link>
@@ -275,11 +275,11 @@ const CourseCard = ({ course, view = "grid" }) => {
           {/* Metadata */}
           <div className="flex items-center gap-4 mb-2 text-xs text-slate-500 dark:text-slate-400 font-medium pb-2 border-b border-slate-100 dark:border-white/10">
             <div className="flex items-center gap-1.5">
-              <LuBookOpenCheck className="text-[#7A85F0]" />
+              <LuBookOpenCheck className="text-[#E31E27]" />
               <span>{lessons}</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <LuUsers className="text-[#7A85F0]" />
+              <LuUsers className="text-[#E31E27]" />
               <span>{students}</span>
             </div>
           </div>
@@ -289,7 +289,7 @@ const CourseCard = ({ course, view = "grid" }) => {
             <div>
               <p className="text-[9px] text-slate-400 font-medium mb-0.5 uppercase tracking-wider">Course Fee</p>
               <div className="flex items-center gap-1.5">
-                <span className="text-lg font-bold bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] bg-clip-text text-transparent font-outfit">
+                <span className="text-lg font-bold bg-gradient-to-r from-[#E31E27] to-[#E31E27] bg-clip-text text-transparent font-outfit">
                   {priceLabel || `৳${(discountPrice || price).toLocaleString()}`}
                 </span>
                 {!priceLabel && discountPrice && (
@@ -307,7 +307,7 @@ const CourseCard = ({ course, view = "grid" }) => {
           <div className="grid grid-cols-2 gap-2 mt-auto">
             <Link
               href={`/courses/${courseId}`}
-              className="flex items-center justify-center gap-1.5 py-2.5 bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] hover:from-[#c41e18] hover:to-[#d42520] text-white rounded-lg text-xs font-semibold transition-all shadow-md shadow-[#7A85F0]/20 hover:shadow-lg hover:shadow-[#7A85F0]/30"
+              className="flex items-center justify-center gap-1.5 py-2.5 bg-gradient-to-r from-[#E31E27] to-[#E31E27] hover:from-[#c41e18] hover:to-[#d42520] text-white rounded-lg text-xs font-semibold transition-all shadow-md shadow-[#E31E27]/20 hover:shadow-lg hover:shadow-[#E31E27]/30"
             >
               <LuBookOpenCheck size={14} />
               Details
@@ -318,7 +318,7 @@ const CourseCard = ({ course, view = "grid" }) => {
               disabled={isAdded}
               className={`flex items-center justify-center gap-1.5 py-2.5 border-2 rounded-lg text-xs font-semibold transition-all ${isAdded
                   ? 'bg-emerald-500 border-emerald-500 text-white shadow-md shadow-emerald-500/20'
-                  : 'bg-white dark:bg-transparent border-slate-200 dark:border-white/20 text-slate-700 dark:text-white hover:border-[#7A85F0] hover:text-[#7A85F0] dark:hover:border-[#7A85F0] dark:hover:text-[#7A85F0]'
+                  : 'bg-white dark:bg-transparent border-slate-200 dark:border-white/20 text-slate-700 dark:text-white hover:border-[#E31E27] hover:text-[#E31E27] dark:hover:border-[#E31E27] dark:hover:text-[#E31E27]'
                 }`}
             >
               {isAdded ? <LuCheck size={14} /> : <LuShoppingCart size={14} />}

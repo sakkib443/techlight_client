@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -75,8 +75,8 @@ const UserHeader = () => {
 
     const getNotificationIcon = (type) => {
         switch (type) {
-            case 'course': return <FiBookOpen className="text-[#7A85F0]" size={14} />;
-            case 'certificate': return <FiAward className="text-[#7A85F0]" size={14} />;
+            case 'course': return <FiBookOpen className="text-[#E31E27]" size={14} />;
+            case 'certificate': return <FiAward className="text-[#E31E27]" size={14} />;
             case 'success': return <FiCheck className="text-green-500" size={14} />;
             case 'resource': return <FiDownload className="text-blue-500" size={14} />;
             default: return <FiBell className="text-gray-500" size={14} />;
@@ -97,8 +97,8 @@ const UserHeader = () => {
                             type="text"
                             placeholder="Search courses, resources..."
                             className={`w-full pl-11 pr-4 py-2.5 border-0 rounded-xl text-sm transition-all ${isDark
-                                ? 'bg-slate-800/80 text-slate-200 placeholder:text-slate-500 focus:ring-[#7A85F0]/30 focus:bg-slate-800'
-                                : 'bg-slate-100/80 text-slate-700 placeholder:text-slate-400 focus:ring-[#7A85F0]/20 focus:bg-white'
+                                ? 'bg-slate-800/80 text-slate-200 placeholder:text-slate-500 focus:ring-[#E31E27]/30 focus:bg-slate-800'
+                                : 'bg-slate-100/80 text-slate-700 placeholder:text-slate-400 focus:ring-[#E31E27]/20 focus:bg-white'
                                 } focus:outline-none focus:ring-2`}
                         />
                     </div>
@@ -110,8 +110,8 @@ const UserHeader = () => {
                     <button
                         onClick={toggleTheme}
                         className={`relative p-2.5 rounded-xl transition-all duration-300 overflow-hidden group ${isDark
-                            ? 'bg-gradient-to-br from-[#7A85F0] to-[#c41e18] text-white shadow-lg shadow-[#7A85F0]/30'
-                            : 'bg-gradient-to-br from-[#7A85F0] to-orange-500 text-white shadow-lg shadow-[#7A85F0]/30'
+                            ? 'bg-gradient-to-br from-[#E31E27] to-[#c41e18] text-white shadow-lg shadow-[#E31E27]/30'
+                            : 'bg-gradient-to-br from-[#E31E27] to-orange-500 text-white shadow-lg shadow-[#E31E27]/30'
                             }`}
                         title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
                     >
@@ -154,7 +154,7 @@ const UserHeader = () => {
                         >
                             <FiBell size={18} />
                             {unreadCount > 0 && (
-                                <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-[#7A85F0] to-[#c41e18] text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-pulse">
+                                <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-[#E31E27] to-[#c41e18] text-white text-[10px] font-bold rounded-full flex items-center justify-center animate-pulse">
                                     {unreadCount}
                                 </span>
                             )}
@@ -167,19 +167,19 @@ const UserHeader = () => {
                                 : 'bg-white border-slate-100 shadow-slate-200/50'
                                 }`}>
                                 <div className={`flex items-center justify-between px-4 py-3 border-b ${isDark
-                                    ? 'bg-gradient-to-r from-[#7A85F0]/10 to-[#c41e18]/10 border-slate-700'
-                                    : 'bg-gradient-to-r from-[#7A85F0]/5 to-[#c41e18]/5 border-slate-100'
+                                    ? 'bg-gradient-to-r from-[#E31E27]/10 to-[#c41e18]/10 border-slate-700'
+                                    : 'bg-gradient-to-r from-[#E31E27]/5 to-[#c41e18]/5 border-slate-100'
                                     }`}>
                                     <h3 className={`font-semibold ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>Notifications</h3>
                                     {unreadCount > 0 && (
-                                        <span className="px-2 py-0.5 bg-[#7A85F0] text-white text-xs font-bold rounded-full">{unreadCount} new</span>
+                                        <span className="px-2 py-0.5 bg-[#E31E27] text-white text-xs font-bold rounded-full">{unreadCount} new</span>
                                     )}
                                 </div>
                                 <div className="max-h-80 overflow-y-auto">
                                     {notifications.map((notif) => (
                                         <div key={notif.id} className={`flex items-start gap-3 px-4 py-3 transition-colors cursor-pointer border-l-2 ${notif.read
                                             ? `border-transparent ${isDark ? 'hover:bg-slate-700/50' : 'hover:bg-slate-50'}`
-                                            : `border-[#7A85F0] ${isDark ? 'bg-[#7A85F0]/5 hover:bg-[#7A85F0]/10' : 'bg-[#7A85F0]/5 hover:bg-[#7A85F0]/10'}`
+                                            : `border-[#E31E27] ${isDark ? 'bg-[#E31E27]/5 hover:bg-[#E31E27]/10' : 'bg-[#E31E27]/5 hover:bg-[#E31E27]/10'}`
                                             }`}>
                                             <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isDark ? 'bg-slate-700' : 'bg-gray-100'}`}>
                                                 {getNotificationIcon(notif.type)}
@@ -190,7 +190,7 @@ const UserHeader = () => {
                                                 <p className={`text-[10px] mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{notif.time}</p>
                                             </div>
                                             {!notif.read && (
-                                                <div className="w-2 h-2 rounded-full bg-[#7A85F0] mt-2"></div>
+                                                <div className="w-2 h-2 rounded-full bg-[#E31E27] mt-2"></div>
                                             )}
                                         </div>
                                     ))}
@@ -199,8 +199,8 @@ const UserHeader = () => {
                                     href="/dashboard/user/notifications"
                                     onClick={() => setShowNotifications(false)}
                                     className={`block text-center py-3 text-sm font-medium border-t transition-colors ${isDark
-                                        ? 'border-slate-700 text-[#7A85F0] hover:bg-slate-700/50'
-                                        : 'border-slate-100 text-[#7A85F0] hover:bg-slate-50'
+                                        ? 'border-slate-700 text-[#E31E27] hover:bg-slate-700/50'
+                                        : 'border-slate-100 text-[#E31E27] hover:bg-slate-50'
                                         }`}
                                 >
                                     View All Notifications
@@ -218,11 +218,11 @@ const UserHeader = () => {
                                 setShowNotifications(false);
                             }}
                             className={`flex items-center gap-3 pl-3 pr-2 py-1.5 rounded-xl transition-all ${isDark
-                                ? 'bg-gradient-to-r from-[#7A85F0]/20 to-[#c41e18]/20 hover:from-[#7A85F0]/30 hover:to-[#c41e18]/30'
-                                : 'bg-gradient-to-r from-[#7A85F0]/10 to-[#c41e18]/10 hover:from-[#7A85F0]/20 hover:to-[#c41e18]/20'
+                                ? 'bg-gradient-to-r from-[#E31E27]/20 to-[#c41e18]/20 hover:from-[#E31E27]/30 hover:to-[#c41e18]/30'
+                                : 'bg-gradient-to-r from-[#E31E27]/10 to-[#c41e18]/10 hover:from-[#E31E27]/20 hover:to-[#c41e18]/20'
                                 }`}
                         >
-                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#7A85F0] to-[#c41e18] flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-[#7A85F0]/25">
+                            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#E31E27] to-[#c41e18] flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-[#E31E27]/25">
                                 {user?.firstName?.[0] || 'S'}
                             </div>
                             <div className="hidden md:block text-left">
@@ -243,11 +243,11 @@ const UserHeader = () => {
                                 : 'bg-white border-slate-100'
                                 }`}>
                                 <div className={`p-4 border-b ${isDark
-                                    ? 'bg-gradient-to-r from-[#7A85F0]/10 to-[#c41e18]/10 border-slate-700'
-                                    : 'bg-gradient-to-r from-[#7A85F0]/5 to-[#c41e18]/5 border-slate-100'
+                                    ? 'bg-gradient-to-r from-[#E31E27]/10 to-[#c41e18]/10 border-slate-700'
+                                    : 'bg-gradient-to-r from-[#E31E27]/5 to-[#c41e18]/5 border-slate-100'
                                     }`}>
                                     <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#7A85F0] to-[#c41e18] flex items-center justify-center text-white font-bold shadow-lg">
+                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E31E27] to-[#c41e18] flex items-center justify-center text-white font-bold shadow-lg">
                                             {user?.firstName?.[0] || 'S'}
                                         </div>
                                         <div>

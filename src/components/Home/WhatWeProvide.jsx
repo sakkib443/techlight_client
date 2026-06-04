@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { API_URL } from '@/config/api';
 import React, { useEffect, useState } from "react";
@@ -55,11 +55,11 @@ const WhatWeProvide = () => {
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-10 left-8 grid grid-cols-4 gap-2.5 opacity-[0.06]">
                     {[...Array(16)].map((_, i) => (
-                        <div key={i} className="w-2 h-2 bg-[#7A85F0] rounded-full" />
+                        <div key={i} className="w-2 h-2 bg-[#E31E27] rounded-full" />
                     ))}
                 </div>
-                <div className="absolute top-0 right-0 w-40 h-40 border-2 border-[#7A85F0]/[0.06] rounded-full -translate-y-1/2 translate-x-1/2" />
-                <div className="absolute bottom-10 left-[5%] w-24 h-24 border-2 border-[#7A85F0]/[0.06] rounded-full" />
+                <div className="absolute top-0 right-0 w-40 h-40 border-2 border-[#E31E27]/[0.06] rounded-full -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-10 left-[5%] w-24 h-24 border-2 border-[#E31E27]/[0.06] rounded-full" />
             </div>
 
             <div className="container mx-auto px-4 lg:px-32 relative z-10">
@@ -73,7 +73,7 @@ const WhatWeProvide = () => {
                         transition={{ duration: 0.6 }}
                         className="relative"
                     >
-                        <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-[#7A85F0]/10">
+                        <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-[#E31E27]/10">
                             <Image
                                 src="/images/57462951_2085649778223584_3709857119512559616_n.jpg"
                                 alt="Students learning at Techlight IT Institute"
@@ -93,8 +93,8 @@ const WhatWeProvide = () => {
                             className="absolute -bottom-5 -right-3 lg:right-6 bg-white dark:bg-[#141414] rounded-xl px-5 py-3 shadow-xl border border-gray-100 dark:border-gray-800"
                         >
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-[#EEF0FD] rounded-lg flex items-center justify-center">
-                                    <LuSparkles size={18} className="text-[#7A85F0]" />
+                                <div className="w-10 h-10 bg-[#FEE2E2] rounded-lg flex items-center justify-center">
+                                    <LuSparkles size={18} className="text-[#E31E27]" />
                                 </div>
                                 <div>
                                     <p className="text-xs text-gray-400 font-medium">Success Rate</p>
@@ -103,7 +103,7 @@ const WhatWeProvide = () => {
                             </div>
                         </motion.div>
 
-                        <div className="absolute -top-4 -left-4 w-full h-full rounded-2xl border-2 border-[#7A85F0]/15 -z-10" />
+                        <div className="absolute -top-4 -left-4 w-full h-full rounded-2xl border-2 border-[#E31E27]/15 -z-10" />
                     </motion.div>
 
                     {/* ── Right: Content ── */}
@@ -114,9 +114,9 @@ const WhatWeProvide = () => {
                         transition={{ duration: 0.6, delay: 0.15 }}
                     >
                         {/* Badge */}
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EEF0FD] border border-[#7A85F0]/20 mb-5">
-                            <span className="text-[#7A85F0] text-xs">⚡</span>
-                            <span className="text-xs font-semibold text-[#7A85F0] uppercase tracking-wider">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FEE2E2] border border-[#E31E27]/20 mb-5">
+                            <span className="text-[#E31E27] text-xs">⚡</span>
+                            <span className="text-xs font-semibold text-[#E31E27] uppercase tracking-wider">
                                 {data.badge}
                             </span>
                         </div>
@@ -124,7 +124,7 @@ const WhatWeProvide = () => {
                         {/* Heading */}
                         <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-snug mb-4">
                             {data.title}{' '}
-                            <span className="text-[#7A85F0]">{data.titleHighlight}</span>
+                            <span className="text-[#E31E27]">{data.titleHighlight}</span>
                         </h2>
 
                         {/* Description */}
@@ -145,8 +145,8 @@ const WhatWeProvide = () => {
                                         transition={{ delay: 0.3 + i * 0.1 }}
                                         className="text-center group"
                                     >
-                                        <div className="w-11 h-11 mx-auto mb-2.5 rounded-xl bg-[#EEF0FD] border border-[#7A85F0]/10 flex items-center justify-center group-hover:bg-[#7A85F0] transition-colors duration-300">
-                                            <Icon size={18} className="text-[#7A85F0] group-hover:text-white transition-colors duration-300" />
+                                        <div className="w-11 h-11 mx-auto mb-2.5 rounded-xl bg-[#FEE2E2] border border-[#E31E27]/10 flex items-center justify-center group-hover:bg-[#E31E27] transition-colors duration-300">
+                                            <Icon size={18} className="text-[#E31E27] group-hover:text-white transition-colors duration-300" />
                                         </div>
                                         <p className="text-xs font-bold text-gray-900 dark:text-white leading-tight">
                                             {f.title}
@@ -167,7 +167,7 @@ const WhatWeProvide = () => {
                             transition={{ delay: 0.6 }}
                         >
                             <Link href={data.buttonLink || '/courses'}>
-                                <button className="group px-7 py-3 rounded-full bg-[#7A85F0] hover:bg-[#6B74E8] text-white text-sm font-semibold shadow-lg shadow-[#7A85F0]/20 hover:shadow-[#7A85F0]/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2">
+                                <button className="group px-7 py-3 rounded-full bg-[#E31E27] hover:bg-[#CC1B24] text-white text-sm font-semibold shadow-lg shadow-[#E31E27]/20 hover:shadow-[#E31E27]/30 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2">
                                     {data.buttonText}
                                     <LuArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
                                 </button>

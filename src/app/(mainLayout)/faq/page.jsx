@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
@@ -218,10 +218,10 @@ const FAQPage = () => {
             {/* ===== Hero Section ===== */}
             <section className="relative py-12 lg:py-16 bg-slate-50 dark:bg-[#0a0a0a] overflow-hidden">
                 {/* Background texture */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#7A85F0]/5 via-transparent to-[#7A85F0]/5"></div>
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(122,133,240,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(122,133,240,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
-                <div className="absolute -top-20 -left-20 w-80 h-80 bg-[#7A85F0]/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[#7A85F0]/[0.06] rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#E31E27]/5 via-transparent to-[#E31E27]/5"></div>
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(227,30,39,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(227,30,39,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+                <div className="absolute -top-20 -left-20 w-80 h-80 bg-[#E31E27]/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[#E31E27]/[0.06] rounded-full blur-3xl pointer-events-none"></div>
                 <div className="container mx-auto px-4 lg:px-32">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -230,10 +230,10 @@ const FAQPage = () => {
                         className="text-center max-w-3xl mx-auto"
                     >
                         {/* Badge */}
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#7A85F0]/20 rounded-full shadow-sm mb-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#E31E27]/20 rounded-full shadow-sm mb-4">
                             <span className="flex h-1.5 w-1.5 relative">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7A85F0] opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#7A85F0]"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E31E27] opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E31E27]"></span>
                             </span>
                             <span className={`text-[10px] font-medium text-slate-600 dark:text-slate-300 ${bengaliClass}`}>
                                 {language === "bn" ? "সাহায্য কেন্দ্র" : "Help Center"}
@@ -243,9 +243,9 @@ const FAQPage = () => {
                         {/* Title */}
                         <h1 className={`text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 dark:text-white mb-3 leading-tight ${bengaliClass}`}>
                             {language === "bn" ? (
-                                <>প্রায়শই জিজ্ঞাসিত <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7A85F0] to-[#7A85F0]">প্রশ্নাবলী</span></>
+                                <>প্রায়শই জিজ্ঞাসিত <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#E31E27]">প্রশ্নাবলী</span></>
                             ) : (
-                                <>Frequently Asked <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7A85F0] to-[#7A85F0]">Questions</span></>
+                                <>Frequently Asked <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#E31E27]">Questions</span></>
                             )}
                         </h1>
 
@@ -266,7 +266,7 @@ const FAQPage = () => {
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 placeholder={language === "bn" ? "প্রশ্ন খুঁজুন..." : "Search for a question..."}
-                                className={`w-full pl-11 pr-4 py-2.5 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-[#7A85F0] focus:ring-2 focus:ring-[#7A85F0]/20 outline-none text-xs lg:text-sm text-slate-700 dark:text-white placeholder:text-slate-400 shadow-sm transition-all ${bengaliClass}`}
+                                className={`w-full pl-11 pr-4 py-2.5 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-[#E31E27] focus:ring-2 focus:ring-[#E31E27]/20 outline-none text-xs lg:text-sm text-slate-700 dark:text-white placeholder:text-slate-400 shadow-sm transition-all ${bengaliClass}`}
                             />
                         </div>
                     </motion.div>
@@ -291,8 +291,8 @@ const FAQPage = () => {
                                         setOpenIndex(0);
                                     }}
                                     className={`group flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold transition-all border ${isActive
-                                        ? "bg-[#7A85F0] text-white border-[#7A85F0] shadow-lg shadow-[#7A85F0]/25"
-                                        : "bg-white dark:bg-[#111] text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-800 hover:border-[#7A85F0]/40 hover:text-[#7A85F0]"
+                                        ? "bg-[#E31E27] text-white border-[#E31E27] shadow-lg shadow-[#E31E27]/25"
+                                        : "bg-white dark:bg-[#111] text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-800 hover:border-[#E31E27]/40 hover:text-[#E31E27]"
                                         } ${bengaliClass}`}
                                 >
                                     <cat.icon size={14} />
@@ -315,8 +315,8 @@ const FAQPage = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 className="text-center py-16 bg-white dark:bg-[#111] rounded-2xl border border-gray-100 dark:border-gray-800"
                             >
-                                <div className="w-16 h-16 rounded-full bg-[#EEF0FD] flex items-center justify-center mx-auto mb-4">
-                                    <LuSearch size={24} className="text-[#7A85F0]" />
+                                <div className="w-16 h-16 rounded-full bg-[#FEE2E2] flex items-center justify-center mx-auto mb-4">
+                                    <LuSearch size={24} className="text-[#E31E27]" />
                                 </div>
                                 <h3 className={`text-lg font-bold text-gray-900 dark:text-white mb-2 ${bengaliClass}`}>
                                     {language === "bn" ? "কোনো প্রশ্ন পাওয়া যায়নি" : "No questions found"}
@@ -338,8 +338,8 @@ const FAQPage = () => {
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: i * 0.04 }}
                                             className={`bg-white dark:bg-[#111] rounded-xl border transition-all overflow-hidden ${isOpen
-                                                ? "border-[#7A85F0]/40 shadow-md shadow-[#7A85F0]/10"
-                                                : "border-gray-100 dark:border-gray-800 hover:border-[#7A85F0]/20"
+                                                ? "border-[#E31E27]/40 shadow-md shadow-[#E31E27]/10"
+                                                : "border-gray-100 dark:border-gray-800 hover:border-[#E31E27]/20"
                                                 }`}
                                         >
                                             <button
@@ -347,7 +347,7 @@ const FAQPage = () => {
                                                 className="w-full flex items-center justify-between gap-3 px-5 py-3.5 text-left"
                                             >
                                                 <div className="flex items-center gap-3 flex-1 min-w-0">
-                                                    <span className={`text-xs font-semibold shrink-0 transition-colors ${isOpen ? "text-[#7A85F0]" : "text-gray-400"
+                                                    <span className={`text-xs font-semibold shrink-0 transition-colors ${isOpen ? "text-[#E31E27]" : "text-gray-400"
                                                         }`}>
                                                         {String(i + 1).padStart(2, "0")}
                                                     </span>
@@ -356,7 +356,7 @@ const FAQPage = () => {
                                                     </h3>
                                                 </div>
                                                 <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${isOpen
-                                                    ? "bg-[#7A85F0] text-white rotate-180"
+                                                    ? "bg-[#E31E27] text-white rotate-180"
                                                     : "bg-gray-100 dark:bg-gray-800 text-gray-500"
                                                     }`}>
                                                     <LuChevronDown size={14} />
@@ -373,7 +373,7 @@ const FAQPage = () => {
                                                         className="overflow-hidden"
                                                     >
                                                         <div className="px-5 pb-4 pl-[44px]">
-                                                            <div className="border-l-2 border-[#7A85F0]/30 pl-3.5">
+                                                            <div className="border-l-2 border-[#E31E27]/30 pl-3.5">
                                                                 <p className={`text-gray-500 dark:text-gray-400 text-[13px] leading-relaxed ${bengaliClass}`}>
                                                                     {faq.a}
                                                                 </p>
@@ -402,7 +402,7 @@ const FAQPage = () => {
                         className="relative rounded-[2rem] overflow-hidden max-w-5xl mx-auto"
                     >
                         {/* Gradient bg */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#7A85F0] via-[#6B74E8] to-[#5A63D0]" />
+                        <div className="absolute inset-0 bg-gradient-to-br from-[#E31E27] via-[#CC1B24] to-[#5A63D0]" />
 
                         {/* Decorative circles */}
                         <div className="absolute inset-0 overflow-hidden">
@@ -434,7 +434,7 @@ const FAQPage = () => {
 
                             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                                 <Link href="/contact">
-                                    <button className={`group px-8 py-3.5 rounded-full bg-white text-[#7A85F0] font-bold text-sm shadow-xl shadow-black/10 hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2.5 ${bengaliClass}`}>
+                                    <button className={`group px-8 py-3.5 rounded-full bg-white text-[#E31E27] font-bold text-sm shadow-xl shadow-black/10 hover:shadow-2xl hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2.5 ${bengaliClass}`}>
                                         <LuMessageCircle size={16} />
                                         {language === "bn" ? "যোগাযোগ করুন" : "Contact Support"}
                                         <LuArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />

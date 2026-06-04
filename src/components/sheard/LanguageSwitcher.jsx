@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useRef, useEffect } from "react";
 import { useLanguage } from "@/context/LanguageContext";
@@ -37,7 +37,7 @@ const LanguageSwitcher = ({ variant = "default" }) => {
                     key={lang.code}
                     onClick={() => setLanguage(lang.code)}
                     className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border transition-all duration-300 ${language === lang.code
-                        ? "bg-[#7A85F0]/10 border-[#7A85F0] text-[#0f766e]"
+                        ? "bg-[#E31E27]/10 border-[#E31E27] text-[#0f766e]"
                         : "bg-white border-gray-200 text-gray-600 hover:border-gray-300"
                         }`}
                 >
@@ -46,7 +46,7 @@ const LanguageSwitcher = ({ variant = "default" }) => {
                         {lang.label}
                     </span>
                     {language === lang.code && (
-                        <LuCheck className="text-[#7A85F0] text-sm" />
+                        <LuCheck className="text-[#E31E27] text-sm" />
                     )}
                 </button>
             ))}
@@ -71,7 +71,7 @@ const LanguageSwitcher = ({ variant = "default" }) => {
                 className="group flex items-center gap-2 px-3 py-2 rounded-md bg-gray-50 hover:bg-gray-100 border border-gray-100 hover:border-gray-200 transition-all duration-300"
                 aria-label="Switch Language"
             >
-                <HiLanguage className="text-lg text-[#7A85F0]" />
+                <HiLanguage className="text-lg text-[#E31E27]" />
                 <span className={`text-[13px] font-medium text-gray-700 ${language === "bn" ? "hind-siliguri" : ""}`}>
                     {currentLang.shortLabel}
                 </span>
@@ -97,7 +97,7 @@ const LanguageSwitcher = ({ variant = "default" }) => {
                                 setIsOpen(false);
                             }}
                             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 ${language === lang.code
-                                ? "bg-gradient-to-r from-[#7A85F0]/10 to-transparent"
+                                ? "bg-gradient-to-r from-[#E31E27]/10 to-transparent"
                                 : "hover:bg-gray-50"
                                 }`}
                         >
@@ -109,14 +109,14 @@ const LanguageSwitcher = ({ variant = "default" }) => {
                                 {lang.label}
                             </span>
                             {language === lang.code && (
-                                <LuCheck className="text-[#7A85F0] text-sm" />
+                                <LuCheck className="text-[#E31E27] text-sm" />
                             )}
                         </button>
                     ))}
                 </div>
 
                 {/* Accent Line */}
-                <div className="h-1 bg-gradient-to-r from-[#7A85F0] via-[#7A85F0] to-[#7A85F0]"></div>
+                <div className="h-1 bg-gradient-to-r from-[#E31E27] via-[#E31E27] to-[#E31E27]"></div>
             </div>
         </div>
     );

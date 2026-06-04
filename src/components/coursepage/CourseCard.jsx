@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { BiCategory } from "react-icons/bi";
@@ -30,7 +30,7 @@ const CourseCard = ({ course }) => {
               <BiCategory />
               <p className="text-[13px] work">{category}</p>
             </div>
-            <p className="bg-[#7A85F0] text-white text-[13px] px-2 py-1 work rounded-[4px]">
+            <p className="bg-[#E31E27] text-white text-[13px] px-2 py-1 work rounded-[4px]">
               {type}
             </p>
           </div>
@@ -65,7 +65,7 @@ const CourseCard = ({ course }) => {
         <div className="flex justify-between gap-2 items-center mt-2 mb-2">
           <Link
             href={`/${id}`}
-            className="flex gap-2 text-xl items-center border bg-[#7A85F0] border-[#7A85F0] px-4 ml-2 py-2 rounded-md"
+            className="flex gap-2 text-xl items-center border bg-[#E31E27] border-[#E31E27] px-4 ml-2 py-2 rounded-md"
           >
             <LuBookOpenCheck className="text-md font-semibold text-white" />
             <p className="work tracking-tight text-[15px] text-white">
@@ -78,9 +78,9 @@ const CourseCard = ({ course }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <div className="flex gap-1 text-xl items-center border border-[#7A85F0] px-4 py-2 mr-6 rounded-md hover:bg-[#e0f7f5] cursor-pointer transition">
-              <FaWhatsapp className="text-xl text-[#7A85F0] font-medium" />
-              <p className="text-[#7A85F0] work text-[15px] tracking-tight">
+            <div className="flex gap-1 text-xl items-center border border-[#E31E27] px-4 py-2 mr-6 rounded-md hover:bg-[#e0f7f5] cursor-pointer transition">
+              <FaWhatsapp className="text-xl text-[#E31E27] font-medium" />
+              <p className="text-[#E31E27] work text-[15px] tracking-tight">
                 Get Course
               </p>
             </div>

@@ -1,8 +1,8 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 /* =====================================================
    TECHLIGHT IT INSTITUTE - GLOBAL DESIGN SYSTEM
-   Primary: #7A85F0 (Techlight Blue-Purple)
+   Primary: #E31E27 (Techlight Blue-Purple)
    একবার এখানে চেঞ্জ করলে পুরো সাইটে চেঞ্জ হবে!
    ===================================================== */
 
@@ -13,8 +13,8 @@
 :root {
   /* ========== PRIMARY COLOR (মূল কালার) ========== */
   /* 🎨 এখানে চেঞ্জ করলে পুরো সাইটে চেঞ্জ হবে */
-  --color-primary: #7A85F0;
-  --color-primary-dark: #5A65D0;
+  --color-primary: #E31E27;
+  --color-primary-dark: #C01920;
   --color-primary-light: #9BA3F5;
   --color-primary-10: rgba(122, 133, 240, 0.1);
   --color-primary-20: rgba(122, 133, 240, 0.2);
@@ -498,9 +498,9 @@ body.font-bengali .font-icon {
 
 .enroll-wave-btn {
   background-image: linear-gradient(90deg,
-      #7A85F0 0%,
+      #E31E27 0%,
       #38a89d 50%,
-      #7A85F0 100%) !important;
+      #E31E27 100%) !important;
   background-size: 200% auto !important;
   animation: riverWave 8s ease-in-out infinite !important;
   color: #ffffff !important;
@@ -518,11 +518,11 @@ body.font-bengali .font-icon {
 
 .special-enroll-btn {
   background: linear-gradient(90deg,
-      #7A85F0,
+      #E31E27,
       #38a89d,
-      #7A85F0,
+      #E31E27,
       #e07832,
-      #7A85F0) !important;
+      #E31E27) !important;
   background-size: 400% 100% !important;
   animation: riverWave 10s linear infinite !important;
   color: #ffffff !important;
@@ -1037,7 +1037,7 @@ nav[class*="sticky"] {
 
 .dark footer a:hover .text-gray-700,
 .dark footer a:hover.text-gray-700 {
-  color: #7A85F0 !important;
+  color: #E31E27 !important;
 }
 
 /* Footer Input */
@@ -1068,13 +1068,13 @@ nav[class*="sticky"] {
 }
 
 /* Footer CTA Box */
-.dark footer [class*="from-[#7A85F0]/10"] {
+.dark footer [class*="from-[#E31E27]/10"] {
   background: linear-gradient(to right, rgba(65, 191, 184, 0.2), rgba(247, 153, 82, 0.2)) !important;
 }
 
 /* Footer Contact Icons Background */
-.dark footer [class*="bg-[#7A85F0]/10"],
-.dark footer [class*="bg-[#7A85F0]/10"] {
+.dark footer [class*="bg-[#E31E27]/10"],
+.dark footer [class*="bg-[#E31E27]/10"] {
   background: rgba(65, 191, 184, 0.2) !important;
 }
 
@@ -1101,7 +1101,7 @@ nav[class*="sticky"] {
 }
 
 /* Hero Badge */
-.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#7A85F0]/10"] {
+.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#E31E27]/10"] {
   background: rgba(30, 41, 59, 0.8) !important;
   border-color: rgba(71, 85, 105, 0.5) !important;
 }
@@ -1117,8 +1117,8 @@ nav[class*="sticky"] {
 }
 
 /* Hero Stats Card Background */
-.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#7A85F0]/10"].rounded-md,
-.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#7A85F0]/10"].rounded-md {
+.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#E31E27]/10"].rounded-md,
+.dark section[class*="from-[#e8f9f9]"] [class*="bg-[#E31E27]/10"].rounded-md {
   background: rgba(30, 41, 59, 0.8) !important;
 }
 

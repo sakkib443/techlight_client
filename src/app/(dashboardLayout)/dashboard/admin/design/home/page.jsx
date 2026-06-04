@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useEffect, useState } from 'react';
 import { FiHome, FiSave, FiRefreshCw, FiEye, FiImage, FiGrid } from 'react-icons/fi';
@@ -177,7 +177,7 @@ export default function HomeDesignPage() {
           <div>
             <label className={label}>Title</label>
             <input value={hero.title || ''} onChange={(e) => hSet('title', e.target.value)} className={field} placeholder="Start learning from the world's" />
-            <p className={`text-[11px] mt-1 ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>Shown as: <span className="font-medium">{hero.title}</span> <span className="text-[#7A85F0] font-medium">{hero.titleHighlight}</span></p>
+            <p className={`text-[11px] mt-1 ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>Shown as: <span className="font-medium">{hero.title}</span> <span className="text-[#E31E27] font-medium">{hero.titleHighlight}</span></p>
           </div>
           <div>
             <label className={label}>Description</label>
@@ -223,7 +223,7 @@ export default function HomeDesignPage() {
           <div>
             <label className={label}>Title</label>
             <input value={provide.title || ''} onChange={(e) => pSet('title', e.target.value)} className={field} placeholder="Breaking Barriers Through" />
-            <p className={`text-[11px] mt-1 ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>Shown as: <span className="font-medium">{provide.title}</span> <span className="text-[#7A85F0] font-medium">{provide.titleHighlight}</span></p>
+            <p className={`text-[11px] mt-1 ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>Shown as: <span className="font-medium">{provide.title}</span> <span className="text-[#E31E27] font-medium">{provide.titleHighlight}</span></p>
           </div>
           <div>
             <label className={label}>Description</label>

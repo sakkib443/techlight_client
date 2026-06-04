@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { FiEdit3, FiX } from 'react-icons/fi';
@@ -18,8 +18,8 @@ export default function AdminEditToggle() {
         <button
             onClick={toggleEditMode}
             className={`fixed bottom-6 right-6 z-[100] flex items-center gap-2 px-4 py-3 rounded-full shadow-2xl transition-all duration-300 ${isEditMode
-                    ? 'bg-[#7A85F0] text-white hover:bg-orange-500'
-                    : 'bg-[#7A85F0] text-white hover:bg-[#c41e18]'
+                    ? 'bg-[#E31E27] text-white hover:bg-orange-500'
+                    : 'bg-[#E31E27] text-white hover:bg-[#c41e18]'
                 }`}
             title={isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode'}
         >

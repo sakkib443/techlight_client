@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -15,8 +15,8 @@ const categories = (language, t) => [
         title: language === 'bn' ? t("home_sections.aiAutomation") : 'AI & Automation',
         subtitle: language === 'bn' ? t("home_sections.shapeFuture") : 'Shape the Future',
         slug: 'ai-automation',
-        color: '#7A85F0',
-        light: '#EEF0FD',
+        color: '#E31E27',
+        light: '#FEE2E2',
     },
     {
         icon: LuPalette,
@@ -93,18 +93,18 @@ const TopCategories = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
                 >
-                    <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-[#EEF0FD] border border-[#7A85F0]/20 mb-4 ${bn}`}>
+                    <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bn}`}>
                         {language === 'bn' ? 'ক্যাটাগরি' : 'Categories'}
                     </span>
                     <h2 className={`text-4xl font-bold text-gray-900 leading-tight mb-4 ${bn}`}>
                         {language === 'bn'
-                            ? <>{t("home_sections.browseByCategory")} <span className="text-[#7A85F0]">{t("home_sections.categoryHighlight")}</span></>
-                            : <>Explore Top <span className="text-[#7A85F0]">Skills Categories</span></>
+                            ? <>{t("home_sections.browseByCategory")} <span className="text-[#E31E27]">{t("home_sections.categoryHighlight")}</span></>
+                            : <>Explore Top <span className="text-[#E31E27]">Skills Categories</span></>
                         }
                     </h2>
                     <Link
                         href="/courses"
-                        className={`inline-flex items-center gap-2 text-sm font-semibold text-[#7A85F0] hover:underline underline-offset-4 transition ${bn}`}
+                        className={`inline-flex items-center gap-2 text-sm font-semibold text-[#E31E27] hover:underline underline-offset-4 transition ${bn}`}
                     >
                         {language === 'bn' ? 'সব দেখুন' : 'View All'}
                         <LuArrowUpRight size={16} />

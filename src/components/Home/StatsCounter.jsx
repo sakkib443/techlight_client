@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
@@ -83,7 +83,7 @@ const StatsCounter = () => {
             value: 10000,
             suffix: '+',
             label: language === 'bn' ? 'শিক্ষার্থী' : 'Students Enrolled',
-            color: '#7A85F0',
+            color: '#E31E27',
         },
         {
             icon: LuBookOpen,
@@ -112,7 +112,7 @@ const StatsCounter = () => {
         <section ref={ref} className="py-16 lg:py-20 bg-white dark:bg-[#0a0a0a] relative overflow-hidden">
             {/* Subtle bg accents */}
             <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-0 left-1/4 w-72 h-72 bg-[#7A85F0]/[0.03] rounded-full blur-3xl" />
+                <div className="absolute top-0 left-1/4 w-72 h-72 bg-[#E31E27]/[0.03] rounded-full blur-3xl" />
                 <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-amber-500/[0.03] rounded-full blur-3xl" />
             </div>
 
@@ -125,13 +125,13 @@ const StatsCounter = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
                 >
-                    <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-[#EEF0FD] border border-[#7A85F0]/20 mb-4 ${bengaliClass}`}>
+                    <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bengaliClass}`}>
                         {language === 'bn' ? 'আমাদের অর্জন' : 'Our Achievements'}
                     </span>
                     <h2 className={`text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white leading-tight ${bengaliClass}`}>
                         {language === 'bn'
-                            ? <>সংখ্যায় <span className="text-[#7A85F0]">আমাদের সাফল্য</span></>
-                            : <>Our Success in <span className="text-[#7A85F0]">Numbers</span></>
+                            ? <>সংখ্যায় <span className="text-[#E31E27]">আমাদের সাফল্য</span></>
+                            : <>Our Success in <span className="text-[#E31E27]">Numbers</span></>
                         }
                     </h2>
                 </motion.div>

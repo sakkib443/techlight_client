@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
@@ -47,10 +47,10 @@ export default function MentorsPage() {
             {/* Hero */}
             <section className="relative py-12 lg:py-16 bg-slate-50 dark:bg-[#0a0a0a] overflow-hidden">
                 {/* Background texture */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#7A85F0]/5 via-transparent to-[#7A85F0]/5"></div>
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(122,133,240,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(122,133,240,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
-                <div className="absolute -top-20 -left-20 w-80 h-80 bg-[#7A85F0]/10 rounded-full blur-3xl pointer-events-none"></div>
-                <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[#7A85F0]/[0.06] rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-[#E31E27]/5 via-transparent to-[#E31E27]/5"></div>
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(227,30,39,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(227,30,39,0.03)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+                <div className="absolute -top-20 -left-20 w-80 h-80 bg-[#E31E27]/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-[#E31E27]/[0.06] rounded-full blur-3xl pointer-events-none"></div>
 
                 <div className="container mx-auto px-4 lg:px-32 relative z-10">
                     <motion.div
@@ -59,10 +59,10 @@ export default function MentorsPage() {
                         transition={{ duration: 0.6 }}
                         className="text-center max-w-3xl mx-auto"
                     >
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#7A85F0]/20 rounded-full shadow-sm mb-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#E31E27]/20 rounded-full shadow-sm mb-4">
                             <span className="flex h-1.5 w-1.5 relative">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#7A85F0] opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#7A85F0]"></span>
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E31E27] opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E31E27]"></span>
                             </span>
                             <span className="text-[10px] font-medium text-slate-600 dark:text-slate-300">
                                 Our Team
@@ -71,7 +71,7 @@ export default function MentorsPage() {
 
                         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 dark:text-white mb-3 leading-tight">
                             Meet Our{" "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7A85F0] to-[#6B74E8]">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#CC1B24]">
                                 Mentors
                             </span>
                         </h1>
@@ -110,9 +110,9 @@ export default function MentorsPage() {
                                 transition={{ duration: 0.4, delay: idx * 0.05 }}
                             >
                                 <Link href={`/mentors/${m._id}`}>
-                                    <div className="group h-full flex flex-col bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-[#7A85F0]/10 hover:border-[#7A85F0]/30 transition-all duration-300">
+                                    <div className="group h-full flex flex-col bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-[#E31E27]/10 hover:border-[#E31E27]/30 transition-all duration-300">
                                         {/* Image */}
-                                        <div className="relative h-56 overflow-hidden bg-gradient-to-br from-[#7A85F0] to-[#c41e18]">
+                                        <div className="relative h-56 overflow-hidden bg-gradient-to-br from-[#E31E27] to-[#c41e18]">
                                             {m.image ? (
                                                 <img
                                                     src={m.image}
@@ -125,13 +125,13 @@ export default function MentorsPage() {
                                                 </div>
                                             )}
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-5">
-                                                <span className="px-5 py-2.5 bg-white text-[#7A85F0] font-semibold rounded-xl shadow-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex items-center gap-2 text-sm">
+                                                <span className="px-5 py-2.5 bg-white text-[#E31E27] font-semibold rounded-xl shadow-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex items-center gap-2 text-sm">
                                                     View Details
                                                     <LuArrowRight size={16} />
                                                 </span>
                                             </div>
                                             {m.trainingExperience?.years && (
-                                                <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#7A85F0] text-white text-[11px] font-semibold rounded-lg">
+                                                <span className="absolute top-3 left-3 px-2.5 py-1 bg-[#E31E27] text-white text-[11px] font-semibold rounded-lg">
                                                     {m.trainingExperience.years}+ yrs
                                                 </span>
                                             )}
@@ -140,7 +140,7 @@ export default function MentorsPage() {
                                         {/* Content */}
                                         <div className="flex flex-col flex-1 p-5">
                                             <h2 className="text-lg font-bold text-gray-900 truncate">{m.name}</h2>
-                                            <p className="text-xs text-[#7A85F0] font-semibold mt-1 line-clamp-1">
+                                            <p className="text-xs text-[#E31E27] font-semibold mt-1 line-clamp-1">
                                                 {m.designation}
                                             </p>
                                             {m.subject && (

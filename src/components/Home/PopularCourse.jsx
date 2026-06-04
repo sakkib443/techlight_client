@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { API_URL, API_BASE_URL } from '@/config/api';
 
 import React, { useState } from "react";
@@ -104,13 +104,13 @@ const PopularCourse = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-[#EEF0FD] border border-[#7A85F0]/20 mb-4">
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4">
             {language === 'bn' ? 'জনপ্রিয় কোর্স' : 'Popular Courses'}
           </span>
           <h2 className={`text-4xl font-bold text-gray-900 dark:text-white leading-tight mb-3 ${bengaliClass}`}>
             {language === 'bn'
-              ? <>শিক্ষার্থীরা যা <span className="text-[#7A85F0]">দেখছে</span></>
-              : <>Most <span className="text-[#7A85F0]">Popular Courses</span></>
+              ? <>শিক্ষার্থীরা যা <span className="text-[#E31E27]">দেখছে</span></>
+              : <>Most <span className="text-[#E31E27]">Popular Courses</span></>
             }
           </h2>
           <p className={`text-gray-500 dark:text-gray-400 text-sm max-w-lg mx-auto ${bengaliClass}`}>
@@ -128,7 +128,7 @@ const PopularCourse = () => {
           <div className="relative">
             <button
               onClick={() => toggleDropdown('category')}
-              className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-xs font-semibold text-gray-600 dark:text-gray-300 hover:border-[#7A85F0]/50 transition-all min-w-[140px] justify-between"
+              className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-xs font-semibold text-gray-600 dark:text-gray-300 hover:border-[#E31E27]/50 transition-all min-w-[140px] justify-between"
             >
               <span className={`truncate ${bengaliClass}`}>
                 {categoryOptions.find(c => c.id === activeCategory)?.label || 'All Categories'}
@@ -148,7 +148,7 @@ const PopularCourse = () => {
                       key={opt.id}
                       onClick={() => { setActiveCategory(opt.id); setOpenDropdown(null); setStartIndex(0); }}
                       className={`w-full text-left px-4 py-2.5 text-xs font-medium transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-50 dark:border-gray-700/50 last:border-0 ${
-                        activeCategory === opt.id ? 'text-[#7A85F0] bg-[#EEF0FD]' : 'text-gray-600 dark:text-gray-400'
+                        activeCategory === opt.id ? 'text-[#E31E27] bg-[#FEE2E2]' : 'text-gray-600 dark:text-gray-400'
                       } ${bengaliClass}`}
                     >
                       {opt.label}
@@ -163,7 +163,7 @@ const PopularCourse = () => {
           <div className="relative shrink-0">
             <button
               onClick={() => toggleDropdown('sort')}
-              className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-xs font-semibold text-gray-600 dark:text-gray-300 hover:border-[#7A85F0]/50 transition-all min-w-[130px] justify-between"
+              className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-xs font-semibold text-gray-600 dark:text-gray-300 hover:border-[#E31E27]/50 transition-all min-w-[130px] justify-between"
             >
               <div className="flex items-center gap-1.5">
                 <LuArrowUpDown size={13} className="text-gray-400 shrink-0" />
@@ -184,7 +184,7 @@ const PopularCourse = () => {
                       key={opt.id}
                       onClick={() => { setActiveSort(opt.id); setOpenDropdown(null); setStartIndex(0); }}
                       className={`w-full text-left px-4 py-2.5 text-xs font-medium transition-colors hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-50 dark:border-gray-700/50 last:border-0 ${
-                        activeSort === opt.id ? 'text-[#7A85F0] bg-[#EEF0FD]' : 'text-gray-600 dark:text-gray-400'
+                        activeSort === opt.id ? 'text-[#E31E27] bg-[#FEE2E2]' : 'text-gray-600 dark:text-gray-400'
                       } ${bengaliClass}`}
                     >
                       {opt.label}
@@ -202,13 +202,13 @@ const PopularCourse = () => {
             <>
               <button
                 onClick={handlePrev}
-                className="absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full shadow-lg flex items-center justify-center text-gray-500 hover:bg-[#7A85F0] hover:text-white hover:border-[#7A85F0] transition-all"
+                className="absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full shadow-lg flex items-center justify-center text-gray-500 hover:bg-[#E31E27] hover:text-white hover:border-[#E31E27] transition-all"
               >
                 <LuChevronLeft size={20} />
               </button>
               <button
                 onClick={handleNext}
-                className="absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full shadow-lg flex items-center justify-center text-gray-500 hover:bg-[#7A85F0] hover:text-white hover:border-[#7A85F0] transition-all"
+                className="absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full shadow-lg flex items-center justify-center text-gray-500 hover:bg-[#E31E27] hover:text-white hover:border-[#E31E27] transition-all"
               >
                 <LuChevronRight size={20} />
               </button>

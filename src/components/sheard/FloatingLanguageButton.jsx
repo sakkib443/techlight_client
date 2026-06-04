@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -15,7 +15,7 @@ const FloatingLanguageButton = () => {
         {/* Toggle Handle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`bg-gradient-to-b from-[#7A85F0] to-[#38a89d] text-white px-2 py-6 rounded-l-md shadow-md hover:shadow-lg hover:px-3 transition-all duration-300 flex items-center justify-center ${isOpen ? 'px-0 w-0 overflow-hidden opacity-0' : 'px-2 opacity-100'}`}
+          className={`bg-gradient-to-b from-[#E31E27] to-[#38a89d] text-white px-2 py-6 rounded-l-md shadow-md hover:shadow-lg hover:px-3 transition-all duration-300 flex items-center justify-center ${isOpen ? 'px-0 w-0 overflow-hidden opacity-0' : 'px-2 opacity-100'}`}
         >
           {/* Drawer Pull Lines (Visible only when closed) */}
           <div className="flex flex-col gap-1">
@@ -39,7 +39,7 @@ const FloatingLanguageButton = () => {
 
             <Link href="/language-program">
               <div
-                className="animated-gradient-btn text-white py-3 px-5 shadow-lg hover:shadow-xl hover:shadow-[#7A85F0]/40 transition-all duration-300 hover:px-6 cursor-pointer rounded-l-3xl"
+                className="animated-gradient-btn text-white py-3 px-5 shadow-lg hover:shadow-xl hover:shadow-[#E31E27]/40 transition-all duration-300 hover:px-6 cursor-pointer rounded-l-3xl"
                 style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
               >
                 <span className={`text-base font-bold tracking-wider uppercase whitespace-nowrap ${fontClass}`}>
@@ -55,11 +55,11 @@ const FloatingLanguageButton = () => {
         .animated-gradient-btn {
           background: linear-gradient(
             180deg,
-            #7A85F0,
+            #E31E27,
             #38a89d,
-            #7A85F0,
+            #E31E27,
             #e07832,
-            #7A85F0
+            #E31E27
           );
           background-size: 100% 400%;
           animation: gradientFlow 12s ease infinite;

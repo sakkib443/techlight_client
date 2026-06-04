@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -187,7 +187,7 @@ const AdminSidebar = () => {
       {/* Mobile Toggle */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-3 rounded-xl bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] text-white shadow-lg shadow-[#7A85F0]/30 hover:shadow-xl hover:shadow-[#7A85F0]/40 transition-all"
+        className="lg:hidden fixed top-4 left-4 z-50 p-3 rounded-xl bg-gradient-to-r from-[#E31E27] to-[#E31E27] text-white shadow-lg shadow-[#E31E27]/30 hover:shadow-xl hover:shadow-[#E31E27]/40 transition-all"
       >
         {isOpen ? <FiX size={20} /> : <FiMenu size={20} />}
       </button>
@@ -202,9 +202,9 @@ const AdminSidebar = () => {
           }`}
       >
         {/* Decorative Elements */}
-        <div className={`absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gradient-to-br from-[#7A85F0]/10 to-transparent' : 'bg-gradient-to-br from-[#7A85F0]/5 to-transparent'
+        <div className={`absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gradient-to-br from-[#E31E27]/10 to-transparent' : 'bg-gradient-to-br from-[#E31E27]/5 to-transparent'
           }`} />
-        <div className={`absolute bottom-0 left-0 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gradient-to-tr from-[#7A85F0]/10 to-transparent' : 'bg-gradient-to-tr from-[#7A85F0]/5 to-transparent'
+        <div className={`absolute bottom-0 left-0 w-64 h-64 rounded-full blur-3xl pointer-events-none ${isDark ? 'bg-gradient-to-tr from-[#E31E27]/10 to-transparent' : 'bg-gradient-to-tr from-[#E31E27]/5 to-transparent'
           }`} />
 
         {/* Logo */}
@@ -251,8 +251,8 @@ const AdminSidebar = () => {
                     className={`group w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all
                     ${activeSub
                         ? isDark
-                          ? 'bg-gradient-to-r from-[#7A85F0]/20 to-[#7A85F0]/20 text-white'
-                          : 'bg-gradient-to-r from-[#7A85F0]/10 to-[#7A85F0]/10 text-slate-800'
+                          ? 'bg-gradient-to-r from-[#E31E27]/20 to-[#E31E27]/20 text-white'
+                          : 'bg-gradient-to-r from-[#E31E27]/10 to-[#E31E27]/10 text-slate-800'
                         : isDark
                           ? 'text-slate-400 hover:text-white hover:bg-white/5'
                           : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'
@@ -287,7 +287,7 @@ const AdminSidebar = () => {
                             href={sub.href}
                             className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-all
                             ${isSubActive
-                                ? 'bg-gradient-to-r from-[#7A85F0] to-[#7A85F0] text-white font-semibold shadow-lg shadow-[#7A85F0]/30'
+                                ? 'bg-gradient-to-r from-[#E31E27] to-[#E31E27] text-white font-semibold shadow-lg shadow-[#E31E27]/30'
                                 : isDark
                                   ? 'text-slate-400 hover:text-white hover:bg-white/5'
                                   : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'
@@ -315,8 +315,8 @@ const AdminSidebar = () => {
                     className={`group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all
                     ${isActive('/dashboard/admin/analytics')
                         ? isDark
-                          ? 'bg-gradient-to-r from-[#7A85F0]/20 to-[#7A85F0]/20 text-white'
-                          : 'bg-gradient-to-r from-[#7A85F0]/10 to-[#7A85F0]/10 text-slate-800'
+                          ? 'bg-gradient-to-r from-[#E31E27]/20 to-[#E31E27]/20 text-white'
+                          : 'bg-gradient-to-r from-[#E31E27]/10 to-[#E31E27]/10 text-slate-800'
                         : isDark
                           ? 'text-slate-400 hover:text-white hover:bg-white/5'
                           : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'
@@ -338,8 +338,8 @@ const AdminSidebar = () => {
                     className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all
                     ${isActive(item.href)
                         ? isDark
-                          ? 'bg-gradient-to-r from-[#7A85F0]/20 to-[#7A85F0]/20 text-white'
-                          : 'bg-gradient-to-r from-[#7A85F0]/10 to-[#7A85F0]/10 text-slate-800'
+                          ? 'bg-gradient-to-r from-[#E31E27]/20 to-[#E31E27]/20 text-white'
+                          : 'bg-gradient-to-r from-[#E31E27]/10 to-[#E31E27]/10 text-slate-800'
                         : isDark
                           ? 'text-slate-400 hover:text-white hover:bg-white/5'
                           : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'

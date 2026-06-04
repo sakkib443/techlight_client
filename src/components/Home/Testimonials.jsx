@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,7 +10,7 @@ const TestimonialCard = ({ card, bengaliClass }) => (
     <div className="bg-white dark:bg-[#141414] rounded-2xl p-7 shadow-lg shadow-gray-100/80 dark:shadow-black/20 border border-gray-100 dark:border-gray-800 relative overflow-hidden flex flex-col h-full">
         {/* Quote watermark */}
         <div className="absolute top-4 right-5 opacity-[0.05]">
-            <LuQuote size={50} className="text-[#7A85F0]" />
+            <LuQuote size={50} className="text-[#E31E27]" />
         </div>
 
         {/* Accent line */}
@@ -55,7 +55,7 @@ const TestimonialCard = ({ card, bengaliClass }) => (
                             </p>
                         </div>
                     </div>
-                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-semibold bg-[#EEF0FD] text-[#7A85F0] border border-[#7A85F0]/10 whitespace-nowrap ${bengaliClass}`}>
+                    <span className={`px-2.5 py-1 rounded-full text-[10px] font-semibold bg-[#FEE2E2] text-[#E31E27] border border-[#E31E27]/10 whitespace-nowrap ${bengaliClass}`}>
                         {card.course}
                     </span>
                 </div>
@@ -80,7 +80,7 @@ const Testimonials = () => {
             name: language === 'bn' ? 'রাকিব হাসান' : 'Rakib Hasan',
             designation: language === 'bn' ? 'জুনিয়র ডেভেলপার, ব্রেইন স্টেশন ২৩' : 'Junior Developer, Brain Station 23',
             course: language === 'bn' ? 'ওয়েব ডেভেলপমেন্ট' : 'Web Development',
-            rating: 5, initial: 'R', color: '#7A85F0',
+            rating: 5, initial: 'R', color: '#E31E27',
         },
         {
             id: 2,
@@ -181,13 +181,13 @@ const Testimonials = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
                 >
-                    <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#7A85F0] bg-[#EEF0FD] border border-[#7A85F0]/20 mb-4">
+                    <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4">
                         {language === 'bn' ? 'ছাত্রদের মতামত' : 'Student Reviews'}
                     </span>
                     <h2 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white leading-tight mb-3 ${bengaliClass}`}>
                         {language === 'bn'
-                            ? <>আমাদের শিক্ষার্থীরা কী <span className="text-[#7A85F0]">বলছে</span></>
-                            : <>What Our Students <span className="text-[#7A85F0]">Say</span></>
+                            ? <>আমাদের শিক্ষার্থীরা কী <span className="text-[#E31E27]">বলছে</span></>
+                            : <>What Our Students <span className="text-[#E31E27]">Say</span></>
                         }
                     </h2>
                     <p className={`text-gray-500 dark:text-gray-400 text-sm max-w-lg mx-auto ${bengaliClass}`}>
@@ -238,7 +238,7 @@ const Testimonials = () => {
                 <div className="flex items-center justify-center gap-5 mt-10">
                     <button
                         onClick={handlePrev}
-                        className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-[#7A85F0] hover:text-white hover:border-[#7A85F0] transition-all shadow-sm"
+                        className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-[#E31E27] hover:text-white hover:border-[#E31E27] transition-all shadow-sm"
                     >
                         <LuChevronLeft size={18} />
                     </button>
@@ -252,7 +252,7 @@ const Testimonials = () => {
                                     setStartIndex(i);
                                 }}
                                 className={`rounded-full transition-all duration-300 ${startIndex === i
-                                    ? 'w-7 h-2 bg-[#7A85F0]'
+                                    ? 'w-7 h-2 bg-[#E31E27]'
                                     : 'w-2 h-2 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400'
                                     }`}
                             />
@@ -261,7 +261,7 @@ const Testimonials = () => {
 
                     <button
                         onClick={handleNext}
-                        className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-[#7A85F0] hover:text-white hover:border-[#7A85F0] transition-all shadow-sm"
+                        className="w-10 h-10 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-center text-gray-500 hover:bg-[#E31E27] hover:text-white hover:border-[#E31E27] transition-all shadow-sm"
                     >
                         <LuChevronRight size={18} />
                     </button>
@@ -277,7 +277,7 @@ const Testimonials = () => {
                                 setStartIndex(i);
                             }}
                             className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-[10px] font-bold cursor-pointer transition-all duration-500 border-2 border-white dark:border-[#111] ${isVisible(i)
-                                ? 'scale-125 opacity-100 ring-2 ring-[#7A85F0]/30 z-10'
+                                ? 'scale-125 opacity-100 ring-2 ring-[#E31E27]/30 z-10'
                                 : 'opacity-30 hover:opacity-60 hover:scale-110'
                                 }`}
                             style={{ backgroundColor: item.color }}

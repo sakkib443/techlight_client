@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+﻿/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Link from "next/link";
@@ -61,17 +61,17 @@ const Footer = () => {
   return (
     <footer className="relative bg-gradient-to-b from-gray-50 to-white overflow-hidden">
       {/* Animated Background Blobs */}
-      <div className="absolute top-10 left-10 w-72 h-72 bg-[#7A85F0]/[0.06] rounded-full blur-3xl animate-blob"></div>
-      <div className="absolute bottom-10 right-10 w-80 h-80 bg-[#7A85F0]/[0.04] rounded-full blur-3xl animate-blob animation-delay-2000"></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#7A85F0]/[0.03] rounded-full blur-3xl animate-blob animation-delay-4000"></div>
+      <div className="absolute top-10 left-10 w-72 h-72 bg-[#E31E27]/[0.06] rounded-full blur-3xl animate-blob"></div>
+      <div className="absolute bottom-10 right-10 w-80 h-80 bg-[#E31E27]/[0.04] rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#E31E27]/[0.03] rounded-full blur-3xl animate-blob animation-delay-4000"></div>
 
       {/* Subtle Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(122,133,240,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(122,133,240,0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(227,30,39,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(227,30,39,0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
 
       {/* Top CTA Banner */}
       <div className="relative border-b border-gray-100">
         <div className="container mx-auto px-4 lg:px-16 py-10">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 bg-gradient-to-r from-[#7A85F0] to-[#5A65D0] rounded-2xl p-8 lg:p-10 shadow-xl shadow-[#7A85F0]/15">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 bg-gradient-to-r from-[#E31E27] to-[#C01920] rounded-2xl p-8 lg:p-10 shadow-xl shadow-[#E31E27]/15">
             <div className="text-center lg:text-left">
               <h3 className="text-xl lg:text-2xl font-bold text-white mb-2">
                 Start Learning Today — Unlock Your Potential!
@@ -82,7 +82,7 @@ const Footer = () => {
             </div>
             <Link
               href="/courses"
-              className="group inline-flex items-center gap-2 px-8 py-3.5 bg-white text-[#7A85F0] rounded-full font-semibold hover:shadow-lg hover:bg-gray-50 transition-all duration-300"
+              className="group inline-flex items-center gap-2 px-8 py-3.5 bg-white text-[#E31E27] rounded-full font-semibold hover:shadow-lg hover:bg-gray-50 transition-all duration-300"
             >
               <span>Explore Courses</span>
               <LuArrowUpRight className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -134,9 +134,9 @@ const Footer = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="flex-1 px-4 py-2.5 bg-white border border-gray-200 rounded-full text-gray-800 text-sm placeholder:text-gray-400 focus:outline-none focus:border-[#7A85F0] focus:ring-2 focus:ring-[#7A85F0]/10 transition-all"
+                  className="flex-1 px-4 py-2.5 bg-white border border-gray-200 rounded-full text-gray-800 text-sm placeholder:text-gray-400 focus:outline-none focus:border-[#E31E27] focus:ring-2 focus:ring-[#E31E27]/10 transition-all"
                 />
-                <button className="px-5 py-2.5 bg-[#7A85F0] hover:bg-[#5A65D0] text-white rounded-full transition-colors shadow-md shadow-[#7A85F0]/20 hover:shadow-lg hover:shadow-[#7A85F0]/30">
+                <button className="px-5 py-2.5 bg-[#E31E27] hover:bg-[#C01920] text-white rounded-full transition-colors shadow-md shadow-[#E31E27]/20 hover:shadow-lg hover:shadow-[#E31E27]/30">
                   <LuSend className="text-sm" />
                 </button>
               </div>
@@ -146,7 +146,7 @@ const Footer = () => {
           {/* Quick Links */}
           <div>
             <h4 className="text-gray-800 font-semibold mb-5 flex items-center gap-2 text-sm uppercase tracking-wider">
-              <span className="w-2 h-2 bg-[#7A85F0] rounded-full"></span>
+              <span className="w-2 h-2 bg-[#E31E27] rounded-full"></span>
               Quick Links
             </h4>
             <ul className="space-y-3">
@@ -154,9 +154,9 @@ const Footer = () => {
                 <li key={link.label}>
                   <Link
                     href={link.to}
-                    className="text-gray-500 hover:text-[#7A85F0] text-sm transition-colors inline-flex items-center gap-2 group"
+                    className="text-gray-500 hover:text-[#E31E27] text-sm transition-colors inline-flex items-center gap-2 group"
                   >
-                    <span className="w-0 group-hover:w-2 h-px bg-[#7A85F0] transition-all duration-300"></span>
+                    <span className="w-0 group-hover:w-2 h-px bg-[#E31E27] transition-all duration-300"></span>
                     {link.label}
                   </Link>
                 </li>
@@ -167,7 +167,7 @@ const Footer = () => {
           {/* Categories */}
           <div>
             <h4 className="text-gray-800 font-semibold mb-5 flex items-center gap-2 text-sm uppercase tracking-wider">
-              <span className="w-2 h-2 bg-[#7A85F0] rounded-full"></span>
+              <span className="w-2 h-2 bg-[#E31E27] rounded-full"></span>
               Categories
             </h4>
             <ul className="space-y-3">
@@ -175,9 +175,9 @@ const Footer = () => {
                 <li key={cat.key}>
                   <Link
                     href={`/courses?category=${encodeURIComponent(cat.key)}`}
-                    className="text-gray-500 hover:text-[#7A85F0] text-sm transition-colors inline-flex items-center gap-2 group"
+                    className="text-gray-500 hover:text-[#E31E27] text-sm transition-colors inline-flex items-center gap-2 group"
                   >
-                    <span className="w-0 group-hover:w-2 h-px bg-[#7A85F0] transition-all duration-300"></span>
+                    <span className="w-0 group-hover:w-2 h-px bg-[#E31E27] transition-all duration-300"></span>
                     {cat.label}
                   </Link>
                 </li>
@@ -188,36 +188,36 @@ const Footer = () => {
           {/* Contact Info */}
           <div>
             <h4 className="text-gray-800 font-semibold mb-5 flex items-center gap-2 text-sm uppercase tracking-wider">
-              <span className="w-2 h-2 bg-[#7A85F0] rounded-full"></span>
+              <span className="w-2 h-2 bg-[#E31E27] rounded-full"></span>
               Contact Us
             </h4>
             <ul className="space-y-4">
               <li>
                 <a href={`tel:${phone.replace(/\s/g, '')}`} className="group flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-[#7A85F0]/10 flex items-center justify-center shrink-0 group-hover:bg-[#7A85F0]/20 transition-colors">
-                    <IoCallOutline className="text-[#7A85F0]" />
+                  <div className="w-9 h-9 rounded-xl bg-[#E31E27]/10 flex items-center justify-center shrink-0 group-hover:bg-[#E31E27]/20 transition-colors">
+                    <IoCallOutline className="text-[#E31E27]" />
                   </div>
                   <div>
                     <p className="text-[11px] text-gray-400 uppercase tracking-wider">Phone</p>
-                    <p className="text-gray-600 text-sm group-hover:text-[#7A85F0] transition-colors">{phone}</p>
+                    <p className="text-gray-600 text-sm group-hover:text-[#E31E27] transition-colors">{phone}</p>
                   </div>
                 </a>
               </li>
               <li>
                 <a href={`mailto:${emailAddr}`} className="group flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-[#7A85F0]/10 flex items-center justify-center shrink-0 group-hover:bg-[#7A85F0]/20 transition-colors">
-                    <IoMailOutline className="text-[#7A85F0]" />
+                  <div className="w-9 h-9 rounded-xl bg-[#E31E27]/10 flex items-center justify-center shrink-0 group-hover:bg-[#E31E27]/20 transition-colors">
+                    <IoMailOutline className="text-[#E31E27]" />
                   </div>
                   <div>
                     <p className="text-[11px] text-gray-400 uppercase tracking-wider">Email</p>
-                    <p className="text-gray-600 text-sm group-hover:text-[#7A85F0] transition-colors break-all">{emailAddr}</p>
+                    <p className="text-gray-600 text-sm group-hover:text-[#E31E27] transition-colors break-all">{emailAddr}</p>
                   </div>
                 </a>
               </li>
               <li>
                 <div className="group flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-[#7A85F0]/10 flex items-center justify-center shrink-0">
-                    <IoLocationOutline className="text-[#7A85F0]" />
+                  <div className="w-9 h-9 rounded-xl bg-[#E31E27]/10 flex items-center justify-center shrink-0">
+                    <IoLocationOutline className="text-[#E31E27]" />
                   </div>
                   <div>
                     <p className="text-[11px] text-gray-400 uppercase tracking-wider">Address</p>
@@ -242,7 +242,7 @@ const Footer = () => {
                 Made with <LuHeart className="text-red-500 text-xs" /> in Bangladesh
               </span>
               <span className="text-gray-400 text-sm">
-                Developed by <a href="https://extrainweb.com" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-[#7A85F0] transition-colors text-gray-500">Extrain Web</a>
+                Developed by <a href="https://extrainweb.com" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-[#E31E27] transition-colors text-gray-500">Extrain Web</a>
               </span>
             </div>
           </div>

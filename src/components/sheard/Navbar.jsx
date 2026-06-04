@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -112,12 +112,12 @@ const Navbar = () => {
               {/* Mobile Menu Header */}
               <div className="flex items-center justify-between p-5 border-b border-gray-100">
                 <Link href="/" onClick={closeMobileMenu} className="flex items-center gap-2">
-                  <span className="text-xl font-extrabold tracking-tight"><span className="text-[#7A85F0]">Tech</span><span className="text-gray-800">light</span></span>
+                  <span className="text-xl font-extrabold tracking-tight"><span className="text-[#E31E27]">Tech</span><span className="text-gray-800">light</span></span>
                   <span className="text-[9px] font-semibold text-gray-400 uppercase tracking-widest leading-tight">IT<br/>Institute</span>
                 </Link>
                 <button
                   onClick={closeMobileMenu}
-                  className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-50 text-gray-500 hover:text-[#7A85F0] transition-colors"
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-50 text-gray-500 hover:text-[#E31E27] transition-colors"
                 >
                   <BiX className="text-xl" />
                 </button>
@@ -133,7 +133,7 @@ const Navbar = () => {
                       onClick={closeMobileMenu}
                       className={`flex items-center justify-between px-4 py-3.5 rounded-xl transition-all text-[15px] font-medium ${
                         pathname === href
-                          ? "bg-[#7A85F0]/10 text-[#7A85F0]"
+                          ? "bg-[#E31E27]/10 text-[#E31E27]"
                           : "text-gray-600 hover:bg-gray-50"
                       }`}
                     >
@@ -147,12 +147,12 @@ const Navbar = () => {
               <div className="p-5 border-t border-gray-100 bg-gray-50/50">
                 {user ? (
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#7A85F0] text-white flex items-center justify-center font-bold text-lg overflow-hidden border-2 border-white shadow-md">
+                    <div className="w-10 h-10 rounded-full bg-[#E31E27] text-white flex items-center justify-center font-bold text-lg overflow-hidden border-2 border-white shadow-md">
                       {user.image ? <img src={user.image} alt={user.name} className="w-full h-full object-cover" /> : (user.name?.charAt(0) || "U")}
                     </div>
                     <div className="flex-1">
                       <p className="text-sm font-bold text-gray-900 truncate">{user.name}</p>
-                      <button onClick={handleLogout} className="text-xs text-[#7A85F0] font-medium hover:underline">Sign Out</button>
+                      <button onClick={handleLogout} className="text-xs text-[#E31E27] font-medium hover:underline">Sign Out</button>
                     </div>
                     <Link href="/dashboard/user" onClick={closeMobileMenu} className="p-2 bg-white rounded-lg border border-gray-200 text-gray-500">
                       <LuLayoutDashboard />
@@ -161,7 +161,7 @@ const Navbar = () => {
                 ) : (
                   <div className="grid grid-cols-2 gap-3">
                     <Link href="/login" onClick={closeMobileMenu} className="py-3 text-center rounded-xl border border-gray-200 text-gray-700 font-semibold text-sm hover:bg-white transition-all">Sign In</Link>
-                    <Link href="/register" onClick={closeMobileMenu} className="py-3 text-center rounded-xl bg-[#7A85F0] text-white font-semibold text-sm shadow-lg shadow-[#7A85F0]/20 hover:bg-[#5A65D0] transition-all">Register</Link>
+                    <Link href="/register" onClick={closeMobileMenu} className="py-3 text-center rounded-xl bg-[#E31E27] text-white font-semibold text-sm shadow-lg shadow-[#E31E27]/20 hover:bg-[#C01920] transition-all">Register</Link>
                   </div>
                 )}
               </div>
@@ -200,8 +200,8 @@ const Navbar = () => {
                   href={href}
                   className={`px-5 py-2 text-[15px] font-medium rounded-lg transition-all duration-200 ${
                     pathname === href
-                      ? "text-[#7A85F0] bg-[#7A85F0]/5"
-                      : "text-gray-600 hover:text-[#7A85F0] hover:bg-gray-50"
+                      ? "text-[#E31E27] bg-[#E31E27]/5"
+                      : "text-gray-600 hover:text-[#E31E27] hover:bg-gray-50"
                   }`}
                 >
                   {label}
@@ -213,17 +213,17 @@ const Navbar = () => {
             <div className="flex items-center gap-3 lg:gap-4">
 
               {/* Wishlist — circular border */}
-              <Link href="/dashboard/user/wishlist" className="hidden lg:flex relative w-11 h-11 items-center justify-center rounded-full border-2 border-gray-200 text-gray-400 hover:text-[#7A85F0] hover:border-[#7A85F0] transition-all duration-300">
+              <Link href="/dashboard/user/wishlist" className="hidden lg:flex relative w-11 h-11 items-center justify-center rounded-full border-2 border-gray-200 text-gray-400 hover:text-[#E31E27] hover:border-[#E31E27] transition-all duration-300">
                 <LuHeart size={18} />
-                <span className="absolute -top-1 -right-1 w-[18px] h-[18px] bg-[#7A85F0] text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-white">
+                <span className="absolute -top-1 -right-1 w-[18px] h-[18px] bg-[#E31E27] text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-white">
                   {mounted ? wishlistItems.length : 0}
                 </span>
               </Link>
 
               {/* Cart — circular border */}
-              <Link href="/cart" className="relative w-11 h-11 flex items-center justify-center rounded-full border-2 border-gray-200 text-gray-400 hover:text-[#7A85F0] hover:border-[#7A85F0] transition-all duration-300">
+              <Link href="/cart" className="relative w-11 h-11 flex items-center justify-center rounded-full border-2 border-gray-200 text-gray-400 hover:text-[#E31E27] hover:border-[#E31E27] transition-all duration-300">
                 <LuShoppingCart size={18} />
-                <span className="absolute -top-1 -right-1 w-[18px] h-[18px] bg-[#7A85F0] text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-white">
+                <span className="absolute -top-1 -right-1 w-[18px] h-[18px] bg-[#E31E27] text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-white">
                   {mounted ? items.length : 0}
                 </span>
               </Link>
@@ -235,11 +235,11 @@ const Navbar = () => {
                     onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
                     className="flex items-center gap-2 pl-1 pr-1 py-1 rounded-full hover:bg-gray-50 transition-all"
                   >
-                    <div className="w-10 h-10 rounded-full border-2 border-[#7A85F0]/30 overflow-hidden">
+                    <div className="w-10 h-10 rounded-full border-2 border-[#E31E27]/30 overflow-hidden">
                       {user.image ? (
                         <img src={user.image} alt="User" className="w-full h-full object-cover" />
                       ) : (
-                        <div className="w-full h-full bg-[#7A85F0] flex items-center justify-center text-white text-sm font-bold uppercase">
+                        <div className="w-full h-full bg-[#E31E27] flex items-center justify-center text-white text-sm font-bold uppercase">
                           {(user.name || "U").charAt(0)}
                         </div>
                       )}
@@ -284,7 +284,7 @@ const Navbar = () => {
                   </AnimatePresence>
                 </div>
               ) : mounted ? (
-                <Link href="/login" className="hidden sm:inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#7A85F0] hover:bg-[#5A65D0] text-white text-[14px] font-semibold transition-all duration-300 shadow-lg shadow-[#7A85F0]/25 hover:shadow-[#7A85F0]/40">
+                <Link href="/login" className="hidden sm:inline-flex items-center gap-2 px-7 py-3 rounded-full bg-[#E31E27] hover:bg-[#C01920] text-white text-[14px] font-semibold transition-all duration-300 shadow-lg shadow-[#E31E27]/25 hover:shadow-[#E31E27]/40">
                   <span>Join Us</span>
                   <LuArrowRight size={16} />
                 </Link>
