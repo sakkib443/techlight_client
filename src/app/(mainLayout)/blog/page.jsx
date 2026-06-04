@@ -120,12 +120,71 @@ export default function BlogPage() {
             <div className="container mx-auto px-4 lg:px-32 py-8">
 
                 {loading ? (
-                    <div className="flex justify-center items-center py-32">
-                        <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                            className="w-10 h-10 border-3 border-[#7A85F0]/30 border-t-[#7A85F0] rounded-full"
-                        />
+                    <div className="animate-pulse">
+                        {/* Featured + Sidebar skeleton */}
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+                            <div className="lg:col-span-2">
+                                <div className="bg-white dark:bg-[#111] rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800">
+                                    <div className="h-[320px] lg:h-[350px] bg-gray-200 dark:bg-gray-800" />
+                                    <div className="p-6">
+                                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-full w-20 mb-4" />
+                                        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded-xl w-3/4 mb-2" />
+                                        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded-xl w-1/2 mb-5" />
+                                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-full w-full mb-2" />
+                                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-full w-2/3" />
+                                        <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700" />
+                                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full w-24" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bg-white dark:bg-[#111] rounded-2xl border border-gray-100 dark:border-gray-800 p-5">
+                                <div className="h-10 bg-gray-200 dark:bg-gray-800 rounded-xl mb-5" />
+                                {[...Array(4)].map((_, i) => (
+                                    <div key={i} className="flex gap-3 p-3 mb-1">
+                                        <div className="w-16 h-16 bg-gray-200 dark:bg-gray-800 rounded-lg flex-shrink-0" />
+                                        <div className="flex-1 space-y-2 py-1">
+                                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full w-full" />
+                                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full w-3/4" />
+                                            <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full w-1/2 mt-1" />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* All Articles header skeleton */}
+                        <div className="flex items-center gap-6 mb-6">
+                            <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded-full w-32" />
+                            <div className="h-px flex-1 bg-gray-200 dark:bg-gray-800" />
+                        </div>
+
+                        {/* Blog cards grid skeleton */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {[...Array(9)].map((_, i) => (
+                                <div key={i} className="bg-white dark:bg-[#111] rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800">
+                                    <div className="h-48 bg-gray-200 dark:bg-gray-800" />
+                                    <div className="p-5">
+                                        <div className="flex items-center gap-2.5 mb-3">
+                                            <div className="w-7 h-7 rounded-full bg-gray-200 dark:bg-gray-700" />
+                                            <div className="space-y-1.5">
+                                                <div className="h-2.5 bg-gray-200 dark:bg-gray-700 rounded-full w-20" />
+                                                <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full w-16" />
+                                            </div>
+                                        </div>
+                                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-full w-full mb-2" />
+                                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded-full w-3/4 mb-4" />
+                                        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full w-full mb-2" />
+                                        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full w-5/6 mb-4" />
+                                        <div className="pt-3 border-t border-gray-100 dark:border-gray-800 flex justify-between">
+                                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full w-20" />
+                                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full w-12" />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 ) : (
                 <>

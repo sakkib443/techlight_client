@@ -120,12 +120,72 @@ export default function SingleBlogPage() {
     // === Loading ===
     if (loading) {
         return (
-            <div className="min-h-screen bg-white dark:bg-[#0a0a0a] flex items-center justify-center">
-                <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                    className="w-12 h-12 border-3 border-[#7A85F0]/20 border-t-[#7A85F0] rounded-full"
-                />
+            <div className="min-h-screen bg-white dark:bg-[#0a0a0a] animate-pulse">
+                {/* Header skeleton */}
+                <div className="relative pt-10 pb-12 lg:pt-14 lg:pb-16 bg-slate-50 dark:bg-[#050505]">
+                    <div className="container mx-auto px-4 lg:px-32">
+                        <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded-full w-24 mb-8" />
+                        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                            <div className="lg:col-span-7 space-y-4">
+                                <div className="h-6 bg-gray-200 dark:bg-gray-800 rounded-full w-32" />
+                                <div className="h-10 bg-gray-200 dark:bg-gray-800 rounded-xl w-full" />
+                                <div className="h-10 bg-gray-200 dark:bg-gray-800 rounded-xl w-4/5" />
+                                <div className="space-y-2 pt-2">
+                                    <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded-full w-full" />
+                                    <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded-full w-5/6" />
+                                    <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded-full w-3/4" />
+                                </div>
+                                <div className="pt-5 border-t border-gray-200 dark:border-gray-800 flex gap-5">
+                                    <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded-full w-24" />
+                                    <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded-full w-20" />
+                                    <div className="h-3 bg-gray-200 dark:bg-gray-800 rounded-full w-16" />
+                                </div>
+                            </div>
+                            <div className="lg:col-span-5">
+                                <div className="aspect-[4/3] bg-gray-200 dark:bg-gray-800 rounded-3xl" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Article body skeleton */}
+                <div className="container mx-auto px-4 lg:px-32 pt-12 pb-20">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                        {/* Main article */}
+                        <div className="lg:col-span-8">
+                            <div className="h-28 bg-gray-200 dark:bg-gray-800 rounded-2xl mb-10" />
+                            <div className="space-y-3">
+                                {[...Array(5)].map((_, i) => (
+                                    <div key={i} className={`h-4 bg-gray-200 dark:bg-gray-800 rounded-full ${i % 5 === 4 ? 'w-2/3' : 'w-full'}`} />
+                                ))}
+                            </div>
+                            <div className="h-56 bg-gray-200 dark:bg-gray-800 rounded-2xl my-8" />
+                            <div className="space-y-3">
+                                {[...Array(6)].map((_, i) => (
+                                    <div key={i} className={`h-4 bg-gray-200 dark:bg-gray-800 rounded-full ${i % 4 === 3 ? 'w-1/2' : 'w-full'}`} />
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Sidebar */}
+                        <div className="lg:col-span-4 space-y-4">
+                            <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-100 dark:border-gray-800">
+                                <div className="h-5 bg-gray-200 dark:bg-gray-700 rounded-full w-32 mb-5" />
+                                {[...Array(3)].map((_, i) => (
+                                    <div key={i} className="flex gap-3 mb-4">
+                                        <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-lg flex-shrink-0" />
+                                        <div className="flex-1 space-y-2 py-1">
+                                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full w-full" />
+                                            <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full w-3/4" />
+                                            <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full w-1/2" />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="h-52 bg-gray-200 dark:bg-gray-800 rounded-3xl" />
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
