@@ -162,99 +162,185 @@ const AboutPage = () => {
     return (
         <div className="min-h-screen bg-white dark:bg-[#0a0a0a] font-poppins antialiased overflow-x-hidden">
 
-            {/* ===== 1. HERO (redesigned — distinct from home) ===== */}
-            <section className="relative pt-14 pb-16 lg:pt-20 lg:pb-20 bg-slate-50 dark:bg-[#050505] overflow-hidden">
-                {/* Decorative */}
-                <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[640px] h-[640px] bg-[#E31E27]/[0.06] rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(227,30,39,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(227,30,39,0.025)_1px,transparent_1px)] bg-[size:54px_54px] pointer-events-none" />
+            {/* ===== 1. HERO ===== */}
+            <section className="relative pt-12 pb-20 lg:pt-20 lg:pb-28 bg-slate-50 dark:bg-[#050505] overflow-hidden">
+                {/* Soft gradient blobs */}
+                <div className="absolute top-20 right-10 w-72 h-72 bg-[#E31E27]/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute bottom-10 left-10 w-80 h-80 bg-amber-200/20 rounded-full blur-3xl pointer-events-none" />
 
                 <div className="container mx-auto px-4 lg:px-32 relative z-10">
-                    {/* Centered intro */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 24 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="max-w-3xl mx-auto text-center"
-                    >
-                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white dark:bg-white/5 border border-[#E31E27]/20 rounded-full shadow-sm mb-5">
-                            <LuRocket size={12} className="text-[#E31E27]" />
-                            <span className={`text-[10px] font-semibold uppercase tracking-widest text-slate-600 dark:text-slate-300 ${bengaliClass}`}>
-                                {language === "bn" ? "আমাদের সম্পর্কে" : "About Techlight IT"}
-                            </span>
-                        </div>
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-                        <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-[1.15] mb-5 ${bengaliClass}`}>
-                            {language === "bn" ? (
-                                <>আমরা গড়ছি আগামীর <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#CC1B24]">টেক লিডার</span></>
-                            ) : (
-                                <>Shaping Bangladesh&apos;s next <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#CC1B24]">tech leaders</span></>
-                            )}
-                        </h1>
-
-                        <p className={`text-slate-500 dark:text-slate-400 text-sm lg:text-base leading-relaxed mb-8 max-w-2xl mx-auto ${bengaliClass}`}>
-                            {language === "bn"
-                                ? "টেকলাইট আইটি ইনস্টিটিউট ২০২০ সাল থেকে হাজারো শিক্ষার্থীকে ইন্ডাস্ট্রি এক্সপার্ট মেন্টর, প্র্যাকটিকাল কারিকুলাম ও রিয়েল প্রজেক্ট দিয়ে ক্যারিয়ারের পথে এগিয়ে দিচ্ছে।"
-                                : "Since 2020, Techlight IT Institute has helped thousands of students transform their careers — with industry-expert mentors, a practical curriculum, and real-world projects."}
-                        </p>
-
-                        <div className="flex flex-wrap items-center justify-center gap-3.5">
-                            <Link href="/courses">
-                                <button className="group px-7 py-3 rounded-full bg-[#E31E27] hover:bg-[#C01920] text-white text-sm font-bold shadow-lg shadow-[#E31E27]/25 hover:shadow-[#E31E27]/40 transition-all flex items-center gap-2">
-                                    {language === "bn" ? "কোর্স দেখুন" : "Explore Courses"}
-                                    <LuArrowRight className="group-hover:translate-x-1 transition-transform" size={15} />
-                                </button>
-                            </Link>
-                            <Link href="/contact">
-                                <button className={`px-7 py-3 rounded-full bg-white dark:bg-white/5 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 text-sm font-bold hover:border-[#E31E27]/40 hover:text-[#E31E27] transition-all ${bengaliClass}`}>
-                                    {language === "bn" ? "যোগাযোগ করুন" : "Talk to Us"}
-                                </button>
-                            </Link>
-                        </div>
-                    </motion.div>
-
-                    {/* Full-width banner with overlay stats (distinct from home) */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, delay: 0.2 }}
-                        className="relative mt-12 lg:mt-16 max-w-5xl mx-auto"
-                    >
-                        <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/10 border border-white/60 dark:border-white/10">
-                            <img
-                                src="/images/57462951_2085649778223584_3709857119512559616_n.jpg"
-                                alt="Techlight IT Institute campus"
-                                className="w-full h-[260px] sm:h-[340px] lg:h-[430px] object-cover"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
-
-                            {/* Bottom overlay stat strip */}
-                            <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-7">
-                                <div className="grid grid-cols-3 gap-3 max-w-xl">
-                                    {[
-                                        { v: "5+", l: language === "bn" ? "বছরের অভিজ্ঞতা" : "Years Experience" },
-                                        { v: "50K+", l: language === "bn" ? "সন্তুষ্ট শিক্ষার্থী" : "Happy Students" },
-                                        { v: "4.9", l: language === "bn" ? "গড় রেটিং" : "Avg Rating" },
-                                    ].map((s, i) => (
-                                        <div key={i} className="bg-white/90 dark:bg-white/10 backdrop-blur-md rounded-xl px-3.5 py-3 border border-white/40">
-                                            <p className="text-xl lg:text-2xl font-bold text-slate-900 dark:text-white">{s.v}</p>
-                                            <p className={`text-[10px] text-slate-500 dark:text-slate-300 uppercase tracking-wider font-medium ${bengaliClass}`}>{s.l}</p>
-                                        </div>
-                                    ))}
-                                </div>
+                        {/* Left - Content */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.7 }}
+                        >
+                            {/* Badge */}
+                            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-white/5 border border-[#E31E27]/20 rounded-full shadow-sm mb-5">
+                                <span className="flex h-1.5 w-1.5 relative">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E31E27] opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E31E27]"></span>
+                                </span>
+                                <span className={`text-[10px] font-medium text-slate-600 dark:text-slate-300 ${bengaliClass}`}>
+                                    {language === "bn" ? "আমাদের সম্পর্কে" : "About Us"}
+                                </span>
                             </div>
 
-                            {/* Top floating badge */}
-                            <div className="absolute top-5 right-5 bg-white/90 dark:bg-white/10 backdrop-blur-md rounded-xl px-4 py-2.5 shadow-lg border border-white/40 flex items-center gap-2.5">
-                                <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center shrink-0">
-                                    <LuCheck size={14} className="text-green-600" strokeWidth={3} />
-                                </div>
+                            {/* Title */}
+                            <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-[1.15] mb-5 ${bengaliClass}`}>
+                                {language === "bn" ? (
+                                    <>দক্ষতা গড়ে তোলে <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#CC1B24]">ক্যারিয়ার পাল্টায়</span></>
+                                ) : (
+                                    <>Building Skills, <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#CC1B24]">Shaping Futures</span></>
+                                )}
+                            </h1>
+
+                            {/* Description */}
+                            <p className={`text-slate-500 dark:text-slate-400 text-sm lg:text-base leading-relaxed mb-7 max-w-lg ${bengaliClass}`}>
+                                {language === "bn"
+                                    ? "টেকলাইট আইটি ইনস্টিটিউট ২০২০ সাল থেকে হাজারো শিক্ষার্থীকে ক্যারিয়ারের পথে এগিয়ে দিচ্ছে। ইন্ডাস্ট্রি এক্সপার্ট মেন্টর, প্র্যাকটিকাল কারিকুলাম এবং রিয়েল প্রজেক্ট দিয়ে আমরা ভবিষ্যৎ গড়ছি।"
+                                    : "Since 2020, Techlight IT Institute has helped thousands of students transform their careers. With industry-expert mentors, practical curriculum, and real-world projects — we build futures."}
+                            </p>
+
+                            {/* CTAs */}
+                            <div className="flex flex-wrap items-center gap-4 mb-10">
+                                <Link href="/courses">
+                                    <button className="group px-7 py-3 rounded-full bg-[#E31E27] hover:bg-[#C01920] text-white text-sm font-bold shadow-lg shadow-[#E31E27]/25 hover:shadow-[#E31E27]/40 transition-all flex items-center gap-2">
+                                        {language === "bn" ? "কোর্স দেখুন" : "Explore Courses"}
+                                        <LuArrowRight className="group-hover:translate-x-1 transition-transform" size={15} />
+                                    </button>
+                                </Link>
+                                <button className="group flex items-center gap-3 text-slate-600 dark:text-slate-300 hover:text-[#E31E27] transition-colors">
+                                    <div className="w-10 h-10 rounded-full bg-white dark:bg-white/5 shadow-md flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <LuPlay size={14} className="text-[#E31E27] ml-0.5" fill="currentColor" />
+                                    </div>
+                                    <span className={`text-sm font-semibold ${bengaliClass}`}>
+                                        {language === "bn" ? "ভিডিও দেখুন" : "Watch Video"}
+                                    </span>
+                                </button>
+                            </div>
+
+                            {/* Mini stats inline */}
+                            <div className="flex items-center gap-8 pt-6 border-t border-slate-200 dark:border-white/10">
                                 <div>
-                                    <p className="text-[9px] text-slate-400 font-medium uppercase tracking-wide">Success Rate</p>
-                                    <p className="font-bold text-sm text-slate-800 dark:text-white">98%</p>
+                                    <p className="text-2xl font-bold text-slate-900 dark:text-white">5+</p>
+                                    <p className={`text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium ${bengaliClass}`}>
+                                        {language === "bn" ? "বছরের অভিজ্ঞতা" : "Years Experience"}
+                                    </p>
+                                </div>
+                                <div className="h-10 w-px bg-slate-200 dark:bg-white/10" />
+                                <div>
+                                    <p className="text-2xl font-bold text-[#E31E27]">50K+</p>
+                                    <p className={`text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium ${bengaliClass}`}>
+                                        {language === "bn" ? "সন্তুষ্ট শিক্ষার্থী" : "Happy Students"}
+                                    </p>
+                                </div>
+                                <div className="h-10 w-px bg-slate-200 dark:bg-white/10" />
+                                <div>
+                                    <p className="text-2xl font-bold text-amber-500">4.9</p>
+                                    <p className={`text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium ${bengaliClass}`}>
+                                        {language === "bn" ? "রেটিং" : "Rating"}
+                                    </p>
                                 </div>
                             </div>
-                        </div>
-                    </motion.div>
+                        </motion.div>
+
+                        {/* Right - Image (mirrored layout + about-specific badges, distinct from home) */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.7, delay: 0.2 }}
+                            className="relative"
+                        >
+                            <div className="relative grid grid-cols-12 gap-3 lg:gap-4">
+                                {/* Left column stack */}
+                                <div className="col-span-5 flex flex-col gap-3 lg:gap-4">
+                                    <div className="relative rounded-2xl overflow-hidden shadow-xl border border-white/60 dark:border-white/10 group">
+                                        <img
+                                            src="/images/58068385_2070681143053781_5367478869567733760_n.jpg"
+                                            alt="Seminar"
+                                            className="w-full h-[140px] lg:h-[200px] object-cover group-hover:scale-105 transition-transform duration-700"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                                        <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
+                                            <div className="w-5 h-5 bg-[#E31E27] rounded-full flex items-center justify-center">
+                                                <span className="text-white text-[8px]">🎓</span>
+                                            </div>
+                                            <span className="text-white text-[9px] font-bold">Seminar</span>
+                                        </div>
+                                    </div>
+                                    <div className="relative rounded-2xl overflow-hidden shadow-xl border border-white/60 dark:border-white/10 group">
+                                        <img
+                                            src="/images/58383539_2073583652763530_1902712555562860544_n.jpg"
+                                            alt="Exam"
+                                            className="w-full h-[140px] lg:h-[200px] object-cover group-hover:scale-105 transition-transform duration-700"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                                        <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
+                                            <div className="w-5 h-5 bg-amber-500 rounded-full flex items-center justify-center">
+                                                <span className="text-white text-[8px]">📝</span>
+                                            </div>
+                                            <span className="text-white text-[9px] font-bold">Exam Hall</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Big right */}
+                                <div className="col-span-7 relative group">
+                                    <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/10 border border-white/60 dark:border-white/10 h-full">
+                                        <img
+                                            src="/images/57462951_2085649778223584_3709857119512559616_n.jpg"
+                                            alt="Classroom"
+                                            className="w-full h-[300px] lg:h-[420px] object-cover group-hover:scale-105 transition-transform duration-700"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+                                        <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 shadow-lg">
+                                            <p className="text-[9px] font-bold text-[#E31E27] uppercase tracking-widest">Our Campus</p>
+                                            <p className="text-[11px] font-semibold text-gray-700">Hands-on Learning</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Floating badge — top right (Est. 2020) */}
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: 1, duration: 0.5 }}
+                                    className="absolute -top-3 -right-3 bg-white rounded-2xl px-3 py-2 shadow-xl border border-gray-100 z-20"
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-8 h-8 bg-[#FEE2E2] rounded-full flex items-center justify-center">
+                                            <LuAward size={15} className="text-[#E31E27]" />
+                                        </div>
+                                        <div>
+                                            <p className="text-[9px] text-gray-400 font-medium">Established</p>
+                                            <p className="font-bold text-xs text-gray-800">Since 2020</p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+
+                                {/* Floating badge — bottom left (rating) */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 1.3, duration: 0.5 }}
+                                    className="absolute -bottom-3 left-[8%] bg-white rounded-2xl px-3 py-2 shadow-xl border border-gray-100 z-20"
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center">
+                                            <span className="text-amber-500 text-sm">★</span>
+                                        </div>
+                                        <div>
+                                            <p className="text-[9px] text-gray-400 font-medium">Rated 4.9</p>
+                                            <p className="font-bold text-[11px] text-gray-800">2,500+ Reviews</p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 
