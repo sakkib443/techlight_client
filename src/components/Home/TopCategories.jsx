@@ -5,11 +5,36 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import {
     LuBrain, LuPalette, LuCode, LuMegaphone,
-    LuFilm, LuServer, LuUsers, LuGraduationCap, LuArrowUpRight
+    LuFilm, LuServer, LuShield, LuGraduationCap, LuArrowUpRight
 } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 
+// Order: Networking & Server -> Management -> Diploma -> then the rest
 const categories = (language, t) => [
+    {
+        icon: LuServer,
+        title: language === 'bn' ? t("home_sections.networkingServer") : 'Networking & Server',
+        subtitle: language === 'bn' ? t("home_sections.protectorIT") : 'Protector of IT Industry',
+        slug: 'networking-server',
+        color: '#F97316',
+        light: '#FFEDD5',
+    },
+    {
+        icon: LuShield,
+        title: language === 'bn' ? 'সাইবার সিকিউরিটি' : 'Cyber Security',
+        subtitle: language === 'bn' ? 'ডিজিটাল জগতের সুরক্ষা' : 'Defend the Digital World',
+        slug: 'cyber-security',
+        color: '#2563EB',
+        light: '#DBEAFE',
+    },
+    {
+        icon: LuGraduationCap,
+        title: language === 'bn' ? t("home_sections.diploma") : 'Diploma',
+        subtitle: language === 'bn' ? t("home_sections.skillUpStandOut") : 'Skill Up, Stand Out',
+        slug: 'diploma',
+        color: '#EC4899',
+        light: '#FCE7F3',
+    },
     {
         icon: LuBrain,
         title: language === 'bn' ? t("home_sections.aiAutomation") : 'AI & Automation',
@@ -49,30 +74,6 @@ const categories = (language, t) => [
         slug: 'media-film',
         color: '#10B981',
         light: '#D1FAE5',
-    },
-    {
-        icon: LuServer,
-        title: language === 'bn' ? t("home_sections.networkingServer") : 'Networking & Server',
-        subtitle: language === 'bn' ? t("home_sections.protectorIT") : 'Protector of IT Industry',
-        slug: 'networking-server',
-        color: '#F97316',
-        light: '#FFEDD5',
-    },
-    {
-        icon: LuUsers,
-        title: language === 'bn' ? t("home_sections.management") : 'Management',
-        subtitle: language === 'bn' ? t("home_sections.leadStrategy") : 'Leading with Strategy',
-        slug: 'management',
-        color: '#8B5CF6',
-        light: '#EDE9FE',
-    },
-    {
-        icon: LuGraduationCap,
-        title: language === 'bn' ? t("home_sections.diploma") : 'Diploma',
-        subtitle: language === 'bn' ? t("home_sections.skillUpStandOut") : 'Skill Up, Stand Out',
-        slug: 'diploma',
-        color: '#EC4899',
-        light: '#FCE7F3',
     },
 ];
 
