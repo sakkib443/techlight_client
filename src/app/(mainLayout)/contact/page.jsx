@@ -164,12 +164,22 @@ const ContactPage = () => {
         },
     ];
 
+    // WhatsApp may be stored as a phone number — turn it into a wa.me link
+    const formatWhatsapp = (val) => {
+        if (!val || val === "#") return "";
+        if (val.startsWith("http")) return val;
+        const digits = val.replace(/[^0-9]/g, "");
+        return digits ? `https://wa.me/${digits}` : "";
+    };
+    const whatsappHref = formatWhatsapp(content.socialLinks.whatsapp);
+
+    // Only show social icons whose link is actually set in the admin panel
     const socialLinks = [
         { icon: FaFacebookF, href: content.socialLinks.facebook, label: "Facebook", hoverBg: "hover:bg-[#1877F2]", color: "#1877F2" },
         { icon: FaYoutube, href: content.socialLinks.youtube, label: "YouTube", hoverBg: "hover:bg-[#FF0000]", color: "#FF0000" },
         { icon: FaLinkedinIn, href: content.socialLinks.linkedin, label: "LinkedIn", hoverBg: "hover:bg-[#0A66C2]", color: "#0A66C2" },
         { icon: FaInstagram, href: content.socialLinks.instagram, label: "Instagram", hoverBg: "hover:bg-[#E4405F]", color: "#E4405F" },
-    ];
+    ].filter((s) => s.href && s.href !== "#");
 
     // === Quick FAQ ===
     const quickFaqs = [
@@ -482,7 +492,7 @@ const ContactPage = () => {
                                     </p>
 
                                     <a
-                                        href={content.socialLinks.whatsapp}
+                                        href={whatsappHref || "#"}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className={`group inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#128C7E] font-bold text-xs rounded-full hover:shadow-2xl hover:-translate-y-0.5 transition-all ${bengaliClass}`}
