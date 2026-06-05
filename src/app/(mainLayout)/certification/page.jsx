@@ -1,14 +1,15 @@
 ﻿"use client";
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import React, { useState } from "react";
 import Link from "next/link";
-import { HiOutlineSparkles } from "react-icons/hi2";
+import toast from "react-hot-toast";
 import { LuSearch, LuDownload, LuEye, LuAward, LuUser, LuBookOpen, LuHash, LuArrowRight } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
+import { generateCertificatePDF } from "@/utils/generateCertificatePDF";
+import CertificateModal from "@/components/sheard/CertificateModal";
+import { API_URL } from "@/config/api";
 
 const CertificationPage = () => {
-  const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [searchValues, setSearchValues] = useState({
     phoneNumber: "",
@@ -17,55 +18,51 @@ const CertificationPage = () => {
   });
   const [hasSearched, setHasSearched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
   const { t, language } = useLanguage();
   const bengaliClass = language === "bn" ? "hind-siliguri" : "";
 
-  useEffect(() => {
-    fetch("/Certification.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setUsers(data);
-        setFilteredUsers([]);
-      });
-  }, []);
-
-  const handleDownload = (studentId) => {
-    console.log(`Downloading certificate ${studentId}`);
+  const handleDownload = async (certificate) => {
+    try {
+      await generateCertificatePDF(certificate);
+      toast.success(`Certificate downloaded for ${certificate.studentName || certificate.name}`);
+    } catch (error) {
+      console.error("Certificate download failed:", error);
+      toast.error("Could not generate the certificate. Please try again.");
+    }
   };
 
-  const handleView = (studentId) => {
-    console.log(`Viewing certificate ${studentId}`);
+  const handleView = (certificate) => {
+    setSelectedCertificate(certificate);
   };
 
-  const handleSearch = () => {
-    setIsLoading(true);
+  const handleSearch = async () => {
     const { phoneNumber, email, studentId } = searchValues;
 
-    setTimeout(() => {
-      if (!phoneNumber && !email && !studentId) {
-        setFilteredUsers([]);
-        setHasSearched(true);
-        setIsLoading(false);
-        return;
-      }
+    if (!phoneNumber && !email && !studentId) {
+      setFilteredUsers([]);
+      setHasSearched(true);
+      return;
+    }
 
-      const filtered = users.filter((user) => {
-        if (phoneNumber && user.phoneNumber && user.phoneNumber.includes(phoneNumber)) {
-          return true;
-        }
-        if (email && user.email && user.email.toLowerCase().includes(email.toLowerCase())) {
-          return true;
-        }
-        if (studentId && user.studentId.toLowerCase().includes(studentId.toLowerCase())) {
-          return true;
-        }
-        return false;
-      });
+    try {
+      setIsLoading(true);
+      const params = new URLSearchParams();
+      if (phoneNumber) params.append("phone", phoneNumber.trim());
+      if (email) params.append("email", email.trim());
+      if (studentId) params.append("studentId", studentId.trim());
 
-      setFilteredUsers(filtered);
+      const res = await fetch(`${API_URL}/certificates/search?${params.toString()}`);
+      const data = await res.json();
+      setFilteredUsers(Array.isArray(data?.data) ? data.data : []);
+    } catch (error) {
+      console.error("Certificate search failed:", error);
+      toast.error("Could not search certificates. Please try again.");
+      setFilteredUsers([]);
+    } finally {
       setHasSearched(true);
       setIsLoading(false);
-    }, 500);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -230,21 +227,16 @@ const CertificationPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredUsers.map((user) => (
                   <div
-                    key={user.id}
+                    key={user._id || user.id}
                     className="group bg-gray-50 border border-gray-200 rounded-md p-5 hover:shadow-lg hover:border-[#E31E27]/30 transition-all duration-300"
                   >
                     {/* Header */}
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#E31E27]">
-                        <Image
-                          src={user.image || "/images/placeholder.png"}
-                          alt={user.name}
-                          fill
-                          className="object-cover"
-                        />
+                      <div className="w-14 h-14 rounded-full flex items-center justify-center border-2 border-[#E31E27] bg-[#E31E27] text-white text-lg font-bold uppercase shrink-0">
+                        {(user.studentName || user.name || "S").charAt(0)}
                       </div>
                       <div>
-                        <h3 className="font-bold text-gray-800 outfit">{user.name}</h3>
+                        <h3 className="font-bold text-gray-800 outfit">{user.studentName || user.name}</h3>
                         <p className="text-xs text-gray-500 work">{user.studentId}</p>
                       </div>
                     </div>
@@ -253,25 +245,25 @@ const CertificationPage = () => {
                     <div className="space-y-2 mb-4 text-sm">
                       <div className="flex items-center justify-between">
                         <span className={`text-gray-500 work ${bengaliClass}`}>{t("certificationPage.course")}</span>
-                        <span className="font-medium text-gray-700">{user.courseName}</span>
+                        <span className="font-medium text-gray-700 text-right">{user.courseName || "—"}</span>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className={`text-gray-500 work ${bengaliClass}`}>{t("certificationPage.batch")}</span>
-                        <span className="font-medium text-gray-700">{user.batchName}</span>
+                        <span className="font-medium text-gray-700 text-right">{user.batchName || "—"}</span>
                       </div>
                     </div>
 
                     {/* Actions */}
                     <div className="flex gap-2">
                       <button
-                        onClick={() => handleView(user.studentId)}
+                        onClick={() => handleView(user)}
                         className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-[#E31E27] hover:bg-[#38a89d] text-white text-sm font-medium rounded-md transition-colors ${bengaliClass}`}
                       >
                         <LuEye />
                         {t("certificationPage.view")}
                       </button>
                       <button
-                        onClick={() => handleDownload(user.studentId)}
+                        onClick={() => handleDownload(user)}
                         className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-[#E31E27] hover:bg-[#e68a47] text-white text-sm font-medium rounded-md transition-colors ${bengaliClass}`}
                       >
                         <LuDownload />
@@ -323,6 +315,15 @@ const CertificationPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Certificate Detail Modal */}
+      <CertificateModal
+        certificate={selectedCertificate}
+        onClose={() => setSelectedCertificate(null)}
+        onDownload={(cert) =>
+          toast.success(`Certificate downloaded for ${cert.studentName || cert.name}`)
+        }
+      />
     </div>
   );
 };

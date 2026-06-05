@@ -498,7 +498,7 @@ export default function CoursesPage() {
                   Curriculum
                 </button>
                 <Link
-                  href={`/dashboard/admin/course/edit/${course._id}`}
+                  href={`/dashboard/admin/course/create?id=${course._id}`}
                   className={`flex-1 py-2 text-center rounded-md text-xs font-medium transition-all ${isDark ? 'bg-slate-600 text-slate-300 hover:bg-slate-500' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-100'}`}
                 >
                   Edit
@@ -551,7 +551,7 @@ export default function CoursesPage() {
                   >
                     <FiLayers size={14} />
                   </button>
-                  <Link href={`/dashboard/admin/course/edit/${course._id}`} className={`p-2 rounded-md transition-all ${isDark ? 'bg-slate-700 text-slate-300 hover:bg-slate-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
+                  <Link href={`/dashboard/admin/course/create?id=${course._id}`} className={`p-2 rounded-md transition-all ${isDark ? 'bg-slate-700 text-slate-300 hover:bg-slate-600' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
                     <FiEdit2 size={16} />
                   </Link>
                   <button onClick={() => handleDelete(course._id)} className="p-2 bg-red-500/10 text-red-500 rounded-md hover:bg-red-500 hover:text-white transition-all">

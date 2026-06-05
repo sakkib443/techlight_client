@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import {
   FiHome,
   FiBook,
@@ -36,15 +36,14 @@ import {
   FiEdit3,
   FiPlus,
   FiInbox,
+  FiHelpCircle,
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 
 const AdminSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [openMenus, setOpenMenus] = useState([]);
-  const [showAnalyticsConfirm, setShowAnalyticsConfirm] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
   const { isDark } = useTheme();
 
   // Exact match for active state
@@ -80,12 +79,6 @@ const AdminSidebar = () => {
       gradient: 'from-indigo-500 to-purple-500'
     },
     {
-      title: 'Analytics',
-      icon: FiBarChart2,
-      gradient: 'from-pink-500 to-rose-500',
-      isProtected: true
-    },
-    {
       title: 'LMS',
       icon: FiBook,
       gradient: 'from-amber-500 to-orange-500',
@@ -98,24 +91,16 @@ const AdminSidebar = () => {
         // { title: 'All Lessons', href: '/dashboard/admin/lesson', icon: FiPlay },
         // { title: 'Create Lesson', href: '/dashboard/admin/lesson/create', icon: FiFileText },
         // ──── End Hidden ────
-        { title: 'Enrollments', href: '/dashboard/admin/enrollment', icon: FiUserCheck },
-      ],
-    },
-    {
-      title: 'Batch',
-      icon: FiLayers,
-      gradient: 'from-cyan-500 to-blue-500',
-      submenu: [
-        { title: 'All Batches', href: '/dashboard/admin/batch', icon: FiLayers },
-        { title: 'Create Batch', href: '/dashboard/admin/batch/create', icon: FiPlus },
-        { title: 'Batch Students', href: '/dashboard/admin/batch/students', icon: FiUsers },
       ],
     },
     {
       title: 'Certificates',
-      href: '/dashboard/admin/certification',
       icon: FiAward,
-      gradient: 'from-yellow-500 to-orange-500'
+      gradient: 'from-yellow-500 to-orange-500',
+      submenu: [
+        { title: 'All Certificates', href: '/dashboard/admin/certification', icon: FiAward },
+        { title: 'Certificate Batches', href: '/dashboard/admin/certification/batches', icon: FiLayers },
+      ],
     },
     {
       title: 'Mentor',
@@ -152,12 +137,6 @@ const AdminSidebar = () => {
       gradient: 'from-green-500 to-emerald-500'
     },
     {
-      title: 'Coupons',
-      href: '/dashboard/admin/coupons',
-      icon: FiTag,
-      gradient: 'from-amber-500 to-orange-500'
-    },
-    {
       title: 'Messages',
       href: '/dashboard/admin/messages',
       icon: FiInbox,
@@ -168,6 +147,12 @@ const AdminSidebar = () => {
       href: '/dashboard/admin/testimonials',
       icon: FiMessageSquare,
       gradient: 'from-amber-500 to-orange-500'
+    },
+    {
+      title: 'FAQ',
+      href: '/dashboard/admin/faq',
+      icon: FiHelpCircle,
+      gradient: 'from-teal-500 to-emerald-500'
     },
     {
       title: 'Blog',
@@ -184,6 +169,7 @@ const AdminSidebar = () => {
       gradient: 'from-indigo-500 to-purple-500',
       submenu: [
         { title: 'Home', href: '/dashboard/admin/design/home', icon: FiHome },
+        { title: 'About Page', href: '/dashboard/admin/design/about', icon: FiUsers },
         { title: 'Contact Page', href: '/dashboard/admin/design/contact', icon: FiMessageSquare },
       ],
     },
@@ -317,120 +303,35 @@ const AdminSidebar = () => {
               );
             }
 
-            /* NORMAL MENU & PROTECTED MENU */
-            const isProtected = item.isProtected;
-
+            /* NORMAL MENU */
             return (
               <div key={item.title || item.href}>
-                {isProtected ? (
-                  <button
-                    onClick={() => setShowAnalyticsConfirm(true)}
-                    className={`group w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all
-                    ${isActive('/dashboard/admin/analytics')
-                        ? isDark
-                          ? 'bg-gradient-to-r from-[#E31E27]/20 to-[#E31E27]/20 text-white'
-                          : 'bg-gradient-to-r from-[#E31E27]/10 to-[#E31E27]/10 text-slate-800'
-                        : isDark
-                          ? 'text-slate-400 hover:text-white hover:bg-white/5'
-                          : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'
-                      }`}
-                  >
-                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${isActive('/dashboard/admin/analytics')
-                      ? `bg-gradient-to-br ${item.gradient} shadow-lg`
+                <Link
+                  href={item.href}
+                  className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all
+                  ${isActive(item.href)
+                      ? isDark
+                        ? 'bg-gradient-to-r from-[#E31E27]/20 to-[#E31E27]/20 text-white'
+                        : 'bg-gradient-to-r from-[#E31E27]/10 to-[#E31E27]/10 text-slate-800'
                       : isDark
-                        ? 'bg-slate-800 group-hover:bg-slate-700'
-                        : 'bg-slate-200 group-hover:bg-slate-300'
-                      } transition-all`}>
-                      <Icon size={18} className={isActive('/dashboard/admin/analytics') ? 'text-white' : isDark ? 'text-slate-400 group-hover:text-white' : 'text-slate-500 group-hover:text-slate-700'} />
-                    </div>
-                    <span className="text-sm font-medium">{item.title}</span>
-                  </button>
-                ) : (
-                  <Link
-                    href={item.href}
-                    className={`group flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all
-                    ${isActive(item.href)
-                        ? isDark
-                          ? 'bg-gradient-to-r from-[#E31E27]/20 to-[#E31E27]/20 text-white'
-                          : 'bg-gradient-to-r from-[#E31E27]/10 to-[#E31E27]/10 text-slate-800'
-                        : isDark
-                          ? 'text-slate-400 hover:text-white hover:bg-white/5'
-                          : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'
-                      }`}
-                  >
-                    <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${isActive(item.href)
-                      ? `bg-gradient-to-br ${item.gradient} shadow-lg`
-                      : isDark
-                        ? 'bg-slate-800 group-hover:bg-slate-700'
-                        : 'bg-slate-200 group-hover:bg-slate-300'
-                      } transition-all`}>
-                      <Icon size={18} className={isActive(item.href) ? 'text-white' : isDark ? 'text-slate-400 group-hover:text-white' : 'text-slate-500 group-hover:text-slate-700'} />
-                    </div>
-                    <span className="text-sm font-medium">{item.title}</span>
-                  </Link>
-                )}
+                        ? 'text-slate-400 hover:text-white hover:bg-white/5'
+                        : 'text-slate-600 hover:text-slate-800 hover:bg-slate-100'
+                    }`}
+                >
+                  <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${isActive(item.href)
+                    ? `bg-gradient-to-br ${item.gradient} shadow-lg`
+                    : isDark
+                      ? 'bg-slate-800 group-hover:bg-slate-700'
+                      : 'bg-slate-200 group-hover:bg-slate-300'
+                    } transition-all`}>
+                    <Icon size={18} className={isActive(item.href) ? 'text-white' : isDark ? 'text-slate-400 group-hover:text-white' : 'text-slate-500 group-hover:text-slate-700'} />
+                  </div>
+                  <span className="text-sm font-medium">{item.title}</span>
+                </Link>
               </div>
             );
           })}
         </nav>
-
-        {/* Analytics Confirmation Modal */}
-        {showAnalyticsConfirm && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <style jsx>{`
-              @keyframes modalEntry {
-                from { opacity: 0; transform: scale(0.9) translateY(20px); }
-                to { opacity: 1; transform: scale(1) translateY(0); }
-              }
-              @keyframes backdropIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-              }
-              .animate-modal { animation: modalEntry 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-              .animate-backdrop { animation: backdropIn 0.3s ease-out forwards; }
-            `}</style>
-            <div
-              className="absolute inset-0 bg-slate-950/60 backdrop-blur-md animate-backdrop"
-              onClick={() => setShowAnalyticsConfirm(false)}
-            />
-            <div className={`relative w-full max-w-md transform animate-modal ${isDark ? 'bg-slate-900/90 border-slate-800' : 'bg-white/90 border-slate-200'
-              } backdrop-blur-xl rounded-3xl p-8 shadow-2xl border`}>
-              {/* Modal Content */}
-              <div className="text-center">
-                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center mb-6 ring-4 ring-indigo-500/10 transition-transform hover:scale-110 duration-300">
-                  <FiBarChart2 className="text-indigo-500 animate-bounce" size={40} />
-                </div>
-                <h3 className={`text-2xl font-bold font-outfit mb-3 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-                  Secure Data Access
-                </h3>
-                <p className={`text-base font-poppins leading-relaxed mb-8 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
-                  This section contains sensitive platform analytics and critical data. Are you sure you want to proceed?
-                </p>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <button
-                    onClick={() => setShowAnalyticsConfirm(false)}
-                    className={`px-6 py-3.5 rounded-2xl text-sm font-bold transition-all ${isDark
-                      ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'
-                      : 'bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-700'
-                      }`}
-                  >
-                    No, Cancel
-                  </button>
-                  <button
-                    onClick={() => {
-                      setShowAnalyticsConfirm(false);
-                      router.push('/dashboard/admin/analytics');
-                    }}
-                    className="px-6 py-3.5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-2xl text-sm font-bold shadow-lg shadow-indigo-500/30 hover:scale-[1.02] active:scale-95 transition-all"
-                  >
-                    Yes, Proceed
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Bottom - Logout Only */}
         <div className={`absolute bottom-0 left-0 w-full p-3 border-t backdrop-blur-sm ${isDark ? 'border-white/5 bg-slate-900/95' : 'border-slate-200 bg-white/95'

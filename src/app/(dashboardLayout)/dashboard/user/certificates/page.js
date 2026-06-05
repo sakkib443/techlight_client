@@ -38,9 +38,9 @@ export default function UserCertificatesPage() {
         }
     };
 
-    const download = (cert) => {
+    const download = async (cert) => {
         try {
-            generateCertificatePDF(cert);
+            await generateCertificatePDF(cert);
         } catch (err) {
             console.error('PDF error:', err);
             toast.error('Could not generate the PDF');
@@ -123,10 +123,10 @@ export default function UserCertificatesPage() {
                                     </div>
                                     <div className="min-w-0">
                                         <h3 className={`text-sm font-semibold truncate ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                                            {cert.title || cert.courseName}
+                                            {cert.courseName || cert.title || cert.batchName}
                                         </h3>
-                                        {cert.batch?.batchName && (
-                                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Batch: {cert.batch.batchName}</p>
+                                        {(cert.batchName || cert.batch?.batchName) && (
+                                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Batch: {cert.batchName || cert.batch?.batchName}</p>
                                         )}
                                         <p className={`text-xs mt-1 flex items-center gap-1 ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>
                                             <FiCalendar size={12} /> {formatDate(cert.issueDate)}
@@ -173,9 +173,9 @@ export default function UserCertificatesPage() {
                                 <p className={`mt-3 text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>This is to certify that</p>
                                 <p className="text-xl font-bold text-[#E31E27] mt-1">{selected.studentName}</p>
                                 <p className={`mt-2 text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>has successfully completed</p>
-                                <p className={`text-base font-semibold mt-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>{selected.title || selected.courseName}</p>
-                                {selected.batch?.batchName && (
-                                    <p className={`mt-1 text-xs ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Batch: {selected.batch.batchName}</p>
+                                <p className={`text-base font-semibold mt-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>{selected.courseName || selected.title || selected.batchName}</p>
+                                {(selected.batchName || selected.batch?.batchName) && (
+                                    <p className={`mt-1 text-xs ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Batch: {selected.batchName || selected.batch?.batchName}</p>
                                 )}
                                 <div className="flex items-center justify-center gap-4 mt-5 text-[11px]">
                                     <span className={isDark ? 'text-slate-400' : 'text-gray-500'}>{formatDate(selected.issueDate)}</span>

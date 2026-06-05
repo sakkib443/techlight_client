@@ -1,20 +1,32 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import {
   FiSearch, FiPlus, FiTrash2, FiEye, FiAward, FiDownload,
-  FiX, FiRefreshCw, FiSlash, FiCheckCircle, FiUsers, FiCalendar,
+  FiX, FiRefreshCw, FiSlash, FiCheckCircle, FiCalendar, FiLayers,
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 import { toast } from 'react-hot-toast';
 import { API_URL } from '@/config/api';
 import { generateCertificatePDF } from '@/utils/generateCertificatePDF';
+import CourseSelect from '@/components/Admin/CourseSelect';
+
+const EMPTY_FORM = {
+  studentName: '',
+  phone: '',
+  email: '',
+  studentId: '',
+  courseName: '',
+  grade: '',
+  certificateBatch: '',
+};
 
 export default function CertificationsPage() {
   const { isDark } = useTheme();
 
   const [certificates, setCertificates] = useState([]);
-  const [enrollments, setEnrollments] = useState([]);
+  const [batches, setBatches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -24,22 +36,20 @@ export default function CertificationsPage() {
   const [selected, setSelected] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
-  // Issue form state
-  const [enrollSearch, setEnrollSearch] = useState('');
-  const [selectedEnrollment, setSelectedEnrollment] = useState(null);
-  const [title, setTitle] = useState('');
-  const [grade, setGrade] = useState('');
+  // Issue form
+  const [form, setForm] = useState(EMPTY_FORM);
 
   const getToken = () => (typeof window !== 'undefined' ? localStorage.getItem('token') : null);
 
   useEffect(() => {
     fetchCertificates();
+    fetchBatches();
   }, []);
 
   const fetchCertificates = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${API_URL}/certificates?limit=200`, {
+      const res = await fetch(`${API_URL}/certificates?limit=300`, {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       const data = await res.json();
@@ -52,30 +62,31 @@ export default function CertificationsPage() {
     }
   };
 
-  const fetchEnrollments = async () => {
+  const fetchBatches = async () => {
     try {
-      const res = await fetch(`${API_URL}/enrollments?limit=500`, {
+      const res = await fetch(`${API_URL}/certificate-batches`, {
         headers: { Authorization: `Bearer ${getToken()}` },
       });
       const data = await res.json();
-      setEnrollments(data.data || []);
+      setBatches(data.data || []);
     } catch (err) {
-      console.error('Error fetching enrollments:', err);
+      console.error('Error fetching batches:', err);
     }
   };
 
+  const upd = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+
   const openIssue = () => {
-    setSelectedEnrollment(null);
-    setTitle('');
-    setGrade('');
-    setEnrollSearch('');
+    setForm(EMPTY_FORM);
     setShowIssue(true);
-    if (enrollments.length === 0) fetchEnrollments();
+    if (batches.length === 0) fetchBatches();
   };
 
+  const selectedBatch = batches.find((b) => b._id === form.certificateBatch) || null;
+
   const handleIssue = async () => {
-    if (!selectedEnrollment) {
-      toast.error('Please select a student enrollment');
+    if (!form.studentName.trim() || !form.phone.trim() || !form.studentId.trim()) {
+      toast.error('Student name, phone and student ID are required');
       return;
     }
     try {
@@ -84,21 +95,25 @@ export default function CertificationsPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` },
         body: JSON.stringify({
-          enrollmentId: selectedEnrollment._id,
-          title: title.trim() || undefined,
-          grade: grade.trim() || undefined,
+          studentName: form.studentName.trim(),
+          phone: form.phone.trim(),
+          email: form.email.trim() || undefined,
+          studentId: form.studentId.trim(),
+          courseName: form.courseName.trim() || undefined,
+          grade: form.grade.trim() || undefined,
+          certificateBatch: form.certificateBatch || undefined,
         }),
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        toast.success('Certificate issued successfully');
+        toast.success('Certificate created successfully');
         setShowIssue(false);
         fetchCertificates();
       } else {
-        toast.error(data.message || 'Failed to issue certificate');
+        toast.error(data.message || 'Failed to create certificate');
       }
     } catch (err) {
-      console.error('Error issuing certificate:', err);
+      console.error('Error creating certificate:', err);
       toast.error('Internal server error');
     } finally {
       setSubmitting(false);
@@ -146,9 +161,9 @@ export default function CertificationsPage() {
     }
   };
 
-  const download = (cert) => {
+  const download = async (cert) => {
     try {
-      generateCertificatePDF(cert);
+      await generateCertificatePDF(cert);
     } catch (err) {
       console.error('PDF error:', err);
       toast.error('Could not generate the PDF');
@@ -160,23 +175,16 @@ export default function CertificationsPage() {
     return new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
   };
 
-  // Filters
   const filtered = certificates.filter((c) => {
     const s = searchTerm.toLowerCase();
     return (
       c.certificateNumber?.toLowerCase().includes(s) ||
       c.studentName?.toLowerCase().includes(s) ||
-      c.courseName?.toLowerCase().includes(s) ||
-      c.title?.toLowerCase().includes(s)
+      c.studentId?.toLowerCase().includes(s) ||
+      c.phone?.toLowerCase().includes(s) ||
+      c.courseName?.toLowerCase().includes(s)
     );
   });
-
-  const issuableEnrollments = enrollments
-    .filter((e) => !e.certificateId)
-    .filter((e) => {
-      const s = `${e.student?.firstName || ''} ${e.student?.lastName || ''} ${e.student?.email || ''} ${e.course?.title || ''}`.toLowerCase();
-      return s.includes(enrollSearch.toLowerCase());
-    });
 
   const stats = {
     total: certificates.length,
@@ -193,6 +201,7 @@ export default function CertificationsPage() {
   const inputCls = isDark
     ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-500'
     : 'bg-white border-gray-200 text-gray-900';
+  const labelCls = `block text-xs font-medium mb-1.5 ${isDark ? 'text-slate-300' : 'text-gray-600'}`;
 
   return (
     <div className="p-5">
@@ -205,11 +214,18 @@ export default function CertificationsPage() {
           <div>
             <h1 className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Certificates</h1>
             <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
-              Issue and manage student certificates
+              Create and manage student certificates
             </p>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href="/dashboard/admin/certification/batches"
+            className={`flex items-center gap-2 px-3 py-2 text-sm rounded-md border ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-700' : 'border-gray-200 text-gray-600 hover:bg-gray-50'}`}
+          >
+            <FiLayers size={15} />
+            Manage Batches
+          </Link>
           <button
             onClick={fetchCertificates}
             className={`flex items-center gap-2 px-3 py-2 text-sm rounded-md border ${isDark ? 'border-slate-700 text-slate-300 hover:bg-slate-700' : 'border-gray-200 text-gray-600 hover:bg-gray-50'}`}
@@ -222,7 +238,7 @@ export default function CertificationsPage() {
             className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
           >
             <FiPlus size={16} />
-            Issue Certificate
+            Create Certificate
           </button>
         </div>
       </div>
@@ -248,7 +264,7 @@ export default function CertificationsPage() {
         <FiSearch className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? 'text-slate-400' : 'text-gray-400'}`} size={16} />
         <input
           type="text"
-          placeholder="Search by number, student, or course..."
+          placeholder="Search by number, name, ID, phone or course..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className={`w-full pl-9 pr-4 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`}
@@ -261,10 +277,10 @@ export default function CertificationsPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className={isDark ? 'bg-slate-700/50' : 'bg-gray-50'}>
-                {['Certificate No', 'Student', 'Course', 'Batch', 'Issued', 'Status', 'Actions'].map((h, i) => (
+                {['Certificate No', 'Student', 'Course', 'Batch', 'Mentor', 'Issued', 'Status', 'Actions'].map((h, i, arr) => (
                   <th
                     key={h}
-                    className={`px-4 py-3 text-xs font-medium ${i === 6 ? 'text-center' : 'text-left'} ${isDark ? 'text-slate-300' : 'text-gray-600'}`}
+                    className={`px-4 py-3 text-xs font-medium ${i === arr.length - 1 ? 'text-center' : 'text-left'} ${isDark ? 'text-slate-300' : 'text-gray-600'}`}
                   >
                     {h}
                   </th>
@@ -275,16 +291,16 @@ export default function CertificationsPage() {
               {loading ? (
                 [...Array(4)].map((_, i) => (
                   <tr key={i}>
-                    <td colSpan={7} className="px-4 py-4">
+                    <td colSpan={8} className="px-4 py-4">
                       <div className={`h-10 rounded animate-pulse ${isDark ? 'bg-slate-700' : 'bg-gray-100'}`} />
                     </td>
                   </tr>
                 ))
               ) : filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-4 py-14 text-center">
+                  <td colSpan={8} className="px-4 py-14 text-center">
                     <FiAward className={`mx-auto mb-2 ${isDark ? 'text-slate-600' : 'text-gray-300'}`} size={34} />
-                    <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>No certificates issued yet</p>
+                    <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>No certificates created yet</p>
                   </td>
                 </tr>
               ) : (
@@ -297,12 +313,13 @@ export default function CertificationsPage() {
                     </td>
                     <td className={`px-4 py-3 ${isDark ? 'text-slate-200' : 'text-gray-800'}`}>
                       <p className="font-medium">{cert.studentName}</p>
-                      <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>{cert.student?.email}</p>
+                      <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>{cert.studentId} · {cert.phone}</p>
                     </td>
-                    <td className={`px-4 py-3 ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>{cert.courseName}</td>
+                    <td className={`px-4 py-3 ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>{cert.courseName || '—'}</td>
                     <td className={`px-4 py-3 ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>
-                      {cert.batch?.batchName || <span className={isDark ? 'text-slate-600' : 'text-gray-400'}>—</span>}
+                      {cert.batchName || cert.certificateBatch?.batchName || <span className={isDark ? 'text-slate-600' : 'text-gray-400'}>—</span>}
                     </td>
+                    <td className={`px-4 py-3 ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>{cert.mentorName || '—'}</td>
                     <td className={`px-4 py-3 ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>{formatDate(cert.issueDate)}</td>
                     <td className="px-4 py-3">
                       <span className={`inline-block px-2 py-1 rounded text-xs font-medium capitalize ${statusStyle(cert.status)}`}>
@@ -354,105 +371,92 @@ export default function CertificationsPage() {
         </div>
       </div>
 
-      {/* Issue Modal */}
+      {/* Create Modal */}
       {showIssue && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
           <div className={`w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-lg ${isDark ? 'bg-slate-800' : 'bg-white'}`}>
             <div className={`sticky top-0 flex items-center justify-between p-4 border-b ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-200'}`}>
-              <h3 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Issue Certificate</h3>
+              <h3 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Create Certificate</h3>
               <button onClick={() => setShowIssue(false)} className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-gray-100 text-gray-500'}`}>
                 <FiX size={18} />
               </button>
             </div>
 
             <div className="p-4 space-y-4">
-              {/* Select enrollment */}
+              {/* Batch select */}
               <div>
-                <label className={`block text-xs font-medium mb-1.5 ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>
-                  Select Student Enrollment
+                <label className={labelCls}>
+                  Batch <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(fills mentor, dates & batch no.)</span>
                 </label>
-                {selectedEnrollment ? (
-                  <div className={`flex items-center justify-between p-3 rounded-md border ${isDark ? 'border-indigo-500/40 bg-indigo-500/10' : 'border-indigo-200 bg-indigo-50'}`}>
-                    <div>
-                      <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-gray-900'}`}>
-                        {selectedEnrollment.student?.firstName} {selectedEnrollment.student?.lastName}
-                      </p>
-                      <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
-                        {selectedEnrollment.course?.title}
-                        {selectedEnrollment.batch?.batchName ? ` • ${selectedEnrollment.batch.batchName}` : ''}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => setSelectedEnrollment(null)}
-                      className={`p-1.5 rounded-md ${isDark ? 'hover:bg-slate-700 text-slate-400' : 'hover:bg-white text-gray-500'}`}
-                    >
-                      <FiX size={16} />
-                    </button>
+                {batches.length === 0 ? (
+                  <div className={`flex items-center justify-between gap-2 p-3 rounded-md border text-xs ${isDark ? 'border-slate-700 text-slate-400' : 'border-gray-200 text-gray-500'}`}>
+                    <span>No batches yet.</span>
+                    <Link href="/dashboard/admin/certification/batches" className="text-indigo-500 hover:underline font-medium">
+                      Create a batch →
+                    </Link>
                   </div>
                 ) : (
-                  <>
-                    <div className="relative">
-                      <FiSearch className={`absolute left-3 top-1/2 -translate-y-1/2 ${isDark ? 'text-slate-400' : 'text-gray-400'}`} size={15} />
-                      <input
-                        type="text"
-                        placeholder="Search student or course..."
-                        value={enrollSearch}
-                        onChange={(e) => setEnrollSearch(e.target.value)}
-                        className={`w-full pl-9 pr-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`}
-                      />
-                    </div>
-                    <div className={`mt-2 max-h-52 overflow-y-auto rounded-md border ${isDark ? 'border-slate-700' : 'border-gray-200'}`}>
-                      {issuableEnrollments.length === 0 ? (
-                        <p className={`px-3 py-4 text-center text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>
-                          No eligible enrollments found
-                        </p>
-                      ) : (
-                        issuableEnrollments.slice(0, 50).map((e) => (
-                          <button
-                            key={e._id}
-                            onClick={() => { setSelectedEnrollment(e); setTitle(e.course?.title || ''); }}
-                            className={`w-full text-left px-3 py-2 border-b last:border-b-0 ${isDark ? 'border-slate-700/60 hover:bg-slate-700/50' : 'border-gray-100 hover:bg-gray-50'}`}
-                          >
-                            <p className={`text-sm font-medium ${isDark ? 'text-slate-200' : 'text-gray-800'}`}>
-                              {e.student?.firstName} {e.student?.lastName}
-                            </p>
-                            <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
-                              {e.course?.title}{e.batch?.batchName ? ` • ${e.batch.batchName}` : ''}
-                            </p>
-                          </button>
-                        ))
-                      )}
-                    </div>
-                  </>
+                  <select
+                    value={form.certificateBatch}
+                    onChange={(e) => upd('certificateBatch', e.target.value)}
+                    className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`}
+                  >
+                    <option value="">— No batch / enter manually —</option>
+                    {batches.map((b) => (
+                      <option key={b._id} value={b._id}>
+                        {b.batchNumber} — {b.batchName}
+                      </option>
+                    ))}
+                  </select>
+                )}
+                {selectedBatch && (
+                  <div className={`mt-2 p-3 rounded-md text-xs space-y-0.5 ${isDark ? 'bg-slate-700/40 text-slate-300' : 'bg-indigo-50 text-gray-600'}`}>
+                    <p>Mentor: <span className="font-medium">{selectedBatch.mentorName}</span></p>
+                    <p>Duration: <span className="font-medium">{formatDate(selectedBatch.startDate)} – {formatDate(selectedBatch.endDate)}</span></p>
+                    {selectedBatch.courseName && <p>Course: <span className="font-medium">{selectedBatch.courseName}</span></p>}
+                  </div>
                 )}
               </div>
 
-              {/* Title */}
-              <div>
-                <label className={`block text-xs font-medium mb-1.5 ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>
-                  Certificate Title <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(optional)</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Defaults to the course title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`}
-                />
+              {/* Student name + ID */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className={labelCls}>Student Name <span className="text-red-500">*</span></label>
+                  <input type="text" placeholder="Full name" value={form.studentName} onChange={(e) => upd('studentName', e.target.value)}
+                    className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
+                </div>
+                <div>
+                  <label className={labelCls}>Student ID <span className="text-red-500">*</span></label>
+                  <input type="text" placeholder="e.g. TECH-2024-001" value={form.studentId} onChange={(e) => upd('studentId', e.target.value)}
+                    className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
+                </div>
               </div>
 
-              {/* Grade */}
-              <div>
-                <label className={`block text-xs font-medium mb-1.5 ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>
-                  Grade / Result <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(optional)</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. A+, Distinction"
-                  value={grade}
-                  onChange={(e) => setGrade(e.target.value)}
-                  className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`}
-                />
+              {/* Phone + email */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className={labelCls}>Phone Number <span className="text-red-500">*</span></label>
+                  <input type="text" placeholder="e.g. 01712345678" value={form.phone} onChange={(e) => upd('phone', e.target.value)}
+                    className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
+                </div>
+                <div>
+                  <label className={labelCls}>Email <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(optional)</span></label>
+                  <input type="email" placeholder="student@email.com" value={form.email} onChange={(e) => upd('email', e.target.value)}
+                    className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
+                </div>
+              </div>
+
+              {/* Course + grade */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className={labelCls}>Course / Program <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(optional)</span></label>
+                  <CourseSelect value={form.courseName} onChange={(v) => upd('courseName', v)} isDark={isDark} placeholder={selectedBatch?.courseName ? `Use batch course (${selectedBatch.courseName})` : '— Select course —'} />
+                </div>
+                <div>
+                  <label className={labelCls}>Grade / Result <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(optional)</span></label>
+                  <input type="text" placeholder="e.g. A+, Distinction" value={form.grade} onChange={(e) => upd('grade', e.target.value)}
+                    className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
+                </div>
               </div>
             </div>
 
@@ -465,11 +469,11 @@ export default function CertificationsPage() {
               </button>
               <button
                 onClick={handleIssue}
-                disabled={submitting || !selectedEnrollment}
+                disabled={submitting}
                 className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md disabled:opacity-50"
               >
                 {submitting ? <FiRefreshCw className="animate-spin" size={15} /> : <FiAward size={15} />}
-                Issue Certificate
+                Create Certificate
               </button>
             </div>
           </div>
@@ -496,19 +500,21 @@ export default function CertificationsPage() {
                 <p className={`mt-3 text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>This is to certify that</p>
                 <p className="text-xl font-bold text-[#E31E27] mt-1">{selected.studentName}</p>
                 <p className={`mt-2 text-xs ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>has successfully completed</p>
-                <p className={`text-base font-semibold mt-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>{selected.title || selected.courseName}</p>
-                {selected.batch?.batchName && (
-                  <p className={`mt-1 text-xs ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Batch: {selected.batch.batchName}</p>
+                <p className={`text-base font-semibold mt-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>{selected.courseName || selected.batchName}</p>
+                {selected.mentorName && (
+                  <p className={`mt-1 text-xs ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>Mentor: {selected.mentorName}</p>
                 )}
               </div>
 
               <div className="grid grid-cols-2 gap-3 mt-4 text-sm">
-                <div className={`flex items-center gap-2 ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>
-                  <FiCalendar size={14} /> {formatDate(selected.issueDate)}
-                </div>
-                <div className={`flex items-center gap-2 justify-end ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>
-                  <code className={`px-2 py-0.5 rounded text-xs ${isDark ? 'bg-slate-700' : 'bg-gray-100'}`}>{selected.certificateNumber}</code>
-                </div>
+                <Detail isDark={isDark} label="Student ID" value={selected.studentId} />
+                <Detail isDark={isDark} label="Phone" value={selected.phone} />
+                <Detail isDark={isDark} label="Email" value={selected.email || '—'} />
+                <Detail isDark={isDark} label="Batch" value={selected.batchName || '—'} />
+                <Detail isDark={isDark} label="Duration" value={selected.startDate ? `${formatDate(selected.startDate)} – ${formatDate(selected.endDate)}` : '—'} />
+                <Detail isDark={isDark} label="Grade" value={selected.grade || '—'} />
+                <Detail isDark={isDark} label="Issued" value={formatDate(selected.issueDate)} />
+                <Detail isDark={isDark} label="Certificate No." value={selected.certificateNumber} />
               </div>
             </div>
 
@@ -523,6 +529,15 @@ export default function CertificationsPage() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function Detail({ isDark, label, value }) {
+  return (
+    <div>
+      <p className={`text-[11px] ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>{label}</p>
+      <p className={`font-medium ${isDark ? 'text-slate-200' : 'text-gray-800'}`}>{value}</p>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import {
     LuTarget,
     LuUsers,
+    LuUser,
     LuBookOpen,
     LuHeart,
     LuRocket,
@@ -15,14 +16,17 @@ import {
     LuAward,
     LuGraduationCap,
     LuArrowRight,
+    LuPlay,
     LuCheck,
     LuTrendingUp,
     LuZap,
     LuLightbulb,
     LuCompass,
 } from "react-icons/lu";
-import { FaLinkedinIn, FaTwitter, FaFacebookF } from "react-icons/fa";
+import { FaLinkedinIn, FaTwitter, FaFacebookF, FaGithub } from "react-icons/fa";
 import Lenis from "lenis";
+import { API_BASE_URL } from "@/config/api";
+import { ABOUT_DEFAULTS, mergeAboutContent } from "@/config/aboutDefaults";
 
 // === Animated Counter ===
 const Counter = ({ end, suffix = "", duration = 2 }) => {
@@ -74,53 +78,77 @@ const AboutPage = () => {
         }
     }, []);
 
-    // === Stats ===
-    const stats = [
-        { num: 50, suffix: "K+", label: language === "bn" ? "শিক্ষার্থী" : "Active Students", icon: LuUsers, color: "#E31E27" },
-        { num: 120, suffix: "+", label: language === "bn" ? "এক্সপার্ট মেন্টর" : "Expert Mentors", icon: LuGraduationCap, color: "#F59E0B" },
-        { num: 500, suffix: "+", label: language === "bn" ? "প্রিমিয়াম কোর্স" : "Premium Courses", icon: LuBookOpen, color: "#10B981" },
-        { num: 98, suffix: "%", label: language === "bn" ? "সফলতার হার" : "Success Rate", icon: LuTrendingUp, color: "#EF4444" },
-    ];
+    // === Mentors (dynamic) ===
+    const [mentors, setMentors] = useState([]);
+    const [mentorsLoading, setMentorsLoading] = useState(true);
 
-    // === Why Choose Us ===
-    const features = [
-        {
-            icon: LuLightbulb,
-            title: language === "bn" ? "ইন্ডাস্ট্রি এক্সপার্ট" : "Industry Experts",
-            desc: language === "bn" ? "টেক ইন্ডাস্ট্রির শীর্ষ পেশাদারদের কাছ থেকে শিখুন।" : "Learn from top professionals in the tech industry.",
-            color: "#E31E27",
-        },
-        {
-            icon: LuRocket,
-            title: language === "bn" ? "প্র্যাকটিকাল প্রজেক্ট" : "Practical Projects",
-            desc: language === "bn" ? "রিয়েল-ওয়ার্ল্ড প্রজেক্টে কাজ করে portfolio গড়ুন।" : "Build a portfolio by working on real-world projects.",
-            color: "#F59E0B",
-        },
-        {
-            icon: LuAward,
-            title: language === "bn" ? "ভেরিফাইড সার্টিফিকেট" : "Verified Certificates",
-            desc: language === "bn" ? "ইন্ডাস্ট্রি স্বীকৃত সার্টিফিকেট পান যা LinkedIn এ যুক্ত করা যায়।" : "Earn industry-recognized certificates you can showcase on LinkedIn.",
-            color: "#10B981",
-        },
-        {
-            icon: LuHeart,
-            title: language === "bn" ? "১:১ মেন্টরশিপ" : "1-on-1 Mentorship",
-            desc: language === "bn" ? "ব্যক্তিগত গাইডেন্স এবং সাপ্তাহিক মেন্টরিং সেশন।" : "Personal guidance and weekly mentorship sessions.",
-            color: "#EF4444",
-        },
-        {
-            icon: LuShield,
-            title: language === "bn" ? "লাইফটাইম অ্যাক্সেস" : "Lifetime Access",
-            desc: language === "bn" ? "একবার ভর্তি হলে সারাজীবন কোর্স এবং আপডেট পাবেন।" : "Enroll once and get lifetime access to courses and updates.",
-            color: "#8B5CF6",
-        },
-        {
-            icon: LuZap,
-            title: language === "bn" ? "জব প্লেসমেন্ট" : "Job Placement",
-            desc: language === "bn" ? "ক্যারিয়ার সাপোর্ট, ইন্টারভিউ প্রিপ এবং প্লেসমেন্ট সহায়তা।" : "Career support, interview prep, and placement assistance.",
-            color: "#06B6D4",
-        },
+    useEffect(() => {
+        const fetchMentors = async () => {
+            try {
+                const res = await fetch(`${API_BASE_URL}/instructors`);
+                const data = await res.json();
+                if (data.success) {
+                    setMentors((data.data || []).filter((m) => m.isActive !== false));
+                }
+            } catch (err) {
+                console.error("Error fetching mentors:", err);
+            } finally {
+                setMentorsLoading(false);
+            }
+        };
+        fetchMentors();
+    }, []);
+
+    // === About page content (dynamic, admin-editable) ===
+    // Starts from the bundled defaults, then merges whatever the admin saved.
+    const [about, setAbout] = useState(() => mergeAboutContent({}));
+
+    useEffect(() => {
+        const fetchAbout = async () => {
+            try {
+                const res = await fetch(`${API_BASE_URL}/design/about`);
+                const data = await res.json();
+                if (data.success) {
+                    setAbout(mergeAboutContent(data.data?.aboutContent || {}));
+                }
+            } catch (err) {
+                console.error("Error fetching about content:", err);
+            }
+        };
+        fetchAbout();
+    }, []);
+
+    // === Stats === (icon & color fixed; numbers/labels come from admin content)
+    const statsMeta = [
+        { icon: LuUsers, color: "#E31E27" },
+        { icon: LuGraduationCap, color: "#F59E0B" },
+        { icon: LuBookOpen, color: "#10B981" },
+        { icon: LuTrendingUp, color: "#EF4444" },
     ];
+    const stats = statsMeta.map((m, i) => {
+        const s = about.stats[i] || {};
+        return {
+            num: Number(String(s.value ?? "").replace(/[^0-9.]/g, "")) || 0,
+            suffix: s.suffix || "",
+            label: s.label || "",
+            icon: m.icon,
+            color: m.color,
+        };
+    });
+
+    // === Why Choose Us === (icon & color fixed; text comes from admin content)
+    const featureMeta = [
+        { icon: LuLightbulb, color: "#E31E27" },
+        { icon: LuRocket, color: "#F59E0B" },
+        { icon: LuAward, color: "#10B981" },
+        { icon: LuHeart, color: "#EF4444" },
+        { icon: LuShield, color: "#8B5CF6" },
+        { icon: LuZap, color: "#06B6D4" },
+    ];
+    const features = featureMeta.map((m, i) => {
+        const f = about.whyChooseUs.features[i] || {};
+        return { icon: m.icon, color: m.color, title: f.title || "", desc: f.desc || "" };
+    });
 
     // === Team ===
     const team = [
@@ -150,13 +178,18 @@ const AboutPage = () => {
         },
     ];
 
-    // === Journey Milestones ===
-    const milestones = [
-        { year: "2020", title: language === "bn" ? "যাত্রা শুরু" : "Founded", desc: language === "bn" ? "ছোট কোডিং বুটক্যাম্প হিসেবে শুরু" : "Started as a small coding bootcamp" },
-        { year: "2021", title: language === "bn" ? "১০হাজার+ শিক্ষার্থী" : "10K+ Students", desc: language === "bn" ? "প্রথম বছরেই বিশাল সাড়া" : "Massive response in first year" },
-        { year: "2023", title: language === "bn" ? "বিশ্বব্যাপী সম্প্রসারণ" : "Global Expansion", desc: language === "bn" ? "৫টি দেশে সেবা চালু" : "Launched in 5 countries" },
-        { year: "2025", title: language === "bn" ? "AI-চালিত প্ল্যাটফর্ম" : "AI-Powered Platform", desc: language === "bn" ? "AI mentor এবং personalized learning" : "AI mentor and personalized learning" },
-    ];
+    // Map dynamic mentors to the team-card shape; fall back to the static
+    // team list when no mentors are available from the API.
+    const apiTeam = mentors.map((m) => ({
+        id: m._id,
+        name: m.name,
+        role: m.designation,
+        image: m.image,
+        bio: m.bio,
+        socialLinks: m.socialLinks || {},
+    }));
+    // Always show at most 4 mentors on the About page.
+    const displayTeam = (apiTeam.length > 0 ? apiTeam : team).slice(0, 4);
 
     return (
         <div className="min-h-screen bg-white dark:bg-[#0a0a0a] font-poppins antialiased overflow-x-hidden">
@@ -183,58 +216,52 @@ const AboutPage = () => {
                                     <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E31E27]"></span>
                                 </span>
                                 <span className={`text-[10px] font-medium text-slate-600 dark:text-slate-300 ${bengaliClass}`}>
-                                    {language === "bn" ? "আমাদের সম্পর্কে" : "About Us"}
+                                    {about.hero.badge}
                                 </span>
                             </div>
 
                             {/* Title */}
                             <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-[1.15] mb-5 ${bengaliClass}`}>
-                                {language === "bn" ? (
-                                    <>দক্ষতা গড়ে তোলে <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#CC1B24]">ক্যারিয়ার পাল্টায়</span></>
-                                ) : (
-                                    <>Building Skills, <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#CC1B24]">Shaping Futures</span></>
-                                )}
+                                {about.hero.titlePart1} <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#E31E27] to-[#CC1B24]">{about.hero.titleHighlight}</span>
                             </h1>
 
                             {/* Description */}
                             <p className={`text-slate-500 dark:text-slate-400 text-sm lg:text-base leading-relaxed mb-7 max-w-lg ${bengaliClass}`}>
-                                {language === "bn"
-                                    ? "টেকলাইট আইটি ইনস্টিটিউট ২০২০ সাল থেকে হাজারো শিক্ষার্থীকে ক্যারিয়ারের পথে এগিয়ে দিচ্ছে। ইন্ডাস্ট্রি এক্সপার্ট মেন্টর, প্র্যাকটিকাল কারিকুলাম এবং রিয়েল প্রজেক্ট দিয়ে আমরা ভবিষ্যৎ গড়ছি।"
-                                    : "Since 2020, Techlight IT Institute has helped thousands of students transform their careers. With industry-expert mentors, practical curriculum, and real-world projects — we build futures."}
+                                {about.hero.description}
                             </p>
 
                             {/* CTAs */}
                             <div className="flex flex-wrap items-center gap-4 mb-10">
-                                <Link href="/courses">
+                                <Link href={about.hero.primaryButtonLink || "/courses"}>
                                     <button className="group px-7 py-3 rounded-full bg-[#E31E27] hover:bg-[#C01920] text-white text-sm font-bold shadow-lg shadow-[#E31E27]/25 hover:shadow-[#E31E27]/40 transition-all flex items-center gap-2">
-                                        {language === "bn" ? "কোর্স দেখুন" : "Explore Courses"}
+                                        {about.hero.primaryButtonText}
                                         <LuArrowRight className="group-hover:translate-x-1 transition-transform" size={15} />
                                     </button>
                                 </Link>
+                                <button className="group flex items-center gap-3 text-slate-600 dark:text-slate-300 hover:text-[#E31E27] transition-colors">
+                                    <div className="w-10 h-10 rounded-full bg-white dark:bg-white/5 shadow-md flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <LuPlay size={14} className="text-[#E31E27] ml-0.5" fill="currentColor" />
+                                    </div>
+                                    <span className={`text-sm font-semibold ${bengaliClass}`}>
+                                        {about.hero.secondaryButtonText}
+                                    </span>
+                                </button>
                             </div>
 
                             {/* Mini stats inline */}
                             <div className="flex items-center gap-8 pt-6 border-t border-slate-200 dark:border-white/10">
-                                <div>
-                                    <p className="text-2xl font-bold text-slate-900 dark:text-white">5+</p>
-                                    <p className={`text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium ${bengaliClass}`}>
-                                        {language === "bn" ? "বছরের অভিজ্ঞতা" : "Years Experience"}
-                                    </p>
-                                </div>
-                                <div className="h-10 w-px bg-slate-200 dark:bg-white/10" />
-                                <div>
-                                    <p className="text-2xl font-bold text-[#E31E27]">50K+</p>
-                                    <p className={`text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium ${bengaliClass}`}>
-                                        {language === "bn" ? "সন্তুষ্ট শিক্ষার্থী" : "Happy Students"}
-                                    </p>
-                                </div>
-                                <div className="h-10 w-px bg-slate-200 dark:bg-white/10" />
-                                <div>
-                                    <p className="text-2xl font-bold text-amber-500">4.9</p>
-                                    <p className={`text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium ${bengaliClass}`}>
-                                        {language === "bn" ? "রেটিং" : "Rating"}
-                                    </p>
-                                </div>
+                                {about.hero.miniStats.map((s, i) => (
+                                    <React.Fragment key={i}>
+                                        {i > 0 && <div className="h-10 w-px bg-slate-200 dark:bg-white/10" />}
+                                        <div>
+                                            <p className={`text-2xl font-bold ${i === 1 ? "text-[#E31E27]" : i === 2 ? "text-amber-500" : "text-slate-900 dark:text-white"}`}>{s.value}</p>
+                                            <p className={`text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium ${bengaliClass}`}>
+                                                {s.label}
+                                            </p>
+                                        </div>
+                                    </React.Fragment>
+                                ))}
                             </div>
                         </motion.div>
 
@@ -364,19 +391,13 @@ const AboutPage = () => {
                         viewport={{ once: true }}
                     >
                         <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bengaliClass}`}>
-                            {language === "bn" ? "আমাদের যাত্রা" : "Our Purpose"}
+                            {about.missionVision.badge}
                         </span>
                         <h2 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 leading-tight ${bengaliClass}`}>
-                            {language === "bn" ? (
-                                <>উদ্দেশ্য চালিত, <span className="text-[#E31E27]">পরিশ্রমী</span></>
-                            ) : (
-                                <>Driven by Purpose, <span className="text-[#E31E27]">Fueled by Passion</span></>
-                            )}
+                            {about.missionVision.headingPart1} <span className="text-[#E31E27]">{about.missionVision.headingHighlight}</span>
                         </h2>
                         <p className={`text-gray-500 dark:text-gray-400 text-sm max-w-2xl mx-auto ${bengaliClass}`}>
-                            {language === "bn"
-                                ? "আমরা বিশ্বাস করি শিক্ষার রূপান্তরকারী শক্তিতে। আমাদের প্ল্যাটফর্ম উচ্চাকাঙ্ক্ষী শিক্ষার্থীদের ইন্ডাস্ট্রি এক্সপার্টদের সাথে সংযুক্ত করে।"
-                                : "We believe in the transformative power of education. Our platform connects ambitious learners with industry experts."}
+                            {about.missionVision.subtitle}
                         </p>
                     </motion.div>
 
@@ -394,19 +415,13 @@ const AboutPage = () => {
                                     <LuTarget size={24} className="text-white" />
                                 </div>
                                 <h3 className={`text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 ${bengaliClass}`}>
-                                    {language === "bn" ? "আমাদের লক্ষ্য" : "Our Mission"}
+                                    {about.missionVision.mission.title}
                                 </h3>
                                 <p className={`text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-5 ${bengaliClass}`}>
-                                    {language === "bn"
-                                        ? "প্রত্যেকের জন্য মানসম্মত টেক শিক্ষাকে সুলভ ও সাশ্রয়ী করে তোলা। আমরা চাই কোনো প্রতিভা যেন সংস্থানের অভাবে নষ্ট না হয়।"
-                                        : "To democratize quality tech education globally. We want every talented mind to flourish, regardless of resources."}
+                                    {about.missionVision.mission.description}
                                 </p>
                                 <div className="space-y-2.5">
-                                    {[
-                                        language === "bn" ? "সাশ্রয়ী মূল্যে প্রিমিয়াম কোর্স" : "Affordable premium courses",
-                                        language === "bn" ? "সবার জন্য সমান সুযোগ" : "Equal opportunity for all",
-                                        language === "bn" ? "ইন্ডাস্ট্রি-রেডি কারিকুলাম" : "Industry-ready curriculum",
-                                    ].map((item, i) => (
+                                    {about.missionVision.mission.points.map((item, i) => (
                                         <div key={i} className="flex items-center gap-2">
                                             <div className="w-4 h-4 rounded-full bg-[#E31E27]/15 flex items-center justify-center shrink-0">
                                                 <LuCheck size={10} className="text-[#E31E27]" strokeWidth={3} />
@@ -431,19 +446,13 @@ const AboutPage = () => {
                                     <LuCompass size={24} className="text-white" />
                                 </div>
                                 <h3 className={`text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-3 ${bengaliClass}`}>
-                                    {language === "bn" ? "আমাদের দৃষ্টিভঙ্গি" : "Our Vision"}
+                                    {about.missionVision.vision.title}
                                 </h3>
                                 <p className={`text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-5 ${bengaliClass}`}>
-                                    {language === "bn"
-                                        ? "এমন একটি বিশ্ব গড়া যেখানে যে কেউ তার স্বপ্নের ক্যারিয়ার গড়তে পারে। দক্ষিণ এশিয়ার সেরা টেক শিক্ষা প্ল্যাটফর্ম হওয়া।"
-                                        : "A world where anyone can build their dream career. To become South Asia's leading tech education platform."}
+                                    {about.missionVision.vision.description}
                                 </p>
                                 <div className="space-y-2.5">
-                                    {[
-                                        language === "bn" ? "১ মিলিয়ন ক্যারিয়ার রূপান্তর" : "Transform 1M+ careers",
-                                        language === "bn" ? "বিশ্বব্যাপী টেক হাব তৈরি" : "Build global tech hubs",
-                                        language === "bn" ? "AI-চালিত পার্সোনালাইজড লার্নিং" : "AI-powered personalized learning",
-                                    ].map((item, i) => (
+                                    {about.missionVision.vision.points.map((item, i) => (
                                         <div key={i} className="flex items-center gap-2">
                                             <div className="w-4 h-4 rounded-full bg-amber-500/15 flex items-center justify-center shrink-0">
                                                 <LuCheck size={10} className="text-amber-600" strokeWidth={3} />
@@ -468,19 +477,13 @@ const AboutPage = () => {
                         viewport={{ once: true }}
                     >
                         <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bengaliClass}`}>
-                            {language === "bn" ? "কেন আমরা" : "Why Choose Us"}
+                            {about.whyChooseUs.badge}
                         </span>
                         <h2 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 leading-tight ${bengaliClass}`}>
-                            {language === "bn" ? (
-                                <>যা আমাদের <span className="text-[#E31E27]">আলাদা</span> করে</>
-                            ) : (
-                                <>What Makes Us <span className="text-[#E31E27]">Different</span></>
-                            )}
+                            {about.whyChooseUs.headingPart1} <span className="text-[#E31E27]">{about.whyChooseUs.headingHighlight}</span>
                         </h2>
                         <p className={`text-gray-500 dark:text-gray-400 text-sm max-w-2xl mx-auto ${bengaliClass}`}>
-                            {language === "bn"
-                                ? "আমাদের প্রতিটি কোর্স ও সাপোর্ট সিস্টেম এমনভাবে ডিজাইন করা হয়েছে যাতে আপনি সফল হতে পারেন।"
-                                : "Every course and support system is designed to set you up for success."}
+                            {about.whyChooseUs.subtitle}
                         </p>
                     </motion.div>
 
@@ -515,69 +518,7 @@ const AboutPage = () => {
                 </div>
             </section>
 
-            {/* ===== 5. JOURNEY / TIMELINE ===== */}
-            <section className="py-16 lg:py-24 bg-slate-50 dark:bg-[#050505] overflow-hidden">
-                <div className="container mx-auto px-4 lg:px-32">
-                    <motion.div
-                        className="text-center mb-14"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                    >
-                        <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bengaliClass}`}>
-                            {language === "bn" ? "মাইলফলক" : "Milestones"}
-                        </span>
-                        <h2 className={`text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-3 leading-tight ${bengaliClass}`}>
-                            {language === "bn" ? (
-                                <>আমাদের <span className="text-[#E31E27]">যাত্রা</span></>
-                            ) : (
-                                <>Our <span className="text-[#E31E27]">Journey</span></>
-                            )}
-                        </h2>
-                    </motion.div>
-
-                    <div className="relative max-w-5xl mx-auto">
-                        {/* Connector line */}
-                        <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#E31E27]/30 to-transparent hidden lg:block" />
-
-                        <div className="space-y-10 lg:space-y-16">
-                            {milestones.map((m, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: i * 0.1 }}
-                                    className={`relative flex flex-col lg:flex-row items-center gap-6 ${i % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"}`}
-                                >
-                                    <div className={`lg:w-1/2 ${i % 2 === 0 ? "lg:text-right lg:pr-12" : "lg:text-left lg:pl-12"}`}>
-                                        <div className="bg-white dark:bg-[#111] rounded-2xl p-6 border border-gray-100 dark:border-gray-800 shadow-lg shadow-gray-200/30 dark:shadow-black/20 hover:shadow-xl transition-shadow">
-                                            <span className="inline-block px-3 py-1 bg-[#FEE2E2] text-[#E31E27] rounded-full text-xs font-bold mb-3">
-                                                {m.year}
-                                            </span>
-                                            <h3 className={`text-lg font-bold text-gray-900 dark:text-white mb-2 ${bengaliClass}`}>
-                                                {m.title}
-                                            </h3>
-                                            <p className={`text-sm text-gray-500 dark:text-gray-400 ${bengaliClass}`}>
-                                                {m.desc}
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    {/* Center dot */}
-                                    <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-white dark:bg-[#0a0a0a] border-4 border-[#E31E27] items-center justify-center shadow-lg z-10">
-                                        <span className="w-3 h-3 rounded-full bg-[#E31E27]" />
-                                    </div>
-
-                                    <div className="lg:w-1/2" />
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* ===== 6. TEAM ===== */}
+            {/* ===== 5. TEAM ===== */}
             <section className="py-16 lg:py-24 bg-white dark:bg-[#0a0a0a]">
                 <div className="container mx-auto px-4 lg:px-32">
                     <motion.div
@@ -599,51 +540,118 @@ const AboutPage = () => {
                     </motion.div>
 
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 max-w-6xl mx-auto">
-                        {team.map((member, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="group relative"
-                            >
-                                <div className="relative rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-white dark:bg-[#111] shadow-lg shadow-gray-200/30 dark:shadow-black/20 hover:shadow-2xl hover:shadow-[#E31E27]/10 transition-all">
-                                    {/* Image */}
-                                    <div className="relative aspect-[4/5] overflow-hidden">
-                                        <img
-                                            src={member.image}
-                                            alt={member.name}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-100" />
-
-                                        {/* Social on hover */}
-                                        <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all">
-                                            {[FaLinkedinIn, FaTwitter, FaFacebookF].map((Icon, idx) => (
-                                                <a key={idx} href="#" className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-700 hover:bg-[#E31E27] hover:text-white transition-colors">
-                                                    <Icon size={11} />
-                                                </a>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    {/* Info */}
-                                    <div className="p-5">
-                                        <h3 className={`text-base font-bold text-gray-900 dark:text-white mb-0.5 ${bengaliClass}`}>
-                                            {member.name}
-                                        </h3>
-                                        <p className={`text-xs font-semibold text-[#E31E27] mb-2 ${bengaliClass}`}>
-                                            {member.role}
-                                        </p>
-                                        <p className={`text-xs text-gray-500 dark:text-gray-400 leading-relaxed ${bengaliClass}`}>
-                                            {member.bio}
-                                        </p>
+                        {mentorsLoading ? (
+                            // Loading skeletons
+                            [...Array(4)].map((_, i) => (
+                                <div
+                                    key={i}
+                                    className="rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-white dark:bg-[#111]"
+                                >
+                                    <div className="aspect-[4/5] bg-gray-200 dark:bg-gray-800 animate-pulse" />
+                                    <div className="p-5 space-y-2">
+                                        <div className="h-4 w-3/4 bg-gray-200 dark:bg-gray-800 rounded animate-pulse" />
+                                        <div className="h-3 w-1/2 bg-gray-200 dark:bg-gray-800 rounded animate-pulse" />
+                                        <div className="h-3 w-full bg-gray-200 dark:bg-gray-800 rounded animate-pulse" />
                                     </div>
                                 </div>
-                            </motion.div>
-                        ))}
+                            ))
+                        ) : (
+                            displayTeam.map((member, i) => {
+                                // Only render social icons that actually have a link
+                                const socials = [
+                                    { key: "linkedin", Icon: FaLinkedinIn },
+                                    { key: "twitter", Icon: FaTwitter },
+                                    { key: "facebook", Icon: FaFacebookF },
+                                    { key: "github", Icon: FaGithub },
+                                ].filter((s) => member.socialLinks?.[s.key]);
+
+                                const card = (
+                                    <div className="relative h-full rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-white dark:bg-[#111] shadow-lg shadow-gray-200/30 dark:shadow-black/20 hover:shadow-2xl hover:shadow-[#E31E27]/10 transition-all">
+                                        {/* Image */}
+                                        <div className="relative aspect-[4/5] overflow-hidden">
+                                            {member.image ? (
+                                                <img
+                                                    src={member.image}
+                                                    alt={member.name}
+                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#E31E27] to-[#c41e18] text-white">
+                                                    <LuUser size={56} />
+                                                </div>
+                                            )}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-100" />
+
+                                            {/* Social on hover */}
+                                            {socials.length > 0 && (
+                                                <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all">
+                                                    {socials.map(({ key, Icon }) => (
+                                                        <a
+                                                            key={key}
+                                                            href={member.socialLinks[key]}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            onClick={(e) => e.stopPropagation()}
+                                                            className="w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-700 hover:bg-[#E31E27] hover:text-white transition-colors"
+                                                        >
+                                                            <Icon size={11} />
+                                                        </a>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* Info */}
+                                        <div className="p-5">
+                                            <h3 className={`text-base font-bold text-gray-900 dark:text-white mb-0.5 ${bengaliClass}`}>
+                                                {member.name}
+                                            </h3>
+                                            <p className={`text-xs font-semibold text-[#E31E27] mb-2 ${bengaliClass}`}>
+                                                {member.role}
+                                            </p>
+                                            <p className={`text-xs text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-3 ${bengaliClass}`}>
+                                                {member.bio}
+                                            </p>
+                                        </div>
+                                    </div>
+                                );
+
+                                return (
+                                    <motion.div
+                                        key={member.id || i}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: i * 0.1 }}
+                                        className="group relative"
+                                    >
+                                        {member.id ? (
+                                            <Link href={`/mentors/${member.id}`}>{card}</Link>
+                                        ) : (
+                                            card
+                                        )}
+                                    </motion.div>
+                                );
+                            })
+                        )}
                     </div>
+
+                    {/* View all mentors CTA */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="flex justify-center mt-12"
+                    >
+                        <Link href="/mentors">
+                            <button className="group px-7 py-3 rounded-full bg-[#E31E27] hover:bg-[#C01920] text-white text-sm font-bold shadow-lg shadow-[#E31E27]/25 hover:shadow-[#E31E27]/40 transition-all flex items-center gap-2">
+                                <span className={bengaliClass}>
+                                    {language === "bn" ? "সকল মেন্টর দেখুন" : "View All Mentors"}
+                                </span>
+                                <LuArrowRight className="group-hover:translate-x-1 transition-transform" size={15} />
+                            </button>
+                        </Link>
+                    </motion.div>
                 </div>
             </section>
 

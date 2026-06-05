@@ -1,172 +1,245 @@
-﻿// ===================================================================
+// ===================================================================
 // Techlight IT Institute - Certificate PDF Generator
-// Builds a standard, professional certificate PDF from certificate data
-// using jsPDF (no extra dependency, runs in the browser).
+// Premium, professional certificate built with jsPDF (vector decoration
+// + embedded Techlight logo). No extra dependencies.
 // ===================================================================
 
 import { jsPDF } from 'jspdf';
 
-/**
- * Resolve a human-readable course label from a certificate object.
- */
+// ==================== Palette (RGB) ====================
+const IVORY = [252, 250, 245];
+const PANEL = [248, 244, 236];
+const NAVY = [20, 33, 61];
+const CHARCOAL = [30, 41, 59];
+const GOLD = [176, 141, 87];
+const GOLDL = [200, 160, 77];
+const RED = [227, 30, 39];
+const MUTED = [110, 116, 128];
+
+// ==================== Field resolvers ====================
+const getStudentName = (cert) => (cert?.studentName || cert?.name || 'Student Name').trim();
 const getCourseLabel = (cert) =>
-    cert?.title || cert?.courseName || cert?.course?.title || 'Course';
-
-const getBatchName = (cert) => cert?.batch?.batchName || '';
-
-const formatDate = (value) => {
-    const d = value ? new Date(value) : new Date();
-    return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    (cert?.courseName || cert?.title || cert?.batchName || cert?.course?.title || 'the program').trim();
+const getBatchName = (cert) => cert?.batchName || cert?.batch?.batchName || cert?.certificateBatch?.batchName || '';
+const getMentorName = (cert) =>
+    cert?.mentorName || cert?.certificateBatch?.mentorName || cert?.instructorName || '';
+const getCertificateNumber = (cert) =>
+    cert?.certificateNumber || cert?.certificateId || cert?.studentId || '-';
+const getDuration = (cert) => {
+    const start = cert?.startDate || cert?.certificateBatch?.startDate;
+    const end = cert?.endDate || cert?.certificateBatch?.endDate;
+    return { start, end };
 };
 
-/**
- * Build the certificate into a jsPDF document (shared by save + preview).
- */
-const buildDoc = (cert) => {
+const fmt = (d) =>
+    d ? new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) : '';
+const deg = (a) => (a * Math.PI) / 180;
+
+// ==================== Browser: load logo as data URL ====================
+async function loadLogoDataUrl() {
+    if (typeof window === 'undefined') return null;
+    try {
+        const res = await fetch('/images/logo.png');
+        if (!res.ok) return null;
+        const blob = await res.blob();
+        return await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+        });
+    } catch {
+        return null;
+    }
+}
+
+// ==================== Draw-state helpers ====================
+const dr = (doc, c, w) => { doc.setDrawColor(c[0], c[1], c[2]); doc.setLineWidth(w); };
+const fl = (doc, c) => doc.setFillColor(c[0], c[1], c[2]);
+const tx = (doc, c) => doc.setTextColor(c[0], c[1], c[2]);
+
+// Clean nested L-bracket corner (no dots/hatch); (sx,sy) ∈ {±1} mirror it.
+function drawCorner(doc, cx, cy, sx, sy) {
+    const o = 4, len = 16;
+    dr(doc, GOLD, 0.7);
+    doc.line(cx + sx * o, cy + sy * o, cx + sx * (o + len), cy + sy * o);
+    doc.line(cx + sx * o, cy + sy * o, cx + sx * o, cy + sy * (o + len));
+    dr(doc, GOLD, 0.4);
+    doc.line(cx + sx * (o + 2), cy + sy * (o + 2), cx + sx * (o + len - 3), cy + sy * (o + 2));
+    doc.line(cx + sx * (o + 2), cy + sy * (o + 2), cx + sx * (o + 2), cy + sy * (o + len - 3));
+}
+
+// Five-point star (10 triangles) — deliberately NOT six-point.
+function drawStar5(doc, sx, sy, ro, ri, color) {
+    fl(doc, color);
+    for (let k = 0; k < 5; k++) {
+        const t = deg(-90 + k * 72);
+        const tip = [sx + ro * Math.cos(t), sy + ro * Math.sin(t)];
+        const bL = [sx + ri * Math.cos(t - deg(36)), sy + ri * Math.sin(t - deg(36))];
+        const bR = [sx + ri * Math.cos(t + deg(36)), sy + ri * Math.sin(t + deg(36))];
+        doc.triangle(sx, sy, tip[0], tip[1], bL[0], bL[1], 'F');
+        doc.triangle(sx, sy, tip[0], tip[1], bR[0], bR[1], 'F');
+    }
+}
+
+// Gold wax-style medallion seal.
+function drawSeal(doc, ox, oy) {
+    fl(doc, GOLD);
+    for (let i = 0; i < 28; i++) {
+        const a = deg(i * (360 / 28));
+        doc.circle(ox + 18 * Math.cos(a), oy + 18 * Math.sin(a), 1.3, 'F');
+    }
+    fl(doc, GOLD); doc.circle(ox, oy, 16.5, 'F');
+    dr(doc, GOLDL, 1.0); doc.circle(ox, oy, 16.5, 'S');
+    fl(doc, PANEL); doc.circle(ox, oy, 12.5, 'F');
+    dr(doc, GOLDL, 0.5); doc.circle(ox, oy, 12.5, 'S');
+    dr(doc, RED, 0.5); doc.circle(ox, oy, 12.5, 'S');
+    fl(doc, GOLDL); doc.circle(ox, oy, 11, 'F');
+    dr(doc, GOLD, 0.4); doc.circle(ox, oy, 11, 'S');
+    drawStar5(doc, ox, oy - 5.5, 4.2, 1.6, GOLD);
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(6); tx(doc, NAVY);
+    doc.text('CERTIFIED', ox, oy + 0.5, { align: 'center', charSpace: 0.6 });
+    dr(doc, NAVY, 0.3); doc.line(ox - 7, oy + 2, ox + 7, oy + 2);
+    doc.setFont('times', 'bold'); doc.setFontSize(6.5); tx(doc, NAVY);
+    doc.text('TECHLIGHT', ox, oy + 5.5, { align: 'center', charSpace: 0.4 });
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(4.5); tx(doc, RED);
+    doc.text('IT INSTITUTE', ox, oy + 8.5, { align: 'center', charSpace: 0.6 });
+    fl(doc, RED);
+    doc.triangle(ox - 5, oy + 15, ox - 2, oy + 23, ox, oy + 17, 'F');
+    doc.triangle(ox + 5, oy + 15, ox + 2, oy + 23, ox, oy + 17, 'F');
+}
+
+// ==================== Build the certificate ====================
+const buildDoc = (cert, logo) => {
     const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-    const W = doc.internal.pageSize.getWidth(); // ~297
-    const H = doc.internal.pageSize.getHeight(); // ~210
+    const W = doc.internal.pageSize.getWidth();   // 297
+    const H = doc.internal.pageSize.getHeight();   // 210
+    const CX = W / 2;
 
-    const brand = [122, 133, 240]; // #E31E27
-    const dark = [30, 41, 59]; // slate-800
-    const gray = [100, 116, 139]; // slate-500
+    const name = getStudentName(cert);
+    const course = getCourseLabel(cert);
 
-    // Background
-    doc.setFillColor(255, 255, 255);
-    doc.rect(0, 0, W, H, 'F');
+    // Background + tonal panel
+    fl(doc, IVORY); doc.rect(0, 0, W, H, 'F');
+    fl(doc, PANEL); doc.rect(14, 14, 269, 182, 'F');
 
-    // Decorative border (double line)
-    doc.setDrawColor(brand[0], brand[1], brand[2]);
-    doc.setLineWidth(1.5);
-    doc.rect(10, 10, W - 20, H - 20);
-    doc.setLineWidth(0.4);
-    doc.rect(14, 14, W - 28, H - 28);
+    // Triple border (gold → red → gold)
+    dr(doc, GOLD, 1.4); doc.rect(16, 16, 265, 178, 'S');
+    dr(doc, RED, 0.5); doc.rect(18.5, 18.5, 260, 173, 'S');
+    dr(doc, GOLD, 0.7); doc.rect(21, 21, 255, 168, 'S');
 
-    // Brand wordmark "Techlight"
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(22);
-    doc.setTextColor(brand[0], brand[1], brand[2]);
-    doc.text('TECH', W / 2, 32, { align: 'right' });
-    doc.setTextColor(dark[0], dark[1], dark[2]);
-    doc.text('LIGHT', W / 2, 32, { align: 'left' });
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    doc.setTextColor(gray[0], gray[1], gray[2]);
-    doc.text('IT INSTITUTE', W / 2, 38, { align: 'center' });
+    // Corner flourishes (top-left omitted — the logo anchors that corner)
+    drawCorner(doc, 276, 21, -1, 1);
+    drawCorner(doc, 21, 189, 1, -1);
+    drawCorner(doc, 276, 189, -1, -1);
 
-    // Title
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(30);
-    doc.setTextColor(dark[0], dark[1], dark[2]);
-    doc.text('Certificate of Completion', W / 2, 60, { align: 'center' });
-
-    // Divider
-    doc.setDrawColor(brand[0], brand[1], brand[2]);
-    doc.setLineWidth(0.6);
-    doc.line(W / 2 - 28, 66, W / 2 + 28, 66);
-
-    // Intro line
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(12);
-    doc.setTextColor(gray[0], gray[1], gray[2]);
-    doc.text('This is to certify that', W / 2, 82, { align: 'center' });
-
-    // Student name
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(26);
-    doc.setTextColor(brand[0], brand[1], brand[2]);
-    doc.text(cert?.studentName || 'Student Name', W / 2, 96, { align: 'center' });
-
-    // Completion line
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(12);
-    doc.setTextColor(gray[0], gray[1], gray[2]);
-    doc.text('has successfully completed the course', W / 2, 108, { align: 'center' });
-
-    // Course name
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(18);
-    doc.setTextColor(dark[0], dark[1], dark[2]);
-    doc.text(getCourseLabel(cert), W / 2, 120, { align: 'center', maxWidth: W - 80 });
-
-    // Batch (optional)
-    const batchName = getBatchName(cert);
-    if (batchName) {
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(10);
-        doc.setTextColor(gray[0], gray[1], gray[2]);
-        doc.text(`Batch: ${batchName}`, W / 2, 129, { align: 'center' });
+    // Header logo — top-left (with text fallback)
+    let logoOk = false;
+    if (logo) {
+        try { doc.addImage(logo, 'PNG', 28, 25, 54, 17.82); logoOk = true; } catch { logoOk = false; }
+    }
+    if (!logoOk) {
+        doc.setFont('times', 'bold'); doc.setFontSize(18); tx(doc, NAVY);
+        doc.text('TECHLIGHT IT INSTITUTE', 28, 38, { align: 'left', charSpace: 0 });
     }
 
-    // ===== Footer row: Date | Signature | Certificate No =====
-    const footY = 168;
+    // Title + flourish underline
+    doc.setFont('times', 'bold'); doc.setFontSize(40); tx(doc, NAVY);
+    doc.text('Certificate of Completion', CX, 62, { align: 'center', charSpace: 0.3 });
+    const fy = 70;
+    dr(doc, GOLD, 0.6);
+    doc.line(CX - 32, fy, CX - 4, fy);
+    doc.line(CX + 4, fy, CX + 32, fy);
+    fl(doc, RED);
+    doc.triangle(CX, fy - 1.6, CX - 2, fy, CX, fy + 1.6, 'F');
+    doc.triangle(CX, fy - 1.6, CX + 2, fy, CX, fy + 1.6, 'F');
 
-    // Date (left)
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(10);
-    doc.setTextColor(dark[0], dark[1], dark[2]);
-    doc.text(formatDate(cert?.issueDate), 50, footY - 3, { align: 'center' });
-    doc.setDrawColor(gray[0], gray[1], gray[2]);
-    doc.setLineWidth(0.3);
-    doc.line(28, footY, 72, footY);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    doc.setTextColor(gray[0], gray[1], gray[2]);
-    doc.text('Date of Issue', 50, footY + 5, { align: 'center' });
+    // Presented to
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(11); tx(doc, MUTED);
+    doc.text('THIS CERTIFICATE IS PROUDLY PRESENTED TO', CX, 86, { align: 'center', charSpace: 1.6 });
 
-    // Signature (center)
-    doc.setDrawColor(gray[0], gray[1], gray[2]);
-    doc.line(W / 2 - 28, footY, W / 2 + 28, footY);
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(10);
-    doc.setTextColor(dark[0], dark[1], dark[2]);
-    doc.text('Techlight IT Institute', W / 2, footY + 5, { align: 'center' });
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    doc.setTextColor(gray[0], gray[1], gray[2]);
-    doc.text('Authorized Signature', W / 2, footY + 10, { align: 'center' });
+    // Recipient name + width-aware underline
+    doc.setFont('times', 'bolditalic'); doc.setFontSize(34); tx(doc, NAVY);
+    doc.text(name, CX, 100, { align: 'center', charSpace: 0 });
+    const nameW = doc.getTextWidth(name);
+    const uw = Math.min(180, Math.max(90, nameW + 24));
+    dr(doc, GOLD, 0.5); doc.line(CX - uw / 2, 105, CX + uw / 2, 105);
 
-    // Certificate No (right)
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(10);
-    doc.setTextColor(dark[0], dark[1], dark[2]);
-    doc.text(cert?.certificateNumber || '-', W - 50, footY - 3, { align: 'center' });
-    doc.setDrawColor(gray[0], gray[1], gray[2]);
-    doc.line(W - 72, footY, W - 28, footY);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    doc.setTextColor(gray[0], gray[1], gray[2]);
-    doc.text('Certificate No.', W - 50, footY + 5, { align: 'center' });
+    // Body paragraph (graceful fallbacks)
+    const batch = getBatchName(cert);
+    const { start, end } = getDuration(cert);
+    let body = `has successfully completed the ${course} course`;
+    if (batch) body += ` (${batch})`;
+    if (start && end) body += `, held from ${fmt(start)} to ${fmt(end)}`;
+    else if (end) body += `, completed on ${fmt(end)}`;
+    body += ` at Techlight IT Institute.`;
+    doc.setFont('times', 'normal'); doc.setFontSize(13.5); tx(doc, CHARCOAL);
+    const lines = doc.splitTextToSize(body, 195);
+    doc.text(lines, CX, 118, { align: 'center', lineHeightFactor: 1.5, charSpace: 0 });
 
-    // Verify line
-    doc.setFontSize(7.5);
-    doc.setTextColor(gray[0], gray[1], gray[2]);
-    doc.text(
-        `Verify this certificate at techlightitinstitute.com/verify/${cert?.certificateNumber || ''}`,
-        W / 2,
-        H - 16,
-        { align: 'center' }
-    );
+    // Grade emphasis (fills the mid band)
+    if (cert?.grade) {
+        doc.setFont('times', 'bolditalic'); doc.setFontSize(13); tx(doc, GOLD);
+        doc.text(`Grade Achieved :  ${cert.grade}`, CX, 148, { align: 'center', charSpace: 0.4 });
+    }
+
+    // ===== Footer =====
+    // Left: certificate no. + optional student id
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); tx(doc, MUTED);
+    doc.text('CERTIFICATE NO.', 34, 170, { align: 'left', charSpace: 1.0 });
+    doc.setFont('times', 'bold'); doc.setFontSize(11); tx(doc, NAVY);
+    doc.text(getCertificateNumber(cert), 34, 176, { align: 'left', charSpace: 0 });
+    if (cert?.studentId) {
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(8); tx(doc, MUTED);
+        doc.text('Student ID: ' + cert.studentId, 34, 181.5, { align: 'left', charSpace: 0 });
+    }
+
+    // Center-left: date of issue
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); tx(doc, MUTED);
+    doc.text('DATE OF ISSUE', 92, 170, { align: 'left', charSpace: 1.0 });
+    doc.setFont('times', 'bold'); doc.setFontSize(11); tx(doc, NAVY);
+    doc.text(fmt(cert?.issueDate) || fmt(new Date()), 92, 176, { align: 'left', charSpace: 0 });
+
+    // Center-right: signature (clear of the far-right seal)
+    const mentor = getMentorName(cert);
+    const sigx = 172;
+    dr(doc, NAVY, 0.5); doc.line(sigx - 30, 174, sigx + 30, 174);
+    if (mentor) {
+        doc.setFont('times', 'bolditalic'); doc.setFontSize(12); tx(doc, NAVY);
+        doc.text(mentor, sigx, 172, { align: 'center', charSpace: 0 });
+    }
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); tx(doc, NAVY);
+    doc.text('AUTHORIZED SIGNATURE', sigx, 179, { align: 'center', charSpace: 0.8 });
+    doc.setFont('times', 'italic'); doc.setFontSize(8.5); tx(doc, MUTED);
+    doc.text('Director, Techlight IT Institute', sigx, 183.5, { align: 'center', charSpace: 0 });
+
+    // Seal (drawn last, far-right corner)
+    drawSeal(doc, 247, 148);
 
     return doc;
 };
 
+// ==================== Public API ====================
 /**
  * Generate and download the certificate as a PDF file.
  */
-export function generateCertificatePDF(cert) {
-    const doc = buildDoc(cert);
-    const fileName = `Certificate-${cert?.certificateNumber || 'techlight'}.pdf`;
-    doc.save(fileName);
+export async function generateCertificatePDF(cert) {
+    const logo = await loadLogoDataUrl();
+    const doc = buildDoc(cert, logo);
+    doc.save(`Certificate-${getCertificateNumber(cert)}.pdf`);
 }
 
 /**
- * Open the certificate PDF in a new browser tab (preview without download).
+ * Open the certificate PDF in a new browser tab (preview).
+ * The window is opened synchronously to avoid popup blocking.
  */
-export function previewCertificatePDF(cert) {
-    const doc = buildDoc(cert);
+export async function previewCertificatePDF(cert) {
+    const win = typeof window !== 'undefined' ? window.open('', '_blank') : null;
+    const logo = await loadLogoDataUrl();
+    const doc = buildDoc(cert, logo);
     const url = doc.output('bloburl');
-    window.open(url, '_blank');
+    if (win) win.location.href = url;
+    else if (typeof window !== 'undefined') window.open(url, '_blank');
 }
 
 export default generateCertificatePDF;
