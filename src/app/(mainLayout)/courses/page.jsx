@@ -13,6 +13,7 @@ import {
 import { useLanguage } from "@/context/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const LoadingFallback = () => (
   <div className="flex items-center justify-center py-20">
@@ -42,12 +43,24 @@ const CourseContent = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { t, language } = useLanguage();
   const bengaliClass = language === "bn" ? "hind-siliguri" : "";
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     setIsVisible(true);
     dispatch(fetchCoursesData());
     dispatch(fetchCategories());
   }, [dispatch]);
+
+  // Apply category filter from URL (?category=slug) once categories are loaded
+  useEffect(() => {
+    const slug = searchParams.get("category");
+    if (slug && categories.length > 0) {
+      const matched = categories.find((c) => c.slug === slug);
+      if (matched) {
+        dispatch(setSelectedCategories([matched.name]));
+      }
+    }
+  }, [searchParams, categories, dispatch]);
 
   const courseTypes = [
     { name: 'All', label: language === 'bn' ? 'সব' : 'All' },
@@ -63,6 +76,11 @@ const CourseContent = () => {
     const category = categories.find(cat => cat._id === categoryId || cat.id === categoryId);
     return category?.name || "";
   };
+
+  // Category names that have at least one course (used to filter the dropdown)
+  const usedCategoryNames = new Set(
+    courses.map((c) => getCategoryName(c.category)).filter(Boolean)
+  );
 
   const filteredCourses = courses.filter((course) => {
     if (!course) return false;
@@ -297,6 +315,7 @@ const CourseContent = () => {
                   <option value="">{language === 'bn' ? 'ক্যাটাগরি: সব' : 'Category: All'}</option>
                   {categories
                     .filter(cat => cat.name.toLowerCase() !== 'all')
+                    .filter(cat => usedCategoryNames.has(cat.name) || cat.name === selectedCategories[0])
                     .map((cat) => (
                       <option key={cat._id} value={cat.name}>{cat.name}</option>
                     ))}
