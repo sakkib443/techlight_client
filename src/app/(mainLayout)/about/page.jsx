@@ -247,98 +247,84 @@ const AboutPage = () => {
                             </div>
                         </motion.div>
 
-                        {/* Right - Image (mirrored layout + about-specific badges, distinct from home) */}
+                        {/* Right - Single framed photo + floating cards (distinct from home grid) */}
                         <motion.div
                             initial={{ opacity: 0, x: 30 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.7, delay: 0.2 }}
-                            className="relative"
+                            className="relative lg:pr-6"
                         >
-                            <div className="relative grid grid-cols-12 gap-3 lg:gap-4">
-                                {/* Left column stack */}
-                                <div className="col-span-5 flex flex-col gap-3 lg:gap-4">
-                                    <div className="relative rounded-2xl overflow-hidden shadow-xl border border-white/60 dark:border-white/10 group">
-                                        <img
-                                            src="/images/58068385_2070681143053781_5367478869567733760_n.jpg"
-                                            alt="Seminar"
-                                            className="w-full h-[140px] lg:h-[200px] object-cover group-hover:scale-105 transition-transform duration-700"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                                        <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
-                                            <div className="w-5 h-5 bg-[#E31E27] rounded-full flex items-center justify-center">
-                                                <span className="text-white text-[8px]">🎓</span>
-                                            </div>
-                                            <span className="text-white text-[9px] font-bold">Seminar</span>
-                                        </div>
-                                    </div>
-                                    <div className="relative rounded-2xl overflow-hidden shadow-xl border border-white/60 dark:border-white/10 group">
-                                        <img
-                                            src="/images/58383539_2073583652763530_1902712555562860544_n.jpg"
-                                            alt="Exam"
-                                            className="w-full h-[140px] lg:h-[200px] object-cover group-hover:scale-105 transition-transform duration-700"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                                        <div className="absolute bottom-2 left-2 flex items-center gap-1.5">
-                                            <div className="w-5 h-5 bg-amber-500 rounded-full flex items-center justify-center">
-                                                <span className="text-white text-[8px]">📝</span>
-                                            </div>
-                                            <span className="text-white text-[9px] font-bold">Exam Hall</span>
-                                        </div>
-                                    </div>
+                            {/* Decorative accent frame + soft glow */}
+                            <div className="absolute -top-4 -right-4 w-full h-full rounded-[2rem] border-2 border-[#E31E27]/15 -z-10 hidden sm:block" />
+                            <div className="absolute -bottom-8 -left-8 w-44 h-44 bg-amber-200/30 rounded-full blur-3xl -z-10" />
+
+                            {/* Main framed image */}
+                            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-black/10 border border-white/60 dark:border-white/10 group">
+                                <img
+                                    src="/images/57462951_2085649778223584_3709857119512559616_n.jpg"
+                                    alt="Techlight IT Institute campus"
+                                    className="w-full h-[340px] lg:h-[470px] object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />
+                                <div className="absolute bottom-5 left-5 text-white">
+                                    <p className="text-[10px] font-bold uppercase tracking-widest text-white/80">Our Campus</p>
+                                    <p className="text-base lg:text-lg font-bold leading-snug">Hands-on, project-based learning</p>
                                 </div>
-
-                                {/* Big right */}
-                                <div className="col-span-7 relative group">
-                                    <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-black/10 border border-white/60 dark:border-white/10 h-full">
-                                        <img
-                                            src="/images/57462951_2085649778223584_3709857119512559616_n.jpg"
-                                            alt="Classroom"
-                                            className="w-full h-[300px] lg:h-[420px] object-cover group-hover:scale-105 transition-transform duration-700"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-                                        <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 shadow-lg">
-                                            <p className="text-[9px] font-bold text-[#E31E27] uppercase tracking-widest">Our Campus</p>
-                                            <p className="text-[11px] font-semibold text-gray-700">Hands-on Learning</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Floating badge — top right (Est. 2020) */}
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ delay: 1, duration: 0.5 }}
-                                    className="absolute -top-3 -right-3 bg-white rounded-2xl px-3 py-2 shadow-xl border border-gray-100 z-20"
-                                >
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-8 h-8 bg-[#FEE2E2] rounded-full flex items-center justify-center">
-                                            <LuAward size={15} className="text-[#E31E27]" />
-                                        </div>
-                                        <div>
-                                            <p className="text-[9px] text-gray-400 font-medium">Established</p>
-                                            <p className="font-bold text-xs text-gray-800">Since 2020</p>
-                                        </div>
-                                    </div>
-                                </motion.div>
-
-                                {/* Floating badge — bottom left (rating) */}
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 1.3, duration: 0.5 }}
-                                    className="absolute -bottom-3 left-[8%] bg-white rounded-2xl px-3 py-2 shadow-xl border border-gray-100 z-20"
-                                >
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center">
-                                            <span className="text-amber-500 text-sm">★</span>
-                                        </div>
-                                        <div>
-                                            <p className="text-[9px] text-gray-400 font-medium">Rated 4.9</p>
-                                            <p className="font-bold text-[11px] text-gray-800">2,500+ Reviews</p>
-                                        </div>
-                                    </div>
-                                </motion.div>
                             </div>
+
+                            {/* Floating card — Established (top-left) */}
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.9, duration: 0.5 }}
+                                className="absolute -top-4 -left-4 bg-white dark:bg-[#111] rounded-2xl px-4 py-3 shadow-xl border border-gray-100 dark:border-gray-800 z-20"
+                            >
+                                <div className="flex items-center gap-2.5">
+                                    <div className="w-9 h-9 bg-[#FEE2E2] rounded-xl flex items-center justify-center">
+                                        <LuAward size={17} className="text-[#E31E27]" />
+                                    </div>
+                                    <div>
+                                        <p className="text-[9px] text-gray-400 font-medium uppercase tracking-wide">Established</p>
+                                        <p className="font-bold text-sm text-gray-800 dark:text-white">Since 2020</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Floating card — Rating (bottom-right) */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1.2, duration: 0.5 }}
+                                className="absolute -bottom-5 -right-4 bg-white dark:bg-[#111] rounded-2xl px-4 py-3 shadow-xl border border-gray-100 dark:border-gray-800 z-20"
+                            >
+                                <div className="flex items-center gap-2.5">
+                                    <div className="w-9 h-9 bg-amber-100 rounded-xl flex items-center justify-center">
+                                        <span className="text-amber-500 text-base">★</span>
+                                    </div>
+                                    <div>
+                                        <p className="text-[9px] text-gray-400 font-medium uppercase tracking-wide">Rated 4.9 / 5</p>
+                                        <p className="font-bold text-sm text-gray-800 dark:text-white">2,500+ Reviews</p>
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Floating mini — Mentors (mid-left) */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 1.45, duration: 0.5 }}
+                                className="absolute top-1/2 -translate-y-1/2 -left-5 bg-white dark:bg-[#111] rounded-2xl px-3 py-2.5 shadow-xl border border-gray-100 dark:border-gray-800 z-20 hidden lg:flex items-center gap-2"
+                            >
+                                <div className="flex -space-x-2">
+                                    {["#E31E27", "#F59E0B", "#10B981"].map((c, i) => (
+                                        <div key={i} className="w-6 h-6 rounded-full border-2 border-white" style={{ backgroundColor: c }} />
+                                    ))}
+                                </div>
+                                <div>
+                                    <p className="font-bold text-xs text-gray-800 dark:text-white leading-none">120+</p>
+                                    <p className="text-[9px] text-gray-400 font-medium">Mentors</p>
+                                </div>
+                            </motion.div>
                         </motion.div>
                     </div>
                 </div>
