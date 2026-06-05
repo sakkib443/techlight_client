@@ -50,13 +50,22 @@ const Footer = () => {
     { key: "Language Skills", label: "Language Skills" },
   ];
 
+  // WhatsApp may be stored as a phone number — turn it into a wa.me link
+  const formatWhatsapp = (val) => {
+    if (!val) return "";
+    if (val.startsWith("http")) return val;
+    const digits = val.replace(/[^0-9]/g, "");
+    return digits ? `https://wa.me/${digits}` : "";
+  };
+
+  // Only show icons whose link is actually set in the backend (Site Content > Contact)
   const socialLinks = [
-    { icon: FaFacebookF, href: social.facebook || "#", label: "Facebook", color: "#1877F2" },
-    { icon: FaLinkedinIn, href: social.linkedin || "#", label: "LinkedIn", color: "#0A66C2" },
-    { icon: FaYoutube, href: social.youtube || "#", label: "YouTube", color: "#FF0000" },
-    { icon: FaInstagram, href: social.instagram || "#", label: "Instagram", color: "#E4405F" },
-    { icon: FaWhatsapp, href: social.whatsapp || "#", label: "WhatsApp", color: "#25D366" },
-  ];
+    { icon: FaFacebookF, href: social.facebook, label: "Facebook", color: "#1877F2" },
+    { icon: FaLinkedinIn, href: social.linkedin, label: "LinkedIn", color: "#0A66C2" },
+    { icon: FaYoutube, href: social.youtube, label: "YouTube", color: "#FF0000" },
+    { icon: FaInstagram, href: social.instagram, label: "Instagram", color: "#E4405F" },
+    { icon: FaWhatsapp, href: formatWhatsapp(social.whatsapp), label: "WhatsApp", color: "#25D366" },
+  ].filter((s) => s.href && s.href !== "#");
 
   return (
     <footer className="relative bg-gradient-to-b from-gray-50 to-white overflow-hidden">
