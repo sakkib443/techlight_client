@@ -247,34 +247,14 @@ const SingleCourse = () => {
               transition={{ delay: 0.15 }}
               className="flex flex-wrap items-center gap-3 mb-5"
             >
-              {/* Rating */}
-              <div className="flex items-center gap-2 bg-white dark:bg-white/5 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10">
-                <div className="flex text-amber-400 gap-0.5">
-                  {[1, 2, 3, 4, 5].map((s) => <FaStar key={s} size={12} />)}
-                </div>
-                <span className="font-bold text-gray-900 dark:text-white">{currentCourse.averageRating || '5.0'}</span>
-                <span className="text-gray-400 text-xs">({currentCourse.reviewCount || 0})</span>
-              </div>
-
-              {/* Students */}
-              <div className="flex items-center gap-3 bg-white dark:bg-white/5 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10">
-                <div className="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 flex items-center justify-center">
-                  <LuUsers className="text-emerald-600" size={14} />
-                </div>
-                <span className="text-gray-700 dark:text-gray-300 font-medium text-sm">
-                  <AnimatedCounter value={currentCourse.totalEnrollments || 0} />
-                  <span className="text-gray-400 ml-1">students</span>
-                </span>
-              </div>
-
-              {/* Lessons */}
+              {/* Views */}
               <div className="flex items-center gap-3 bg-white dark:bg-white/5 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10">
                 <div className="w-7 h-7 rounded-lg bg-[#EEF0FD] dark:bg-[#7A85F0]/10 flex items-center justify-center">
-                  <LuMonitor className="text-[#7A85F0]" size={14} />
+                  <LuEye className="text-[#7A85F0]" size={14} />
                 </div>
                 <span className="text-gray-700 dark:text-gray-300 font-medium text-sm">
-                  <AnimatedCounter value={currentCourse.totalLessons || 0} />
-                  <span className="text-gray-400 ml-1">lessons</span>
+                  <AnimatedCounter value={currentCourse.totalViews || 0} />
+                  <span className="text-gray-400 ml-1">views</span>
                 </span>
               </div>
             </motion.div>
