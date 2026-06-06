@@ -44,6 +44,14 @@ const CheckoutContent = () => {
 
     const [checkoutItems, setCheckoutItems] = useState([]);
     const [totalValue, setTotalValue] = useState(0);
+    const [paymentNumbers, setPaymentNumbers] = useState({ bkash: '', rocket: '', nagad: '', note: '' });
+
+    useEffect(() => {
+        fetch(`${API_BASE_URL}/design/payment`)
+            .then(r => r.json())
+            .then(d => { if (d.success && d.data?.paymentContent) setPaymentNumbers(d.data.paymentContent); })
+            .catch(() => {});
+    }, []);
 
     // Coupon states
     const [couponCode, setCouponCode] = useState('');
@@ -259,7 +267,7 @@ const CheckoutContent = () => {
                 toast.success('Payment submitted for verification! 🚀');
                 setIsSuccess(true);
                 if (!courseId) dispatch(clearCart());
-                setTimeout(() => { router.push('/dashboard/user/courses'); }, 3000);
+                setTimeout(() => { router.push('/dashboard/user'); }, 3000);
 
             } else {
                 // GUEST USER - use guest-checkout API
@@ -327,7 +335,7 @@ const CheckoutContent = () => {
                 toast.success(msg);
                 setIsSuccess(true);
                 if (!courseId) dispatch(clearCart());
-                setTimeout(() => { router.push('/dashboard/user/courses'); }, 3000);
+                setTimeout(() => { router.push('/dashboard/user'); }, 3000);
             }
 
         } catch (error) {
@@ -364,10 +372,10 @@ const CheckoutContent = () => {
                         : 'Your purchase is successful. Access will be granted shortly after verification.'}
                 </p>
                 <button
-                    onClick={() => router.push('/dashboard/user/courses')}
+                    onClick={() => router.push('/dashboard/user')}
                     className={`px-8 py-3 bg-[#E31E27] text-white rounded-md font-normal text-sm uppercase tracking-widest hover:bg-[#c41e18] transition-all flex items-center gap-3 ${bengaliClass}`}
                 >
-                    {language === 'bn' ? 'আমার কোর্সগুলো দেখুন' : 'Go to My Courses'} <LuArrowRight />
+                    {language === 'bn' ? 'আমার ড্যাশবোর্ড দেখুন' : 'Go to My Dashboard'} <LuArrowRight />
                 </button>
             </div>
         );
@@ -540,12 +548,17 @@ const CheckoutContent = () => {
                                                         {manualMethod[0].toUpperCase()}
                                                     </div>
                                                     <div>
-                                                        <p className="text-xl font-bold text-slate-800 dark:text-white tracking-tight">01XXXXXXXXX</p>
+                                                        <p className="text-xl font-bold text-slate-800 dark:text-white tracking-tight">
+                                                            {paymentNumbers[manualMethod] || 'N/A'}
+                                                        </p>
                                                         <p className={`text-[10px] font-normal text-slate-400 uppercase tracking-widest ${bengaliClass}`}>
                                                             {language === 'bn' ? 'পার্সোনাল নম্বর' : 'Personal Number'}
                                                         </p>
                                                     </div>
                                                 </div>
+                                                {paymentNumbers.note && (
+                                                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 italic">{paymentNumbers.note}</p>
+                                                )}
                                             </div>
 
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

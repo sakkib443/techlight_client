@@ -37,6 +37,7 @@ import {
   FiPlus,
   FiInbox,
   FiHelpCircle,
+  FiCreditCard,
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 import { useRouter } from 'next/navigation';
@@ -179,6 +180,7 @@ const AdminSidebar = () => {
         { title: 'Home', href: '/dashboard/admin/design/home', icon: FiHome },
         { title: 'About Page', href: '/dashboard/admin/design/about', icon: FiUsers },
         { title: 'Contact Page', href: '/dashboard/admin/design/contact', icon: FiMessageSquare },
+        { title: 'Payment Options', href: '/dashboard/admin/design/payment', icon: FiCreditCard },
       ],
     },
     {
