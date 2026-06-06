@@ -12,7 +12,7 @@ import {
   LuLayoutGrid, LuEye, LuPackage, LuShieldCheck,
   LuSettings, LuFileCode, LuGlobe, LuCheck, LuSparkles, LuCode, LuZap, LuImage, LuX, LuBookOpen, LuMonitor, LuVideo, LuUsers, LuCalendar, LuTimer, LuGraduationCap, LuChevronDown, LuCircleHelp
 } from "react-icons/lu";
-import { FaHeart, FaRegHeart, FaArrowRight } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaStar, FaArrowRight } from "react-icons/fa";
 import { MdVerified, MdOutlineMenuBook, MdPlayCircleOutline } from "react-icons/md";
 
 import { motion, AnimatePresence } from "framer-motion";
