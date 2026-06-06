@@ -239,14 +239,6 @@ const AboutPage = () => {
                                         <LuArrowRight className="group-hover:translate-x-1 transition-transform" size={15} />
                                     </button>
                                 </Link>
-                                <button className="group flex items-center gap-3 text-slate-600 dark:text-slate-300 hover:text-[#E31E27] transition-colors">
-                                    <div className="w-10 h-10 rounded-full bg-white dark:bg-white/5 shadow-md flex items-center justify-center group-hover:scale-110 transition-transform">
-                                        <LuPlay size={14} className="text-[#E31E27] ml-0.5" fill="currentColor" />
-                                    </div>
-                                    <span className={`text-sm font-semibold ${bengaliClass}`}>
-                                        {about.hero.secondaryButtonText}
-                                    </span>
-                                </button>
                             </div>
 
                             {/* Mini stats inline */}
