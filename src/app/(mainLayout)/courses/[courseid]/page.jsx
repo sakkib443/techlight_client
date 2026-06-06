@@ -10,10 +10,11 @@ import { addToCart } from "@/redux/cartSlice";
 import {
   LuDownload, LuExternalLink, LuClock, LuTrophy,
   LuLayoutGrid, LuEye, LuPackage, LuShieldCheck,
-  LuSettings, LuFileCode, LuGlobe, LuCheck, LuSparkles, LuCode, LuZap, LuImage, LuX, LuBookOpen, LuMonitor, LuVideo, LuUsers, LuCalendar, LuTimer, LuGraduationCap, LuChevronDown, LuChevronUp, LuListVideo, LuCircleHelp
+  LuSettings, LuFileCode, LuGlobe, LuCheck, LuSparkles, LuCode, LuZap, LuImage, LuX, LuBookOpen, LuMonitor, LuVideo, LuUsers, LuCalendar, LuTimer, LuGraduationCap, LuChevronDown, LuCircleHelp
 } from "react-icons/lu";
 import { FaHeart, FaRegHeart, FaArrowRight } from "react-icons/fa";
 import { MdVerified, MdOutlineMenuBook, MdPlayCircleOutline } from "react-icons/md";
+
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { API_URL } from "@/config/api";
@@ -63,7 +64,6 @@ const SingleCourse = () => {
   const [batches, setBatches] = useState([]);
   const [loadingBatches, setLoadingBatches] = useState(false);
 
-  const [expandedModule, setExpandedModule] = useState(0);
   const [expandedFaq, setExpandedFaq] = useState(null);
 
   const bengaliClass = language === "bn" ? "hind-siliguri" : "";
@@ -358,8 +358,7 @@ const SingleCourse = () => {
                 <div className="flex border border-slate-200 dark:border-white/10 lg:border-b-0 bg-white/95 dark:bg-[#111]/95 backdrop-blur-md lg:backdrop-blur-none lg:bg-slate-50/80 dark:lg:bg-[#111]/80 shadow-md lg:shadow-sm rounded-xl lg:rounded-b-none lg:rounded-t-xl">
                   {[
                     { id: "overview", label: "Overview", icon: LuLayoutGrid },
-                    { id: "curriculum", label: "Curriculum", icon: MdOutlineMenuBook },
-                    { id: "whatyoulearn", label: "Learning", icon: LuZap },
+                    { id: "whatyoulearn", label: "Curriculum", icon: MdOutlineMenuBook },
                     { id: "instructor", label: "Instructor", icon: LuUsers },
                   ].map((tab) => (
                     <button
@@ -511,82 +510,6 @@ const SingleCourse = () => {
                       </motion.div>
                     )}
 
-                    {activeTab === "curriculum" && (
-                      <motion.div
-                        key="curriculum"
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -12 }}
-                        transition={{ duration: 0.2 }}
-                        className="space-y-6"
-                      >
-                        <h2 className="text-lg font-bold outfit text-gray-900 mb-5 flex items-center gap-2">
-                          <span className="w-1 h-5 bg-[#7A85F0] rounded-full"></span>
-                          Learning Modules
-                        </h2>
-                        <div className="space-y-4">
-                          {currentCourse.curriculum?.map((module, idx) => (
-                            <div key={idx} className="bg-gray-50 border border-gray-100 rounded-md overflow-hidden mb-3">
-                              <button
-                                onClick={() => setExpandedModule(expandedModule === idx ? -1 : idx)}
-                                className="w-full flex items-center justify-between p-4 bg-white hover:bg-gray-50 transition-colors"
-                              >
-                                <div className="flex items-center gap-3">
-                                  <span className="w-8 h-8 rounded-lg bg-[#EEF0FD] dark:bg-[#7A85F0]/10 text-[#7A85F0] flex items-center justify-center font-bold text-xs">
-                                    {idx + 1}
-                                  </span>
-                                  <div className="text-left">
-                                    <h3 className="font-semibold text-gray-900 text-base">{module.moduleTitle}</h3>
-                                    <p className="text-[10px] text-gray-400 poppins uppercase tracking-wider">{module.totalLessons} Lessons</p>
-                                  </div>
-                                </div>
-                                <div className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg transition-all ${expandedModule === idx ? 'bg-[#EEF0FD] dark:bg-[#7A85F0]/10 text-[#7A85F0]' : 'bg-gray-100 dark:bg-white/5 text-gray-400 hover:bg-gray-200'}`}>
-                                  <LuListVideo size={13} />
-                                  {expandedModule === idx
-                                    ? <LuChevronUp size={13} />
-                                    : <LuChevronDown size={13} />
-                                  }
-                                </div>
-                              </button>
-
-                              <AnimatePresence>
-                                {expandedModule === idx && (
-                                  <motion.div
-                                    initial={{ height: 0, opacity: 0 }}
-                                    animate={{ height: "auto", opacity: 1 }}
-                                    exit={{ height: 0, opacity: 0 }}
-                                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                                    className="overflow-hidden"
-                                  >
-                                    <div className="divide-y divide-gray-100/50 bg-gray-50/50">
-                                      {module.lessons?.map((lesson, lIdx) => (
-                                        <div key={lIdx} className="flex items-center justify-between p-4 pl-12 hover:bg-white transition-colors group">
-                                          <div className="flex items-center gap-3">
-                                            {lesson.videoUrl ? (
-                                              <MdPlayCircleOutline className="text-[#7A85F0]" size={18} />
-                                            ) : (
-                                              <LuBookOpen className="text-emerald-400" size={16} />
-                                            )}
-                                            <span className="text-sm font-medium text-gray-600 dark:text-gray-400 group-hover:text-[#7A85F0]">{lesson.title}</span>
-                                            {lesson.isFree && <span className="text-[10px] font-bold text-[#7A85F0] bg-[#EEF0FD] dark:bg-[#7A85F0]/10 px-2 py-0.5 rounded-lg border border-[#7A85F0]/20">FREE</span>}
-                                          </div>
-                                          {/* Duration removed as requested */}
-                                        </div>
-                                      ))}
-                                      {(!module.lessons || module.lessons.length === 0) && (
-                                        <div className="p-4 pl-12 text-xs text-gray-400 italic poppins">No lessons added yet.</div>
-                                      )}
-                                    </div>
-                                  </motion.div>
-                                )}
-                              </AnimatePresence>
-                            </div>
-                          ))}
-                          {!currentCourse.curriculum?.length && <p className="text-gray-400 text-sm poppins py-10 text-center border border-dashed rounded-md">Curriculum details coming soon.</p>}
-                        </div>
-                      </motion.div>
-                    )}
-
                     {activeTab === "whatyoulearn" && (
                       <motion.div
                         key="whatyoulearn"
@@ -597,7 +520,7 @@ const SingleCourse = () => {
                       >
                         <h2 className="text-lg font-bold outfit text-gray-900 mb-5 flex items-center gap-2">
                           <span className="w-1 h-5 bg-[#7A85F0] rounded-full"></span>
-                          What You Will Learn
+                          Curriculum
                         </h2>
 
                         {currentCourse.whatYouWillLearn?.length > 0 ? (
