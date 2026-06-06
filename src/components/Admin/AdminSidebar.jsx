@@ -37,7 +37,6 @@ import {
   FiPlus,
   FiInbox,
   FiHelpCircle,
-  FiCreditCard,
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 import { useRouter } from 'next/navigation';
