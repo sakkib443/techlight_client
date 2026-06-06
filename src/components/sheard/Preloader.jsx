@@ -563,7 +563,7 @@ const Preloader = () => {
                             className="text-[10px] font-medium text-white/40 tracking-widest uppercase"
                             style={{ fontFamily: "var(--font-poppins)" }}
                         >
-                            © Techlight IT Institute
+                            © Techlight IT Solution
                         </span>
                     </motion.div>
 
