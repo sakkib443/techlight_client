@@ -39,12 +39,20 @@ import {
   FiHelpCircle,
 } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
+import { useRouter } from 'next/navigation';
 
 const AdminSidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [openMenus, setOpenMenus] = useState([]);
   const pathname = usePathname();
   const { isDark } = useTheme();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    router.push('/login');
+  };
 
   // Exact match for active state
   const isActive = (href) => pathname === href;
@@ -337,6 +345,7 @@ const AdminSidebar = () => {
         <div className={`absolute bottom-0 left-0 w-full p-3 border-t backdrop-blur-sm ${isDark ? 'border-white/5 bg-slate-900/95' : 'border-slate-200 bg-white/95'
           }`}>
           <button
+            onClick={handleLogout}
             className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all"
           >
             <FiLogOut size={16} />
