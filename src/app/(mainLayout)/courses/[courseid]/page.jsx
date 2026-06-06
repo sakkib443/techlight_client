@@ -12,11 +12,10 @@ import {
   LuLayoutGrid, LuEye, LuPackage, LuShieldCheck,
   LuSettings, LuFileCode, LuGlobe, LuCheck, LuSparkles, LuCode, LuZap, LuImage, LuX, LuBookOpen, LuMonitor, LuVideo, LuUsers, LuCalendar, LuTimer, LuGraduationCap, LuChevronDown, LuChevronUp, LuListVideo, LuCircleHelp
 } from "react-icons/lu";
-import { FaHeart, FaRegHeart, FaStar, FaArrowRight } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaArrowRight } from "react-icons/fa";
 import { MdVerified, MdOutlineMenuBook, MdPlayCircleOutline } from "react-icons/md";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import ReviewsSection from "@/components/Reviews/ReviewsSection";
 import { API_URL } from "@/config/api";
 
 // Animated Counter - matching Website Details
@@ -362,7 +361,6 @@ const SingleCourse = () => {
                     { id: "curriculum", label: "Curriculum", icon: MdOutlineMenuBook },
                     { id: "whatyoulearn", label: "Learning", icon: LuZap },
                     { id: "instructor", label: "Instructor", icon: LuUsers },
-                    { id: "reviews", label: "Reviews", icon: FaStar },
                   ].map((tab) => (
                     <button
                       key={tab.id}
@@ -725,17 +723,6 @@ const SingleCourse = () => {
                       </motion.div>
                     )}
 
-                    {activeTab === "reviews" && (
-                      <motion.div
-                        key="reviews"
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -12 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <ReviewsSection productId={currentCourse._id} productType="course" />
-                      </motion.div>
-                    )}
                   </AnimatePresence>
                 </div>
               </div>
