@@ -289,7 +289,13 @@ const SingleCourse = () => {
             >
               <div className="flex items-center gap-2 bg-white dark:bg-white/5 px-3 py-2 rounded-xl border border-slate-200 dark:border-white/10">
                 <span className="text-gray-400 text-sm">Instructor</span>
-                <span className="text-[#7A85F0] font-semibold text-sm underline underline-offset-4">{instructor?.name || 'Industry Expert'}</span>
+                {instructor?._id ? (
+                  <Link href={`/mentors/${instructor._id}`} className="text-[#7A85F0] font-semibold text-sm underline underline-offset-4 hover:text-[#5A65D0] transition-colors">
+                    {instructor.name}
+                  </Link>
+                ) : (
+                  <span className="text-[#7A85F0] font-semibold text-sm">{instructor?.name || 'Industry Expert'}</span>
+                )}
                 <MdVerified className="text-blue-500" size={16} />
               </div>
 
@@ -668,7 +674,13 @@ const SingleCourse = () => {
                               <div className="flex items-center gap-3 bg-[#EEF0FD]/50 dark:bg-[#7A85F0]/5 p-4 rounded-2xl border border-[#7A85F0]/15 dark:border-[#7A85F0]/10 shadow-sm">
                                 <div>
                                   <div className="flex items-center gap-2 mb-1">
-                                    <h3 className="text-2xl font-bold outfit text-gray-900 dark:text-white leading-tight">{instructor.name}</h3>
+                                    {instructor._id ? (
+                                      <Link href={`/mentors/${instructor._id}`} className="text-2xl font-bold outfit text-gray-900 dark:text-white leading-tight hover:text-[#7A85F0] transition-colors">
+                                        {instructor.name}
+                                      </Link>
+                                    ) : (
+                                      <h3 className="text-2xl font-bold outfit text-gray-900 dark:text-white leading-tight">{instructor.name}</h3>
+                                    )}
                                     <MdVerified className="text-blue-500 text-xl" />
                                   </div>
                                   <p className="text-[#7A85F0] font-bold text-sm uppercase tracking-wide">
@@ -691,6 +703,17 @@ const SingleCourse = () => {
                                   {instructor.bio || 'Professional instructor with years of industry experience. Passionate about teaching and sharing knowledge with the community.'}
                                 </p>
                               </div>
+                              {instructor._id && (
+                                <div className="px-4">
+                                  <Link
+                                    href={`/mentors/${instructor._id}`}
+                                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#7A85F0] hover:bg-[#5A65D0] text-white text-sm font-semibold rounded-xl transition-colors shadow-sm shadow-[#7A85F0]/25"
+                                  >
+                                    <LuUsers size={15} />
+                                    View Full Profile
+                                  </Link>
+                                </div>
+                              )}
                             </div>
                           </div>
                         ) : (
