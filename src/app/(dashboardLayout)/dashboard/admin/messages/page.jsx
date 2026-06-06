@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { LuMail, LuMailOpen, LuTrash2, LuRefreshCw, LuSearch, LuCheckCircle, LuClock, LuUser, LuAtSign, LuMessageCircle, LuTriangleAlert } from 'react-icons/lu';
+import { LuMail, LuMailOpen, LuTrash2, LuRefreshCw, LuSearch, LuCheck, LuClock, LuUser, LuAtSign, LuMessageCircle, LuTriangleAlert } from 'react-icons/lu';
 import { API_BASE_URL } from '@/config/api';
 
 const STATUS_LABELS = { unread: 'Unread', read: 'Read', replied: 'Replied' };
@@ -233,7 +233,7 @@ export default function AdminMessagesPage() {
                                 {selected.status !== 'replied' && (
                                     <button onClick={() => handleStatusChange(selected._id, 'replied')}
                                         className="flex items-center gap-2 px-4 py-2 rounded-xl bg-green-50 dark:bg-green-900/20 text-green-600 border border-green-200 dark:border-green-800 text-xs font-semibold hover:bg-green-100 transition-all">
-                                        <LuCheckCircle size={13} /> Mark as Replied
+                                        <LuCheck size={13} /> Mark as Replied
                                     </button>
                                 )}
                                 {selected.status !== 'unread' && (
