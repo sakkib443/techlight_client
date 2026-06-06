@@ -341,7 +341,7 @@ const SingleCourse = () => {
                     ) : (
                       <>
                         <span className="text-2xl font-bold text-gray-900 outfit">৳{(discountPrice || price).toLocaleString()}</span>
-                        {discountPrice && <span className="text-gray-400 line-through text-sm">৳{price.toLocaleString()}</span>}
+                        {discountPrice && <span className="text-gray-400 line-through text-base">৳{price.toLocaleString()}</span>}
                       </>
                     )}
                   </div>
@@ -777,7 +777,7 @@ const SingleCourse = () => {
                           <>
                             <span className="text-2xl font-bold text-gray-900 dark:text-white outfit">৳{(discountPrice || price).toLocaleString()}</span>
                             {discountPrice && (
-                              <span className="text-gray-400 line-through text-sm">৳{price.toLocaleString()}</span>
+                              <span className="text-gray-400 line-through text-base">৳{price.toLocaleString()}</span>
                             )}
                           </>
                         )}

@@ -293,7 +293,7 @@ const CourseCard = ({ course, view = "grid" }) => {
                   {priceLabel || `৳${(discountPrice || price).toLocaleString()}`}
                 </span>
                 {!priceLabel && discountPrice && (
-                  <span className="text-[10px] text-slate-300 dark:text-slate-500 line-through">৳{price.toLocaleString()}</span>
+                  <span className="text-sm text-slate-400 dark:text-slate-500 line-through">৳{price.toLocaleString()}</span>
                 )}
               </div>
             </div>
