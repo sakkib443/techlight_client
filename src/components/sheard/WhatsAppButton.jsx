@@ -1,14 +1,41 @@
 "use client";
 
 import { FaWhatsapp } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { API_BASE_URL } from "@/config/api";
+
+const buildWhatsAppLink = (raw) => {
+    if (!raw || typeof raw !== "string") return "#";
+    const value = raw.trim();
+    if (value === "" || value === "#") return "#";
+    if (/^https?:\/\//i.test(value)) return value;
+    const digits = value.replace(/[^0-9]/g, "");
+    return digits ? `https://wa.me/${digits}` : "#";
+};
 
 const WhatsAppButton = () => {
     const [isHovered, setIsHovered] = useState(false);
+    const [whatsappLink, setWhatsappLink] = useState("#");
+
+    useEffect(() => {
+        const fetchLink = async () => {
+            try {
+                const res = await fetch(`${API_BASE_URL}/designs/contact`);
+                const data = await res.json();
+                const info = data?.data?.contactContent;
+                const raw = info?.contactInfo?.whatsapp || info?.socialLinks?.whatsapp || info?.contactInfo?.phone;
+                const link = buildWhatsAppLink(raw);
+                if (link !== "#") setWhatsappLink(link);
+            } catch {
+                /* keep "#" fallback */
+            }
+        };
+        fetchLink();
+    }, []);
 
     return (
         <a
-            href="#"
+            href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
             onMouseEnter={() => setIsHovered(true)}

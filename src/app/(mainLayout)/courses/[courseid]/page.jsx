@@ -52,7 +52,7 @@ const WhatsAppButton = ({ courseTitle }) => {
   React.useEffect(() => {
     fetch(`${API_URL}/design/contact`)
       .then(r => r.json())
-      .then(d => { if (d.success) setWaNumber(d.data?.contactContent?.socialLinks?.whatsapp || ''); })
+      .then(d => { if (d.success) setWaNumber(d.data?.contactContent?.contactInfo?.whatsapp || d.data?.contactContent?.socialLinks?.whatsapp || ''); })
       .catch(() => {});
   }, []);
 

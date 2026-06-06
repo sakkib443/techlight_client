@@ -40,8 +40,8 @@ const FloatingWhatsAppButton = () => {
                 const res = await fetch(`${API_BASE_URL}/designs/contact`);
                 const data = await res.json();
                 const info = data?.data?.contactContent;
-                // Prefer the whatsapp field, fall back to the phone number
-                const raw = info?.socialLinks?.whatsapp || info?.contactInfo?.phone;
+                // Prefer the dedicated WhatsApp number, then social link, then phone
+                const raw = info?.contactInfo?.whatsapp || info?.socialLinks?.whatsapp || info?.contactInfo?.phone;
                 const link = buildWhatsAppLink(raw);
                 if (link !== "#") setWhatsappLink(link);
             } catch {

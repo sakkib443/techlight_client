@@ -171,7 +171,7 @@ const ContactPage = () => {
         const digits = val.replace(/[^0-9]/g, "");
         return digits ? `https://wa.me/${digits}` : "";
     };
-    const whatsappHref = formatWhatsapp(content.socialLinks.whatsapp);
+    const whatsappHref = formatWhatsapp(content.contactInfo?.whatsapp || content.socialLinks.whatsapp);
 
     // Only show social icons whose link is actually set in the admin panel
     const socialLinks = [

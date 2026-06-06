@@ -31,6 +31,7 @@ const Footer = () => {
   const emailAddr = contactData?.contactContent?.contactInfo?.email || "info@techlightit.com";
   const address = contactData?.contactContent?.contactInfo?.address || "Dhaka, Bangladesh";
   const social = contactData?.contactContent?.socialLinks || {};
+  const contactInfo = contactData?.contactContent?.contactInfo || {};
 
   const quickLinks = [
     { to: "/", label: "Home" },
@@ -64,7 +65,7 @@ const Footer = () => {
     { icon: FaLinkedinIn, href: social.linkedin, label: "LinkedIn", color: "#0A66C2" },
     { icon: FaYoutube, href: social.youtube, label: "YouTube", color: "#FF0000" },
     { icon: FaInstagram, href: social.instagram, label: "Instagram", color: "#E4405F" },
-    { icon: FaWhatsapp, href: formatWhatsapp(social.whatsapp), label: "WhatsApp", color: "#25D366" },
+    { icon: FaWhatsapp, href: formatWhatsapp(contactInfo.whatsapp || social.whatsapp), label: "WhatsApp", color: "#25D366" },
   ].filter((s) => s.href && s.href !== "#");
 
   return (

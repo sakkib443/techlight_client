@@ -181,6 +181,21 @@ const ContactDesignPage = () => {
                                 placeholder="+88 01XXXXXXXXX"
                             />
                         </div>
+                        <div>
+                            <div className="flex items-center gap-3">
+                                <FaWhatsapp className="text-green-500 shrink-0" size={18} />
+                                <input
+                                    type="text"
+                                    value={contactContent.contactInfo?.whatsapp || ''}
+                                    onChange={(e) => updateContactInfo('whatsapp', e.target.value)}
+                                    className={`flex-1 px-4 py-2.5 rounded-lg ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
+                                    placeholder="WhatsApp Number e.g. 8801XXXXXXXXX"
+                                />
+                            </div>
+                            <p className={`text-[11px] mt-1 ml-8 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                                Used by the floating button and all WhatsApp links across the site.
+                            </p>
+                        </div>
                         <div className="flex items-center gap-3">
                             <LuMapPin className="text-purple-500 shrink-0" size={18} />
                             <input

@@ -32,12 +32,23 @@ const TopHeader = () => {
   const officeHours = contactData?.contactContent?.contactInfo?.officeHours || "9:00 AM - 9:00 PM";
   const socialLinks = contactData?.contactContent?.socialLinks || {};
 
+  // Build a WhatsApp chat link from the dynamic number (or fall back to social link)
+  const buildWhatsAppLink = (raw) => {
+    if (!raw || raw === "#") return "#";
+    if (/^https?:\/\//i.test(raw)) return raw;
+    const digits = raw.replace(/[^0-9]/g, "");
+    return digits ? `https://wa.me/${digits}` : "#";
+  };
+  const whatsappHref = buildWhatsAppLink(
+    contactData?.contactContent?.contactInfo?.whatsapp || socialLinks.whatsapp
+  );
+
   // Social icons config — dynamic URLs from API
   const socials = [
     { icon: FaFacebookF, href: socialLinks.facebook || "#", label: "Facebook" },
     { icon: FaInstagram, href: socialLinks.instagram || "#", label: "Instagram" },
     { icon: FaLinkedinIn, href: socialLinks.linkedin || "#", label: "LinkedIn" },
-    { icon: FaWhatsapp, href: socialLinks.whatsapp || "#", label: "WhatsApp" },
+    { icon: FaWhatsapp, href: whatsappHref, label: "WhatsApp" },
     { icon: FaYoutube, href: socialLinks.youtube || "#", label: "YouTube" },
   ];
 
