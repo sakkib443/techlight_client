@@ -5,7 +5,8 @@ import { API_URL, API_BASE_URL } from '@/config/api';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
-  FiSearch, FiUsers, FiTrash2, FiPlus, FiCalendar, FiLoader, FiCheck, FiX, FiRefreshCw
+  FiSearch, FiUsers, FiTrash2, FiPlus, FiCalendar, FiLoader, FiCheck, FiX, FiRefreshCw,
+  FiUser, FiMail, FiPhone, FiSave, FiEdit2
 } from 'react-icons/fi';
 
 
@@ -14,8 +15,9 @@ const UserManagement = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [editingUser, setEditingUser] = useState(null);
+  const [editingUser, setEditingUser] = useState(null); // full user object
   const [editData, setEditData] = useState({});
+  const [saving, setSaving] = useState(false);
 
   const fetchUsers = async () => {
     const token = localStorage.getItem('token');
@@ -38,14 +40,28 @@ const UserManagement = () => {
   useEffect(() => { fetchUsers(); }, []);
 
   const handleEdit = (user) => {
-    setEditingUser(user._id);
-    setEditData({ role: user.role, status: user.status });
+    setEditingUser(user);
+    setEditData({
+      firstName: user.firstName || '',
+      lastName: user.lastName || '',
+      email: user.email || '',
+      phone: user.phone || '',
+      role: user.role || 'student',
+      status: user.status || 'active',
+    });
   };
 
-  const handleSave = async (userId) => {
+  const closeModal = () => {
+    setEditingUser(null);
+    setEditData({});
+  };
+
+  const handleSave = async () => {
+    if (!editingUser) return;
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch(`${API_URL}/users/admin/${userId}`, {
+      setSaving(true);
+      const res = await fetch(`${API_URL}/users/admin/${editingUser._id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -53,14 +69,17 @@ const UserManagement = () => {
         },
         body: JSON.stringify(editData),
       });
-      if (res.ok) {
-        setEditingUser(null);
+      const data = await res.json();
+      if (res.ok && data.success) {
+        closeModal();
         fetchUsers();
       } else {
-        alert('Failed to update');
+        alert('Failed to update: ' + (data.message || 'Unknown error'));
       }
     } catch (err) {
-      alert('Error updating');
+      alert('Error updating user');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -107,6 +126,8 @@ const UserManagement = () => {
     admins: users.filter(u => u.role === 'admin').length,
     active: users.filter(u => u.status === 'active').length,
   };
+
+  const setField = (k, v) => setEditData(prev => ({ ...prev, [k]: v }));
 
   return (
     <div className="p-4 md:p-6 space-y-5 bg-slate-50 dark:bg-slate-900 min-h-screen">
@@ -234,38 +255,14 @@ const UserManagement = () => {
                       <span className="text-sm text-slate-600 dark:text-slate-300">{user.email}</span>
                     </td>
                     <td className="px-4 py-3 text-center">
-                      {editingUser === user._id ? (
-                        <select
-                          value={editData.role}
-                          onChange={(e) => setEditData({ ...editData, role: e.target.value })}
-                          className="px-2 py-1 rounded-md border border-slate-300 dark:border-slate-600 dark:bg-slate-700 text-xs focus:border-indigo-500 outline-none"
-                        >
-                          <option value="student">Student</option>
-                          <option value="mentor">Mentor</option>
-                          <option value="admin">Admin</option>
-                        </select>
-                      ) : (
-                        <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-medium ${getRoleBadge(user.role)}`}>
-                          {user.role?.toUpperCase()}
-                        </span>
-                      )}
+                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-medium ${getRoleBadge(user.role)}`}>
+                        {user.role?.toUpperCase()}
+                      </span>
                     </td>
                     <td className="px-4 py-3 text-center">
-                      {editingUser === user._id ? (
-                        <select
-                          value={editData.status}
-                          onChange={(e) => setEditData({ ...editData, status: e.target.value })}
-                          className="px-2 py-1 rounded-md border border-slate-300 dark:border-slate-600 dark:bg-slate-700 text-xs focus:border-indigo-500 outline-none"
-                        >
-                          <option value="active">Active</option>
-                          <option value="pending">Pending</option>
-                          <option value="blocked">Blocked</option>
-                        </select>
-                      ) : (
-                        <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-medium ${getStatusBadge(user.status)}`}>
-                          {user.status?.toUpperCase()}
-                        </span>
-                      )}
+                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-medium ${getStatusBadge(user.status)}`}>
+                        {user.status?.toUpperCase()}
+                      </span>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
@@ -275,37 +272,18 @@ const UserManagement = () => {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-center gap-1">
-                        {editingUser === user._id ? (
-                          <>
-                            <button
-                              onClick={() => handleSave(user._id)}
-                              className="p-1.5 bg-emerald-500 text-white rounded-md hover:bg-emerald-600 transition-colors"
-                            >
-                              <FiCheck size={14} />
-                            </button>
-                            <button
-                              onClick={() => setEditingUser(null)}
-                              className="p-1.5 bg-slate-400 text-white rounded-md hover:bg-slate-500 transition-colors"
-                            >
-                              <FiX size={14} />
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <button
-                              onClick={() => handleEdit(user)}
-                              className="px-2 py-1 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-medium rounded-md hover:bg-indigo-100 dark:hover:bg-indigo-500/30 transition-colors"
-                            >
-                              Edit
-                            </button>
-                            <button
-                              onClick={() => handleDelete(user._id)}
-                              className="p-1.5 text-rose-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/20 rounded-md transition-colors"
-                            >
-                              <FiTrash2 size={14} />
-                            </button>
-                          </>
-                        )}
+                        <button
+                          onClick={() => handleEdit(user)}
+                          className="flex items-center gap-1 px-2 py-1 bg-indigo-50 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-medium rounded-md hover:bg-indigo-100 dark:hover:bg-indigo-500/30 transition-colors"
+                        >
+                          <FiEdit2 size={12} /> Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(user._id)}
+                          className="p-1.5 text-rose-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-500/20 rounded-md transition-colors"
+                        >
+                          <FiTrash2 size={14} />
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -315,9 +293,132 @@ const UserManagement = () => {
           </div>
         )}
       </div>
+
+      {/* ── Edit User Modal ── */}
+      {editingUser && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeModal} />
+          <div className="relative w-full max-w-lg bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 p-6">
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-white font-semibold">
+                  {editData.firstName?.[0]}{editData.lastName?.[0]}
+                </div>
+                <div>
+                  <h3 className="text-base font-semibold text-slate-800 dark:text-white">Edit User</h3>
+                  <p className="text-xs text-slate-400">Update all details for this user</p>
+                </div>
+              </div>
+              <button onClick={closeModal} className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
+                <FiX size={16} />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {/* Name */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">First Name</label>
+                  <div className="relative">
+                    <FiUser className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={15} />
+                    <input
+                      value={editData.firstName}
+                      onChange={(e) => setField('firstName', e.target.value)}
+                      className="w-full pl-9 pr-3 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-800 dark:text-white focus:border-indigo-400 outline-none"
+                      placeholder="First name"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">Last Name</label>
+                  <input
+                    value={editData.lastName}
+                    onChange={(e) => setField('lastName', e.target.value)}
+                    className="w-full px-3 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-800 dark:text-white focus:border-indigo-400 outline-none"
+                    placeholder="Last name"
+                  />
+                </div>
+              </div>
+
+              {/* Email */}
+              <div>
+                <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">Email</label>
+                <div className="relative">
+                  <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={15} />
+                  <input
+                    type="email"
+                    value={editData.email}
+                    onChange={(e) => setField('email', e.target.value)}
+                    className="w-full pl-9 pr-3 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-800 dark:text-white focus:border-indigo-400 outline-none"
+                    placeholder="email@example.com"
+                  />
+                </div>
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">Phone</label>
+                <div className="relative">
+                  <FiPhone className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={15} />
+                  <input
+                    value={editData.phone}
+                    onChange={(e) => setField('phone', e.target.value)}
+                    className="w-full pl-9 pr-3 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-800 dark:text-white focus:border-indigo-400 outline-none"
+                    placeholder="01XXXXXXXXX"
+                  />
+                </div>
+              </div>
+
+              {/* Role + Status */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">Role</label>
+                  <select
+                    value={editData.role}
+                    onChange={(e) => setField('role', e.target.value)}
+                    className="w-full px-3 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-800 dark:text-white focus:border-indigo-400 outline-none"
+                  >
+                    <option value="student">Student</option>
+                    <option value="mentor">Mentor</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">Status</label>
+                  <select
+                    value={editData.status}
+                    onChange={(e) => setField('status', e.target.value)}
+                    className="w-full px-3 py-2.5 rounded-md bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-sm text-slate-800 dark:text-white focus:border-indigo-400 outline-none"
+                  >
+                    <option value="active">Active</option>
+                    <option value="pending">Pending</option>
+                    <option value="blocked">Blocked</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={closeModal}
+                className="flex-1 px-4 py-2.5 rounded-md bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSave}
+                disabled={saving}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-md bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium transition-colors disabled:opacity-50"
+              >
+                <FiSave size={15} />
+                {saving ? 'Saving...' : 'Save Changes'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default UserManagement;
-

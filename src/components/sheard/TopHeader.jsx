@@ -78,7 +78,7 @@ const TopHeader = () => {
           {/* Right - Email & Follow Us + Socials */}
           <div className="flex items-center gap-5 ml-auto">
             {/* Email */}
-            <a href={`mailto:${email}`} className="hidden lg:flex items-center gap-2 hover:text-white transition-colors group">
+            <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}`} target="_blank" rel="noopener noreferrer" className="hidden lg:flex items-center gap-2 hover:text-white transition-colors group">
               <LuMail className="w-3.5 h-3.5 text-[var(--color-primary)] group-hover:text-[var(--color-primary-light)]" />
               <span>{email}</span>
             </a>

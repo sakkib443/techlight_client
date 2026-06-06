@@ -214,7 +214,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href={`mailto:${emailAddr}`} className="group flex items-start gap-3">
+                <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${emailAddr}`} target="_blank" rel="noopener noreferrer" className="group flex items-start gap-3">
                   <div className="w-9 h-9 rounded-xl bg-[#E31E27]/10 flex items-center justify-center shrink-0 group-hover:bg-[#E31E27]/20 transition-colors">
                     <IoMailOutline className="text-[#E31E27]" />
                   </div>

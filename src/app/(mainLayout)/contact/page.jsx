@@ -135,7 +135,7 @@ const ContactPage = () => {
             title: language === "bn" ? "ইমেইল" : "Email",
             subtitle: language === "bn" ? "যেকোনো সময় লিখুন" : "Write anytime",
             value: content.contactInfo.email,
-            link: `mailto:${content.contactInfo.email}`,
+            link: `https://mail.google.com/mail/?view=cm&fs=1&to=${content.contactInfo.email}`,
             color: "#E31E27",
         },
         {
@@ -287,7 +287,9 @@ const ContactPage = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
                         {contactCards.map((item, idx) => {
                             const CardWrapper = item.link ? "a" : "div";
-                            const wrapperProps = item.link ? { href: item.link } : {};
+                            const wrapperProps = item.link
+                                ? { href: item.link, ...(item.link.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {}) }
+                                : {};
 
                             return (
                                 <motion.div
