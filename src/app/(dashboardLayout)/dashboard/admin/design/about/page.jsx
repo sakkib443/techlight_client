@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { FiUsers, FiSave, FiRefreshCw, FiEye, FiImage, FiGrid, FiTarget, FiBarChart2 } from 'react-icons/fi';
+import { FiUsers, FiSave, FiRefreshCw, FiEye, FiImage, FiGrid, FiTarget, FiBarChart2, FiUpload, FiX } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 import { toast } from 'react-hot-toast';
 import { API_URL } from '@/config/api';
@@ -13,6 +13,33 @@ export default function AboutDesignPage() {
   const [content, setContent] = useState(() => mergeAboutContent({}));
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploadingImg, setUploadingImg] = useState({ heroImage1: false, heroImage2: false, heroImage3: false });
+
+  const handleImageUpload = async (key, file) => {
+    if (!file) return;
+    const token = localStorage.getItem('token');
+    setUploadingImg(prev => ({ ...prev, [key]: true }));
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+      const res = await fetch(`${API_URL}/upload/single`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        setContent(prev => ({ ...prev, [key]: data.data.url }));
+        toast.success('Image uploaded!');
+      } else {
+        toast.error(data.message || 'Upload failed');
+      }
+    } catch (e) {
+      toast.error('Upload failed');
+    } finally {
+      setUploadingImg(prev => ({ ...prev, [key]: false }));
+    }
+  };
 
   useEffect(() => {
     fetchAbout();
@@ -196,6 +223,49 @@ export default function AboutDesignPage() {
                 <div key={i} className="flex gap-2">
                   <input value={s.value || ''} onChange={(e) => setHeroMini(i, 'value', e.target.value)} className={`${field} w-1/3`} placeholder="5+" />
                   <input value={s.label || ''} onChange={(e) => setHeroMini(i, 'label', e.target.value)} className={field} placeholder="Years Experience" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Hero Images */}
+          <div>
+            <label className={label}>Hero Section Images (৩টি)</label>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { key: 'heroImage1', label: 'Main Image (বড়)' },
+                { key: 'heroImage2', label: 'Image 2 (উপরে ডানে)' },
+                { key: 'heroImage3', label: 'Image 3 (নিচে ডানে)' },
+              ].map(({ key, label: imgLabel }) => (
+                <div key={key} className={`rounded-md border p-3 ${isDark ? 'border-slate-700' : 'border-gray-200'}`}>
+                  <p className={`text-xs font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>{imgLabel}</p>
+                  {content[key] && (
+                    <div className="relative mb-2">
+                      <img src={content[key]} alt={imgLabel} className="w-full h-32 object-cover rounded-md" />
+                      <button
+                        onClick={() => setContent(prev => ({ ...prev, [key]: '' }))}
+                        className="absolute top-1 right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600"
+                      >
+                        <FiX size={12} />
+                      </button>
+                    </div>
+                  )}
+                  <label className={`flex items-center justify-center gap-2 w-full py-2 rounded-md border border-dashed cursor-pointer transition-colors text-xs font-medium
+                    ${uploadingImg[key] ? 'opacity-60 cursor-not-allowed' : ''}
+                    ${isDark ? 'border-slate-600 text-slate-400 hover:border-indigo-500 hover:text-indigo-400' : 'border-gray-300 text-gray-500 hover:border-indigo-500 hover:text-indigo-500'}`}>
+                    {uploadingImg[key] ? (
+                      <><FiRefreshCw className="animate-spin" size={13} /> Uploading...</>
+                    ) : (
+                      <><FiUpload size={13} /> Upload Image</>
+                    )}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      disabled={uploadingImg[key]}
+                      onChange={(e) => e.target.files?.[0] && handleImageUpload(key, e.target.files[0])}
+                    />
+                  </label>
                 </div>
               ))}
             </div>

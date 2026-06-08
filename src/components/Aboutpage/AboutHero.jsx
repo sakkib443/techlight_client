@@ -1,15 +1,41 @@
 ﻿"use client";
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { LuArrowRight, LuPlay, LuZap, LuSmile, LuTrophy } from 'react-icons/lu';
 import { useLanguage } from '@/context/LanguageContext';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
+import { API_URL } from '@/config/api';
+
+const DEFAULT_IMAGE1 = '/images/57462951_2085649778223584_3709857119512559616_n.jpg';
+const DEFAULT_IMAGE2 = '/images/58068385_2070681143053781_5367478869567733760_n.jpg';
+const DEFAULT_IMAGE3 = '/images/58383539_2073583652763530_1902712555562860544_n.jpg';
 
 const AboutHero = () => {
     const { language, t } = useLanguage();
     const containerRef = useRef(null);
     const { scrollY } = useScroll();
+    const [images, setImages] = useState({ heroImage1: DEFAULT_IMAGE1, heroImage2: DEFAULT_IMAGE2, heroImage3: DEFAULT_IMAGE3 });
+
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const res = await fetch(`${API_URL}/design/about`);
+                const data = await res.json();
+                const content = data?.data?.aboutContent;
+                if (content) {
+                    setImages({
+                        heroImage1: content.heroImage1 || DEFAULT_IMAGE1,
+                        heroImage2: content.heroImage2 || DEFAULT_IMAGE2,
+                        heroImage3: content.heroImage3 || DEFAULT_IMAGE3,
+                    });
+                }
+            } catch (e) {
+                console.error('Error fetching about images:', e);
+            }
+        };
+        fetchImages();
+    }, []);
 
     // Parallax effects
     const y1 = useTransform(scrollY, [0, 500], [0, 200]);
@@ -121,15 +147,10 @@ const AboutHero = () => {
                                 >
                                     <div className="relative overflow-hidden rounded-2xl shadow-2xl shadow-black/10 dark:shadow-black/30 border-2 border-white/60 dark:border-white/10">
                                         <img
-                                            src="/images/57462951_2085649778223584_3709857119512559616_n.jpg"
+                                            src={images.heroImage1}
                                             alt="TECHLIGHT IT Classroom - Students Learning"
                                             className="w-full h-[280px] lg:h-[340px] object-cover transition-transform duration-700 group-hover:scale-105"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                                        <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-xl px-4 py-2 shadow-lg">
-                                            <p className="text-[10px] font-bold text-red-500 uppercase tracking-widest">Live Class</p>
-                                            <p className="text-xs font-semibold text-gray-700 dark:text-gray-300">50+ Students</p>
-                                        </div>
                                     </div>
                                 </motion.div>
 
@@ -143,17 +164,10 @@ const AboutHero = () => {
                                     >
                                         <div className="relative overflow-hidden rounded-2xl shadow-xl shadow-black/10 dark:shadow-black/30 border-2 border-white/60 dark:border-white/10">
                                             <img
-                                                src="/images/58068385_2070681143053781_5367478869567733760_n.jpg"
+                                                src={images.heroImage2}
                                                 alt="TECHLIGHT IT Seminar - Knowledge Sharing"
                                                 className="w-full h-[130px] lg:h-[160px] object-cover transition-transform duration-700 group-hover:scale-105"
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                                            <div className="absolute bottom-3 left-3 flex items-center gap-1.5">
-                                                <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
-                                                    <span className="text-white text-[10px]">🎓</span>
-                                                </div>
-                                                <span className="text-white text-[10px] font-bold drop-shadow-lg">Seminar</span>
-                                            </div>
                                         </div>
                                     </motion.div>
 
@@ -165,71 +179,15 @@ const AboutHero = () => {
                                     >
                                         <div className="relative overflow-hidden rounded-2xl shadow-xl shadow-black/10 dark:shadow-black/30 border-2 border-white/60 dark:border-white/10">
                                             <img
-                                                src="/images/58383539_2073583652763530_1902712555562860544_n.jpg"
+                                                src={images.heroImage3}
                                                 alt="TECHLIGHT IT Exam - Student Assessment"
                                                 className="w-full h-[130px] lg:h-[160px] object-cover transition-transform duration-700 group-hover:scale-105"
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                                            <div className="absolute bottom-3 left-3 flex items-center gap-1.5">
-                                                <div className="w-6 h-6 bg-[#E31E27] rounded-full flex items-center justify-center">
-                                                    <span className="text-white text-[10px]">📝</span>
-                                                </div>
-                                                <span className="text-white text-[10px] font-bold drop-shadow-lg">Exam Hall</span>
-                                            </div>
                                         </div>
                                     </motion.div>
                                 </div>
                             </div>
 
-                            {/* Floating Success Rate Badge */}
-                            <motion.div
-                                className="absolute -top-4 -left-4 bg-white dark:bg-gray-800 rounded-2xl px-4 py-3 shadow-xl border border-gray-100 dark:border-gray-700 z-20"
-                                initial={{ opacity: 0, scale: 0 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 1.5, duration: 0.5 }}
-                            >
-                                <div className="flex items-center gap-2">
-                                    <div className="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
-                                        <span className="text-green-500 text-sm font-bold">✓</span>
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] text-gray-400 font-medium">Success Rate</p>
-                                        <p className="font-bold text-sm text-gray-800 dark:text-white">98%</p>
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            {/* Floating Enrolled Badge */}
-                            <motion.div
-                                className="absolute -bottom-3 right-[25%] bg-white dark:bg-gray-800 rounded-2xl px-4 py-3 shadow-xl border border-gray-100 dark:border-gray-700 z-20"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.8, duration: 0.5 }}
-                            >
-                                <div className="flex items-center gap-2">
-                                    <div className="flex -space-x-2">
-                                        <div className="w-7 h-7 rounded-full bg-red-500 flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">S</div>
-                                        <div className="w-7 h-7 rounded-full bg-[#E31E27] flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">A</div>
-                                        <div className="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center text-white text-xs font-bold border-2 border-white dark:border-gray-800">R</div>
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] text-gray-400 font-medium">Students</p>
-                                        <p className="font-bold text-xs text-gray-800 dark:text-white">10k+ Enrolled</p>
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            {/* Floating Dots */}
-                            <motion.div
-                                className="absolute top-[20%] -right-3 w-4 h-4 bg-red-500 rounded-full z-10"
-                                animate={{ y: [0, -10, 0], scale: [1, 1.2, 1] }}
-                                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                            />
-                            <motion.div
-                                className="absolute top-[50%] -left-3 w-3 h-3 bg-[#E31E27] rounded-full z-10"
-                                animate={{ y: [0, 8, 0] }}
-                                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
-                            />
                         </motion.div>
                     </div>
                 </div>
