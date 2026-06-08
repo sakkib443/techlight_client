@@ -125,6 +125,8 @@ const courseValidationSchema = z.object({
         question: z.string().optional().or(z.literal('')),
         answer: z.string().optional().or(z.literal('')),
     })).optional(),
+    totalLessons: z.coerce.number().min(0, 'Cannot be negative').optional(),
+    totalEnrollments: z.coerce.number().min(0, 'Cannot be negative').optional(),
     metaTitle: z.string().max(100, 'Keep it under 100 characters').optional().or(z.literal('')),
     metaDescription: z.string().max(300, 'Keep it under 300 characters').optional().or(z.literal('')),
     status: z.enum(['draft', 'published', 'archived']),
@@ -163,6 +165,8 @@ const CourseCreateTab = ({ onSuccess, courseId }) => {
             faq: [],
             isFeatured: false,
             isPopular: false,
+            totalLessons: 0,
+            totalEnrollments: 0,
         },
     });
 
@@ -221,6 +225,8 @@ const CourseCreateTab = ({ onSuccess, courseId }) => {
                             status: course.status || 'draft',
                             isFeatured: !!course.isFeatured,
                             isPopular: !!course.isPopular,
+                            totalLessons: course.totalLessons ?? 0,
+                            totalEnrollments: course.totalEnrollments ?? 0,
                             metaTitle: course.metaTitle || '',
                             metaDescription: course.metaDescription || '',
                             features: course.features?.length ? course.features : [],
@@ -468,6 +474,12 @@ const CourseCreateTab = ({ onSuccess, courseId }) => {
                             </FormField>
                             <FormField label="Price Label" error={errors.priceLabel} hint="Custom text shown instead of the amount.">
                                 <input {...register('priceLabel')} className={inputBase} placeholder="e.g. Free, Contact Us" />
+                            </FormField>
+                            <FormField label="Total Lessons" error={errors.totalLessons} hint="Number of lessons shown on the course card.">
+                                <input type="number" min="0" {...register('totalLessons')} className={inputBase} placeholder="e.g. 60" />
+                            </FormField>
+                            <FormField label="Enrolled Count" error={errors.totalEnrollments} hint="Number of enrolled students shown on the course card.">
+                                <input type="number" min="0" {...register('totalEnrollments')} className={inputBase} placeholder="e.g. 210" />
                             </FormField>
                         </div>
                     </Card>

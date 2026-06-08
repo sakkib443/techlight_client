@@ -44,9 +44,10 @@ const CourseCard = ({ course, view = "grid" }) => {
   const discountPrice = course.discountPrice;
   const priceLabel = course.priceLabel;
   const type = course.courseType || course.type || "Recorded";
-  const totalLessons = course.totalLessons || course.totalVideos || 10;
+  const totalLessons = course.totalLessons ?? course.totalVideos ?? 0;
   const lessons = `${totalLessons} Lessons`;
-  const students = course.totalEnrollments !== undefined ? `${course.totalEnrollments}+ Enrolled` : "50+ Enrolled";
+  const totalEnrollments = course.totalEnrollments ?? 0;
+  const students = `${totalEnrollments}+ Enrolled`;
   const rating = course.averageRating || course.rating || 5;
   const lastUpdated = course.updatedAt ? new Date(course.updatedAt).toLocaleDateString() : "Recently Updated";
   const duration = course.duration || course.totalDuration || "3 Months";
