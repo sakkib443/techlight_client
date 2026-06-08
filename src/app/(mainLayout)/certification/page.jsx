@@ -299,7 +299,7 @@ const CertificationPage = () => {
         <div className="bg-gradient-to-r from-[#E31E27] to-[#38a89d] rounded-md p-8 text-white">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
-              <h3 className={`text-xl font-bold outfit mb-2 ${bengaliClass}`}>{t("certificationPage.needHelp")}</h3>
+              <h3 className={`text-xl font-bold outfit mb-2 text-white ${bengaliClass}`}>{t("certificationPage.needHelp")}</h3>
               <p className={`text-white/80 work text-sm ${bengaliClass}`}>
                 {t("certificationPage.helpDescription")}
               </p>
