@@ -178,11 +178,6 @@ const Hero = () => {
                                             alt="Students Learning"
                                             className="w-full h-[320px] lg:h-[400px] object-cover transition-transform duration-700 group-hover:scale-105"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                                        <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2 shadow-lg">
-                                            <p className="text-[10px] font-bold text-[#E31E27] uppercase tracking-widest">Live Class</p>
-                                            <p className="text-xs font-semibold text-gray-700">50+ Students</p>
-                                        </div>
                                     </div>
                                 </motion.div>
 
@@ -200,13 +195,6 @@ const Hero = () => {
                                                 alt="Seminar"
                                                 className="w-full h-[150px] lg:h-[190px] object-cover transition-transform duration-700 group-hover:scale-105"
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                                            <div className="absolute bottom-3 left-3 flex items-center gap-1.5">
-                                                <div className="w-6 h-6 bg-[#E31E27] rounded-full flex items-center justify-center">
-                                                    <span className="text-white text-[10px]">🎓</span>
-                                                </div>
-                                                <span className="text-white text-[10px] font-bold drop-shadow-lg">Seminar</span>
-                                            </div>
                                         </div>
                                     </motion.div>
 
@@ -222,54 +210,11 @@ const Hero = () => {
                                                 alt="Exam Hall"
                                                 className="w-full h-[150px] lg:h-[190px] object-cover transition-transform duration-700 group-hover:scale-105"
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-                                            <div className="absolute bottom-3 left-3 flex items-center gap-1.5">
-                                                <div className="w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center">
-                                                    <span className="text-white text-[10px]">📝</span>
-                                                </div>
-                                                <span className="text-white text-[10px] font-bold drop-shadow-lg">Exam Hall</span>
-                                            </div>
                                         </div>
                                     </motion.div>
                                 </div>
                             </div>
 
-                            {/* Floating Badges */}
-                            <motion.div
-                                className="absolute -top-4 -left-4 bg-white rounded-2xl px-4 py-3 shadow-xl border border-gray-100 z-20"
-                                initial={{ opacity: 0, scale: 0 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 1.2, duration: 0.5 }}
-                            >
-                                <div className="flex items-center gap-2">
-                                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                                        <span className="text-green-500 text-sm font-bold">✓</span>
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] text-gray-400 font-medium">Success Rate</p>
-                                        <p className="font-bold text-sm text-gray-800">98%</p>
-                                    </div>
-                                </div>
-                            </motion.div>
-
-                            <motion.div
-                                className="absolute -bottom-3 right-[30%] bg-white rounded-2xl px-4 py-3 shadow-xl border border-gray-100 z-20"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.5, duration: 0.5 }}
-                            >
-                                <div className="flex items-center gap-2">
-                                    <div className="flex -space-x-2">
-                                        <div className="w-7 h-7 rounded-full bg-[#E31E27] flex items-center justify-center text-white text-xs font-bold border-2 border-white">S</div>
-                                        <div className="w-7 h-7 rounded-full bg-amber-500 flex items-center justify-center text-white text-xs font-bold border-2 border-white">A</div>
-                                        <div className="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center text-white text-xs font-bold border-2 border-white">R</div>
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] text-gray-400 font-medium">Students</p>
-                                        <p className="font-bold text-xs text-gray-800">50k+ Enrolled</p>
-                                    </div>
-                                </div>
-                            </motion.div>
 
                         </div>
                     </motion.div>
