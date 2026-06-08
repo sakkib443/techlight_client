@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -10,6 +10,7 @@ import {
     FiPlus, FiTrash2, FiSave, FiImage, FiVideo, FiBookOpen, FiLayers,
     FiCheck, FiTarget, FiList, FiTag, FiSearch, FiLayout, FiArrowRight,
     FiBriefcase, FiTool, FiHelpCircle, FiDollarSign, FiUser, FiInfo, FiLoader,
+    FiUpload, FiX,
 } from 'react-icons/fi';
 
 /* ============================ Styles ============================ */
@@ -141,6 +142,40 @@ const CourseCreateTab = ({ onSuccess, courseId }) => {
     const [fetching, setFetching] = useState(!!courseId);
     const [categories, setCategories] = useState([]);
     const [instructors, setInstructors] = useState([]);
+    const [thumbnailUploading, setThumbnailUploading] = useState(false);
+    const [bannerUploading, setBannerUploading] = useState(false);
+    const thumbnailInputRef = useRef(null);
+    const bannerInputRef = useRef(null);
+
+    const handleImageUpload = async (file, field, setUploading) => {
+        if (!file) return;
+        if (file.size > 5 * 1024 * 1024) {
+            toast.error('Image must be under 5MB');
+            return;
+        }
+        const token = localStorage.getItem('token');
+        const formData = new FormData();
+        formData.append('image', file);
+        setUploading(true);
+        try {
+            const res = await fetch(`${API_BASE_URL}/upload/single`, {
+                method: 'POST',
+                headers: { Authorization: `Bearer ${token}` },
+                body: formData,
+            });
+            const data = await res.json();
+            if (data.success && data.data?.url) {
+                setValue(field, data.data.url);
+                toast.success('Image uploaded!');
+            } else {
+                toast.error(data.message || 'Upload failed');
+            }
+        } catch {
+            toast.error('Upload failed — please try again');
+        } finally {
+            setUploading(false);
+        }
+    };
 
     const {
         register, control, handleSubmit, setValue, watch, reset,
@@ -394,11 +429,77 @@ const CourseCreateTab = ({ onSuccess, courseId }) => {
                         <SectionHeader title="Media & Video" subtitle="Images and intro videos" icon={FiImage} />
                         <div className="p-5 space-y-5">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                <FormField label="Thumbnail Image URL" icon={FiImage} error={errors.thumbnail} required>
-                                    <input {...register('thumbnail')} className={inputBase} placeholder="https://..." />
+                                {/* Thumbnail */}
+                                <FormField label="Thumbnail Image" icon={FiImage} error={errors.thumbnail} required>
+                                    <div className="space-y-2">
+                                        <div className="flex gap-2">
+                                            <input {...register('thumbnail')} className={`${inputBase} flex-1`} placeholder="https://... or upload below" />
+                                            <button
+                                                type="button"
+                                                onClick={() => thumbnailInputRef.current?.click()}
+                                                disabled={thumbnailUploading}
+                                                className="shrink-0 flex items-center gap-1.5 px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-xs font-medium rounded-lg border border-indigo-200 transition-all disabled:opacity-50"
+                                            >
+                                                {thumbnailUploading ? <FiLoader size={14} className="animate-spin" /> : <FiUpload size={14} />}
+                                                Upload
+                                            </button>
+                                            <input
+                                                ref={thumbnailInputRef}
+                                                type="file"
+                                                accept="image/*"
+                                                className="hidden"
+                                                onChange={(e) => handleImageUpload(e.target.files?.[0], 'thumbnail', setThumbnailUploading)}
+                                            />
+                                        </div>
+                                        {watch('thumbnail') && (
+                                            <div className="relative w-full h-32 rounded-lg overflow-hidden border border-slate-200 bg-slate-50 group">
+                                                <img src={watch('thumbnail')} alt="Thumbnail preview" className="w-full h-full object-cover" onError={(e) => e.target.style.display = 'none'} />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setValue('thumbnail', '')}
+                                                    className="absolute top-1.5 right-1.5 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                                                >
+                                                    <FiX size={12} />
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
                                 </FormField>
-                                <FormField label="Banner Image URL" icon={FiLayout} error={errors.bannerImage}>
-                                    <input {...register('bannerImage')} className={inputBase} placeholder="https://..." />
+                                {/* Banner Image */}
+                                <FormField label="Banner Image" icon={FiLayout} error={errors.bannerImage}>
+                                    <div className="space-y-2">
+                                        <div className="flex gap-2">
+                                            <input {...register('bannerImage')} className={`${inputBase} flex-1`} placeholder="https://... or upload below" />
+                                            <button
+                                                type="button"
+                                                onClick={() => bannerInputRef.current?.click()}
+                                                disabled={bannerUploading}
+                                                className="shrink-0 flex items-center gap-1.5 px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-xs font-medium rounded-lg border border-indigo-200 transition-all disabled:opacity-50"
+                                            >
+                                                {bannerUploading ? <FiLoader size={14} className="animate-spin" /> : <FiUpload size={14} />}
+                                                Upload
+                                            </button>
+                                            <input
+                                                ref={bannerInputRef}
+                                                type="file"
+                                                accept="image/*"
+                                                className="hidden"
+                                                onChange={(e) => handleImageUpload(e.target.files?.[0], 'bannerImage', setBannerUploading)}
+                                            />
+                                        </div>
+                                        {watch('bannerImage') && (
+                                            <div className="relative w-full h-32 rounded-lg overflow-hidden border border-slate-200 bg-slate-50 group">
+                                                <img src={watch('bannerImage')} alt="Banner preview" className="w-full h-full object-cover" onError={(e) => e.target.style.display = 'none'} />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setValue('bannerImage', '')}
+                                                    className="absolute top-1.5 right-1.5 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                                                >
+                                                    <FiX size={12} />
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
                                 </FormField>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
