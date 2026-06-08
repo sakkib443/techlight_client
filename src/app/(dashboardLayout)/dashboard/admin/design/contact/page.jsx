@@ -351,7 +351,7 @@ const ContactDesignPage = () => {
                             placeholder="https://www.google.com/maps/embed?pb=..."
                         />
                         <p className={`text-xs mt-2 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                            Get this URL from Google Maps &gt; Share &gt; Embed a map &gt; Copy the src URL from the iframe
+                            ⚠️ Must start with <strong>https://www.google.com/maps/embed?pb=</strong> — Go to Google Maps → Share → Embed a map → copy only the <code>src="..."</code> value from the iframe code. Do NOT paste a share link or regular maps URL.
                         </p>
                     </div>
                     {contactContent.mapEmbedUrl && (

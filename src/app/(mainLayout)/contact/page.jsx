@@ -74,9 +74,8 @@ const ContactPage = () => {
             buttonText: "Start Chat",
             buttonTextBn: "চ্যাট শুরু করুন",
         },
-        // Generic Bangladesh view as demo — replace with real office location from admin panel
         mapEmbedUrl:
-            "https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d465004.5!2d90.3!3d23.78!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1704532086149!5m2!1sen!2sbd",
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.5190834396!2d90.3811167!3d23.752917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b92352d22a03%3A0x512771b532beccff!2sTechlight%20IT%20Institute!5e0!3m2!1sen!2sbd!4v1717000000000!5m2!1sen!2sbd",
     });
 
     useEffect(() => {
@@ -91,7 +90,7 @@ const ContactPage = () => {
                         contactInfo: { ...prev.contactInfo, ...(incoming.contactInfo || {}) },
                         socialLinks: { ...prev.socialLinks, ...(incoming.socialLinks || {}) },
                         whatsappSection: { ...prev.whatsappSection, ...(incoming.whatsappSection || {}) },
-                        mapEmbedUrl: incoming.mapEmbedUrl || prev.mapEmbedUrl,
+                        mapEmbedUrl: (incoming.mapEmbedUrl?.includes('/maps/embed') ? incoming.mapEmbedUrl : null) || prev.mapEmbedUrl,
                     }));
                 }
             } catch (error) {
