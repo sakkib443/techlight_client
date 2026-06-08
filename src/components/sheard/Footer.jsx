@@ -244,15 +244,12 @@ const Footer = () => {
       <div className="relative border-t border-gray-200 bg-white/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 lg:px-16 py-5">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-gray-400 text-sm text-center md:text-left">
-              © {new Date().getFullYear()} Techlight IT Institute. All rights reserved.
+            <p className="text-gray-400 text-sm text-left">
+              © 2026 Techlight IT Solution. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <span className="text-gray-400 text-sm flex items-center gap-1">
-                Made with <LuHeart className="text-red-500 text-xs" /> in Bangladesh
-              </span>
               <span className="text-gray-400 text-sm">
-                Developed by <a href="https://extrainweb.com" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-[#E31E27] transition-colors text-gray-500">Extrain Web</a>
+                Developed by <a href="https://darkvence.com/" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-[#E31E27] transition-colors text-gray-500">Darkvence Agency</a>
               </span>
             </div>
           </div>
