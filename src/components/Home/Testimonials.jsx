@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LuChevronLeft, LuChevronRight, LuStar, LuQuote, LuPenLine, LuX, LuCheck, LuUpload, LuUser } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
-import { useRouter } from "next/navigation";
+
 import { API_BASE_URL } from "@/config/api";
 import toast from "react-hot-toast";
 
@@ -81,7 +81,7 @@ const AddTestimonialModal = ({ onClose, onSuccess, bengaliClass, language }) => 
         }
         setSubmitting(true);
         try {
-            const token = localStorage.getItem('token');
+            const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
             const formData = new FormData();
             formData.append('name', form.name);
             formData.append('designation', form.designation);
@@ -90,9 +90,12 @@ const AddTestimonialModal = ({ onClose, onSuccess, bengaliClass, language }) => 
             formData.append('rating', String(form.rating));
             if (imageFile) formData.append('userImage', imageFile);
 
+            const headers = {};
+            if (token) headers['Authorization'] = `Bearer ${token}`;
+
             const res = await fetch(`${API_BASE_URL}/testimonials`, {
                 method: 'POST',
-                headers: { Authorization: `Bearer ${token}` },
+                headers,
                 body: formData,
             });
             const data = await res.json();
@@ -238,7 +241,6 @@ const AddTestimonialModal = ({ onClose, onSuccess, bengaliClass, language }) => 
 const Testimonials = () => {
     const { language } = useLanguage();
     const bengaliClass = language === "bn" ? "hind-siliguri" : "";
-    const router = useRouter();
     const [testimonials, setTestimonials] = useState([]);
     const [loading, setLoading] = useState(true);
     const [startIndex, setStartIndex] = useState(0);
@@ -295,12 +297,7 @@ const Testimonials = () => {
     };
 
     const handleAddClick = () => {
-        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-        if (!token) {
-            router.push('/login');
-        } else {
-            setShowModal(true);
-        }
+        setShowModal(true);
     };
 
     const visibleCards = getVisibleCards();
