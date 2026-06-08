@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { FiArrowLeft, FiSave, FiLoader, FiImage, FiGlobe, FiFolder, FiCheck, FiAlertCircle } from 'react-icons/fi';
+import { FiArrowLeft, FiSave, FiLoader, FiImage, FiGlobe, FiFolder, FiCheck, FiAlertCircle, FiUpload } from 'react-icons/fi';
 import Link from 'next/link';
 import { toast } from 'react-hot-toast';
 import { API_URL } from '@/config/api';
@@ -14,6 +14,30 @@ const CreateCategory = () => {
   const [form, setForm] = useState({ name: '', slug: '', description: '', image: '', status: 'active' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [imageUploading, setImageUploading] = useState(false);
+  const imageInputRef = useRef(null);
+
+  const handleImageUpload = async (file) => {
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { toast.error('Image must be under 5MB'); return; }
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+    formData.append('image', file);
+    setImageUploading(true);
+    try {
+      const res = await fetch(`${API_URL}/upload/single`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success && data.data?.url) {
+        setForm(prev => ({ ...prev, image: data.data.url }));
+        toast.success('Image uploaded!');
+      } else { toast.error(data.message || 'Upload failed'); }
+    } catch { toast.error('Upload failed'); }
+    finally { setImageUploading(false); }
+  };
 
   // Auto-generate slug from name
   useEffect(() => {
@@ -135,19 +159,20 @@ const CreateCategory = () => {
             <h2 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-800'} mb-4 flex items-center gap-2`}>
               <FiImage size={16} className="text-rose-500" /> Image <span className="font-normal text-slate-400 text-xs">(optional)</span>
             </h2>
-            <input
-              type="text"
-              placeholder="https://..."
-              value={form.image}
-              onChange={(e) => setForm({ ...form, image: e.target.value })}
-              className={inputClass}
-            />
-            {form.image && (
-              <div className="mt-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={form.image} alt="Preview" className="w-full h-32 object-cover rounded-lg border border-gray-200 dark:border-slate-700" onError={(e) => (e.currentTarget.style.display = 'none')} />
+            <div className="space-y-2">
+              <div className="flex gap-2">
+                <input type="text" placeholder="https://... or upload" value={form.image}
+                  onChange={(e) => setForm({ ...form, image: e.target.value })} className={`${inputClass} flex-1`} />
+                <button type="button" onClick={() => imageInputRef.current?.click()} disabled={imageUploading}
+                  className="shrink-0 flex items-center gap-1.5 px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-xs font-medium rounded-lg border border-indigo-200 transition-all disabled:opacity-50">
+                  {imageUploading ? <FiLoader size={14} className="animate-spin" /> : <FiUpload size={14} />} Upload
+                </button>
+                <input ref={imageInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e.target.files?.[0])} />
               </div>
-            )}
+              {form.image && (
+                <img src={form.image} alt="Preview" className="w-full h-32 object-cover rounded-lg border border-gray-200 dark:border-slate-700" onError={(e) => (e.currentTarget.style.display = 'none')} />
+              )}
+            </div>
           </div>
 
           <div className={cardClass}>

@@ -1,8 +1,8 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { toast } from 'react-hot-toast';
-import { FiFolder, FiPlus, FiRefreshCw, FiSearch, FiEdit3, FiTrash2, FiX, FiCheck, FiImage, FiGrid, FiLoader, FiAlertCircle } from 'react-icons/fi';
+import { FiFolder, FiPlus, FiRefreshCw, FiSearch, FiEdit3, FiTrash2, FiX, FiCheck, FiImage, FiGrid, FiLoader, FiAlertCircle, FiUpload } from 'react-icons/fi';
 import { API_URL } from '@/config/api';
 
 const CategoryPage = () => {
@@ -12,6 +12,30 @@ const CategoryPage = () => {
   const [editData, setEditData] = useState(null);
   const [editErrors, setEditErrors] = useState([]);
   const [saving, setSaving] = useState(false);
+  const [imageUploading, setImageUploading] = useState(false);
+  const imageInputRef = useRef(null);
+
+  const handleImageUpload = async (file) => {
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { toast.error('Image must be under 5MB'); return; }
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+    formData.append('image', file);
+    setImageUploading(true);
+    try {
+      const res = await fetch(`${API_URL}/upload/single`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success && data.data?.url) {
+        setEditData(prev => ({ ...prev, image: data.data.url }));
+        toast.success('Image uploaded!');
+      } else { toast.error(data.message || 'Upload failed'); }
+    } catch { toast.error('Upload failed'); }
+    finally { setImageUploading(false); }
+  };
 
   const fetchCategories = async () => {
     setLoading(true);
@@ -250,16 +274,20 @@ const CategoryPage = () => {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 block">Image URL</label>
-                <div className="relative">
-                  <FiImage className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-                  <input
-                    type="text"
-                    value={editData.image || ''}
-                    onChange={(e) => setEditData({ ...editData, image: e.target.value })}
-                    className="w-full pl-10 pr-3 py-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-400/15 outline-none transition-all"
-                    placeholder="https://..."
-                  />
+                <label className="text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 block">Image</label>
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <input type="text" value={editData.image || ''}
+                      onChange={(e) => setEditData({ ...editData, image: e.target.value })}
+                      className="flex-1 px-3 py-2.5 bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-lg text-sm focus:border-blue-400 focus:ring-2 focus:ring-blue-400/15 outline-none transition-all"
+                      placeholder="https://... or upload" />
+                    <button type="button" onClick={() => imageInputRef.current?.click()} disabled={imageUploading}
+                      className="shrink-0 flex items-center gap-1.5 px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-xs font-medium rounded-lg border border-indigo-200 transition-all disabled:opacity-50">
+                      {imageUploading ? <FiLoader size={14} className="animate-spin" /> : <FiUpload size={14} />} Upload
+                    </button>
+                    <input ref={imageInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e.target.files?.[0])} />
+                  </div>
+                  {editData.image && <img src={editData.image} alt="preview" className="w-full h-24 object-cover rounded-lg border border-gray-200 dark:border-slate-700" onError={(e) => (e.currentTarget.style.display = 'none')} />}
                 </div>
               </div>
 

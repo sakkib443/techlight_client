@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { FiSave, FiX, FiUser, FiLink, FiCheckCircle, FiInfo, FiMail, FiPhone, FiBriefcase, FiAlertCircle } from 'react-icons/fi';
+import { FiSave, FiX, FiUser, FiLink, FiCheckCircle, FiInfo, FiMail, FiPhone, FiBriefcase, FiAlertCircle, FiUpload, FiLoader } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 import { API_BASE_URL } from '@/config/api';
 
@@ -42,10 +42,36 @@ export default function EditInstructorPage() {
     const [fetching, setFetching] = useState(true);
     const [users, setUsers] = useState([]);
     const [submitError, setSubmitError] = useState('');
+    const [imageUploading, setImageUploading] = useState(false);
+    const imageInputRef = useRef(null);
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm({
         resolver: zodResolver(instructorSchema),
     });
+
+    const imageUrl = watch('image');
+
+    const handleImageUpload = async (file) => {
+        if (!file) return;
+        if (file.size > 5 * 1024 * 1024) { toast.error('Image must be under 5MB'); return; }
+        const token = localStorage.getItem('token');
+        const formData = new FormData();
+        formData.append('image', file);
+        setImageUploading(true);
+        try {
+            const res = await fetch(`${API_BASE_URL}/upload/single`, {
+                method: 'POST',
+                headers: { Authorization: `Bearer ${token}` },
+                body: formData,
+            });
+            const data = await res.json();
+            if (data.success && data.data?.url) {
+                setValue('image', data.data.url);
+                toast.success('Image uploaded!');
+            } else { toast.error(data.message || 'Upload failed'); }
+        } catch { toast.error('Upload failed'); }
+        finally { setImageUploading(false); }
+    };
 
     useEffect(() => {
         fetchUsers();
@@ -249,14 +275,17 @@ export default function EditInstructorPage() {
                         </div>
 
                         <div className="md:col-span-2">
-                            <label className={labelClass}>Profile Image URL</label>
-                            <div className="relative">
-                                <FiLink className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                                <input
-                                    {...register('image')}
-                                    className={`${inputBase} pl-11`}
-                                    placeholder="https://example.com/avatar.jpg"
-                                />
+                            <label className={labelClass}>Profile Image</label>
+                            <div className="space-y-2">
+                                <div className="flex gap-2">
+                                    <input {...register('image')} className={`${inputBase} flex-1`} placeholder="https://... or upload" />
+                                    <button type="button" onClick={() => imageInputRef.current?.click()} disabled={imageUploading}
+                                        className="shrink-0 flex items-center gap-1.5 px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-xs font-medium rounded-lg border border-indigo-200 transition-all disabled:opacity-50">
+                                        {imageUploading ? <FiLoader size={14} className="animate-spin" /> : <FiUpload size={14} />} Upload
+                                    </button>
+                                    <input ref={imageInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e.target.files?.[0])} />
+                                </div>
+                                {imageUrl && <img src={imageUrl} alt="preview" className="w-20 h-20 rounded-lg object-cover border border-slate-200" onError={(e) => { e.currentTarget.style.display = 'none'; }} />}
                             </div>
                             {errors.image && <p className="mt-1 text-xs text-red-500">{errors.image.message}</p>}
                         </div>

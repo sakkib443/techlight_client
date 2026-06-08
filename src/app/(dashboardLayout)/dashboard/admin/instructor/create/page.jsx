@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { toast } from 'react-hot-toast';
 import {
     FiSave, FiX, FiUser, FiLink, FiAlertCircle, FiMail, FiPhone, FiBriefcase,
-    FiImage, FiAward, FiInfo, FiLoader, FiSettings, FiUsers,
+    FiImage, FiAward, FiInfo, FiLoader, FiSettings, FiUsers, FiUpload,
 } from 'react-icons/fi';
 import { FaFacebookF, FaLinkedinIn, FaTwitter, FaGithub } from 'react-icons/fa';
 import { useTheme } from '@/providers/ThemeProvider';
@@ -90,9 +90,33 @@ export default function CreateInstructorPage() {
     const [loading, setLoading] = useState(false);
     const [users, setUsers] = useState([]);
     const [submitError, setSubmitError] = useState('');
+    const [imageUploading, setImageUploading] = useState(false);
+    const imageInputRef = useRef(null);
+
+    const handleImageUpload = async (file) => {
+        if (!file) return;
+        if (file.size > 5 * 1024 * 1024) { toast.error('Image must be under 5MB'); return; }
+        const token = localStorage.getItem('token');
+        const formData = new FormData();
+        formData.append('image', file);
+        setImageUploading(true);
+        try {
+            const res = await fetch(`${API_BASE_URL}/upload/single`, {
+                method: 'POST',
+                headers: { Authorization: `Bearer ${token}` },
+                body: formData,
+            });
+            const data = await res.json();
+            if (data.success && data.data?.url) {
+                setValue('image', data.data.url);
+                toast.success('Image uploaded!');
+            } else { toast.error(data.message || 'Upload failed'); }
+        } catch { toast.error('Upload failed'); }
+        finally { setImageUploading(false); }
+    };
 
     const {
-        register, handleSubmit, watch, formState: { errors },
+        register, handleSubmit, watch, setValue, formState: { errors },
     } = useForm({
         resolver: zodResolver(instructorSchema),
         mode: 'onTouched',
@@ -263,13 +287,17 @@ export default function CreateInstructorPage() {
                             <Field isDark={isDark} label="Subject / Expertise" error={errors.subject}>
                                 <input {...register('subject')} className={fieldCls(errors.subject)} placeholder="e.g. Full-Stack Web Development" />
                             </Field>
-                            <Field isDark={isDark} label="Profile Image URL" error={errors.image} hint="Direct link to a photo (https://...)">
-                                <div className="flex gap-3">
-                                    <input {...register('image')} className={fieldCls(errors.image)} placeholder="https://example.com/avatar.jpg" />
-                                    {imageUrl && !errors.image ? (
-                                        // eslint-disable-next-line @next/next/no-img-element
-                                        <img src={imageUrl} alt="preview" className="w-10 h-10 rounded-lg object-cover border border-slate-200 shrink-0" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-                                    ) : null}
+                            <Field isDark={isDark} label="Profile Image" error={errors.image}>
+                                <div className="space-y-2">
+                                    <div className="flex gap-2">
+                                        <input {...register('image')} className={`${fieldCls(errors.image)} flex-1`} placeholder="https://... or upload" />
+                                        <button type="button" onClick={() => imageInputRef.current?.click()} disabled={imageUploading}
+                                            className="shrink-0 flex items-center gap-1.5 px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-xs font-medium rounded-lg border border-indigo-200 transition-all disabled:opacity-50">
+                                            {imageUploading ? <FiLoader size={14} className="animate-spin" /> : <FiUpload size={14} />} Upload
+                                        </button>
+                                        <input ref={imageInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e.target.files?.[0])} />
+                                    </div>
+                                    {imageUrl && <img src={imageUrl} alt="preview" className="w-20 h-20 rounded-lg object-cover border border-slate-200" onError={(e) => { e.currentTarget.style.display = 'none'; }} />}
                                 </div>
                             </Field>
                             <div className="md:col-span-2">
