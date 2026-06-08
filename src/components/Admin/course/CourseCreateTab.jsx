@@ -502,14 +502,6 @@ const CourseCreateTab = ({ onSuccess, courseId }) => {
                                     </div>
                                 </FormField>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                <FormField label="Preview Video URL" icon={FiVideo} error={errors.previewVideo} hint="YouTube or Vimeo link">
-                                    <input {...register('previewVideo')} className={inputBase} placeholder="https://..." />
-                                </FormField>
-                                <FormField label="Sample Lesson Video URL" icon={FiVideo} error={errors.sampleVideoUrl}>
-                                    <input {...register('sampleVideoUrl')} className={inputBase} placeholder="https://..." />
-                                </FormField>
-                            </div>
                         </div>
                     </Card>
 
