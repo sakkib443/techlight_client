@@ -249,7 +249,7 @@ const Footer = () => {
             </p>
             <div className="flex items-center gap-6">
               <span className="text-gray-400 text-sm">
-                Developed by <a href="https://darkvence.com/" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-[#E31E27] transition-colors text-gray-500">Darkvence Agency</a>
+                Developed by <a href="https://darkvence.com/" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-[#E31E27] transition-colors text-gray-500">Darkvence Agency</a> &amp; <a href="https://extrainweb.com" target="_blank" rel="noopener noreferrer" className="font-bold hover:text-[#E31E27] transition-colors text-gray-500">Extrain Web</a>
               </span>
             </div>
           </div>
