@@ -180,6 +180,7 @@ const AdminSidebar = () => {
         { title: 'About Page', href: '/dashboard/admin/design/about', icon: FiUsers },
         { title: 'Contact Page', href: '/dashboard/admin/design/contact', icon: FiMessageSquare },
         { title: 'Payment Options', href: '/dashboard/admin/design/payment', icon: FiCreditCard },
+        { title: 'SEO Settings', href: '/dashboard/admin/design/seo', icon: FiTag },
       ],
     },
     {
