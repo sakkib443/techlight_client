@@ -65,7 +65,7 @@ export default function MentorsPage() {
                                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#E31E27]"></span>
                             </span>
                             <span className="text-[10px] font-medium text-slate-600 dark:text-slate-300">
-                                Our Team
+                                Our Mentors
                             </span>
                         </div>
 
