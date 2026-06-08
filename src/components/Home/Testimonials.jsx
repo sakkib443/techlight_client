@@ -10,6 +10,27 @@ import toast from "react-hot-toast";
 
 const COLORS = ['#E31E27', '#F59E0B', '#10B981', '#3B82F6', '#8B5CF6', '#EC4899'];
 
+/* ── Avatar: image হলে দেখাও, fail/না থাকলে initial ── */
+const Avatar = ({ src, name, initial, color }) => {
+    const [imgError, setImgError] = useState(false);
+    if (src && !imgError) {
+        return (
+            <img
+                src={src}
+                alt={name}
+                className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-md"
+                onError={() => setImgError(true)}
+            />
+        );
+    }
+    return (
+        <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md"
+            style={{ backgroundColor: color }}>
+            {initial}
+        </div>
+    );
+};
+
 /* ── Single Testimonial Card ── */
 const TestimonialCard = ({ card, bengaliClass }) => (
     <div className="bg-white dark:bg-[#141414] rounded-2xl p-7 shadow-lg shadow-gray-100/80 dark:shadow-black/20 border border-gray-100 dark:border-gray-800 relative overflow-hidden flex flex-col h-full">
@@ -31,15 +52,12 @@ const TestimonialCard = ({ card, bengaliClass }) => (
             <div className="border-t border-gray-100 dark:border-gray-800 pt-5">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        {card.userImage ? (
-                            <img src={card.userImage} alt={card.name}
-                                className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-md" />
-                        ) : (
-                            <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md"
-                                style={{ backgroundColor: card.color }}>
-                                {card.initial}
-                            </div>
-                        )}
+                        <Avatar
+                            src={card.userImage}
+                            name={card.name}
+                            initial={card.initial}
+                            color={card.color}
+                        />
                         <div>
                             <h4 className={`font-semibold text-gray-900 dark:text-white text-[13px] ${bengaliClass}`}>{card.name}</h4>
                             <p className={`text-gray-400 text-[11px] ${bengaliClass}`}>{card.designation}</p>
