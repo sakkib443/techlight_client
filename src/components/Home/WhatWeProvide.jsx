@@ -75,7 +75,7 @@ const WhatWeProvide = () => {
                     >
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-[#E31E27]/10">
                             <Image
-                                src="/images/57462951_2085649778223584_3709857119512559616_n.jpg"
+                                src={data.provideImage || '/images/57462951_2085649778223584_3709857119512559616_n.jpg'}
                                 alt="Students learning at Techlight IT Institute"
                                 width={600}
                                 height={450}
@@ -83,25 +83,6 @@ const WhatWeProvide = () => {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
                         </div>
-
-                        {/* Floating badge */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.5, duration: 0.4 }}
-                            className="absolute -bottom-5 -right-3 lg:right-6 bg-white dark:bg-[#141414] rounded-xl px-5 py-3 shadow-xl border border-gray-100 dark:border-gray-800"
-                        >
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-[#FEE2E2] rounded-lg flex items-center justify-center">
-                                    <LuSparkles size={18} className="text-[#E31E27]" />
-                                </div>
-                                <div>
-                                    <p className="text-xs text-gray-400 font-medium">Success Rate</p>
-                                    <p className="text-sm font-bold text-gray-900 dark:text-white">95%</p>
-                                </div>
-                            </div>
-                        </motion.div>
 
                         <div className="absolute -top-4 -left-4 w-full h-full rounded-2xl border-2 border-[#E31E27]/15 -z-10" />
                     </motion.div>

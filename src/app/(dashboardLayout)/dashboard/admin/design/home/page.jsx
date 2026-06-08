@@ -38,6 +38,7 @@ const PROVIDE_DEFAULTS = {
     { title: '24/7 Online Support', desc: 'Get help whenever you need it' },
     { title: 'Smart Learning Process', desc: 'Modern methods for easy learning' },
   ],
+  provideImage: '/images/57462951_2085649778223584_3709857119512559616_n.jpg',
 };
 
 export default function HomeDesignPage() {
@@ -47,9 +48,9 @@ export default function HomeDesignPage() {
   const [provide, setProvide] = useState(PROVIDE_DEFAULTS);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [uploadingImg, setUploadingImg] = useState({ heroImage1: false, heroImage2: false, heroImage3: false });
+  const [uploadingImg, setUploadingImg] = useState({ heroImage1: false, heroImage2: false, heroImage3: false, provideImage: false });
 
-  const handleImageUpload = async (key, file) => {
+  const handleImageUpload = async (key, file, section = 'hero') => {
     if (!file) return;
     const token = localStorage.getItem('token');
     setUploadingImg(prev => ({ ...prev, [key]: true }));
@@ -63,7 +64,11 @@ export default function HomeDesignPage() {
       });
       const data = await res.json();
       if (data.success) {
-        hSet(key, data.data.url);
+        if (section === 'provide') {
+          pSet(key, data.data.url);
+        } else {
+          hSet(key, data.data.url);
+        }
         toast.success('Image uploaded!');
       } else {
         toast.error(data.message || 'Upload failed');
@@ -321,6 +326,42 @@ export default function HomeDesignPage() {
                   <input value={f.desc || ''} onChange={(e) => pFeat(i, 'desc', e.target.value)} className={field} placeholder="Short description" />
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Provide Section Image */}
+          <div>
+            <label className={label}>Section Image (বাম পাশের ছবি)</label>
+            <div className={`rounded-md border p-3 max-w-xs ${isDark ? 'border-slate-700' : 'border-gray-200'}`}>
+              {provide.provideImage && (
+                <div className="relative mb-2">
+                  <img src={provide.provideImage} alt="Provide" className="w-full h-40 object-cover rounded-md" />
+                  <button
+                    onClick={() => pSet('provideImage', '')}
+                    className="absolute top-1 right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600"
+                  >
+                    <FiX size={12} />
+                  </button>
+                </div>
+              )}
+              <label className={`flex items-center justify-center gap-2 w-full py-2 rounded-md border border-dashed cursor-pointer transition-colors text-xs font-medium
+                ${uploadingImg.provideImage ? 'opacity-60 cursor-not-allowed' : ''}
+                ${isDark ? 'border-slate-600 text-slate-400 hover:border-indigo-500 hover:text-indigo-400' : 'border-gray-300 text-gray-500 hover:border-indigo-500 hover:text-indigo-500'}`}>
+                {uploadingImg.provideImage ? (
+                  <><FiRefreshCw className="animate-spin" size={13} /> Uploading...</>
+                ) : (
+                  <><FiUpload size={13} /> Upload Image</>
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  disabled={uploadingImg.provideImage}
+                  onChange={(e) => {
+                    if (e.target.files?.[0]) handleImageUpload('provideImage', e.target.files[0], 'provide');
+                  }}
+                />
+              </label>
             </div>
           </div>
         </div>
