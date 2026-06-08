@@ -43,11 +43,10 @@ const Footer = () => {
   ];
 
   const categories = [
-    { key: "Programming", label: "Programming" },
-    { key: "Digital Marketing", label: "Digital Marketing" },
-    { key: "Art & Design", label: "Art & Design" },
     { key: "Networking", label: "Networking" },
-    { key: "Database", label: "Database" },
+    { key: "Programming", label: "Programming" },
+    { key: "Cyber Security", label: "Cyber Security" },
+    { key: "Art & Design", label: "Art & Design" },
     { key: "Language Skills", label: "Language Skills" },
   ];
 
