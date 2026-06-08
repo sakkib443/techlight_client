@@ -36,6 +36,9 @@ const Hero = () => {
     const getDescriptionText = () => heroData?.description || 'Access thousands of premium courses, software, and digital products. Built by experts, ready for you to launch in minutes.';
     const getBtnText = () => heroData?.primaryButtonText || 'Get Started';
     const getBtnLink = () => heroData?.primaryButtonLink || '/courses';
+    const getImage1 = () => heroData?.heroImage1 || '/images/57462951_2085649778223584_3709857119512559616_n.jpg';
+    const getImage2 = () => heroData?.heroImage2 || '/images/58068385_2070681143053781_5367478869567733760_n.jpg';
+    const getImage3 = () => heroData?.heroImage3 || '/images/58383539_2073583652763530_1902712555562860544_n.jpg';
 
     // Merge dynamic stat values over the default icons
     const displayStats = stats.map((s, i) => ({
@@ -174,7 +177,7 @@ const Hero = () => {
                                 >
                                     <div className="relative overflow-hidden rounded-2xl shadow-2xl shadow-black/10 border border-white/60">
                                         <img
-                                            src="/images/57462951_2085649778223584_3709857119512559616_n.jpg"
+                                            src={getImage1()}
                                             alt="Students Learning"
                                             className="w-full h-[320px] lg:h-[400px] object-cover transition-transform duration-700 group-hover:scale-105"
                                         />
@@ -191,7 +194,7 @@ const Hero = () => {
                                     >
                                         <div className="relative overflow-hidden rounded-2xl shadow-xl border border-white/60">
                                             <img
-                                                src="/images/58068385_2070681143053781_5367478869567733760_n.jpg"
+                                                src={getImage2()}
                                                 alt="Seminar"
                                                 className="w-full h-[150px] lg:h-[190px] object-cover transition-transform duration-700 group-hover:scale-105"
                                             />
@@ -206,7 +209,7 @@ const Hero = () => {
                                     >
                                         <div className="relative overflow-hidden rounded-2xl shadow-xl border border-white/60">
                                             <img
-                                                src="/images/58383539_2073583652763530_1902712555562860544_n.jpg"
+                                                src={getImage3()}
                                                 alt="Exam Hall"
                                                 className="w-full h-[150px] lg:h-[190px] object-cover transition-transform duration-700 group-hover:scale-105"
                                             />
