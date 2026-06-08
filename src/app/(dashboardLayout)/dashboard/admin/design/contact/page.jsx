@@ -333,39 +333,6 @@ const ContactDesignPage = () => {
                     </div>
                 </div>
 
-                {/* Map Embed */}
-                <div className={`p-6 rounded-2xl ${isDark ? 'bg-slate-800/50 border border-slate-700' : 'bg-white border border-gray-200'}`}>
-                    <div className="flex items-center gap-3 mb-5">
-                        <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
-                            <LuMapPin className="text-white" size={20} />
-                        </div>
-                        <h3 className={`font-bold ${isDark ? 'text-white' : 'text-gray-900'}`}>Google Map Embed</h3>
-                    </div>
-                    <div>
-                        <label className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>Map Embed URL</label>
-                        <input
-                            type="url"
-                            value={contactContent.mapEmbedUrl || ''}
-                            onChange={(e) => setContactContent(prev => ({ ...prev, mapEmbedUrl: e.target.value }))}
-                            className={`w-full mt-1 px-4 py-3 rounded-xl ${isDark ? 'bg-slate-700 text-white border-slate-600' : 'bg-gray-50 text-gray-900 border-gray-200'} border focus:ring-2 focus:ring-red-500`}
-                            placeholder="https://www.google.com/maps/embed?pb=..."
-                        />
-                        <p className={`text-xs mt-2 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                            ⚠️ Must start with <strong>https://www.google.com/maps/embed?pb=</strong> — Go to Google Maps → Share → Embed a map → copy only the <code>src="..."</code> value from the iframe code. Do NOT paste a share link or regular maps URL.
-                        </p>
-                    </div>
-                    {contactContent.mapEmbedUrl && (
-                        <div className="mt-4 rounded-xl overflow-hidden border border-gray-200 dark:border-slate-600">
-                            <iframe
-                                src={contactContent.mapEmbedUrl}
-                                width="100%"
-                                height="200"
-                                className="border-0 grayscale hover:grayscale-0 transition-all"
-                                loading="lazy"
-                            />
-                        </div>
-                    )}
-                </div>
             </div>
         </div>
     );
