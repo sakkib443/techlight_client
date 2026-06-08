@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 /**
- * Cinematic preloader for Techlight IT Solutions.
+ * Cinematic preloader for Techlight IT Solution.
  * - Top curtain holds logo + wordmark
  * - Horizontal split line aligns directly under the wordmark
  * - Bottom curtain holds sub-label, progress, status
@@ -458,7 +458,7 @@ const Preloader = () => {
                                     className="text-[10px] md:text-xs font-medium text-[#F87171] tracking-[0.5em] uppercase"
                                     style={{ fontFamily: "var(--font-poppins)" }}
                                 >
-                                    IT Solutions
+                                    IT Solution
                                 </span>
                                 <span className="w-8 h-px bg-gradient-to-l from-transparent to-[#E31E27]" />
                             </motion.div>
@@ -563,7 +563,7 @@ const Preloader = () => {
                             className="text-[10px] font-medium text-white/40 tracking-widest uppercase"
                             style={{ fontFamily: "var(--font-poppins)" }}
                         >
-                            © Techlight IT Solutions
+                            © Techlight IT Solution
                         </span>
                     </motion.div>
 
