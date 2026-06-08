@@ -64,7 +64,7 @@ const TopHeader = () => {
               <span>{phone}</span>
             </a>
             <span className="w-[1px] h-3.5 bg-white/15"></span>
-            <a href="#" className="flex items-center gap-2 hover:text-white transition-colors group">
+            <a href="https://share.google/Ns9hB9VbJ5hYkK68X" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-white transition-colors group">
               <LuMapPin className="w-3.5 h-3.5 text-[var(--color-primary)] group-hover:text-[var(--color-primary-light)]" />
               <span>{address}</span>
             </a>

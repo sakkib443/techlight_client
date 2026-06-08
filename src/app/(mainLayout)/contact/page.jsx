@@ -151,7 +151,7 @@ const ContactPage = () => {
             title: language === "bn" ? "অফিস" : "Office",
             subtitle: language === "bn" ? "সরাসরি দেখা করুন" : "Visit in person",
             value: language === "bn" ? content.contactInfo.addressBn : content.contactInfo.address,
-            link: "#map",
+            link: "https://share.google/Ns9hB9VbJ5hYkK68X",
             color: "#F59E0B",
         },
         {
