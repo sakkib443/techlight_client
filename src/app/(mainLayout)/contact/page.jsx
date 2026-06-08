@@ -315,13 +315,13 @@ const ContactPage = () => {
                                                 </div>
                                             )}
                                         </div>
-                                        <p className={`text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-1 ${bengaliClass}`}>
+                                        <p className={`text-[12px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-1 ${bengaliClass}`}>
                                             {item.subtitle}
                                         </p>
-                                        <h3 className={`text-base font-bold text-gray-900 dark:text-white mb-1 ${bengaliClass}`}>
+                                        <h3 className={`text-[18px] font-bold text-gray-900 dark:text-white mb-1 ${bengaliClass}`}>
                                             {item.title}
                                         </h3>
-                                        <p className={`text-xs text-gray-600 dark:text-gray-300 break-words ${bengaliClass}`}>
+                                        <p className={`text-sm text-gray-600 dark:text-gray-300 break-words ${bengaliClass}`}>
                                             {item.value}
                                         </p>
                                     </CardWrapper>
