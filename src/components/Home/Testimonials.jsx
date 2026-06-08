@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { LuChevronLeft, LuChevronRight, LuStar, LuQuote, LuPenLine, LuX, LuCheck } from "react-icons/lu";
+import { LuChevronLeft, LuChevronRight, LuStar, LuQuote, LuPenLine, LuX, LuCheck, LuUpload, LuUser } from "react-icons/lu";
 import { useLanguage } from "@/context/LanguageContext";
 import { useRouter } from "next/navigation";
 import { API_BASE_URL } from "@/config/api";
@@ -57,8 +57,21 @@ const TestimonialCard = ({ card, bengaliClass }) => (
 /* ── Add Testimonial Modal ── */
 const AddTestimonialModal = ({ onClose, onSuccess, bengaliClass, language }) => {
     const [form, setForm] = useState({ name: '', designation: '', course: '', review: '', rating: 5 });
+    const [imageFile, setImageFile] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
     const [submitting, setSubmitting] = useState(false);
     const [hover, setHover] = useState(0);
+
+    const handleImageChange = (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        if (file.size > 2 * 1024 * 1024) {
+            toast.error(language === 'bn' ? 'ছবির সাইজ সর্বোচ্চ ২MB হতে হবে' : 'Image size must be under 2MB');
+            return;
+        }
+        setImageFile(file);
+        setImagePreview(URL.createObjectURL(file));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -69,10 +82,18 @@ const AddTestimonialModal = ({ onClose, onSuccess, bengaliClass, language }) => 
         setSubmitting(true);
         try {
             const token = localStorage.getItem('token');
+            const formData = new FormData();
+            formData.append('name', form.name);
+            formData.append('designation', form.designation);
+            formData.append('course', form.course);
+            formData.append('review', form.review);
+            formData.append('rating', String(form.rating));
+            if (imageFile) formData.append('userImage', imageFile);
+
             const res = await fetch(`${API_BASE_URL}/testimonials`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-                body: JSON.stringify(form),
+                headers: { Authorization: `Bearer ${token}` },
+                body: formData,
             });
             const data = await res.json();
             if (data.success) {
@@ -112,6 +133,36 @@ const AddTestimonialModal = ({ onClose, onSuccess, bengaliClass, language }) => 
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Photo Upload */}
+                    <div>
+                        <label className={`text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 block ${bengaliClass}`}>
+                            {language === 'bn' ? 'প্রোফাইল ছবি (ঐচ্ছিক)' : 'Profile Photo (Optional)'}
+                        </label>
+                        <div className="flex items-center gap-3">
+                            <div className="w-14 h-14 rounded-full overflow-hidden bg-gray-100 dark:bg-white/10 border-2 border-dashed border-gray-300 dark:border-gray-600 flex items-center justify-center shrink-0">
+                                {imagePreview ? (
+                                    <img src={imagePreview} alt="preview" className="w-full h-full object-cover" />
+                                ) : (
+                                    <LuUser size={22} className="text-gray-400" />
+                                )}
+                            </div>
+                            <div className="flex-1">
+                                <label className="cursor-pointer flex items-center gap-2 px-3 py-2 rounded-xl border border-dashed border-gray-300 dark:border-gray-600 hover:border-[#E31E27] hover:bg-[#FEE2E2]/30 dark:hover:bg-[#E31E27]/10 transition-all text-xs text-gray-500 dark:text-gray-400">
+                                    <LuUpload size={13} />
+                                    <span className="truncate">{imageFile ? imageFile.name : (language === 'bn' ? 'ছবি বেছে নিন' : 'Choose photo')}</span>
+                                    <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
+                                </label>
+                                <p className="text-[10px] text-gray-400 mt-1">JPG, PNG, WEBP — max 2MB</p>
+                            </div>
+                            {imagePreview && (
+                                <button type="button" onClick={() => { setImageFile(null); setImagePreview(null); }}
+                                    className="w-7 h-7 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center text-gray-500 hover:bg-red-50 hover:text-red-500 transition-all shrink-0">
+                                    <LuX size={13} />
+                                </button>
+                            )}
+                        </div>
+                    </div>
+
                     {/* Rating Stars */}
                     <div>
                         <label className={`text-xs font-semibold text-gray-600 dark:text-gray-400 mb-2 block ${bengaliClass}`}>
