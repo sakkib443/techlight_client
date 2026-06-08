@@ -204,16 +204,16 @@ export default function AdminDashboard() {
   // Content quick-links with counts
   const contentStats = [
     { title: 'Courses', value: dashboardData.totalCourses, icon: FiBook, color: 'bg-indigo-600', href: '/dashboard/admin/course' },
-    { title: 'Lessons', value: dashboardData.totalLessons, icon: FiPlay, color: 'bg-cyan-600', href: '/dashboard/admin/lesson' },
     { title: 'Categories', value: dashboardData.categories, icon: FiLayers, color: 'bg-amber-500', href: '/dashboard/admin/category' },
     { title: 'Certificates', value: dashboardData.totalCertificates, icon: FiAward, color: 'bg-rose-500', href: '/dashboard/admin/certification' },
+    { title: 'Enrollments', value: dashboardData.totalEnrollments, icon: FiUserCheck, color: 'bg-cyan-600', href: '/dashboard/admin/orders' },
   ];
 
   const quickActions = [
     { title: 'Add Course', href: '/dashboard/admin/course/create', icon: FiBook, color: 'bg-amber-500' },
-    { title: 'Add Lesson', href: '/dashboard/admin/lesson/create', icon: FiPlay, color: 'bg-cyan-600' },
     { title: 'Add Category', href: '/dashboard/admin/category/create', icon: FiLayers, color: 'bg-indigo-600' },
     { title: 'Add Mentor', href: '/dashboard/admin/instructor/create', icon: FiUserCheck, color: 'bg-rose-500' },
+    { title: 'Add Blog', href: '/dashboard/admin/blog/create', icon: FiActivity, color: 'bg-cyan-600' },
   ];
 
   return (
