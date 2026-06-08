@@ -10,9 +10,8 @@ const PAGES = [
     { key: 'courses', label: 'Courses Page' },
     { key: 'contact', label: 'Contact Page' },
     { key: 'certification', label: 'Certification Page' },
-    { key: 'software', label: 'Software Page' },
-    { key: 'website', label: 'Website Templates Page' },
     { key: 'blog', label: 'Blog Page' },
+    { key: 'faq', label: 'FAQ Page' },
 ];
 
 const defaultSeo = {
@@ -22,9 +21,8 @@ const defaultSeo = {
     courses: { title: '', description: '' },
     contact: { title: '', description: '' },
     certification: { title: '', description: '' },
-    software: { title: '', description: '' },
-    website: { title: '', description: '' },
     blog: { title: '', description: '' },
+    faq: { title: '', description: '' },
 };
 
 export default function SeoSettingsPage() {

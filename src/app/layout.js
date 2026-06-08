@@ -22,19 +22,24 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-export const metadata = {
-  title: {
-    template: "TECHLIGHT IT | %s",
-    default: "TECHLIGHT IT | Home",
-  },
-  description:
-    "ejobs it  a leading IT training institute and digital solutions provider. We specialize in professional courses, ready-made software, and premium website templates to help you grow your skills and business.",
-  icons: {
-    icon: "/images/Techlight IT Institutelogo.png",
-    shortcut: "/images/Techlight IT Institutelogo.png",
-    apple: "/images/Techlight IT Institutelogo.png",
-  },
-};
+import { getSeoContent } from '@/lib/getSeoContent';
+
+export async function generateMetadata() {
+  const seo = await getSeoContent();
+  const siteName = seo.siteName || 'TECHLIGHT IT';
+  return {
+    title: {
+      template: `${siteName} | %s`,
+      default: seo.home?.title || `${siteName} | Home`,
+    },
+    description: seo.home?.description || 'Techlight IT Solution — a leading IT training institute and digital solutions provider in Bangladesh.',
+    icons: {
+      icon: '/images/Techlight IT Institutelogo.png',
+      shortcut: '/images/Techlight IT Institutelogo.png',
+      apple: '/images/Techlight IT Institutelogo.png',
+    },
+  };
+}
 
 export default function RootLayout({ children }) {
   return (
