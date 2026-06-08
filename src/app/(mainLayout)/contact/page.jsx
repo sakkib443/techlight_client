@@ -607,7 +607,7 @@ const ContactPage = () => {
                                         {language === "bn" ? "আমাদের অফিস" : "Our Office"}
                                     </p>
                                     <h4 className={`text-sm font-bold text-gray-900 dark:text-white mb-1 ${bengaliClass}`}>
-                                        Techlight IT Institute
+                                        Techlight IT Solution
                                     </h4>
                                     <p className={`text-xs text-gray-500 dark:text-gray-400 leading-relaxed ${bengaliClass}`}>
                                         {language === "bn" ? content.contactInfo.addressBn : content.contactInfo.address}

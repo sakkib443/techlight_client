@@ -87,7 +87,7 @@ const Footer = () => {
                 Start Learning Today — Unlock Your Potential!
               </h3>
               <p className="text-white/70 text-sm">
-                Join thousands of students building their future with Techlight IT Institute
+                Join thousands of students building their future with Techlight IT Solution
               </p>
             </div>
             <Link

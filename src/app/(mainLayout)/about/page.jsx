@@ -272,7 +272,7 @@ const AboutPage = () => {
                             <div className="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-black/10 border border-white/60 dark:border-white/10 group">
                                 <img
                                     src="/images/57462951_2085649778223584_3709857119512559616_n.jpg"
-                                    alt="Techlight IT Institute campus"
+                                    alt="Techlight IT Solution campus"
                                     className="w-full h-[340px] lg:h-[470px] object-cover group-hover:scale-105 transition-transform duration-700"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent" />

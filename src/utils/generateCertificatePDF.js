@@ -1,5 +1,5 @@
 // ===================================================================
-// Techlight IT Institute - Certificate PDF Generator
+// Techlight IT Solution - Certificate PDF Generator
 // Premium, professional certificate built with jsPDF (vector decoration
 // + embedded Techlight logo). No extra dependencies.
 // ===================================================================
@@ -103,7 +103,7 @@ function drawSeal(doc, ox, oy) {
     doc.setFont('times', 'bold'); doc.setFontSize(6.5); tx(doc, NAVY);
     doc.text('TECHLIGHT', ox, oy + 5.5, { align: 'center', charSpace: 0.4 });
     doc.setFont('helvetica', 'bold'); doc.setFontSize(4.5); tx(doc, RED);
-    doc.text('IT INSTITUTE', ox, oy + 8.5, { align: 'center', charSpace: 0.6 });
+    doc.text('IT SOLUTION', ox, oy + 8.5, { align: 'center', charSpace: 0.6 });
     fl(doc, RED);
     doc.triangle(ox - 5, oy + 15, ox - 2, oy + 23, ox, oy + 17, 'F');
     doc.triangle(ox + 5, oy + 15, ox + 2, oy + 23, ox, oy + 17, 'F');
@@ -140,7 +140,7 @@ const buildDoc = (cert, logo) => {
     }
     if (!logoOk) {
         doc.setFont('times', 'bold'); doc.setFontSize(18); tx(doc, NAVY);
-        doc.text('TECHLIGHT IT INSTITUTE', 28, 38, { align: 'left', charSpace: 0 });
+        doc.text('TECHLIGHT IT SOLUTION', 28, 38, { align: 'left', charSpace: 0 });
     }
 
     // Title + flourish underline
@@ -172,7 +172,7 @@ const buildDoc = (cert, logo) => {
     if (batch) body += ` (${batch})`;
     if (start && end) body += `, held from ${fmt(start)} to ${fmt(end)}`;
     else if (end) body += `, completed on ${fmt(end)}`;
-    body += ` at Techlight IT Institute.`;
+    body += ` at Techlight IT Solution.`;
     doc.setFont('times', 'normal'); doc.setFontSize(13.5); tx(doc, CHARCOAL);
     const lines = doc.splitTextToSize(body, 195);
     doc.text(lines, CX, 118, { align: 'center', lineHeightFactor: 1.5, charSpace: 0 });
@@ -211,7 +211,7 @@ const buildDoc = (cert, logo) => {
     doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); tx(doc, NAVY);
     doc.text('AUTHORIZED SIGNATURE', sigx, 179, { align: 'center', charSpace: 0.8 });
     doc.setFont('times', 'italic'); doc.setFontSize(8.5); tx(doc, MUTED);
-    doc.text('Director, Techlight IT Institute', sigx, 183.5, { align: 'center', charSpace: 0 });
+    doc.text('Director, Techlight IT Solution', sigx, 183.5, { align: 'center', charSpace: 0 });
 
     // Seal (drawn last, far-right corner)
     drawSeal(doc, 247, 148);

@@ -87,7 +87,7 @@ const CertificateModal = ({ certificate, onClose, onDownload }) => {
                       </span>
                     </div>
                     <p className="text-[10px] font-semibold tracking-[0.3em] text-gray-400 uppercase mb-6">
-                      IT Institute
+                      IT Solution
                     </p>
 
                     <div className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 bg-white border border-gray-200 rounded-full shadow-sm">

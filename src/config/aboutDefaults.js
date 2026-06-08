@@ -12,7 +12,7 @@ export const ABOUT_DEFAULTS = {
         titlePart1: "Building Skills,",
         titleHighlight: "Shaping Futures",
         description:
-            "Since 2020, Techlight IT Institute has helped thousands of students transform their careers. With industry-expert mentors, practical curriculum, and real-world projects — we build futures.",
+            "Since 2020, Techlight IT Solution has helped thousands of students transform their careers. With industry-expert mentors, practical curriculum, and real-world projects — we build futures.",
         primaryButtonText: "Explore Courses",
         primaryButtonLink: "/courses",
         secondaryButtonText: "Watch Video",

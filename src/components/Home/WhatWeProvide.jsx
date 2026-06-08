@@ -12,7 +12,7 @@ const DEFAULTS = {
     title: 'Breaking Barriers Through',
     titleHighlight: 'Language & Technology',
     description:
-        'The core mission of Techlight IT Institute is to empower individuals with both technical and practical skills to enhance their career opportunities. Learn hands-on from our industry expert instructors.',
+        'The core mission of Techlight IT Solution is to empower individuals with both technical and practical skills to enhance their career opportunities. Learn hands-on from our industry expert instructors.',
     buttonText: 'Explore All Courses',
     buttonLink: '/courses',
     features: [
