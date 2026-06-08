@@ -542,14 +542,17 @@ const Preloader = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0, transition: { duration: 0.25 } }}
                         transition={{ delay: 0.4, duration: 0.8 }}
-                        className="absolute top-6 right-6 z-20 pointer-events-none"
+                        className="absolute top-6 right-6 z-20"
                     >
-                        <span
-                            className="text-[10px] font-medium text-white/40 tracking-widest uppercase tabular-nums"
+                        <a
+                            href="https://darkvence.com/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[10px] font-medium text-white/40 hover:text-white/70 tracking-widest uppercase transition-colors duration-300"
                             style={{ fontFamily: "var(--font-poppins)" }}
                         >
-                            v2.0 — Premium
-                        </span>
+                            Developed by Darkvence Agency
+                        </a>
                     </motion.div>
 
                     <motion.div
