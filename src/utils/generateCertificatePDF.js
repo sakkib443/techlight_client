@@ -58,6 +58,15 @@ const dr = (doc, c, w) => { doc.setDrawColor(c[0], c[1], c[2]); doc.setLineWidth
 const fl = (doc, c) => doc.setFillColor(c[0], c[1], c[2]);
 const tx = (doc, c) => doc.setTextColor(c[0], c[1], c[2]);
 
+// Center text around cx, correcting for jsPDF's bug where align:'center'
+// ignores charSpace (which pushes spaced text to the right). Measure the
+// real rendered width (glyphs + letter-spacing) and left-place it centered.
+const ct = (doc, text, cx, y, charSpace = 0) => {
+    const s = String(text);
+    const w = doc.getTextWidth(s) + charSpace * Math.max(0, s.length - 1);
+    doc.text(s, cx - w / 2, y, { align: 'left', charSpace });
+};
+
 // Clean nested L-bracket corner (no dots/hatch); (sx,sy) ∈ {±1} mirror it.
 function drawCorner(doc, cx, cy, sx, sy) {
     const o = 4, len = 16;
@@ -98,12 +107,12 @@ function drawSeal(doc, ox, oy) {
     dr(doc, GOLD, 0.4); doc.circle(ox, oy, 11, 'S');
     drawStar5(doc, ox, oy - 5.5, 4.2, 1.6, GOLD);
     doc.setFont('helvetica', 'bold'); doc.setFontSize(6); tx(doc, NAVY);
-    doc.text('CERTIFIED', ox, oy + 0.5, { align: 'center', charSpace: 0.6 });
+    ct(doc, 'CERTIFIED', ox, oy + 0.5, 0.6);
     dr(doc, NAVY, 0.3); doc.line(ox - 7, oy + 2, ox + 7, oy + 2);
     doc.setFont('times', 'bold'); doc.setFontSize(6.5); tx(doc, NAVY);
-    doc.text('TECHLIGHT', ox, oy + 5.5, { align: 'center', charSpace: 0.4 });
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(4.5); tx(doc, RED);
-    doc.text('IT SOLUTION', ox, oy + 8.5, { align: 'center', charSpace: 0.6 });
+    ct(doc, 'TECHLIGHT', ox, oy + 5.5, 0.4);
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(3.8); tx(doc, RED);
+    ct(doc, 'IT SOLUTION', ox, oy + 8.3, 0.4);
     fl(doc, RED);
     doc.triangle(ox - 5, oy + 15, ox - 2, oy + 23, ox, oy + 17, 'F');
     doc.triangle(ox + 5, oy + 15, ox + 2, oy + 23, ox, oy + 17, 'F');
@@ -145,7 +154,7 @@ const buildDoc = (cert, logo) => {
 
     // Title + flourish underline
     doc.setFont('times', 'bold'); doc.setFontSize(40); tx(doc, NAVY);
-    doc.text('Certificate of Completion', CX, 62, { align: 'center', charSpace: 0.3 });
+    ct(doc, 'Certificate of Completion', CX, 62, 0.3);
     const fy = 70;
     dr(doc, GOLD, 0.6);
     doc.line(CX - 32, fy, CX - 4, fy);
@@ -156,7 +165,7 @@ const buildDoc = (cert, logo) => {
 
     // Presented to
     doc.setFont('helvetica', 'normal'); doc.setFontSize(11); tx(doc, MUTED);
-    doc.text('THIS CERTIFICATE IS PROUDLY PRESENTED TO', CX, 86, { align: 'center', charSpace: 1.6 });
+    ct(doc, 'THIS CERTIFICATE IS PROUDLY PRESENTED TO', CX, 86, 1.6);
 
     // Recipient name + width-aware underline
     doc.setFont('times', 'bolditalic'); doc.setFontSize(34); tx(doc, NAVY);
@@ -180,7 +189,7 @@ const buildDoc = (cert, logo) => {
     // Grade emphasis (fills the mid band)
     if (cert?.grade) {
         doc.setFont('times', 'bolditalic'); doc.setFontSize(13); tx(doc, GOLD);
-        doc.text(`Grade Achieved :  ${cert.grade}`, CX, 148, { align: 'center', charSpace: 0.4 });
+        ct(doc, `Grade Achieved :  ${cert.grade}`, CX, 148, 0.4);
     }
 
     // ===== Footer =====
@@ -201,17 +210,21 @@ const buildDoc = (cert, logo) => {
     doc.text(fmt(cert?.issueDate) || fmt(new Date()), 92, 176, { align: 'left', charSpace: 0 });
 
     // Center-right: signature (clear of the far-right seal)
-    const mentor = getMentorName(cert);
+    // Dynamic: use the certificate's signatory, falling back to mentor / default title.
+    const sigName = (cert?.signatureName || getMentorName(cert) || '').trim();
+    const sigTitle = (cert?.signatureDesignation || 'Director, Techlight IT Solution').trim();
     const sigx = 172;
     dr(doc, NAVY, 0.5); doc.line(sigx - 30, 174, sigx + 30, 174);
-    if (mentor) {
+    if (sigName) {
         doc.setFont('times', 'bolditalic'); doc.setFontSize(12); tx(doc, NAVY);
-        doc.text(mentor, sigx, 172, { align: 'center', charSpace: 0 });
+        ct(doc, sigName, sigx, 172, 0);
     }
     doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); tx(doc, NAVY);
-    doc.text('AUTHORIZED SIGNATURE', sigx, 179, { align: 'center', charSpace: 0.8 });
-    doc.setFont('times', 'italic'); doc.setFontSize(8.5); tx(doc, MUTED);
-    doc.text('Director, Techlight IT Solution', sigx, 183.5, { align: 'center', charSpace: 0 });
+    ct(doc, 'AUTHORIZED SIGNATURE', sigx, 179, 0.8);
+    if (sigTitle) {
+        doc.setFont('times', 'italic'); doc.setFontSize(8.5); tx(doc, MUTED);
+        ct(doc, sigTitle, sigx, 183.5, 0);
+    }
 
     // Seal (drawn last, far-right corner)
     drawSeal(doc, 247, 148);

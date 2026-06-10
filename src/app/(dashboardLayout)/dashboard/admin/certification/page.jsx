@@ -20,6 +20,19 @@ const EMPTY_FORM = {
   courseName: '',
   grade: '',
   certificateBatch: '',
+  batchName: '',
+  mentorName: '',
+  startDate: '',
+  endDate: '',
+  signatureName: '',
+  signatureDesignation: '',
+};
+
+// ISO / Date → YYYY-MM-DD for <input type="date">
+const toDateInput = (d) => {
+  if (!d) return '';
+  const dt = new Date(d);
+  return isNaN(dt.getTime()) ? '' : dt.toISOString().slice(0, 10);
 };
 
 export default function CertificationsPage() {
@@ -84,6 +97,23 @@ export default function CertificationsPage() {
 
   const selectedBatch = batches.find((b) => b._id === form.certificateBatch) || null;
 
+  // Selecting a batch auto-fills batch name, mentor & dates (still editable).
+  const onBatchChange = (id) => {
+    const b = batches.find((x) => x._id === id);
+    if (b) {
+      setForm((f) => ({
+        ...f,
+        certificateBatch: id,
+        batchName: b.batchName || '',
+        mentorName: b.mentorName || '',
+        startDate: toDateInput(b.startDate),
+        endDate: toDateInput(b.endDate),
+      }));
+    } else {
+      setForm((f) => ({ ...f, certificateBatch: '' }));
+    }
+  };
+
   const handleIssue = async () => {
     if (!form.studentName.trim() || !form.phone.trim() || !form.studentId.trim()) {
       toast.error('Student name, phone and student ID are required');
@@ -102,6 +132,12 @@ export default function CertificationsPage() {
           courseName: form.courseName.trim() || undefined,
           grade: form.grade.trim() || undefined,
           certificateBatch: form.certificateBatch || undefined,
+          batchName: form.batchName.trim() || undefined,
+          mentorName: form.mentorName.trim() || undefined,
+          startDate: form.startDate || undefined,
+          endDate: form.endDate || undefined,
+          signatureName: form.signatureName.trim() || undefined,
+          signatureDesignation: form.signatureDesignation.trim() || undefined,
         }),
       });
       const data = await res.json();
@@ -398,7 +434,7 @@ export default function CertificationsPage() {
                 ) : (
                   <select
                     value={form.certificateBatch}
-                    onChange={(e) => upd('certificateBatch', e.target.value)}
+                    onChange={(e) => onBatchChange(e.target.value)}
                     className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`}
                   >
                     <option value="">— No batch / enter manually —</option>
@@ -409,13 +445,30 @@ export default function CertificationsPage() {
                     ))}
                   </select>
                 )}
-                {selectedBatch && (
-                  <div className={`mt-2 p-3 rounded-md text-xs space-y-0.5 ${isDark ? 'bg-slate-700/40 text-slate-300' : 'bg-indigo-50 text-gray-600'}`}>
-                    <p>Mentor: <span className="font-medium">{selectedBatch.mentorName}</span></p>
-                    <p>Duration: <span className="font-medium">{formatDate(selectedBatch.startDate)} – {formatDate(selectedBatch.endDate)}</span></p>
-                    {selectedBatch.courseName && <p>Course: <span className="font-medium">{selectedBatch.courseName}</span></p>}
-                  </div>
-                )}
+              </div>
+
+              {/* Batch details — auto-filled from the selected batch, editable for manual entry */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className={labelCls}>Batch Name <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(optional)</span></label>
+                  <input type="text" placeholder="e.g. Diploma in Networking" value={form.batchName} onChange={(e) => upd('batchName', e.target.value)}
+                    className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
+                </div>
+                <div>
+                  <label className={labelCls}>Mentor Name <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(optional)</span></label>
+                  <input type="text" placeholder="e.g. Ripon Sir" value={form.mentorName} onChange={(e) => upd('mentorName', e.target.value)}
+                    className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
+                </div>
+                <div>
+                  <label className={labelCls}>Start Date <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(optional)</span></label>
+                  <input type="date" value={form.startDate} onChange={(e) => upd('startDate', e.target.value)}
+                    className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
+                </div>
+                <div>
+                  <label className={labelCls}>End Date <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(optional)</span></label>
+                  <input type="date" value={form.endDate} onChange={(e) => upd('endDate', e.target.value)}
+                    className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
+                </div>
               </div>
 
               {/* Student name + ID */}
@@ -456,6 +509,23 @@ export default function CertificationsPage() {
                   <label className={labelCls}>Grade / Result <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(optional)</span></label>
                   <input type="text" placeholder="e.g. A+, Distinction" value={form.grade} onChange={(e) => upd('grade', e.target.value)}
                     className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
+                </div>
+              </div>
+
+              {/* Authorized Signature */}
+              <div className={`mt-1 pt-3 border-t ${isDark ? 'border-slate-700' : 'border-gray-200'}`}>
+                <p className={`text-xs font-semibold mb-2 ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>Authorized Signature</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className={labelCls}>Signature Name <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(optional)</span></label>
+                    <input type="text" placeholder="e.g. Ripon Sir" value={form.signatureName} onChange={(e) => upd('signatureName', e.target.value)}
+                      className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
+                  </div>
+                  <div>
+                    <label className={labelCls}>Designation <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(optional)</span></label>
+                    <input type="text" placeholder="e.g. Director, Techlight IT Solution" value={form.signatureDesignation} onChange={(e) => upd('signatureDesignation', e.target.value)}
+                      className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
+                  </div>
                 </div>
               </div>
             </div>
