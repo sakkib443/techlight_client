@@ -6,6 +6,7 @@ import Navbar from "../components/sheard/Navbar";
 import Footer from "@/components/sheard/Footer";
 import TopHeader from "@/components/sheard/TopHeader";
 import Preloader from "@/components/sheard/Preloader";
+import AuthInterceptor from "@/components/sheard/AuthInterceptor";
 
 import ReduxProviderWrapper from "@/components/ReduxProvaiderWrapper";
 import { LanguageProvider } from "@/context/LanguageContext";
@@ -75,6 +76,7 @@ export default function RootLayout({ children }) {
           <GTMPageViewTracker />
         </Suspense>
         <Preloader />
+        <AuthInterceptor />
         <ReduxProviderWrapper>
           <LanguageProvider>
             <Toaster position="top-center" reverseOrder={false} />
