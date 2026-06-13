@@ -34,9 +34,9 @@ export async function generateMetadata() {
     },
     description: seo.home?.description || 'Techlight IT Solution — a leading IT training institute and digital solutions provider in Bangladesh.',
     icons: {
-      icon: '/images/Techlight IT Institutelogo.png',
-      shortcut: '/images/Techlight IT Institutelogo.png',
-      apple: '/images/Techlight IT Institutelogo.png',
+      icon: '/images/logo.png',
+      shortcut: '/images/logo.png',
+      apple: '/images/logo.png',
     },
   };
 }
