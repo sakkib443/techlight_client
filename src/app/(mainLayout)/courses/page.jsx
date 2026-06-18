@@ -66,7 +66,8 @@ const CourseContent = () => {
     { name: 'All', label: language === 'bn' ? 'সব' : 'All' },
     { name: 'Online', label: language === 'bn' ? 'অনলাইন' : 'Online' },
     { name: 'Offline', label: language === 'bn' ? 'অফলাইন' : 'Offline' },
-    { name: 'Recorded', label: language === 'bn' ? 'রেকর্ডেড' : 'Recorded' }
+    { name: 'Recorded', label: language === 'bn' ? 'রেকর্ডেড' : 'Recorded' },
+    { name: 'online_offline', label: language === 'bn' ? 'অনলাইন অফলাইন কম্বাইন' : 'Online Offline Combine' }
   ];
 
   const getCategoryName = (categoryId) => {

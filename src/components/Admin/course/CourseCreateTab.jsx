@@ -112,7 +112,7 @@ const courseValidationSchema = z.object({
     price: z.coerce.number({ invalid_type_error: 'Price must be a number' }).min(0, 'Price cannot be negative'),
     discountPrice: z.coerce.number().min(0, 'Cannot be negative').optional(),
     priceLabel: z.string().max(100).optional().or(z.literal('')),
-    courseType: z.enum(['online', 'offline', 'recorded']),
+    courseType: z.enum(['online', 'offline', 'recorded', 'online_offline']),
     level: z.enum(['beginner', 'intermediate', 'advanced']),
     language: z.enum(['english']),
     tags: z.array(z.string()).optional(),
@@ -602,6 +602,7 @@ const CourseCreateTab = ({ onSuccess, courseId }) => {
                                     <option value="recorded">Pre-recorded</option>
                                     <option value="online">Online Live</option>
                                     <option value="offline">Offline</option>
+                                    <option value="online_offline">Online Offline Combine</option>
                                 </select>
                             </FormField>
                             <FormField label="Difficulty Level">

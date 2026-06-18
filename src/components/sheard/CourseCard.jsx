@@ -221,10 +221,12 @@ const CourseCard = ({ course, view = "grid" }) => {
                 ? 'bg-gradient-to-r from-blue-500 to-blue-600'
                 : type.toLowerCase() === 'online'
                   ? 'bg-gradient-to-r from-emerald-500 to-emerald-600'
-                  : 'bg-gradient-to-r from-[#E31E27] to-[#E31E27]'
+                  : type.toLowerCase() === 'online_offline'
+                    ? 'bg-gradient-to-r from-violet-500 to-purple-600'
+                    : 'bg-gradient-to-r from-[#E31E27] to-[#E31E27]'
               }`}>
               <LuSparkles size={12} />
-              {type}
+              {type.toLowerCase() === 'online_offline' ? 'Online Offline Combine' : type}
             </span>
           </div>
 
