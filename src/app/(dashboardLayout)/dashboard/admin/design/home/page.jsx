@@ -186,9 +186,16 @@ export default function HomeDesignPage() {
         <div className={`rounded-md border p-5 space-y-4 ${card}`}>
           <div>
             <label className={label}>Hero Banner Image</label>
-            <p className={`text-xs mb-3 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
+            <p className={`text-xs mb-2 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
               এই ছবিটি Homepage-এর Hero section-এ full-width banner হিসেবে দেখাবে।
             </p>
+            <div className={`flex items-start gap-2 text-xs mb-3 px-3 py-2 rounded-md ${isDark ? 'bg-indigo-500/10 text-indigo-300' : 'bg-indigo-50 text-indigo-600'}`}>
+              <FiImage size={14} className="mt-0.5 shrink-0" />
+              <div className="leading-relaxed">
+                <span className="font-semibold">Recommended:</span> 1920 × 640 px (Ratio 3:1), landscape। সর্বোচ্চ 2MB, format: JPG / PNG / WebP।
+                সঠিক ratio না হলে ছবির উপর/নিচ কিছুটা crop হতে পারে।
+              </div>
+            </div>
             <div className={`rounded-md border p-4 ${isDark ? 'border-slate-700' : 'border-gray-200'}`}>
               {hero.bannerImage && (
                 <div className="relative mb-3">
