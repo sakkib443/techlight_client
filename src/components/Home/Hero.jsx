@@ -1,27 +1,17 @@
-﻿"use client";
+"use client";
 import { API_URL } from '@/config/api';
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { LuUsers, LuBookOpen, LuTrophy, LuGraduationCap, LuArrowRight, LuPhone } from "react-icons/lu";
 
 const Hero = () => {
-    const [heroData, setHeroData] = useState(null);
-
-    const stats = [
-        { icon: LuUsers, value: '10,000+', label: 'Students Enrolled' },
-        { icon: LuBookOpen, value: '50+', label: 'Expert Courses' },
-        { icon: LuGraduationCap, value: '95%', label: 'Success Rate' },
-        { icon: LuTrophy, value: '20+', label: 'Expert Instructors' },
-    ];
+    const [bannerImage, setBannerImage] = useState('/images/bg hero.png');
 
     useEffect(() => {
         const fetchHeroDesign = async () => {
             try {
                 const res = await fetch(`${API_URL}/design/hero`);
                 const data = await res.json();
-                if (data.success && data.data?.heroContent) {
-                    setHeroData(data.data.heroContent);
+                if (data.success && data.data?.heroContent?.bannerImage) {
+                    setBannerImage(data.data.heroContent.bannerImage);
                 }
             } catch (error) {
                 console.error('Error fetching hero design:', error);
@@ -30,224 +20,13 @@ const Hero = () => {
         fetchHeroDesign();
     }, []);
 
-    const getBadgeText = () => heroData?.badge || 'Welcome to Techlight IT';
-    const getTitle = () => heroData?.title || "Start learning from the world's";
-    const getTitleHighlight = () => heroData?.titleHighlight || 'best institutions';
-    const getDescriptionText = () => heroData?.description || 'Access thousands of premium courses, software, and digital products. Built by experts, ready for you to launch in minutes.';
-    const getBtnText = () => heroData?.primaryButtonText || 'Get Started';
-    const getBtnLink = () => heroData?.primaryButtonLink || '/courses';
-    const getImage1 = () => heroData?.heroImage1 || '/images/57462951_2085649778223584_3709857119512559616_n.jpg';
-    const getImage2 = () => heroData?.heroImage2 || '/images/58068385_2070681143053781_5367478869567733760_n.jpg';
-    const getImage3 = () => heroData?.heroImage3 || '/images/58383539_2073583652763530_1902712555562860544_n.jpg';
-
-    // Merge dynamic stat values over the default icons
-    const displayStats = stats.map((s, i) => ({
-        ...s,
-        value: heroData?.stats?.[i]?.value || s.value,
-        label: heroData?.stats?.[i]?.label || s.label,
-    }));
-
     return (
-        <section className="relative min-h-[75vh] overflow-hidden flex flex-col">
-            {/* ===== Background Image ===== */}
-            <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: "url('/images/bg hero.png')" }}
+        <section className="w-full">
+            <img
+                src={bannerImage}
+                alt="Hero Banner"
+                className="w-full object-cover"
             />
-
-            {/* ===== Animated Overlay Elements ===== */}
-
-
-
-            {/* ===== Main Content ===== */}
-            <div className="flex-1 container mx-auto px-4 lg:px-32 py-10 lg:py-16">
-                <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-
-                    {/* Left — Text Content */}
-                    <motion.div
-                        initial="hidden"
-                        animate="visible"
-                        variants={{
-                            hidden: { opacity: 0 },
-                            visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
-                        }}
-                        className="relative z-10"
-                    >
-                        {/* Badge — Light style */}
-                        <motion.div
-                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                            className="mb-6"
-                        >
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 shadow-sm">
-                                <span className="text-[#E31E27] text-sm">⚡</span>
-                                <span className="text-gray-700 text-xs font-medium">
-                                    {getBadgeText()}
-                                </span>
-                            </div>
-                        </motion.div>
-
-                        {/* Main Heading — Fixed 50px, 2 lines */}
-                        <motion.div
-                            variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
-                            className="mb-6"
-                        >
-                            <h1 style={{ fontSize: '50px', lineHeight: '1.15', fontWeight: '600' }} className="text-gray-900 tracking-tight">
-                                {getTitle()}{' '}
-                                <span className="text-[#E31E27]">{getTitleHighlight()}</span>
-                            </h1>
-                        </motion.div>
-
-                        {/* Description */}
-                        <motion.div
-                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                            className="mb-8"
-                        >
-                            <p className="text-gray-500 max-w-lg leading-relaxed" style={{ fontSize: '14px' }}>
-                                {getDescriptionText()}
-                            </p>
-                        </motion.div>
-
-                        {/* CTA Buttons */}
-                        <motion.div
-                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                            className="flex flex-wrap gap-5 items-center mb-10"
-                        >
-                            <Link href={getBtnLink()}>
-                                <button className="group px-8 py-3.5 rounded-full bg-[#E31E27] hover:bg-[#C01920] text-white text-sm font-bold shadow-lg shadow-[#E31E27]/25 hover:shadow-[#E31E27]/40 transition-all duration-300 flex items-center gap-2.5">
-                                    {getBtnText()}
-                                    <LuArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />
-                                </button>
-                            </Link>
-
-                            <Link href="/contact">
-                                <button className="group flex items-center gap-3 text-gray-600 hover:text-[#E31E27] transition-colors">
-                                    <div className="w-12 h-12 rounded-full bg-white shadow-lg shadow-gray-200/50 flex items-center justify-center group-hover:shadow-[#E31E27]/20 transition-all">
-                                        <LuPhone size={18} className="text-[#E31E27]" />
-                                    </div>
-                                    <span className="text-sm font-semibold">Contact Us</span>
-                                </button>
-                            </Link>
-                        </motion.div>
-
-                        {/* Stats bottom line — like SkillArt */}
-                        <motion.div
-                            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
-                            className="mb-6 text-base font-bold text-gray-800"
-                        >
-                            Explore{" "}
-                            <span className="text-[#E31E27]">1350+</span>{" "}
-                            Courses within Subject
-                        </motion.div>
-
-                        {/* Enrollment Info */}
-                        <motion.div
-                            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
-                            className="flex items-center gap-4"
-                        >
-                            <div className="flex -space-x-2.5">
-                                {['S', 'A', 'R', 'K'].map((letter, i) => (
-                                    <div key={i} className="w-9 h-9 rounded-full border-2 border-white shadow-sm flex items-center justify-center text-white text-xs font-bold"
-                                        style={{ backgroundColor: ['#E31E27', '#F59E0B', '#10B981', '#EF4444'][i] }}>
-                                        {letter}
-                                    </div>
-                                ))}
-                            </div>
-                            <div>
-                                <span className="text-[#E31E27] font-bold text-sm">10k+</span>
-                                <span className="text-gray-500 text-sm ml-1">Enrollment</span>
-                            </div>
-                        </motion.div>
-                    </motion.div>
-
-                    {/* Right — Image Grid */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        className="relative flex justify-center lg:justify-end"
-                    >
-                        <div className="relative w-full max-w-xl lg:max-w-2xl">
-                            <div className="grid grid-cols-12 gap-4 relative">
-                                {/* Main Large Image */}
-                                <motion.div
-                                    className="col-span-7 relative group"
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.5, duration: 0.7 }}
-                                >
-                                    <div className="relative overflow-hidden rounded-2xl shadow-2xl shadow-black/10 border border-white/60">
-                                        <img
-                                            src={getImage1()}
-                                            alt="Students Learning"
-                                            className="w-full h-[320px] lg:h-[400px] object-cover transition-transform duration-700 group-hover:scale-105"
-                                        />
-                                    </div>
-                                </motion.div>
-
-                                {/* Right Column */}
-                                <div className="col-span-5 flex flex-col gap-4">
-                                    <motion.div
-                                        className="relative group"
-                                        initial={{ opacity: 0, y: -20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.7, duration: 0.7 }}
-                                    >
-                                        <div className="relative overflow-hidden rounded-2xl shadow-xl border border-white/60">
-                                            <img
-                                                src={getImage2()}
-                                                alt="Seminar"
-                                                className="w-full h-[150px] lg:h-[190px] object-cover transition-transform duration-700 group-hover:scale-105"
-                                            />
-                                        </div>
-                                    </motion.div>
-
-                                    <motion.div
-                                        className="relative group"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.9, duration: 0.7 }}
-                                    >
-                                        <div className="relative overflow-hidden rounded-2xl shadow-xl border border-white/60">
-                                            <img
-                                                src={getImage3()}
-                                                alt="Exam Hall"
-                                                className="w-full h-[150px] lg:h-[190px] object-cover transition-transform duration-700 group-hover:scale-105"
-                                            />
-                                        </div>
-                                    </motion.div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </motion.div>
-                </div>
-            </div>
-
-            {/* ===== Bottom Stats Bar ===== */}
-            <div className="hidden lg:block relative w-full z-20 bg-[#E31E27] shadow-[0_-10px_30px_rgba(0,0,0,0.1)]">
-                <div className="container mx-auto px-4 lg:px-20 py-5">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        {displayStats.map((stat, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.5 + index * 0.1 }}
-                                className="flex items-center gap-3 justify-center group cursor-default"
-                            >
-                                <div className="w-10 h-10 rounded-full border-2 border-white/20 flex items-center justify-center text-white group-hover:bg-white/10 transition-colors">
-                                    <stat.icon size={18} />
-                                </div>
-                                <div className="text-white">
-                                    <p className="text-lg font-bold leading-none mb-0.5">{stat.value}</p>
-                                    <p className="text-[10px] font-medium text-blue-100 uppercase tracking-wider leading-none">{stat.label}</p>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </div>
         </section>
     );
 };

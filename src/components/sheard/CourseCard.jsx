@@ -290,12 +290,12 @@ const CourseCard = ({ course, view = "grid" }) => {
             <div>
               <p className="text-[9px] text-slate-400 font-medium mb-0.5 uppercase tracking-wider">Course Fee</p>
               <div className="flex items-center gap-1.5">
+                {!priceLabel && discountPrice && (
+                  <span className="text-lg font-bold text-slate-400 dark:text-slate-500 line-through font-outfit">৳{price.toLocaleString()}</span>
+                )}
                 <span className="text-lg font-bold bg-gradient-to-r from-[#E31E27] to-[#E31E27] bg-clip-text text-transparent font-outfit">
                   {priceLabel || `৳${(discountPrice || price).toLocaleString()}`}
                 </span>
-                {!priceLabel && discountPrice && (
-                  <span className="text-sm text-slate-400 dark:text-slate-500 line-through">৳{price.toLocaleString()}</span>
-                )}
               </div>
             </div>
             <div className="flex items-center gap-1 px-2 py-1 bg-amber-50 dark:bg-amber-500/10 rounded-md">

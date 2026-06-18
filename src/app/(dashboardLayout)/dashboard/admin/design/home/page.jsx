@@ -7,22 +7,7 @@ import { toast } from 'react-hot-toast';
 import { API_URL } from '@/config/api';
 
 const HERO_DEFAULTS = {
-  badge: 'Welcome to Techlight IT',
-  title: "Start learning from the world's",
-  titleHighlight: 'best institutions',
-  description:
-    'Access thousands of premium courses, software, and digital products. Built by experts, ready for you to launch in minutes.',
-  primaryButtonText: 'Get Started',
-  primaryButtonLink: '/courses',
-  stats: [
-    { value: '10,000+', label: 'Students Enrolled' },
-    { value: '50+', label: 'Expert Courses' },
-    { value: '95%', label: 'Success Rate' },
-    { value: '20+', label: 'Expert Instructors' },
-  ],
-  heroImage1: '/images/57462951_2085649778223584_3709857119512559616_n.jpg',
-  heroImage2: '/images/58068385_2070681143053781_5367478869567733760_n.jpg',
-  heroImage3: '/images/58383539_2073583652763530_1902712555562860544_n.jpg',
+  bannerImage: '/images/bg hero.png',
 };
 
 const PROVIDE_DEFAULTS = {
@@ -48,7 +33,7 @@ export default function HomeDesignPage() {
   const [provide, setProvide] = useState(PROVIDE_DEFAULTS);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [uploadingImg, setUploadingImg] = useState({ heroImage1: false, heroImage2: false, heroImage3: false, provideImage: false });
+  const [uploadingImg, setUploadingImg] = useState({ bannerImage: false, provideImage: false });
 
   const handleImageUpload = async (key, file, section = 'hero') => {
     if (!file) return;
@@ -93,7 +78,7 @@ export default function HomeDesignPage() {
       ]);
       const hc = h?.data?.heroContent;
       if (hc && Object.keys(hc).length) {
-        setHero({ ...HERO_DEFAULTS, ...hc, stats: hc.stats?.length ? hc.stats : HERO_DEFAULTS.stats });
+        setHero({ ...HERO_DEFAULTS, ...hc });
       }
       const pc = p?.data?.provideContent;
       if (pc && Object.keys(pc).length) {
@@ -199,87 +184,39 @@ export default function HomeDesignPage() {
       {/* HERO TAB */}
       {tab === 'hero' && (
         <div className={`rounded-md border p-5 space-y-4 ${card}`}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className={label}>Badge text</label>
-              <input value={hero.badge || ''} onChange={(e) => hSet('badge', e.target.value)} className={field} placeholder="Welcome to Techlight IT" />
-            </div>
-            <div>
-              <label className={label}>Highlighted text (colored part)</label>
-              <input value={hero.titleHighlight || ''} onChange={(e) => hSet('titleHighlight', e.target.value)} className={field} placeholder="best institutions" />
-            </div>
-          </div>
           <div>
-            <label className={label}>Title</label>
-            <input value={hero.title || ''} onChange={(e) => hSet('title', e.target.value)} className={field} placeholder="Start learning from the world's" />
-            <p className={`text-[11px] mt-1 ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>Shown as: <span className="font-medium">{hero.title}</span> <span className="text-[#E31E27] font-medium">{hero.titleHighlight}</span></p>
-          </div>
-          <div>
-            <label className={label}>Description</label>
-            <textarea value={hero.description || ''} onChange={(e) => hSet('description', e.target.value)} rows={3} className={field} />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className={label}>Primary button text</label>
-              <input value={hero.primaryButtonText || ''} onChange={(e) => hSet('primaryButtonText', e.target.value)} className={field} placeholder="Get Started" />
-            </div>
-            <div>
-              <label className={label}>Primary button link</label>
-              <input value={hero.primaryButtonLink || ''} onChange={(e) => hSet('primaryButtonLink', e.target.value)} className={field} placeholder="/courses" />
-            </div>
-          </div>
-          <div>
-            <label className={label}>Stats bar (4 items)</label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {hero.stats.map((s, i) => (
-                <div key={i} className="flex gap-2">
-                  <input value={s.value || ''} onChange={(e) => hStat(i, 'value', e.target.value)} className={`${field} w-1/3`} placeholder="10,000+" />
-                  <input value={s.label || ''} onChange={(e) => hStat(i, 'label', e.target.value)} className={field} placeholder="Students Enrolled" />
+            <label className={label}>Hero Banner Image</label>
+            <p className={`text-xs mb-3 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
+              এই ছবিটি Homepage-এর Hero section-এ full-width banner হিসেবে দেখাবে।
+            </p>
+            <div className={`rounded-md border p-4 ${isDark ? 'border-slate-700' : 'border-gray-200'}`}>
+              {hero.bannerImage && (
+                <div className="relative mb-3">
+                  <img src={hero.bannerImage} alt="Hero Banner" className="w-full max-h-64 object-cover rounded-md" />
+                  <button
+                    onClick={() => hSet('bannerImage', '')}
+                    className="absolute top-2 right-2 w-7 h-7 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 shadow"
+                  >
+                    <FiX size={13} />
+                  </button>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Hero Images */}
-          <div>
-            <label className={label}>Hero Section Images (3টি)</label>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {[
-                { key: 'heroImage1', label: 'Main Image (বড়)' },
-                { key: 'heroImage2', label: 'Image 2 (উপরে ডানে)' },
-                { key: 'heroImage3', label: 'Image 3 (নিচে ডানে)' },
-              ].map(({ key, label: imgLabel }) => (
-                <div key={key} className={`rounded-md border p-3 ${isDark ? 'border-slate-700' : 'border-gray-200'}`}>
-                  <p className={`text-xs font-medium mb-2 ${isDark ? 'text-slate-300' : 'text-gray-600'}`}>{imgLabel}</p>
-                  {hero[key] && (
-                    <div className="relative mb-2">
-                      <img src={hero[key]} alt={imgLabel} className="w-full h-32 object-cover rounded-md" />
-                      <button
-                        onClick={() => hSet(key, '')}
-                        className="absolute top-1 right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600"
-                      >
-                        <FiX size={12} />
-                      </button>
-                    </div>
-                  )}
-                  <label className={`flex items-center justify-center gap-2 w-full py-2 rounded-md border border-dashed cursor-pointer transition-colors text-xs font-medium
-                    ${uploadingImg[key] ? 'opacity-60 cursor-not-allowed' : ''}
-                    ${isDark ? 'border-slate-600 text-slate-400 hover:border-indigo-500 hover:text-indigo-400' : 'border-gray-300 text-gray-500 hover:border-indigo-500 hover:text-indigo-500'}`}>
-                    {uploadingImg[key] ? (
-                      <><FiRefreshCw className="animate-spin" size={13} /> Uploading...</>
-                    ) : (
-                      <><FiUpload size={13} /> Upload Image</>
-                    )}
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      disabled={uploadingImg[key]}
-                      onChange={(e) => e.target.files?.[0] && handleImageUpload(key, e.target.files[0])}
-                    />
-                  </label>
-                </div>
-              ))}
+              )}
+              <label className={`flex items-center justify-center gap-2 w-full py-3 rounded-md border border-dashed cursor-pointer transition-colors text-sm font-medium
+                ${uploadingImg.bannerImage ? 'opacity-60 cursor-not-allowed' : ''}
+                ${isDark ? 'border-slate-600 text-slate-400 hover:border-indigo-500 hover:text-indigo-400' : 'border-gray-300 text-gray-500 hover:border-indigo-500 hover:text-indigo-500'}`}>
+                {uploadingImg.bannerImage ? (
+                  <><FiRefreshCw className="animate-spin" size={14} /> Uploading...</>
+                ) : (
+                  <><FiUpload size={14} /> Upload Banner Image</>
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  disabled={uploadingImg.bannerImage}
+                  onChange={(e) => e.target.files?.[0] && handleImageUpload('bannerImage', e.target.files[0])}
+                />
+              </label>
             </div>
           </div>
         </div>
