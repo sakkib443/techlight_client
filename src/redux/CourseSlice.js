@@ -5,7 +5,9 @@ import { API_BASE_URL } from "@/config/api";
 export const fetchCoursesData = createAsyncThunk(
   "courses/fetchCoursesData",
   async () => {
-    const response = await fetch(`${API_BASE_URL}/courses`, {
+    // The courses page filters/sorts client-side, so load all courses
+    // (API defaults to a page size of 10 — pass a high limit to get them all).
+    const response = await fetch(`${API_BASE_URL}/courses?limit=1000`, {
       cache: "no-store",
     });
     if (!response.ok) throw new Error("Failed to fetch courses");
