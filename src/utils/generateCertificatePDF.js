@@ -1,235 +1,140 @@
 // ===================================================================
 // Techlight IT Solution - Certificate PDF Generator
-// Premium, professional certificate built with jsPDF (vector decoration
-// + embedded Techlight logo). No extra dependencies.
+// Overlays the dynamic certificate data on top of the client-supplied
+// design template (public/certificate formate.pdf) using pdf-lib, so the
+// output is pixel-for-pixel the official certificate layout.
+//
+// The template page is 1600 x 1131 pt. Because the supplied demo image
+// (public/certificate demo.jpg) is exactly 1600 x 1131 px, every text
+// anchor below was measured directly off that demo (top-left origin) and
+// converted to pdf-lib's bottom-left origin via Y(). The certificate
+// content is visually centered on x = 846 (NOT the page centre 800).
 // ===================================================================
 
-import { jsPDF } from 'jspdf';
+import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 
-// ==================== Palette (RGB) ====================
-const IVORY = [252, 250, 245];
-const PANEL = [248, 244, 236];
-const NAVY = [20, 33, 61];
-const CHARCOAL = [30, 41, 59];
-const GOLD = [176, 141, 87];
-const GOLDL = [200, 160, 77];
-const RED = [227, 30, 39];
-const MUTED = [110, 116, 128];
+// Public path to the design template (filename has a space -> encode it).
+const TEMPLATE_URL = '/certificate%20formate.pdf';
+
+// ==================== Layout constants (measured from the demo) ====================
+const PAGE_H = 1131;
+const CENTER_X = 846; // visual centre of the certificate content
+
+// Colours sampled from the demo certificate.
+const NAME_RED = rgb(0.49, 0.08, 0.06); // deep red recipient name (~#7D1410)
+const MAROON = rgb(0.35, 0.07, 0.05);   // course / body maroon (~#5A1210)
+const INK = rgb(0.07, 0.07, 0.07);      // near-black date values
+
+// Each field: pixel baseline (from top), font size, and where it sits.
+const NAME = { baseline: 632, size: 64, maxWidth: 1040 };
+const COURSE = { x: 669, baseline: 718, size: 44, maxWidth: 831 };
+const START = { x: 481, baseline: 815, size: 38 };
+const END = { x: 530, baseline: 854, size: 38 };
+const DURATION = { x: 530, baseline: 893, size: 38 };
+const ISSUE = { x: 561, baseline: 930, size: 38 };
 
 // ==================== Field resolvers ====================
-const getStudentName = (cert) => (cert?.studentName || cert?.name || 'Student Name').trim();
+const getStudentName = (cert) => (cert?.studentName || cert?.name || '').trim();
 const getCourseLabel = (cert) =>
-    (cert?.courseName || cert?.title || cert?.batchName || cert?.course?.title || 'the program').trim();
-const getBatchName = (cert) => cert?.batchName || cert?.batch?.batchName || cert?.certificateBatch?.batchName || '';
-const getMentorName = (cert) =>
-    cert?.mentorName || cert?.certificateBatch?.mentorName || cert?.instructorName || '';
+    (cert?.courseName || cert?.title || cert?.batchName || cert?.course?.title || '').trim();
+const getStartDate = (cert) => cert?.startDate || cert?.certificateBatch?.startDate;
+const getEndDate = (cert) => cert?.endDate || cert?.certificateBatch?.endDate;
+const getDurationHours = (cert) =>
+    cert?.durationHours ?? cert?.certificateBatch?.durationHours ?? null;
+const getIssueDate = (cert) => cert?.issueDate || new Date();
 const getCertificateNumber = (cert) =>
-    cert?.certificateNumber || cert?.certificateId || cert?.studentId || '-';
-const getDuration = (cert) => {
-    const start = cert?.startDate || cert?.certificateBatch?.startDate;
-    const end = cert?.endDate || cert?.certificateBatch?.endDate;
-    return { start, end };
+    cert?.certificateNumber || cert?.certificateId || cert?.studentId || 'certificate';
+
+// ==================== Helpers ====================
+// "26th May 2026" - day with ordinal suffix, full month, year.
+const ordinal = (n) => {
+    const s = ['th', 'st', 'nd', 'rd'];
+    const v = n % 100;
+    return n + (s[(v - 20) % 10] || s[v] || s[0]);
+};
+const fmtDate = (d) => {
+    const dt = new Date(d);
+    if (isNaN(dt.getTime())) return '';
+    return `${ordinal(dt.getDate())} ${dt.toLocaleString('en-US', { month: 'long' })} ${dt.getFullYear()}`;
 };
 
-const fmt = (d) =>
-    d ? new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) : '';
-const deg = (a) => (a * Math.PI) / 180;
-
-// ==================== Browser: load logo as data URL ====================
-async function loadLogoDataUrl() {
-    if (typeof window === 'undefined') return null;
+// pdf-lib draws StandardFonts with WinAnsi encoding and throws on any character
+// it cannot encode. Keep every character the font supports and drop only the
+// unsupported ones, so an unusual name never breaks the whole document.
+const toEncodable = (font, raw) => {
+    const text = String(raw);
     try {
-        const res = await fetch('/images/logo.png');
-        if (!res.ok) return null;
-        const blob = await res.blob();
-        return await new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onloadend = () => resolve(reader.result);
-            reader.onerror = () => resolve(null);
-            reader.readAsDataURL(blob);
-        });
+        font.widthOfTextAtSize(text, 12);
+        return text;
     } catch {
-        return null;
+        let out = '';
+        for (const ch of text) {
+            try {
+                font.widthOfTextAtSize(ch, 12);
+                out += ch;
+            } catch {
+                /* drop unsupported char */
+            }
+        }
+        return out;
     }
-}
-
-// ==================== Draw-state helpers ====================
-const dr = (doc, c, w) => { doc.setDrawColor(c[0], c[1], c[2]); doc.setLineWidth(w); };
-const fl = (doc, c) => doc.setFillColor(c[0], c[1], c[2]);
-const tx = (doc, c) => doc.setTextColor(c[0], c[1], c[2]);
-
-// Center text around cx, correcting for jsPDF's bug where align:'center'
-// ignores charSpace (which pushes spaced text to the right). Measure the
-// real rendered width (glyphs + letter-spacing) and left-place it centered.
-const ct = (doc, text, cx, y, charSpace = 0) => {
-    const s = String(text);
-    const w = doc.getTextWidth(s) + charSpace * Math.max(0, s.length - 1);
-    doc.text(s, cx - w / 2, y, { align: 'left', charSpace });
 };
 
-// Clean nested L-bracket corner (no dots/hatch); (sx,sy) ∈ {±1} mirror it.
-function drawCorner(doc, cx, cy, sx, sy) {
-    const o = 4, len = 16;
-    dr(doc, GOLD, 0.7);
-    doc.line(cx + sx * o, cy + sy * o, cx + sx * (o + len), cy + sy * o);
-    doc.line(cx + sx * o, cy + sy * o, cx + sx * o, cy + sy * (o + len));
-    dr(doc, GOLD, 0.4);
-    doc.line(cx + sx * (o + 2), cy + sy * (o + 2), cx + sx * (o + len - 3), cy + sy * (o + 2));
-    doc.line(cx + sx * (o + 2), cy + sy * (o + 2), cx + sx * (o + 2), cy + sy * (o + len - 3));
-}
+// ==================== Build the document ====================
+const buildDoc = async (cert) => {
+    const res = await fetch(TEMPLATE_URL);
+    if (!res.ok) throw new Error(`Could not load certificate template (${res.status})`);
+    const templateBytes = await res.arrayBuffer();
 
-// Five-point star (10 triangles) — deliberately NOT six-point.
-function drawStar5(doc, sx, sy, ro, ri, color) {
-    fl(doc, color);
-    for (let k = 0; k < 5; k++) {
-        const t = deg(-90 + k * 72);
-        const tip = [sx + ro * Math.cos(t), sy + ro * Math.sin(t)];
-        const bL = [sx + ri * Math.cos(t - deg(36)), sy + ri * Math.sin(t - deg(36))];
-        const bR = [sx + ri * Math.cos(t + deg(36)), sy + ri * Math.sin(t + deg(36))];
-        doc.triangle(sx, sy, tip[0], tip[1], bL[0], bL[1], 'F');
-        doc.triangle(sx, sy, tip[0], tip[1], bR[0], bR[1], 'F');
-    }
-}
+    const pdf = await PDFDocument.load(templateBytes);
+    const page = pdf.getPages()[0];
+    const times = await pdf.embedFont(StandardFonts.TimesRoman);
+    const timesBold = await pdf.embedFont(StandardFonts.TimesRomanBold);
 
-// Gold wax-style medallion seal.
-function drawSeal(doc, ox, oy) {
-    fl(doc, GOLD);
-    for (let i = 0; i < 28; i++) {
-        const a = deg(i * (360 / 28));
-        doc.circle(ox + 18 * Math.cos(a), oy + 18 * Math.sin(a), 1.3, 'F');
-    }
-    fl(doc, GOLD); doc.circle(ox, oy, 16.5, 'F');
-    dr(doc, GOLDL, 1.0); doc.circle(ox, oy, 16.5, 'S');
-    fl(doc, PANEL); doc.circle(ox, oy, 12.5, 'F');
-    dr(doc, GOLDL, 0.5); doc.circle(ox, oy, 12.5, 'S');
-    dr(doc, RED, 0.5); doc.circle(ox, oy, 12.5, 'S');
-    fl(doc, GOLDL); doc.circle(ox, oy, 11, 'F');
-    dr(doc, GOLD, 0.4); doc.circle(ox, oy, 11, 'S');
-    drawStar5(doc, ox, oy - 5.5, 4.2, 1.6, GOLD);
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(6); tx(doc, NAVY);
-    ct(doc, 'CERTIFIED', ox, oy + 0.5, 0.6);
-    dr(doc, NAVY, 0.3); doc.line(ox - 7, oy + 2, ox + 7, oy + 2);
-    doc.setFont('times', 'bold'); doc.setFontSize(6.5); tx(doc, NAVY);
-    ct(doc, 'TECHLIGHT', ox, oy + 5.5, 0.4);
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(3.8); tx(doc, RED);
-    ct(doc, 'IT SOLUTION', ox, oy + 8.3, 0.4);
-    fl(doc, RED);
-    doc.triangle(ox - 5, oy + 15, ox - 2, oy + 23, ox, oy + 17, 'F');
-    doc.triangle(ox + 5, oy + 15, ox + 2, oy + 23, ox, oy + 17, 'F');
-}
+    // pixel baseline (top origin) -> pdf-lib y (bottom origin)
+    const Y = (px) => PAGE_H - px;
 
-// ==================== Build the certificate ====================
-const buildDoc = (cert, logo) => {
-    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-    const W = doc.internal.pageSize.getWidth();   // 297
-    const H = doc.internal.pageSize.getHeight();   // 210
-    const CX = W / 2;
+    // Shrink the font until the text fits within maxWidth (keeps long values on one line).
+    const fit = (text, font, size, maxWidth) => {
+        let s = size;
+        while (maxWidth && font.widthOfTextAtSize(text, s) > maxWidth && s > 8) s -= 1;
+        return s;
+    };
 
-    const name = getStudentName(cert);
+    const drawCentered = (raw, { baseline, size, maxWidth }, font, color) => {
+        const text = toEncodable(font, raw);
+        if (!text.trim()) return;
+        const s = fit(text, font, size, maxWidth);
+        const w = font.widthOfTextAtSize(text, s);
+        page.drawText(text, { x: CENTER_X - w / 2, y: Y(baseline), size: s, font, color });
+    };
+
+    const drawLeft = (raw, { x, baseline, size, maxWidth }, font, color) => {
+        const text = toEncodable(font, raw);
+        if (!text.trim()) return;
+        const s = fit(text, font, size, maxWidth);
+        page.drawText(text, { x, y: Y(baseline), size: s, font, color });
+    };
+
+    // 1) Recipient name - centred between "acknowledge that" and "Has successfully completed the"
+    drawCentered(getStudentName(cert), NAME, timesBold, NAME_RED);
+
+    // 2) Course / program - quoted, right after "...completed the"
     const course = getCourseLabel(cert);
+    if (course) drawLeft(`“${course}”`, COURSE, timesBold, MAROON);
 
-    // Background + tonal panel
-    fl(doc, IVORY); doc.rect(0, 0, W, H, 'F');
-    fl(doc, PANEL); doc.rect(14, 14, 269, 182, 'F');
-
-    // Triple border (gold → red → gold)
-    dr(doc, GOLD, 1.4); doc.rect(16, 16, 265, 178, 'S');
-    dr(doc, RED, 0.5); doc.rect(18.5, 18.5, 260, 173, 'S');
-    dr(doc, GOLD, 0.7); doc.rect(21, 21, 255, 168, 'S');
-
-    // Corner flourishes (top-left omitted — the logo anchors that corner)
-    drawCorner(doc, 276, 21, -1, 1);
-    drawCorner(doc, 21, 189, 1, -1);
-    drawCorner(doc, 276, 189, -1, -1);
-
-    // Header logo — top-left (with text fallback)
-    let logoOk = false;
-    if (logo) {
-        try { doc.addImage(logo, 'PNG', 28, 25, 54, 17.82); logoOk = true; } catch { logoOk = false; }
+    // 3) Training Start / End / Duration / Certificate Issue Date - values after the printed labels
+    const start = getStartDate(cert);
+    const end = getEndDate(cert);
+    const hours = getDurationHours(cert);
+    if (start) drawLeft(fmtDate(start), START, times, INK);
+    if (end) drawLeft(fmtDate(end), END, times, INK);
+    if (hours !== null && hours !== undefined && hours !== '') {
+        drawLeft(`${hours} Hours`, DURATION, times, INK);
     }
-    if (!logoOk) {
-        doc.setFont('times', 'bold'); doc.setFontSize(18); tx(doc, NAVY);
-        doc.text('TECHLIGHT IT SOLUTION', 28, 38, { align: 'left', charSpace: 0 });
-    }
+    drawLeft(fmtDate(getIssueDate(cert)), ISSUE, times, INK);
 
-    // Title + flourish underline
-    doc.setFont('times', 'bold'); doc.setFontSize(40); tx(doc, NAVY);
-    ct(doc, 'Certificate of Completion', CX, 62, 0.3);
-    const fy = 70;
-    dr(doc, GOLD, 0.6);
-    doc.line(CX - 32, fy, CX - 4, fy);
-    doc.line(CX + 4, fy, CX + 32, fy);
-    fl(doc, RED);
-    doc.triangle(CX, fy - 1.6, CX - 2, fy, CX, fy + 1.6, 'F');
-    doc.triangle(CX, fy - 1.6, CX + 2, fy, CX, fy + 1.6, 'F');
-
-    // Presented to
-    doc.setFont('helvetica', 'normal'); doc.setFontSize(11); tx(doc, MUTED);
-    ct(doc, 'THIS CERTIFICATE IS PROUDLY PRESENTED TO', CX, 86, 1.6);
-
-    // Recipient name + width-aware underline
-    doc.setFont('times', 'bolditalic'); doc.setFontSize(34); tx(doc, NAVY);
-    doc.text(name, CX, 100, { align: 'center', charSpace: 0 });
-    const nameW = doc.getTextWidth(name);
-    const uw = Math.min(180, Math.max(90, nameW + 24));
-    dr(doc, GOLD, 0.5); doc.line(CX - uw / 2, 105, CX + uw / 2, 105);
-
-    // Body paragraph (graceful fallbacks)
-    const batch = getBatchName(cert);
-    const { start, end } = getDuration(cert);
-    let body = `has successfully completed the ${course} course`;
-    if (batch) body += ` (${batch})`;
-    if (start && end) body += `, held from ${fmt(start)} to ${fmt(end)}`;
-    else if (end) body += `, completed on ${fmt(end)}`;
-    body += ` at Techlight IT Solution.`;
-    doc.setFont('times', 'normal'); doc.setFontSize(13.5); tx(doc, CHARCOAL);
-    const lines = doc.splitTextToSize(body, 195);
-    doc.text(lines, CX, 118, { align: 'center', lineHeightFactor: 1.5, charSpace: 0 });
-
-    // Grade emphasis (fills the mid band)
-    if (cert?.grade) {
-        doc.setFont('times', 'bolditalic'); doc.setFontSize(13); tx(doc, GOLD);
-        ct(doc, `Grade Achieved :  ${cert.grade}`, CX, 148, 0.4);
-    }
-
-    // ===== Footer =====
-    // Left: certificate no. + optional student id
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); tx(doc, MUTED);
-    doc.text('CERTIFICATE NO.', 34, 170, { align: 'left', charSpace: 1.0 });
-    doc.setFont('times', 'bold'); doc.setFontSize(11); tx(doc, NAVY);
-    doc.text(getCertificateNumber(cert), 34, 176, { align: 'left', charSpace: 0 });
-    if (cert?.studentId) {
-        doc.setFont('helvetica', 'normal'); doc.setFontSize(8); tx(doc, MUTED);
-        doc.text('Student ID: ' + cert.studentId, 34, 181.5, { align: 'left', charSpace: 0 });
-    }
-
-    // Center-left: date of issue
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); tx(doc, MUTED);
-    doc.text('DATE OF ISSUE', 92, 170, { align: 'left', charSpace: 1.0 });
-    doc.setFont('times', 'bold'); doc.setFontSize(11); tx(doc, NAVY);
-    doc.text(fmt(cert?.issueDate) || fmt(new Date()), 92, 176, { align: 'left', charSpace: 0 });
-
-    // Center-right: signature (clear of the far-right seal)
-    // Dynamic: use the certificate's signatory, falling back to mentor / default title.
-    const sigName = (cert?.signatureName || getMentorName(cert) || '').trim();
-    const sigTitle = (cert?.signatureDesignation || 'Director, Techlight IT Solution').trim();
-    const sigx = 172;
-    dr(doc, NAVY, 0.5); doc.line(sigx - 30, 174, sigx + 30, 174);
-    if (sigName) {
-        doc.setFont('times', 'bolditalic'); doc.setFontSize(12); tx(doc, NAVY);
-        ct(doc, sigName, sigx, 172, 0);
-    }
-    doc.setFont('helvetica', 'bold'); doc.setFontSize(8.5); tx(doc, NAVY);
-    ct(doc, 'AUTHORIZED SIGNATURE', sigx, 179, 0.8);
-    if (sigTitle) {
-        doc.setFont('times', 'italic'); doc.setFontSize(8.5); tx(doc, MUTED);
-        ct(doc, sigTitle, sigx, 183.5, 0);
-    }
-
-    // Seal (drawn last, far-right corner)
-    drawSeal(doc, 247, 148);
-
-    return doc;
+    return pdf;
 };
 
 // ==================== Public API ====================
@@ -237,9 +142,17 @@ const buildDoc = (cert, logo) => {
  * Generate and download the certificate as a PDF file.
  */
 export async function generateCertificatePDF(cert) {
-    const logo = await loadLogoDataUrl();
-    const doc = buildDoc(cert, logo);
-    doc.save(`Certificate-${getCertificateNumber(cert)}.pdf`);
+    const pdf = await buildDoc(cert);
+    const bytes = await pdf.save();
+    const blob = new Blob([bytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Certificate-${getCertificateNumber(cert)}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 /**
@@ -248,11 +161,17 @@ export async function generateCertificatePDF(cert) {
  */
 export async function previewCertificatePDF(cert) {
     const win = typeof window !== 'undefined' ? window.open('', '_blank') : null;
-    const logo = await loadLogoDataUrl();
-    const doc = buildDoc(cert, logo);
-    const url = doc.output('bloburl');
-    if (win) win.location.href = url;
-    else if (typeof window !== 'undefined') window.open(url, '_blank');
+    try {
+        const pdf = await buildDoc(cert);
+        const bytes = await pdf.save();
+        const blob = new Blob([bytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        if (win) win.location.href = url;
+        else if (typeof window !== 'undefined') window.open(url, '_blank');
+    } catch (err) {
+        if (win) win.close();
+        throw err;
+    }
 }
 
 export default generateCertificatePDF;

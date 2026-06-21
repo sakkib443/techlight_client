@@ -24,6 +24,7 @@ const EMPTY_FORM = {
   mentorName: '',
   startDate: '',
   endDate: '',
+  durationHours: '',
   signatureName: '',
   signatureDesignation: '',
 };
@@ -136,6 +137,7 @@ export default function CertificationsPage() {
           mentorName: form.mentorName.trim() || undefined,
           startDate: form.startDate || undefined,
           endDate: form.endDate || undefined,
+          durationHours: form.durationHours !== '' ? Number(form.durationHours) : undefined,
           signatureName: form.signatureName.trim() || undefined,
           signatureDesignation: form.signatureDesignation.trim() || undefined,
         }),
@@ -469,6 +471,11 @@ export default function CertificationsPage() {
                   <input type="date" value={form.endDate} onChange={(e) => upd('endDate', e.target.value)}
                     className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
                 </div>
+                <div>
+                  <label className={labelCls}>Training Duration <span className={isDark ? 'text-slate-500' : 'text-gray-400'}>(hours, optional)</span></label>
+                  <input type="number" min="0" placeholder="e.g. 120" value={form.durationHours} onChange={(e) => upd('durationHours', e.target.value)}
+                    className={`w-full px-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-1 focus:ring-indigo-500 ${inputCls}`} />
+                </div>
               </div>
 
               {/* Student name + ID */}
@@ -582,6 +589,7 @@ export default function CertificationsPage() {
                 <Detail isDark={isDark} label="Email" value={selected.email || '—'} />
                 <Detail isDark={isDark} label="Batch" value={selected.batchName || '—'} />
                 <Detail isDark={isDark} label="Duration" value={selected.startDate ? `${formatDate(selected.startDate)} – ${formatDate(selected.endDate)}` : '—'} />
+                <Detail isDark={isDark} label="Training Hours" value={selected.durationHours ? `${selected.durationHours} Hours` : '—'} />
                 <Detail isDark={isDark} label="Grade" value={selected.grade || '—'} />
                 <Detail isDark={isDark} label="Issued" value={formatDate(selected.issueDate)} />
                 <Detail isDark={isDark} label="Certificate No." value={selected.certificateNumber} />
