@@ -212,7 +212,7 @@ const TopCategories = () => {
                     <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase text-[#E31E27] bg-[#FEE2E2] border border-[#E31E27]/20 mb-4 ${bn}`}>
                         {language === 'bn' ? 'ক্যাটাগরি' : 'Categories'}
                     </span>
-                    <h2 className={`text-4xl font-bold text-gray-900 leading-tight mb-4 ${bn}`}>
+                    <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 leading-tight mb-3 sm:mb-4 ${bn}`}>
                         {language === 'bn'
                             ? <>{t("home_sections.browseByCategory")} <span className="text-[#E31E27]">{t("home_sections.categoryHighlight")}</span></>
                             : <>Explore Top <span className="text-[#E31E27]">Skills Categories</span></>
@@ -220,7 +220,7 @@ const TopCategories = () => {
                     </h2>
                     <Link
                         href="/courses"
-                        className={`inline-flex items-center gap-2 text-sm font-semibold text-[#E31E27] hover:underline underline-offset-4 transition ${bn}`}
+                        className={`inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#E31E27] hover:underline underline-offset-4 transition ${bn}`}
                     >
                         {language === 'bn' ? 'সব দেখুন' : 'View All'}
                         <LuArrowUpRight size={16} />
@@ -228,7 +228,7 @@ const TopCategories = () => {
                 </motion.div>
 
                 {/* ── Cards Grid ── */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                     {cats.map((cat, i) => {
                         const Icon = cat.icon;
                         return (

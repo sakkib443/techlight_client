@@ -25,7 +25,7 @@ const Hero = () => {
             <img
                 src={bannerImage}
                 alt="Hero Banner"
-                className="w-full h-[320px] sm:h-[420px] md:h-[520px] lg:h-[640px] object-cover"
+                className="block w-full h-auto object-contain md:h-[520px] md:object-cover lg:h-[640px]"
             />
         </section>
     );
