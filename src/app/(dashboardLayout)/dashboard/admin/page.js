@@ -109,8 +109,18 @@ export default function AdminDashboard() {
     totalEnrollments: 0,
     activeEnrollments: 0,
     completedEnrollments: 0,
+    enrollmentsThisMonth: 0,
+    newUsersThisMonth: 0,
     categories: 0,
     totalCertificates: 0,
+    totalOrders: 0,
+    todayOrders: 0,
+    pendingOrders: 0,
+    completedOrders: 0,
+    totalRevenue: 0,
+    todayRevenue: 0,
+    monthlyRevenue: 0,
+    totalLikes: 0,
   });
   const [recentActivities, setRecentActivities] = useState([]);
 
@@ -134,8 +144,18 @@ export default function AdminDashboard() {
         totalEnrollments: summary?.totalEnrollments || 0,
         activeEnrollments: summary?.activeEnrollments || 0,
         completedEnrollments: summary?.completedEnrollments || 0,
+        enrollmentsThisMonth: summary?.enrollmentsThisMonth || 0,
+        newUsersThisMonth: summary?.newUsersThisMonth || 0,
         categories: summary?.totalCategories || 0,
         totalCertificates: summary?.totalCertificates || 0,
+        totalOrders: summary?.totalOrders || 0,
+        todayOrders: summary?.todayOrders || 0,
+        pendingOrders: summary?.pendingOrders || 0,
+        completedOrders: summary?.completedOrders || 0,
+        totalRevenue: summary?.totalRevenue || 0,
+        todayRevenue: summary?.todayRevenue || 0,
+        monthlyRevenue: summary?.monthlyRevenue || 0,
+        totalLikes: summary?.totalLikes || 0,
       });
 
       // Recent activity from notifications
@@ -169,44 +189,45 @@ export default function AdminDashboard() {
     fetchDashboardData();
   }, []);
 
-  // Headline stats (no money)
+  // Headline stats (no money) — fully dynamic
+  const draftCourses = dashboardData.totalCourses - dashboardData.publishedCourses;
   const mainStats = [
     {
       title: 'Total Students',
       value: dashboardData.totalStudents,
-      subtitle: 'Enrolled learners',
+      subtitle: `${dashboardData.newUsersThisMonth} new this month`,
       icon: FiUsers,
       color: 'bg-indigo-600',
     },
     {
       title: 'Total Courses',
       value: dashboardData.totalCourses,
-      subtitle: `${dashboardData.publishedCourses || 0} published`,
+      subtitle: `${dashboardData.publishedCourses} active · ${draftCourses} draft`,
       icon: FiBook,
       color: 'bg-amber-500',
     },
     {
       title: 'Certificates',
       value: dashboardData.totalCertificates,
-      subtitle: 'Issued to students',
+      subtitle: `${dashboardData.completedEnrollments} completed enrollments`,
       icon: FiAward,
       color: 'bg-emerald-600',
     },
     {
       title: 'Total Users',
       value: dashboardData.totalUsers,
-      subtitle: 'Registered accounts',
+      subtitle: `${dashboardData.newUsersThisMonth} joined this month`,
       icon: FiGrid,
       color: 'bg-rose-500',
     },
   ];
 
-  // Content quick-links with counts
+  // Content quick-links with counts — fully dynamic with subtitles
   const contentStats = [
-    { title: 'Courses', value: dashboardData.totalCourses, icon: FiBook, color: 'bg-indigo-600', href: '/dashboard/admin/course' },
-    { title: 'Categories', value: dashboardData.categories, icon: FiLayers, color: 'bg-amber-500', href: '/dashboard/admin/category' },
-    { title: 'Certificates', value: dashboardData.totalCertificates, icon: FiAward, color: 'bg-rose-500', href: '/dashboard/admin/certification' },
-    { title: 'Enrollments', value: dashboardData.totalEnrollments, icon: FiUserCheck, color: 'bg-cyan-600', href: '/dashboard/admin/orders' },
+    { title: 'Courses', value: dashboardData.totalCourses, subtitle: `${dashboardData.publishedCourses} published`, icon: FiBook, color: 'bg-indigo-600', href: '/dashboard/admin/course' },
+    { title: 'Categories', value: dashboardData.categories, subtitle: 'Total categories', icon: FiLayers, color: 'bg-amber-500', href: '/dashboard/admin/category' },
+    { title: 'Certificates', value: dashboardData.totalCertificates, subtitle: `${dashboardData.completedEnrollments} completed`, icon: FiAward, color: 'bg-rose-500', href: '/dashboard/admin/certification' },
+    { title: 'Enrollments', value: dashboardData.totalEnrollments, subtitle: `${dashboardData.activeEnrollments} active · ${dashboardData.enrollmentsThisMonth} this month`, icon: FiUserCheck, color: 'bg-cyan-600', href: '/dashboard/admin/orders' },
   ];
 
   const quickActions = [
@@ -276,6 +297,9 @@ export default function AdminDashboard() {
                     {loading ? '...' : (stat.value || 0).toLocaleString()}
                   </p>
                   <p className={`text-xs font-normal ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>{stat.title}</p>
+                  {stat.subtitle && (
+                    <p className={`text-[10px] mt-0.5 ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>{stat.subtitle}</p>
+                  )}
                 </div>
               </div>
             </Link>

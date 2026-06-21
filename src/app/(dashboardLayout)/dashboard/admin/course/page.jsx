@@ -27,7 +27,7 @@ export default function CoursesPage() {
     const token = localStorage.getItem('token');
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/courses`, {
+      const res = await fetch(`${API_BASE_URL}/courses?limit=1000`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
