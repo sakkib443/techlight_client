@@ -22,10 +22,13 @@ const Hero = () => {
 
     return (
         <section className="w-full">
+            {/* Full-width banner that always keeps its natural aspect ratio:
+                width follows the screen, height auto-scales, so it never crops
+                on the sides at any zoom level or viewport size. */}
             <img
                 src={bannerImage}
                 alt="Hero Banner"
-                className="block w-full h-auto object-contain md:h-[520px] md:object-cover lg:h-[640px]"
+                className="block w-full h-auto"
             />
         </section>
     );
