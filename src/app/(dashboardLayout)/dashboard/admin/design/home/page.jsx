@@ -1,13 +1,25 @@
 ﻿'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
-import { FiHome, FiSave, FiRefreshCw, FiEye, FiImage, FiGrid, FiUpload, FiX } from 'react-icons/fi';
+import { FiHome, FiSave, FiRefreshCw, FiEye, FiImage, FiGrid, FiUpload, FiX, FiVideo, FiYoutube } from 'react-icons/fi';
 import { useTheme } from '@/providers/ThemeProvider';
 import { toast } from 'react-hot-toast';
 import { API_URL } from '@/config/api';
 
 const HERO_DEFAULTS = {
+  mediaType: 'image', // 'image' | 'video' | 'youtube'
   bannerImage: '/images/bg hero.png',
+  videoUrl: '',
+  youtubeUrl: '',
+};
+
+// Extract the 11-char video id from any common YouTube URL shape
+const getYouTubeId = (url) => {
+  if (!url || typeof url !== 'string') return null;
+  const m = url.match(
+    /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/)|youtu\.be\/)([\w-]{11})/
+  );
+  return m ? m[1] : null;
 };
 
 const PROVIDE_DEFAULTS = {
@@ -34,6 +46,37 @@ export default function HomeDesignPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploadingImg, setUploadingImg] = useState({ bannerImage: false, provideImage: false });
+  const [uploadingVideo, setUploadingVideo] = useState(false);
+
+  const handleVideoUpload = async (file) => {
+    if (!file) return;
+    if (file.size > 50 * 1024 * 1024) {
+      toast.error('Video must be under 50MB');
+      return;
+    }
+    const token = localStorage.getItem('token');
+    setUploadingVideo(true);
+    try {
+      const formData = new FormData();
+      formData.append('video', file);
+      const res = await fetch(`${API_URL}/upload/video`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        hSet('videoUrl', data.data.url);
+        toast.success('Video uploaded!');
+      } else {
+        toast.error(data.message || 'Upload failed');
+      }
+    } catch (e) {
+      toast.error('Upload failed');
+    } finally {
+      setUploadingVideo(false);
+    }
+  };
 
   const handleImageUpload = async (key, file, section = 'hero') => {
     if (!file) return;
@@ -183,12 +226,45 @@ export default function HomeDesignPage() {
 
       {/* HERO TAB */}
       {tab === 'hero' && (
-        <div className={`rounded-md border p-5 space-y-4 ${card}`}>
+        <div className={`rounded-md border p-5 space-y-5 ${card}`}>
+          {/* Media type selector */}
           <div>
-            <label className={label}>Hero Banner Image</label>
+            <label className={label}>Hero-তে কী দেখাবে?</label>
             <p className={`text-xs mb-2 ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>
-              এই ছবিটি Homepage-এর Hero section-এ full-width banner হিসেবে দেখাবে।
+              Homepage-এর Hero banner জায়গায় ছবি, আপলোড করা ভিডিও, অথবা YouTube ভিডিও — যেকোনো একটি দেখাতে পারবেন।
             </p>
+            <div className="grid grid-cols-3 gap-2">
+              {[
+                { id: 'image', icon: FiImage, label: 'Image' },
+                { id: 'video', icon: FiVideo, label: 'Upload Video' },
+                { id: 'youtube', icon: FiYoutube, label: 'YouTube' },
+              ].map((m) => {
+                const active = (hero.mediaType || 'image') === m.id;
+                return (
+                  <button
+                    key={m.id}
+                    type="button"
+                    onClick={() => hSet('mediaType', m.id)}
+                    className={`flex items-center justify-center gap-2 px-3 py-2.5 text-sm rounded-md border transition-colors ${
+                      active
+                        ? 'bg-indigo-600 border-indigo-600 text-white'
+                        : isDark
+                        ? 'border-slate-700 text-slate-300 hover:bg-slate-700'
+                        : 'border-gray-200 text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    <m.icon size={15} /> {m.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* ---- IMAGE / Poster ---- */}
+          <div>
+            <label className={label}>
+              {(hero.mediaType || 'image') === 'image' ? 'Hero Banner Image' : 'Banner Image (ভিডিও লোড হওয়ার আগে / poster হিসেবে দেখাবে)'}
+            </label>
             <div className={`flex items-start gap-2 text-xs mb-3 px-3 py-2 rounded-md ${isDark ? 'bg-indigo-500/10 text-indigo-300' : 'bg-indigo-50 text-indigo-600'}`}>
               <FiImage size={14} className="mt-0.5 shrink-0" />
               <div className="leading-relaxed">
@@ -225,6 +301,111 @@ export default function HomeDesignPage() {
                 />
               </label>
             </div>
+          </div>
+
+          {/* ---- VIDEO UPLOAD ---- */}
+          {(hero.mediaType || 'image') === 'video' && (
+            <div>
+              <label className={label}>Banner Video (Cloudinary তে আপলোড হবে)</label>
+              <div className={`flex items-start gap-2 text-xs mb-3 px-3 py-2 rounded-md ${isDark ? 'bg-indigo-500/10 text-indigo-300' : 'bg-indigo-50 text-indigo-600'}`}>
+                <FiVideo size={14} className="mt-0.5 shrink-0" />
+                <div className="leading-relaxed">
+                  সর্বোচ্চ 50MB, format: MP4 / WebM / MOV। ভিডিও autoplay হবে, muted ও loop অবস্থায় চলবে (banner-এর মতো)।
+                </div>
+              </div>
+              <div className={`rounded-md border p-4 ${isDark ? 'border-slate-700' : 'border-gray-200'}`}>
+                {hero.videoUrl && (
+                  <div className="relative mb-3">
+                    <video src={hero.videoUrl} controls muted className="w-full max-h-64 rounded-md bg-black" />
+                    <button
+                      onClick={() => hSet('videoUrl', '')}
+                      className="absolute top-2 right-2 w-7 h-7 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 shadow"
+                    >
+                      <FiX size={13} />
+                    </button>
+                  </div>
+                )}
+                <label className={`flex items-center justify-center gap-2 w-full py-3 rounded-md border border-dashed cursor-pointer transition-colors text-sm font-medium
+                  ${uploadingVideo ? 'opacity-60 cursor-not-allowed' : ''}
+                  ${isDark ? 'border-slate-600 text-slate-400 hover:border-indigo-500 hover:text-indigo-400' : 'border-gray-300 text-gray-500 hover:border-indigo-500 hover:text-indigo-500'}`}>
+                  {uploadingVideo ? (
+                    <><FiRefreshCw className="animate-spin" size={14} /> Uploading...</>
+                  ) : (
+                    <><FiUpload size={14} /> {hero.videoUrl ? 'Replace Video' : 'Upload Banner Video'}</>
+                  )}
+                  <input
+                    type="file"
+                    accept="video/*"
+                    className="hidden"
+                    disabled={uploadingVideo}
+                    onChange={(e) => e.target.files?.[0] && handleVideoUpload(e.target.files[0])}
+                  />
+                </label>
+              </div>
+            </div>
+          )}
+
+          {/* ---- YOUTUBE LINK ---- */}
+          {(hero.mediaType || 'image') === 'youtube' && (
+            <div>
+              <label className={label}>YouTube Video Link</label>
+              <div className={`flex items-start gap-2 text-xs mb-3 px-3 py-2 rounded-md ${isDark ? 'bg-indigo-500/10 text-indigo-300' : 'bg-indigo-50 text-indigo-600'}`}>
+                <FiYoutube size={14} className="mt-0.5 shrink-0" />
+                <div className="leading-relaxed">
+                  পুরো YouTube লিঙ্ক পেস্ট করুন (যেমন: https://youtu.be/xxxx অথবা https://www.youtube.com/watch?v=xxxx)। ভিডিও autoplay, muted ও loop অবস্থায় চলবে।
+                </div>
+              </div>
+              <input
+                value={hero.youtubeUrl || ''}
+                onChange={(e) => hSet('youtubeUrl', e.target.value)}
+                className={field}
+                placeholder="https://www.youtube.com/watch?v=..."
+              />
+              {hero.youtubeUrl && !getYouTubeId(hero.youtubeUrl) && (
+                <p className="text-xs mt-1.5 text-red-500">এই লিঙ্ক থেকে YouTube video id পাওয়া যায়নি — লিঙ্কটি ঠিক আছে কিনা দেখুন।</p>
+              )}
+            </div>
+          )}
+
+          {/* ---- LIVE PREVIEW (Hero section যেভাবে দেখাবে) ---- */}
+          <div>
+            <label className={label}>Live Preview — Homepage Hero যেভাবে দেখাবে</label>
+            <div className={`rounded-md border overflow-hidden ${isDark ? 'border-slate-700 bg-black' : 'border-gray-200 bg-gray-50'}`}>
+              {(() => {
+                const mt = hero.mediaType || 'image';
+                const ytId = getYouTubeId(hero.youtubeUrl);
+                if (mt === 'video' && hero.videoUrl) {
+                  return (
+                    <video src={hero.videoUrl} poster={hero.bannerImage || undefined} autoPlay muted loop playsInline className="block w-full h-auto" />
+                  );
+                }
+                if (mt === 'youtube' && ytId) {
+                  return (
+                    <div className="relative w-full" style={{ aspectRatio: '16 / 9' }}>
+                      <iframe
+                        className="absolute inset-0 h-full w-full"
+                        src={`https://www.youtube.com/embed/${ytId}?autoplay=1&mute=1&loop=1&playlist=${ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`}
+                        title="Hero Preview"
+                        frameBorder="0"
+                        allow="autoplay; encrypted-media; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  );
+                }
+                if (hero.bannerImage) {
+                  return <img src={hero.bannerImage} alt="Hero Preview" className="block w-full h-auto" />;
+                }
+                return (
+                  <div className={`flex items-center justify-center py-16 text-sm ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>
+                    কোনো media সেট করা হয়নি — উপরে ছবি/ভিডিও যোগ করুন।
+                  </div>
+                );
+              })()}
+            </div>
+            <p className={`text-[11px] mt-1.5 ${isDark ? 'text-slate-500' : 'text-gray-400'}`}>
+              পরিবর্তন save করার পর Homepage-এ live দেখাবে। <span className="font-medium">Save Changes</span> চাপতে ভুলবেন না।
+            </p>
           </div>
         </div>
       )}
