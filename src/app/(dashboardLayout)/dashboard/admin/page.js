@@ -190,7 +190,6 @@ export default function AdminDashboard() {
   }, []);
 
   // Headline stats (no money) — fully dynamic
-  const draftCourses = dashboardData.totalCourses - dashboardData.publishedCourses;
   const mainStats = [
     {
       title: 'Total Students',
@@ -202,7 +201,6 @@ export default function AdminDashboard() {
     {
       title: 'Total Courses',
       value: dashboardData.totalCourses,
-      subtitle: `${dashboardData.publishedCourses} active · ${draftCourses} draft`,
       icon: FiBook,
       color: 'bg-amber-500',
     },
