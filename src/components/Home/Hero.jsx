@@ -1,6 +1,6 @@
 "use client";
-import { API_URL } from '@/config/api';
 import React, { useEffect, useState } from "react";
+import { DEFAULT_HERO, prefetchHero } from "@/lib/heroData";
 
 // Extract the 11-char video id from any common YouTube URL shape
 export const getYouTubeId = (url) => {
@@ -11,34 +11,24 @@ export const getYouTubeId = (url) => {
     return m ? m[1] : null;
 };
 
-const DEFAULT_BANNER = '/images/bg hero.png';
-
 const Hero = () => {
-    const [hero, setHero] = useState({
-        mediaType: 'image',
-        bannerImage: DEFAULT_BANNER,
-        videoUrl: '',
-        youtubeUrl: '',
-    });
+    // Start from the current backend banner (no placeholder flash). The fetch is
+    // prefetched during the preloader, so live data arrives ready/instant.
+    const [hero, setHero] = useState(DEFAULT_HERO);
 
     useEffect(() => {
-        const fetchHeroDesign = async () => {
-            try {
-                const res = await fetch(`${API_URL}/design/hero`);
-                const data = await res.json();
-                if (data.success && data.data?.heroContent) {
-                    setHero((prev) => ({ ...prev, ...data.data.heroContent }));
-                }
-            } catch (error) {
-                console.error('Error fetching hero design:', error);
-            }
+        let active = true;
+        prefetchHero().then((data) => {
+            if (active && data) setHero(data);
+        });
+        return () => {
+            active = false;
         };
-        fetchHeroDesign();
     }, []);
 
     const mediaType = hero.mediaType || 'image';
     const ytId = getYouTubeId(hero.youtubeUrl);
-    const bannerImage = hero.bannerImage || DEFAULT_BANNER;
+    const bannerImage = hero.bannerImage || DEFAULT_HERO.bannerImage;
 
     return (
         <section className="w-full">

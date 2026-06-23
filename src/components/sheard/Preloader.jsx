@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { prefetchHero } from "@/lib/heroData";
 
 /**
  * Cinematic preloader for Techlight IT Solution.
@@ -15,6 +16,12 @@ const Preloader = () => {
     const [percent, setPercent] = useState(0);
     const [statusIdx, setStatusIdx] = useState(0);
     const [particles, setParticles] = useState([]);
+
+    // Prefetch the hero media as early as possible (while the preloader runs)
+    // so the homepage hero is ready/instant once the preloader finishes.
+    useEffect(() => {
+        prefetchHero();
+    }, []);
 
     // Generate particle configs only on the client (avoids SSR hydration mismatch)
     useEffect(() => {
