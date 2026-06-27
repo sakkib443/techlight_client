@@ -93,6 +93,7 @@ const AdminSidebar = () => {
       submenu: [
         { title: 'All Courses', href: '/dashboard/admin/course', icon: FiBook },
         { title: 'Create Course', href: '/dashboard/admin/course/create', icon: FiFileText },
+        { title: 'Popular & Order', href: '/dashboard/admin/course/popular', icon: FiStar },
         // ──── Hidden Features (uncomment when needed) ────
         // { title: 'All Modules', href: '/dashboard/admin/module', icon: FiLayers },
         // { title: 'Create Module', href: '/dashboard/admin/module/create', icon: FiFileText },
@@ -127,6 +128,7 @@ const AdminSidebar = () => {
       submenu: [
         { title: 'All Categories', href: '/dashboard/admin/category', icon: FiLayers },
         { title: 'Create Category', href: '/dashboard/admin/category/create', icon: FiFileText },
+        { title: 'Home & Order', href: '/dashboard/admin/category/order', icon: FiStar },
       ],
     },
     {

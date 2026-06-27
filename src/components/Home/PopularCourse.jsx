@@ -70,9 +70,17 @@ const PopularCourse = () => {
         result.sort((a, b) => (b.averageRating || 0) - (a.averageRating || 0));
         break;
       case 'popularity':
-      default:
-        result.sort((a, b) => (b.totalEnrollments || 0) - (a.totalEnrollments || 0));
+      default: {
+        // Admin manually curated popular courses (in their set order) get priority.
+        // If none are marked popular, fall back to ordering by enrollments.
+        const curated = result.filter(c => c.isPopular);
+        if (curated.length > 0) {
+          result = curated.sort((a, b) => (a.popularOrder ?? 0) - (b.popularOrder ?? 0));
+        } else {
+          result.sort((a, b) => (b.totalEnrollments || 0) - (a.totalEnrollments || 0));
+        }
         break;
+      }
     }
     return result;
   };
