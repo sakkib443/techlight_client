@@ -7,9 +7,13 @@ export const fetchCoursesData = createAsyncThunk(
   async () => {
     // The courses page filters/sorts client-side, so load all courses
     // (API defaults to a page size of 10 — pass a high limit to get them all).
-    const response = await fetch(`${API_BASE_URL}/courses?limit=1000`, {
-      cache: "no-store",
-    });
+    // Sort by admin-defined displayOrder so the listing honors the manual order by default.
+    const response = await fetch(
+      `${API_BASE_URL}/courses?limit=1000&sortBy=displayOrder&sortOrder=asc`,
+      {
+        cache: "no-store",
+      }
+    );
     if (!response.ok) throw new Error("Failed to fetch courses");
     const result = await response.json();
     return result.data;

@@ -3,83 +3,58 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-    LuBrain, LuPalette, LuCode, LuMegaphone,
-    LuFilm, LuServer, LuShield, LuGraduationCap, LuArrowUpRight
-} from "react-icons/lu";
+import * as LuIcons from "react-icons/lu";
+import { LuGraduationCap, LuArrowUpRight } from "react-icons/lu";
+import { useSelector } from "react-redux";
 import { useLanguage } from "@/context/LanguageContext";
 
-const categories = (language, t) => [
-    {
-        icon: LuServer,
-        title: language === 'bn' ? t("home_sections.networkingServer") : 'Networking & Server',
-        subtitle: language === 'bn' ? t("home_sections.protectorIT") : 'Protector of IT Industry',
-        slug: 'networking-server',
-        color: '#F97316',
-        light: '#FFEDD5',
-    },
-    {
-        icon: LuShield,
-        title: language === 'bn' ? 'সাইবার সিকিউরিটি' : 'Cyber Security',
-        subtitle: language === 'bn' ? 'ডিজিটাল জগতের সুরক্ষা' : 'Defend the Digital World',
-        slug: 'cyber-security',
-        color: '#2563EB',
-        light: '#DBEAFE',
-    },
-    {
-        icon: LuGraduationCap,
-        title: language === 'bn' ? t("home_sections.diploma") : 'Diploma',
-        subtitle: language === 'bn' ? t("home_sections.skillUpStandOut") : 'Skill Up, Stand Out',
-        slug: 'diploma',
-        color: '#EC4899',
-        light: '#FCE7F3',
-    },
-    {
-        icon: LuBrain,
-        title: language === 'bn' ? t("home_sections.aiAutomation") : 'AI & Automation',
-        subtitle: language === 'bn' ? t("home_sections.shapeFuture") : 'Shape the Future',
-        slug: 'ai-automation',
-        color: '#E31E27',
-        light: '#FEE2E2',
-    },
-    {
-        icon: LuPalette,
-        title: language === 'bn' ? t("home_sections.artDesign") : 'Art & Design',
-        subtitle: language === 'bn' ? t("home_sections.creativePlatform") : 'Platform for Creativity',
-        slug: 'art-design',
-        color: '#F59E0B',
-        light: '#FEF3C7',
-    },
-    {
-        icon: LuCode,
-        title: language === 'bn' ? t("home_sections.programming") : 'Programming',
-        subtitle: language === 'bn' ? t("home_sections.codeConfidence") : 'Code with Confidence',
-        slug: 'programming',
-        color: '#06B6D4',
-        light: '#CFFAFE',
-    },
-    {
-        icon: LuMegaphone,
-        title: language === 'bn' ? t("home_sections.digitalMarketing") : 'Digital Marketing',
-        subtitle: language === 'bn' ? t("home_sections.artInfluence") : 'The Art of Influence',
-        slug: 'digital-marketing',
-        color: '#EF4444',
-        light: '#FEE2E2',
-    },
-    {
-        icon: LuFilm,
-        title: language === 'bn' ? t("home_sections.mediaFilm") : 'Media & Film',
-        subtitle: language === 'bn' ? t("home_sections.storyMotion") : 'Storytelling in Motion',
-        slug: 'media-film',
-        color: '#10B981',
-        light: '#D1FAE5',
-    },
+// Color palette — cycled by index so each card keeps a distinct, professional look
+const palette = [
+    { color: '#F97316', light: '#FFEDD5' },
+    { color: '#2563EB', light: '#DBEAFE' },
+    { color: '#EC4899', light: '#FCE7F3' },
+    { color: '#E31E27', light: '#FEE2E2' },
+    { color: '#F59E0B', light: '#FEF3C7' },
+    { color: '#06B6D4', light: '#CFFAFE' },
+    { color: '#EF4444', light: '#FEE2E2' },
+    { color: '#10B981', light: '#D1FAE5' },
 ];
+
+// Resolve an icon name string (e.g. "LuMegaphone") stored on the category to its component
+const resolveIcon = (name) => (name && LuIcons[name]) || LuGraduationCap;
+
+// Show at most 8 categories on the homepage
+const MAX_HOME_CATEGORIES = 8;
 
 const TopCategories = () => {
     const { language, t } = useLanguage();
     const bn = language === "bn" ? "hind-siliguri" : "";
-    const cats = categories(language, t);
+
+    const { items: allCategories = [] } = useSelector((state) => state.categories || {});
+
+    // Course categories that the admin selected for the homepage, in homeOrder.
+    // Fallback: if none are selected yet, show by general order so the section isn't empty.
+    const courseCats = allCategories.filter((c) => c.type === 'course' && c.status === 'active');
+    const selected = courseCats.filter((c) => c.showOnHome);
+    const source = selected.length > 0 ? selected : courseCats;
+
+    const cats = [...source]
+        .sort((a, b) =>
+            selected.length > 0
+                ? (a.homeOrder ?? 0) - (b.homeOrder ?? 0)
+                : (a.order ?? 0) - (b.order ?? 0)
+        )
+        .slice(0, MAX_HOME_CATEGORIES)
+        .map((c, i) => ({
+            icon: resolveIcon(c.icon),
+            title: language === 'bn' ? (c.nameBn || c.name) : c.name,
+            subtitle: language === 'bn' ? (c.description || '') : (c.descriptionEn || c.description || ''),
+            slug: c.slug,
+            color: palette[i % palette.length].color,
+            light: palette[i % palette.length].light,
+        }));
+
+    if (cats.length === 0) return null;
 
     return (
         <section className="relative py-20 overflow-hidden bg-gradient-to-br from-slate-50 via-white to-red-50/40">
